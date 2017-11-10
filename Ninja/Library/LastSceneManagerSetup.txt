@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Ninja/Scenes/KojimaTestScene.unity
-  isLoaded: 1
-  isActive: 1
