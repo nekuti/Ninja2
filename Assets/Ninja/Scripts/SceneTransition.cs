@@ -23,7 +23,7 @@ namespace Ando
     public abstract class SceneData
     {
         public abstract GameScene previousScene { get; }
-        public abstract GameScene[] previousAdd
+
     }
 
     public class SceneTransition : MonoBehaviour
