@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Ninja/Scenes/AndoTestScene.unity
+  isLoaded: 1
+  isActive: 1
