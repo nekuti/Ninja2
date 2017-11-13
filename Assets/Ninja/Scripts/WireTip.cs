@@ -85,7 +85,7 @@ namespace Kojima
                     myRigidbody.velocity = Vector3.zero;
                     myRigidbody.isKinematic = true;
 
-                    transform.parent = other.transform;
+                    //transform.SetParent(other.transform,false);
 
                     // 停止ステートへ移行
                     ChangeState(WireTipStateType.Stop);
@@ -151,6 +151,8 @@ namespace Kojima
         /// <returns></returns>
         public void ReturnWireTip()
         {
+            transform.parent = null;
+            myRigidbody.isKinematic = false;
             // 巻き取りステートへ移行
             ChangeState(WireTipStateType.Return);
         }

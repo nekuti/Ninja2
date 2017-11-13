@@ -48,12 +48,20 @@ namespace Kojima
             {
                 ShotWireTip();
             }
+            else if (Input.GetButtonUp("Fire2"))
+            {
+                ReturnWireTip();
+            }
             if(owner.trackdObject != null && owner.device != null)
             {
                 float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
                 if (value > 0.89f)
                 {
                     ShotWireTip();
+                }
+                if (value < 0.15f && wireTip != null)
+                {
+                    wireTip.ReturnWireTip();
                 }
             }
         }
@@ -73,17 +81,23 @@ namespace Kojima
         /// ワイヤーを発射する
         /// </summary>
         /// <returns></returns>
-        public bool ShotWireTip()
+        public void ShotWireTip()
         {
             if(wireTip == null)
             {
                 // ワイヤーを生成
                 wireTip = WireTip.Create(wireData, this, owner.transform, owner.transform.rotation * Vector3.forward);
-                return true;
             }
-            else
+        }
+
+        public void ReturnWireTip()
+        {
+            if (wireTip != null)
             {
-                return false;
+                if (!wireTip.IsCurrentState(WireTipStateType.Return))
+                {
+                    wireTip.ReturnWireTip();
+                }
             }
         }
 

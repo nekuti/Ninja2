@@ -48,7 +48,7 @@ namespace Kojima
         public override void Execute()
         {
             // 少し時間を空けてから巻き取り開始
-            if (timer > 0.2f)
+            if (timer > 0.3f)
             {
                 Vector3 dire = (owner.ownerTransform.position - owner.transform.position);
 
