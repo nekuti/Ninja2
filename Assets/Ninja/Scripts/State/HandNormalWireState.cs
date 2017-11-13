@@ -68,11 +68,12 @@ namespace Kojima
             if (hitFlg)
             {
                 // 力を加える割合
-                float percent = 1f;
+                float percent = (hitHandPos - owner.transform.position).magnitude;
+                if (percent > 1) percent = 1f;
 
                 Vector3 vec = wireTip.transform.position - owner.transform.position;
 
-                owner.owner.PullPlayer(vec * wireData.PullSpeed * percent);
+                owner.owner.PullPlayer(vec * wireData.PullSpeed * percent, wireData.PullSpeed);
             }
         }
 

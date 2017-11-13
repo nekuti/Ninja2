@@ -71,7 +71,7 @@ namespace Kojima
 
             // 手を取得
             if (leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
-            if(rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
+            if (rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
         }
 
         /// <summary>
@@ -87,10 +87,6 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
-
-            if(Input.GetButtonDown("Fire2"))
-            {
-            }
         }
 
         /// <summary>
@@ -122,10 +118,16 @@ namespace Kojima
         /// プレイヤーを飛ばす
         /// </summary>
         /// <param name="aForce">飛ばす力</param>
-        public void PullPlayer(Vector3 aForce)
+        public void PullPlayer(Vector3 aForce, float aMaxVelocity)
         {
             // 力を加える
-            myRigidbody.AddForce(aForce);
+            myRigidbody.AddForce(aForce,ForceMode.Acceleration);
+
+            if(myRigidbody.velocity.sqrMagnitude > aMaxVelocity * aMaxVelocity)
+            {
+                myRigidbody.velocity -= myRigidbody.velocity - (myRigidbody.velocity.normalized * aMaxVelocity);
+            }
+
         }
 
 
