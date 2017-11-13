@@ -36,7 +36,8 @@ namespace Kojima
         public SteamVR_Controller.Device device;
 
         // Handを持つプレイヤー
-        private Player owner;
+        [System.NonSerialized]
+        public Player owner;
 
         // 武器ステートのリスト
         private List<HandWeaponState> weaponStateList = new List<HandWeaponState>();
@@ -55,10 +56,6 @@ namespace Kojima
         /// </summary>
         private void Awake()
         {
-            // VRの入力用変数初期化
-            trackdObject = GetComponent<SteamVR_TrackedObject>();
-            if(trackdObject != null) device = SteamVR_Controller.Input((int)trackdObject.index);
-
             // Handを持つプレイヤーを取得
             owner = transform.parent.GetComponent<Player>();
 
@@ -85,6 +82,10 @@ namespace Kojima
         /// </summary>
         private void Start()
         {
+            // VRの入力用変数初期化
+            trackdObject = GetComponent<SteamVR_TrackedObject>();
+            if (trackdObject != null) device = SteamVR_Controller.Input((int)trackdObject.index);
+
             // 初期のステートを設定
             ChangeState(defaultStateType);
         }

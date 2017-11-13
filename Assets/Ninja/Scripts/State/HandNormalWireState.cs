@@ -48,7 +48,7 @@ namespace Kojima
             {
                 ShotWireTip();
             }
-            else if (Input.GetButtonUp("Fire2"))
+            if (Input.GetButtonUp("Fire2"))
             {
                 ReturnWireTip();
             }
@@ -61,8 +61,18 @@ namespace Kojima
                 }
                 if (value < 0.15f && wireTip != null)
                 {
-                    wireTip.ReturnWireTip();
+                    ReturnWireTip();
                 }
+            }
+            // ワイヤーがオブジェクトについている間の処理
+            if (hitFlg)
+            {
+                // 力を加える割合
+                float percent = 1f;
+
+                Vector3 vec = wireTip.transform.position - owner.transform.position;
+
+                owner.owner.PullPlayer(vec * wireData.PullSpeed * percent);
             }
         }
 
@@ -71,10 +81,6 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-            if(hitFlg)
-            {
-
-            }
         }
 
         /// <summary>
@@ -90,8 +96,13 @@ namespace Kojima
             }
         }
 
+        /// <summary>
+        /// ワイヤーを巻き取る
+        /// </summary>
         public void ReturnWireTip()
         {
+            hitFlg = false;
+
             if (wireTip != null)
             {
                 if (!wireTip.IsCurrentState(WireTipStateType.Return))
@@ -116,7 +127,9 @@ namespace Kojima
         /// </summary>
         public void ResetWireTip()
         {
-            if(wireTip != null)
+            hitFlg = false;
+
+            if (wireTip != null)
             {
                 GameObject.Destroy(wireTip.gameObject);
                 wireTip = null;

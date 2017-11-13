@@ -37,6 +37,9 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
+        [System.NonSerialized]
+        public Rigidbody myRigidbody;
+
         #endregion
 
         #region プロパティ
@@ -63,7 +66,11 @@ namespace Kojima
         /// </summary>
         void Awake()
         {
-            if(leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
+            // Rigidbodyの取得
+            myRigidbody = GetComponent<Rigidbody>();
+
+            // 手を取得
+            if (leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
             if(rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
         }
 
@@ -87,6 +94,15 @@ namespace Kojima
         }
 
         /// <summary>
+        /// 攻撃を受ける
+        /// </summary>
+        /// <param name="aDamage">攻撃のダメージ量</param>
+        public void TakeAttack(int aDamage)
+        {
+            Energy -= aDamage;
+        }
+
+        /// <summary>
         /// 武器を変更する
         /// </summary>
         /// <param name="aWeaponData"></param>
@@ -103,13 +119,15 @@ namespace Kojima
         }
 
         /// <summary>
-        /// 攻撃を受ける
+        /// プレイヤーを飛ばす
         /// </summary>
-        /// <param name="aDamage">攻撃のダメージ量</param>
-        public void TakeAttack(int aDamage)
+        /// <param name="aForce">飛ばす力</param>
+        public void PullPlayer(Vector3 aForce)
         {
-            Energy -= aDamage;
+            // 力を加える
+            myRigidbody.AddForce(aForce);
         }
+
 
         #endregion
     }
