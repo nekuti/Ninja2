@@ -26,6 +26,9 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
+        [SerializeField, Tooltip("最初のステート")]
+        private HandStateType defaultStateType;
+
         // Handを持つプレイヤー
         private Player owner;
 
@@ -34,7 +37,7 @@ namespace Kojima
         #endregion
 
         #region プロパティ
-        public Player Owner{ get { return owner; } private set { owner = value; } }
+        public Player Owner{ get { return owner; } }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
         #endregion
@@ -44,10 +47,14 @@ namespace Kojima
         /// <summary>
         /// 初期化処理
         /// </summary>
-        void Awake()
+        private void Awake()
         {
             // Handを持つプレイヤーを取得
-            Owner = transform.parent.GetComponent<Player>();
+            owner = transform.parent.GetComponent<Player>();
+
+            // ワイヤーと武器データをプレイヤーから取得
+            if(wireData == null) wireData = owner.WireData;
+            if(weaponData == null) weaponData = owner.WeaponData;
 
             // 武器種毎のステートを生成してリストに保存
             weaponStateList.Add(WeaponType.Kunai.CreateWeaponState(this));
@@ -61,9 +68,15 @@ namespace Kojima
             // ステートリストにステートを追加
             stateList.Add(new HandNormalWireState(this));
             stateList.Add(weaponStateList[(int)weaponData.WeaponType]); // 装備中の装備の武器種のステートを追加
+        }
 
+        /// <summary>
+        /// 更新前処理
+        /// </summary>
+        private void Start()
+        {
             // 初期のステートを設定
-            ChangeState(HandStateType.Wire);
+            ChangeState(defaultStateType);
         }
 
         /// <summary>

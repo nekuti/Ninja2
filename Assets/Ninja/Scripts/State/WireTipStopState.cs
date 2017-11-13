@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// クナイの攻撃ステート
+/// WireTipStopStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/08
+/// 最終更新:2017/11/12
 /// </summary>
 namespace Kojima
 {
-    public class HandWeaponKunaiState : HandWeaponState
+    public class WireTipStopState : State<WireTip>
     {
         #region メンバ変数
 
@@ -21,16 +21,14 @@ namespace Kojima
         /// コンストラクタ
         /// </summary>
         /// <param name="owner"></param>
-        public HandWeaponKunaiState(Hand owner) : base(owner) { weaponType = WeaponType.Kunai; }
+        public WireTipStopState(WireTip owner) : base(owner) { }
 
         /// <summary>
         /// このステートに遷移する時に一度だけ呼ばれる
         /// </summary>
         public override void Enter()
         {
-            base.Enter();
-
-            Debug.Log("WeaponKunaiに設定");
+            owner.ownerWireState.HitWireTip();
         }
 
         /// <summary>
@@ -38,7 +36,6 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            base.Execute();
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-            base.Exit();
+
         }
 
         #endregion

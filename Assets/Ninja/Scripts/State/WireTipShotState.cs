@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// クナイの攻撃ステート
+/// WireTipShotStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/08
+/// 最終更新:2017/11/12
 /// </summary>
 namespace Kojima
 {
-    public class HandWeaponKunaiState : HandWeaponState
+    public class WireTipShotState : State<WireTip>
     {
         #region メンバ変数
 
@@ -21,16 +21,18 @@ namespace Kojima
         /// コンストラクタ
         /// </summary>
         /// <param name="owner"></param>
-        public HandWeaponKunaiState(Hand owner) : base(owner) { weaponType = WeaponType.Kunai; }
+        public WireTipShotState(WireTip owner) : base(owner) { }
 
         /// <summary>
         /// このステートに遷移する時に一度だけ呼ばれる
         /// </summary>
         public override void Enter()
         {
-            base.Enter();
-
-            Debug.Log("WeaponKunaiに設定");
+            if(owner.myRigidbody != null)
+            {
+                // ShotSpeed分の力を加えてワイヤーを発射する
+                owner.myRigidbody.AddForce(owner.shotDirection.normalized * owner.ownerWireState.wireData.ShotSpeed, ForceMode.VelocityChange);
+            }
         }
 
         /// <summary>
@@ -38,7 +40,12 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            base.Execute();
+            // Wireの射程を超えた場合
+            if(Vector3.Distance(owner.transform.position,owner.ownerTransform.position) > owner.ownerWireState.wireData.ShotRange)
+            {
+                // 巻き取りステートへ移行
+                owner.ReturnWireTip();
+            }
         }
 
         /// <summary>
@@ -46,7 +53,7 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-            base.Exit();
+
         }
 
         #endregion

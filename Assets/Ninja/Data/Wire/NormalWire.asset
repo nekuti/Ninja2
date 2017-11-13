@@ -11,9 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcbe06bd4adbb943b6058ed61b81da1, type: 3}
   m_Name: NormalWire
   m_EditorClassIdentifier: 
-  wireName: NormalWire
-  wirePrefab: {fileID: 0}
+  wireName: "\u30EF\u30A4\u30E4\u30FC"
+  wirePrefab: {fileID: 114752096337541418, guid: 310feca5730dc3347a43e83eb05fe292,
+    type: 2}
   wireType: 0
-  shotRange: 25
+  shotRange: 30
   shotSpeed: 30
-  pullSpeed: 20
+  pullSpeed: 6

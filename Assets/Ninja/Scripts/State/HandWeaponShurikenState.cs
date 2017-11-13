@@ -38,13 +38,6 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            base.Execute();
-
-            if (Input.GetButtonDown("Fire2"))
-            {
-                // ワイヤーを装備
-                owner.EquipWire();
-            }
         }
 
         /// <summary>

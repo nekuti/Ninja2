@@ -5,16 +5,20 @@ using UnityEngine;
 /// <summary>
 /// HandNormalWireStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/07
+/// 最終更新:2017/11/10
 /// </summary>
 namespace Kojima
 {
-    [System.Serializable]
     public class HandNormalWireState : State<Hand>
     {
         #region メンバ変数
 
-        public float wireSpeed = 10f;
+        public WireDataTable wireData;
+
+        private WireTip wireTip;
+
+        private bool hitFlg;
+        private Vector3 hitHandPos;
 
         #endregion
 
@@ -31,7 +35,8 @@ namespace Kojima
         /// </summary>
         public override void Enter()
         {
-            Debug.Log("WireNomalに設定");
+            wireData = owner.WireData;
+            hitFlg = false;
         }
 
         /// <summary>
@@ -39,11 +44,9 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            base.Execute();
             if (Input.GetButtonDown("Fire2"))
             {
-                // 武器を装備
-                owner.EquipWeapon();
+                ShotWireTip();
             }
         }
 
@@ -52,7 +55,50 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-            base.Exit();
+            if(hitFlg)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// ワイヤーを発射する
+        /// </summary>
+        /// <returns></returns>
+        public bool ShotWireTip()
+        {
+            if(wireTip == null)
+            {
+                // ワイヤーを生成
+                wireTip = WireTip.Create(wireData, this, owner.transform, owner.transform.rotation * Vector3.forward);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// ワイヤーがオブジェクトについた
+        /// </summary>
+        public void HitWireTip()
+        {
+            Debug.Log("ワイヤーが当たった");
+            hitFlg = true;
+            hitHandPos = owner.transform.position;
+        }
+
+        /// <summary>
+        /// 既存のワイヤーをリセットして再度発射可能な状態にする
+        /// </summary>
+        public void ResetWireTip()
+        {
+            if(wireTip != null)
+            {
+                GameObject.Destroy(wireTip.gameObject);
+                wireTip = null;
+            }
         }
 
         #endregion

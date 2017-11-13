@@ -22,7 +22,7 @@ namespace Kojima
         [SerializeField]
         protected StateMachine<T> stateMachine;
         #endregion
-
+        
         #region メソッド
 
         /// <summary>

@@ -37,6 +37,12 @@ namespace Kojima
             return null;
         }
 
+        public static WeaponType NextWeapon(this WeaponType aSelf)
+        {
+            aSelf += 1;
+            return aSelf;
+        }
+
         #endregion
     }
 }

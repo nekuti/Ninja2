@@ -14,9 +14,10 @@ namespace Kojima
     /// </summary>
     public enum PlayerStateType
     {
-        Wait,
+        Free,
     }
     
+    [RequireComponent(typeof(Rigidbody),typeof(Collider))]
     public class Player : StatefulObjectBase<Player,PlayerStateType>,IDamageable
     {
         #region メンバ変数
@@ -25,11 +26,16 @@ namespace Kojima
 
         [SerializeField, Tooltip("現在のエネルギー")]
         private float energy;
-
+        
         [SerializeField,Tooltip("左手")]
         private Hand leftHand;
         [SerializeField,Tooltip("右手")]
         private Hand rightHand;
+
+        [SerializeField, Tooltip("ワイヤーのデータ")]
+        private WireDataTable wireData;
+        [SerializeField, Tooltip("武器のデータ")]
+        private WeaponDataTable weaponData;
 
         #endregion
 
@@ -46,7 +52,8 @@ namespace Kojima
                 if (energy < 0)         energy = 0;
             }
         }
-
+        public WireDataTable WireData { get { return wireData; } }
+        public WeaponDataTable WeaponData { get { return weaponData; } }
         #endregion
 
         #region メソッド
@@ -56,6 +63,8 @@ namespace Kojima
         /// </summary>
         void Awake()
         {
+            if(leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
+            if(rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
         }
 
         /// <summary>
@@ -71,6 +80,26 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+
+            if(Input.GetButtonDown("Fire2"))
+            {
+            }
+        }
+
+        /// <summary>
+        /// 武器を変更する
+        /// </summary>
+        /// <param name="aWeaponData"></param>
+        /// <returns></returns>
+        public bool ChangeWeapon(WeaponDataTable aWeaponData)
+        {
+            weaponData = aWeaponData;
+
+            // Handにも変更を適応
+            leftHand.ChangeWeapon(aWeaponData);
+            rightHand.ChangeWeapon(aWeaponData);
+
+            return true;
         }
 
         /// <summary>
@@ -79,7 +108,7 @@ namespace Kojima
         /// <param name="aDamage">攻撃のダメージ量</param>
         public void TakeAttack(int aDamage)
         {
-
+            Energy -= aDamage;
         }
 
         #endregion

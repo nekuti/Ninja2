@@ -17,7 +17,7 @@ namespace Kojima
         private string wireName;
         
         [SerializeField, Tooltip("ワイヤーのプレハブ")]
-        private GameObject wirePrefab;
+        private WireTip wirePrefab;
         
         [SerializeField, Tooltip("ワイヤーの種類")]
         private WireType wireType;
@@ -35,7 +35,7 @@ namespace Kojima
 
         #region プロパティ
         public string WireName { get { return wireName; } }
-        public GameObject WirePrefab { get { return wirePrefab; } }
+        public WireTip WirePrefab { get { return wirePrefab; } }
         public WireType WireType { get { return wireType;} }
         public float ShotRange { get { return shotRange; } }
         public float ShotSpeed { get { return shotSpeed; } }
