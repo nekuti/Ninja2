@@ -48,6 +48,14 @@ namespace Kojima
             {
                 ShotWireTip();
             }
+            if(owner.trackdObject != null && owner.device != null)
+            {
+                float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+                if (value > 0.89f)
+                {
+                    ShotWireTip();
+                }
+            }
         }
 
         /// <summary>

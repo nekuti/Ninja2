@@ -29,6 +29,12 @@ namespace Kojima
         [SerializeField, Tooltip("最初のステート")]
         private HandStateType defaultStateType;
 
+        // VRの入力用
+        [System.NonSerialized]
+        public SteamVR_TrackedObject trackdObject;
+        [System.NonSerialized]
+        public SteamVR_Controller.Device device;
+
         // Handを持つプレイヤー
         private Player owner;
 
@@ -49,6 +55,10 @@ namespace Kojima
         /// </summary>
         private void Awake()
         {
+            // VRの入力用変数初期化
+            trackdObject = GetComponent<SteamVR_TrackedObject>();
+            device = SteamVR_Controller.Input((int)trackdObject.index);
+
             // Handを持つプレイヤーを取得
             owner = transform.parent.GetComponent<Player>();
 
