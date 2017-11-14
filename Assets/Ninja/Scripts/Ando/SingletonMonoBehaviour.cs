@@ -65,7 +65,7 @@ namespace Ando
             }
 
             //  すでにインスタンスがあったので破棄する
-            Destroy(this);
+            Destroy(this.gameObject);
 
             return false;
         }

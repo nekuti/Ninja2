@@ -11,7 +11,10 @@ namespace Ando
     public class SceneTransitionManager :SingletonMonoBehaviour<SceneTransitionManager>
     {
         //  実行しているシーンリスト
-        public List<SceneBace> sceneList;
+        public List<SceneBace> sceneList= new List<SceneBace>();
+
+        //  シーンリストの初期化
+        public SceneName firstScene = SceneName.TitleTest;
 
         new void Awake()
         {
@@ -20,43 +23,103 @@ namespace Ando
 
             //  シーンを切り替えた時に破棄されないように
             DontDestroyOnLoad(this.gameObject);
+        }
 
-            //  シーンリストの初期化
-            sceneList = new List<SceneBace>();
-
+        private void Start()
+        {
             //SceneBaceにSceneTransitionManagerを登録
             SceneBace.RgtrSceneTransition(this);
 
+            #region スイッチに嫌悪する部分(初回シーン設定)
+            switch (firstScene)
+            {
+                case SceneName.TitleTest:
+                    ChangeSceneSingle<TitleTest>();
+                    break;
+                case SceneName.PlayTest:
+                    ChangeSceneSingle<PlayTest>();
+                    break;
+                case SceneName.ResultTest:
+                    ChangeSceneSingle<ResultTest>();
+                    break;
+                case SceneName.PauseTest:
+                    ChangeSceneSingle<PauseTest>();
+                    break;
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// シーンの上書き ※すべてのシーンが削除される
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void ChangeSceneSingle<T>() where T : SceneBace
+        {
+            //  新しいシーンを追加
+            T newScene = this.gameObject.AddComponent<T>();
+
+            //  シーンのスクリプトを破棄
+            foreach (SceneBace list in sceneList)
+            {
+                Destroy(list);
+            }
+
+            //  シーンリストを初期化
+            sceneList = new List<SceneBace>();
+
+            //  シーンリストに追加
+            AddSceneBace(newScene);
+
+            //  新しいシーンを読み込む
+            SceneManager.LoadScene(newScene.MyScene.IsName(), LoadSceneMode.Single);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
 
         /// <summary>
         /// シーンの追加読み込み
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ChangeScene<T>() where T : SceneBace
+        public void ChangeSceneAdd<T>() where T : SceneBace
         {
             //  新しいシーンを追加
             T newScene = this.gameObject.AddComponent<T>();
 
             //  シーンリストに追加
-            sceneList.Add(newScene);
+            AddSceneBace(newScene);
 
             //  新しいシーンを読み込む
             SceneManager.LoadScene(newScene.MyScene.IsName(), LoadSceneMode.Additive);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
 
+        /// <summary>
+        /// シーン情報をリストに追加　これいる…？
+        /// </summary>
+        /// <param name="aSceneBace"></param>
         public void AddSceneBace(SceneBace aSceneBace)
         {
             sceneList.Add(aSceneBace);
+            Debug.Log(sceneList[sceneList.Count - 1] + "が追加されました");
         }
 
         /// <summary>
         /// シーンの破棄
         /// シーンがない場合は何もしない
         /// </summary>
-        public void RevocationScene()
+        public void RevocationScene(SceneName aSceneName)
         {
-
+            foreach(SceneBace list in sceneList)
+            {
+                if(list.MyScene == aSceneName)
+                {
+                    //  シーンのスクリプトを破棄
+                    Destroy(list);
+                    //  シーンを破棄
+                    SceneManager.UnloadSceneAsync(aSceneName.ToString());
+                }
+            }
         }
     }
 }

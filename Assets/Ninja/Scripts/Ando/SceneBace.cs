@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class SceneBace : MonoBehaviour
+    public abstract class SceneBace : MonoBehaviour
     {
         //  SceneBaceを管理するもの
         protected static SceneTransitionManager sceneTransitionManager;
@@ -24,10 +24,15 @@ namespace Ando
         }
         #endregion
 
-        void Start()
+        protected virtual void Start()
         {
             //  シーンの有効化
             sceneConfirm = true;
+        }
+
+        protected virtual void Update()
+        {
+
         }
 
         /// <summary>
@@ -38,5 +43,11 @@ namespace Ando
         {
             sceneTransitionManager = aSceneTransitionManager;
         }
+
+        /// <summary>
+        /// 継承先の型を取得
+        /// </summary>
+        /// <returns></returns>
+        public abstract System.Type GetTypeInheritance();
     }
 }

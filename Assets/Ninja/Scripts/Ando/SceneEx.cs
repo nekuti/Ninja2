@@ -8,9 +8,10 @@ namespace Ando
     //  遷移するシーンの名前
     public enum SceneName
     {
-        Title_A,
-        Play_A,
-        Result_A,
+        TitleTest,
+        PlayTest,
+        ResultTest,
+        PauseTest,
     }
 
     /// <summary>
@@ -25,9 +26,10 @@ namespace Ando
         {
             switch (aSceneName)
             {
-                case SceneName.Title_A: return "Title";
-                case SceneName.Play_A: return "Play";
-                case SceneName.Result_A: return "Result";
+                case SceneName.TitleTest: return "TitleTest";
+                case SceneName.PlayTest: return "PlayTest";
+                case SceneName.ResultTest: return "ResultTest";
+                case SceneName.PauseTest: return "PauseTest";
                 default: return "error";
             }
         }
