@@ -11,6 +11,7 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
+            Debug.Log("Clicktest");
 
         }
 
@@ -19,7 +20,9 @@ namespace Kondo
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                TutorialManager.Instance.SetCurrentState(TutorialSequence.ControllerPop);
+                Debug.Log("Click!!!");
+
+                //TutorialManager.Instance.SetCurrentState(TutorialSequence.ControllerPop);
             }
         }
     }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 namespace Kondo
 {
+    /// <summary>
+    /// チュートリアルの順序
+    /// </summary>
     public enum TutorialSequence
     {
-        StartPop,
-        ControllerPop,
-        ControllerTips,
-        End
+        WireStartPop,
+        WireControllerPop,
+        WireControllerTips,
+        WireEnd,
     }
 
     public enum NextScene
@@ -25,86 +28,100 @@ namespace Kondo
         // prefab
         public List<GameObject> prefabList = new List<GameObject>();
 
+        // 外部から操作用
         public static TutorialManager Instance;
 
-        //public NextScene nextscene;
+        // 現在のシーン
+        public NextScene nextScene;
 
         // 現在の状態
-        private TutorialSequence currentState;
-        // 現在のシーン
-        private NextScene currentScene;
+        //private TutorialSequence currentState;
 
-        private TutorialSequence tests = TutorialSequence.StartPop;
+        // チュートリアルの動作順序
+        private int sequenceNum;
+
+        // 現在の要素
+        private GameObject currentElement;
 
 
         void Awake()
         {
             Instance = this;
-           // SetCurrentState(TutorialSequence.StartPop);
-            Instantiate(prefabList[(int)TutorialSequence.StartPop]);
+
+            // 最初のシーンを設定
+            // nullにしないため
+            nextScene = NextScene.WireTutorial;
+
+            // WireStartPopに設定
+            sequenceNum = (int)TutorialSequence.WireStartPop;
+
+            // リストを生成
+            //prefabList = new List<GameObject>();
+
+            // 始めの要素生成し要素を保存
+            currentElement = Instantiate(prefabList[sequenceNum]);
         }
 
 
-        // Use this for initialization
         void Start()
         {
-           
+            
         }
 
 
         // Update is called once per frame
         void Update()
         {
-            //Instantiate(prefab);
-        }
-
-
-        /// <summary>
-        /// 外部から状態を変更
-        /// </summary>
-        /// <param name="aState"></param>
-        public void SetCurrentState(TutorialSequence aState)
-        {
-            currentState = aState;
-            OnStateChanged(currentState);
-        }
-
-
-        /// <summary>
-        /// 状態変更時の動作
-        /// </summary>
-        /// <param name="aState"></param>
-        private void OnStateChanged(TutorialSequence aState)
-        {
-            switch (aState)
+            // 要素が空の場合
+            if (currentElement == null)
             {
-                case TutorialSequence.StartPop:
-                    Debug.Log("スタートポップ");
-                    break;
-
-                case TutorialSequence.ControllerPop:
-                    Debug.Log("コントローラポップ");
-                    break;
-
-                case TutorialSequence.ControllerTips:
-                    Debug.Log("コントローラtips");
-                    break;
-
-                case TutorialSequence.End:
-                    Debug.Log("おわり");
-                    break;
-
+                currentElement =  Instantiate(prefabList[sequenceNum]);
+                Debug.Log(prefabList[sequenceNum]+"Scene");
             }
         }
 
+        
+        /// <summary>
+        /// 状態変更時の動作
+        /// </summary>
+        public void NextStateChanged()
+        {
+            Debug.Log(sequenceNum+"エレメント削除");
+            Destroy(currentElement);
+            sequenceNum++;
+        }
+
 
         /// <summary>
-        /// 外部からシーンを変更
+        /// 次のシーンに遷移する
         /// </summary>
         /// <param name="aScene"></param>
-        public void SetCurrentScene(NextScene aScene)
+        public void ChangeScene(NextScene aScene)
         {
-            currentScene = aScene;
+            switch(aScene)
+            {
+                case NextScene.WireTutorial:
+                    {
+                        // アタックシ―ンへ
+                        nextScene = NextScene.AttackTutorial;
+                        Debug.Log("アタックシーン");
+                        break;
+                    }
+                case NextScene.AttackTutorial:
+                    {
+                        // バトルシ―ンへ
+                        nextScene = NextScene.BattalTutorial;
+                        Debug.Log("バトルシーン");
+                        break;
+                    }
+                case NextScene.BattalTutorial:
+                    {
+                        // ベースシ―ンへ
+                        nextScene = NextScene.GoToBase;
+                        Debug.Log("ベースシーン");
+                        break;
+                    }
+            }
         }
     }
 }

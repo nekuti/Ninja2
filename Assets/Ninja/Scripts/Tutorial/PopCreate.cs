@@ -4,38 +4,37 @@ using UnityEngine;
 
 namespace Kondo
 {
-    public class ButtonTest : MonoBehaviour
+    public class PopCreate : MonoBehaviour
     {
-        //private int num;
-        static float CHENGE_TIME = 3.0f;
-        private float time;
 
+        public GameObject popPrefab;
 
         // Use this for initialization
         void Start()
         {
-            //num = 0;
-            time = 0f;
-            Debug.Log("ButtonTest");
+            Instantiate(popPrefab);
         }
 
 
         // Update is called once per frame
         void Update()
         {
-            time += Time.deltaTime;
-            if (time > CHENGE_TIME)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                time = 0f;
                 OnChangedButton();
             }
-
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                TutorialManager.Instance.ChangeScene(NextScene.WireTutorial);
+            }
         }
 
 
         private void OnChangedButton()
         {
-           TutorialManager.Instance.NextStateChanged();
+            TutorialManager.Instance.NextStateChanged();
         }
     }
 }
+
+
