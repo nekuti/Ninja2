@@ -36,7 +36,7 @@ namespace Ando
         }
 
         /// <summary>
-        /// SceneTransitionを登録する
+        /// SceneTransitionManagerを登録する
         /// </summary>
         /// <param name="aSceneTransitionManager"></param>
         public static void RgtrSceneTransition(SceneTransitionManager aSceneTransitionManager)

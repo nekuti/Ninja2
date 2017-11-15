@@ -100,7 +100,13 @@ namespace Ando
         /// <param name="aSceneBace"></param>
         public void AddSceneBace(SceneBace aSceneBace)
         {
+            if(aSceneBace.MyScene == SceneName.PlayTest)
+            {
+                PlaySceneManager.RgtrSceneTransitionManager(this);
+            }
+
             sceneList.Add(aSceneBace);
+
             Debug.Log(sceneList[sceneList.Count - 1] + "が追加されました");
         }
 
