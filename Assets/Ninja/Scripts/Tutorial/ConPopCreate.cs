@@ -5,15 +5,20 @@ using UnityEngine;
 
 namespace Kondo
 {
-    public class ConPopCreate : MonoBehaviour
+    public class ConPopCreate : TutorialElement
     {
 
-        public GameObject conPopPrefab;
+        [SerializeField]
+        private GameObject conPopPrefab;
+
+        private GameObject conPopObj;
 
         // Use this for initialization
         void Start()
         {
-            Instantiate(conPopPrefab);
+            conPopObj = Instantiate(conPopPrefab);
+            Debug.Log("ConPopCreate");
+
         }
 
         // Update is called once per frame
@@ -21,15 +26,10 @@ namespace Kondo
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                OnChangedButton();
+                Destroy(conPopObj);
+                OnChangedSequence();
             }
 
-        }
-
-
-        private void OnChangedButton()
-        {
-            TutorialManager.Instance.NextStateChanged();
         }
     }
 }

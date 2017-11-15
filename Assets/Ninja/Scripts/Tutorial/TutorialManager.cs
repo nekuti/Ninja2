@@ -13,6 +13,7 @@ namespace Kondo
         WireControllerPop,
         WireControllerTips,
         WireEnd,
+        MaxSequence
     }
 
     public enum NextScene
@@ -26,10 +27,13 @@ namespace Kondo
     public class TutorialManager : MonoBehaviour
     {
         // prefab
-        public List<GameObject> prefabList = new List<GameObject>();
+        [SerializeField]
+        private List<GameObject> sequenceList = new List<GameObject>();
 
         // 外部から操作用
-        public static TutorialManager Instance;
+        public static TutorialManager instance;
+        // 外部からmodelの操作用
+        //public static FindModel conModel = null;
 
         // 現在のシーン
         public NextScene nextScene;
@@ -46,7 +50,7 @@ namespace Kondo
 
         void Awake()
         {
-            Instance = this;
+            instance = this;
 
             // 最初のシーンを設定
             // nullにしないため
@@ -55,11 +59,8 @@ namespace Kondo
             // WireStartPopに設定
             sequenceNum = (int)TutorialSequence.WireStartPop;
 
-            // リストを生成
-            //prefabList = new List<GameObject>();
-
             // 始めの要素生成し要素を保存
-            currentElement = Instantiate(prefabList[sequenceNum]);
+            currentElement = Instantiate(sequenceList[sequenceNum]);
         }
 
 
@@ -72,23 +73,32 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            // 要素が空の場合
-            if (currentElement == null)
+            // 要素が削除されていた場合
+            // シーケンスが最後の時でない場合
+            if (currentElement == null && sequenceNum != (int)TutorialSequence.MaxSequence)
             {
-                currentElement =  Instantiate(prefabList[sequenceNum]);
-                Debug.Log(prefabList[sequenceNum]+"Scene");
+                // 次の要素を実行
+                currentElement =  Instantiate(sequenceList[sequenceNum]);
+                Debug.Log(sequenceList[sequenceNum]+"Scene");
             }
         }
 
         
         /// <summary>
-        /// 状態変更時の動作
+        /// 状態を次に移行する
         /// </summary>
         public void NextStateChanged()
         {
-            Debug.Log(sequenceNum+"エレメント削除");
-            Destroy(currentElement);
-            sequenceNum++;
+            if(currentElement != null)
+            {
+                Debug.Log(sequenceNum + "エレメント削除");
+                Destroy(currentElement);
+                sequenceNum++;
+            }
+            else
+            {
+                Debug.Log("エレメントが空");
+            }
         }
 
 

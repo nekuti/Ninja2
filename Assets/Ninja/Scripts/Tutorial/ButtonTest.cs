@@ -35,7 +35,7 @@ namespace Kondo
 
         private void OnChangedButton()
         {
-           TutorialManager.Instance.NextStateChanged();
+           TutorialManager.instance.NextStateChanged();
         }
     }
 }
