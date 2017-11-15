@@ -14,6 +14,11 @@ namespace Ando
         [SerializeField]
         private List<StageName> stageList = new List<StageName>();
 
+        [SerializeField]
+        private SceneName nextScene = SceneName.ResultTest;
+        [SerializeField]
+        private SceneName pauseScene = SceneName.PauseTest;
+
         private StageName nowStage = StageName.StageTest1;
 
         public static SceneTransitionManager sceneTransitionManager;
@@ -35,11 +40,11 @@ namespace Ando
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    sceneTransitionManager.ChangeSceneSingle<ResultTest>();
+                    sceneTransitionManager.ChangeSceneSingle(nextScene);
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
-                    sceneTransitionManager.ChangeSceneAdd<PauseTest>();
+                    sceneTransitionManager.ChangeSceneAdd(pauseScene);
                     sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = true;
                     Time.timeScale = 0.0f;
                 }

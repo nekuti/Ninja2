@@ -6,6 +6,9 @@ namespace Ando
 {
     public class TitleTest : SceneBace
     {
+        [SerializeField]
+        private SceneName nextScene = SceneName.PlayTest;
+
         private void Awake()
         {
             //  シーン名を入れる
@@ -19,7 +22,7 @@ namespace Ando
         {
             if (Input.GetMouseButtonDown(0))
             {
-                sceneTransitionManager.ChangeSceneSingle<PlayTest>();
+                sceneTransitionManager.ChangeSceneSingle(nextScene);
             }
         }
 

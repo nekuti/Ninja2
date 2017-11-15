@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 namespace Ando
 {
@@ -34,16 +35,16 @@ namespace Ando
             switch (firstScene)
             {
                 case SceneName.TitleTest:
-                    ChangeSceneSingle<TitleTest>();
+                    ChangeSceneSingle(SceneName.TitleTest);
                     break;
                 case SceneName.PlayTest:
-                    ChangeSceneSingle<PlayTest>();
+                    ChangeSceneSingle(SceneName.TitleTest);
                     break;
                 case SceneName.ResultTest:
-                    ChangeSceneSingle<ResultTest>();
+                    ChangeSceneSingle(SceneName.TitleTest);
                     break;
                 case SceneName.PauseTest:
-                    ChangeSceneSingle<PauseTest>();
+                    ChangeSceneSingle(SceneName.TitleTest);
                     break;
             }
             #endregion
@@ -75,6 +76,28 @@ namespace Ando
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
+        public void ChangeSceneSingle(SceneName aSceneName)
+        {
+            //  新しいシーンを追加
+            var newScene = this.gameObject.AddComponent(Type.GetType("Ando."+aSceneName.ToString()));
+
+            //  シーンのスクリプトを破棄
+            foreach (SceneBace list in sceneList)
+            {
+                Destroy(list);
+            }
+
+            //  シーンリストを初期化
+            sceneList = new List<SceneBace>();
+
+            //  シーンリストに追加
+            AddSceneBace(newScene as SceneBace);
+
+            //  新しいシーンを読み込む
+            SceneManager.LoadScene(aSceneName.ToString(), LoadSceneMode.Single);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
+        }
 
         /// <summary>
         /// シーンの追加読み込み
@@ -90,6 +113,19 @@ namespace Ando
 
             //  新しいシーンを読み込む
             SceneManager.LoadScene(newScene.MyScene.IsName(), LoadSceneMode.Additive);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
+        }
+        public void ChangeSceneAdd(SceneName aSceneName)
+        {
+            //  新しいシーンを追加
+            var newScene = this.gameObject.AddComponent(Type.GetType("Ando." + aSceneName.ToString()));
+
+            //  シーンリストに追加
+            AddSceneBace(newScene as SceneBace);
+
+            //  新しいシーンを読み込む
+            SceneManager.LoadScene(aSceneName.ToString(), LoadSceneMode.Additive);
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
