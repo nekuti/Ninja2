@@ -38,13 +38,15 @@ namespace Ando
                     ChangeSceneSingle(SceneName.TitleTest);
                     break;
                 case SceneName.PlayTest:
-                    ChangeSceneSingle(SceneName.TitleTest);
+                    ChangeSceneSingle(SceneName.PlayTest);
                     break;
                 case SceneName.ResultTest:
-                    ChangeSceneSingle(SceneName.TitleTest);
+                    ChangeSceneSingle(SceneName.ResultTest);
                     break;
                 case SceneName.PauseTest:
-                    ChangeSceneSingle(SceneName.TitleTest);
+                    ChangeSceneSingle(SceneName.PauseTest);
+                    break;
+                default:
                     break;
             }
             #endregion
