@@ -103,7 +103,7 @@ namespace Kojima
         /// トリガーにぶつかったとき
         /// </summary>
         /// <param name="other"></param>
-        void OnTriggerEnter(Collider other)
+        void OnTriggerStay(Collider other)
         {
             // 巻き戻し状態の場合
             if(IsCurrentState(WireTipStateType.Return))

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// ワイヤーの種類
 /// </summary>
@@ -20,4 +19,25 @@ public enum WeaponType
     Shuriken,
     Bomb,
     Katana,
+}
+
+/// <summary>
+/// 敵の種類
+/// </summary>
+public enum EnemyType
+{
+    Strike,
+    Assault,
+    Sniper,
+}
+
+/// <summary>
+/// 攻撃のタイプ
+/// </summary>
+public enum AttackType
+{
+    Bullet,
+    Explosion,
+    Strike,
+    Slash,
 }

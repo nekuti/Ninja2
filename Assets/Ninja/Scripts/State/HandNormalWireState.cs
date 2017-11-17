@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// HandNormalWireStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/10
+/// 最終更新:2017/11/14
 /// </summary>
 namespace Kojima
 {
@@ -69,11 +69,12 @@ namespace Kojima
             {
                 // 力を加える割合
                 float percent = (hitHandPos - owner.transform.position).magnitude;
+                if (owner.trackdObject == null) percent = 1f;
                 if (percent > 1) percent = 1f;
 
                 Vector3 vec = wireTip.transform.position - owner.transform.position;
 
-                owner.owner.PullPlayer(vec * wireData.PullSpeed * percent, wireData.PullSpeed);
+                owner.owner.PullPlayer(vec.normalized * wireData.PullSpeed * percent, wireData.PullSpeed);
             }
         }
 

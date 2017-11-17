@@ -17,13 +17,11 @@ namespace Kojima
         Free,
     }
     
-    [RequireComponent(typeof(Rigidbody),typeof(Collider))]
     public class Player : StatefulObjectBase<Player,PlayerStateType>,IDamageable
     {
         #region メンバ変数
         [SerializeField, Tooltip("エネルギーの最大値")]
         private float maxEnergy;
-
         [SerializeField, Tooltip("現在のエネルギー")]
         private float energy;
         
@@ -37,8 +35,7 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
-        [System.NonSerialized]
-        public Rigidbody myRigidbody;
+        private Rigidbody myRigidbody;
 
         #endregion
 
@@ -57,6 +54,7 @@ namespace Kojima
         }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
+        public Rigidbody MyRigidbody { get { return myRigidbody; } }
         #endregion
 
         #region メソッド
@@ -93,9 +91,18 @@ namespace Kojima
         /// 攻撃を受ける
         /// </summary>
         /// <param name="aDamage">攻撃のダメージ量</param>
-        public void TakeAttack(int aDamage)
+        public bool TakeAttack(Attack anAttack)
         {
-            Energy -= aDamage;
+            // 自身が発射した攻撃でなければ
+            if (anAttack.tag != gameObject.tag)
+            {
+                Energy -= anAttack.power;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -127,7 +134,6 @@ namespace Kojima
             {
                 myRigidbody.velocity -= myRigidbody.velocity - (myRigidbody.velocity.normalized * aMaxVelocity);
             }
-
         }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ダメージを受けるオブジェクトのインターフェイス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/09
+/// 最終更新:2017/11/16
 /// </summary>
 namespace Kojima
 {
@@ -17,7 +17,7 @@ namespace Kojima
         /// 攻撃を受ける
         /// </summary>
         /// <param name="aDamage">攻撃のダメージ量</param>
-        void TakeAttack(int aAttack);
+        bool TakeAttack(Attack anAttack);
 
         #endregion
     }

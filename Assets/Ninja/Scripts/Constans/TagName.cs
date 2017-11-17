@@ -12,5 +12,7 @@ public static class TagName
 	public const string GameController = "GameController";
 	public const string WireTip = "WireTip";
 	public const string WireableObject = "WireableObject";
+	public const string Object = "Object";
 	public const string Hand = "Hand";
+	public const string Enemy = "Enemy";
 }

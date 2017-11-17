@@ -6,7 +6,9 @@ TagManager:
   tags:
   - WireTip
   - WireableObject
+  - Object
   - Hand
+  - Enemy
   layers:
   - Default
   - TransparentFX

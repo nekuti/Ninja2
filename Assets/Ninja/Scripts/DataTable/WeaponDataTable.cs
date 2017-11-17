@@ -14,10 +14,10 @@ namespace Kojima
     public class WeaponDataTable : ScriptableObject
     {
         #region メンバ変数
-        [SerializeField, Tooltip("武器名")]
+        [SerializeField, Tooltip("名前")]
         private string weaponName;
         
-        [SerializeField, Tooltip("武器のプレハブ")]
+        [SerializeField, Tooltip("プレハブ")]
         private GameObject weaponPrefab;
         
         [SerializeField, Tooltip("武器の種類")]
