@@ -49,7 +49,7 @@ namespace Kojima
         [SerializeField]
         private GameObject rayObject;
         [SerializeField]
-        private GameObject targetObject;
+        private GameObject cursorObject;
 
         // 武器ステートのリスト
         private List<HandWeaponState> weaponStateList = new List<HandWeaponState>();
@@ -122,16 +122,17 @@ namespace Kojima
                 rayObject.transform.localScale = new Vector3(1f, range.magnitude, 1f);
 
                 // カーソルを当たった位置に張り付くように回転させる
-                targetObject.transform.rotation = Quaternion.LookRotation(hit.normal);
+                cursorObject.transform.rotation = Quaternion.LookRotation(hit.normal);
+                cursorObject.transform.position = hit.point;
                 // カーソルを表示
-                targetObject.SetActive(true);
+                cursorObject.SetActive(true);
             }
             else
             {
                 // レーザーの長さを設定
                 rayObject.transform.localScale = new Vector3(1f, wireData.ShotRange, 1f);
                 // カーソルを非表示
-                targetObject.SetActive(false);
+                cursorObject.SetActive(false);
             }
 
         }
