@@ -4,22 +4,20 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class PauseTest : SceneBace
+    public class StageTest1 : StageBace
     {
-        private void Awake()
+        // Use this for initialization
+        void Start()
         {
-            //  シーン名を入れる
-            myScene = SceneName.PauseTest;
 
-            //  シーン遷移スクリプトを追加
-            RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
         }
 
+        // Update is called once per frame
         protected override void Update()
         {
-            if (Input.GetMouseButtonDown(2))
+            if (Input.GetKeyDown(KeyCode.B))
             {
-                sceneTransitionManager.RevocationScene(SceneName.PauseTest);
+                AddLiteResult();
             }
         }
 
@@ -32,5 +30,4 @@ namespace Ando
             return this.GetType();
         }
     }
-
 }

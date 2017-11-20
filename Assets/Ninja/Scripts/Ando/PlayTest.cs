@@ -15,7 +15,9 @@ namespace Ando
             myScene = SceneName.PlayTest;
 
             //  シーン遷移スクリプトを追加
-            RgtrSceneTransition(GetComponent<SceneTransitionManager>());
+            RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
+            
+            PlaySceneManager.RgtrSceneTransitionManager(sceneTransitionManager);
         }
 
         /// <summary>

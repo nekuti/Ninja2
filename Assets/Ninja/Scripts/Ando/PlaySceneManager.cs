@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 namespace Ando
 {
@@ -36,6 +37,16 @@ namespace Ando
 
         private void Update()
         {
+            //  タイムスケールの設定
+            if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
+            {
+                Time.timeScale = 0.0f;
+            }
+           else
+            {
+                Time.timeScale = 1.0f;
+            }
+
             if (!sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -44,9 +55,8 @@ namespace Ando
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
-                    sceneTransitionManager.ChangeSceneAdd(pauseScene);
                     sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = true;
-                    Time.timeScale = 0.0f;
+                    sceneTransitionManager.ChangeSceneAdd(pauseScene);
                 }
                 if (Input.GetKeyDown(KeyCode.A))
                 {
@@ -58,7 +68,6 @@ namespace Ando
                 if (Input.GetMouseButtonDown(2))
                 {
                     sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
-                    Time.timeScale = 1.0f;
                 }
             }
         }
@@ -76,7 +85,12 @@ namespace Ando
                 nowStage = 0;
             }
 
+            var newStage = this.gameObject.AddComponent(Type.GetType("Ando." + nowStage.ToString()));
+            
+            
+
             SceneManager.LoadScene(stageList[(int)nowStage].ToString(), LoadSceneMode.Additive);
+
         }
 
         /// <summary>

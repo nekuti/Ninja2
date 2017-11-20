@@ -28,7 +28,10 @@ EditorBuildSettings:
     guid: 8de6de4400ada1c4d9a729d161982a68
   - enabled: 1
     path: Assets/Ninja/Scenes/AndoTest/StageTest1.unity
-    guid: 00000000000000000000000000000000
+    guid: 62c8f242a49b27b4f99fc2dacfc32a9b
   - enabled: 1
     path: Assets/Ninja/Scenes/AndoTest/StageTest2.unity
+    guid: 7311a81234bdfba408dc899466fb8ad6
+  - enabled: 1
+    path: Assets/Ninja/Scenes/AndoTest/LiteResult.unity
     guid: 00000000000000000000000000000000

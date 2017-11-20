@@ -29,7 +29,7 @@ namespace Ando
         private void Start()
         {
             //SceneBaceにSceneTransitionManagerを登録
-            SceneBace.RgtrSceneTransition(this);
+            SceneBace.RgtrSceneTransitionManager(this);
 
             #region スイッチに嫌悪する部分(初回シーン設定)
             switch (firstScene)
@@ -133,14 +133,13 @@ namespace Ando
         }
 
         /// <summary>
-        /// シーン情報をリストに追加　これいる…？
+        /// シーン情報をリストに追加
         /// </summary>
         /// <param name="aSceneBace"></param>
         public void AddSceneBace(SceneBace aSceneBace)
         {
             if(aSceneBace.MyScene == SceneName.PlayTest)
             {
-                PlaySceneManager.RgtrSceneTransitionManager(this);
             }
 
             sceneList.Add(aSceneBace);
@@ -154,15 +153,31 @@ namespace Ando
         /// </summary>
         public void RevocationScene(SceneName aSceneName)
         {
-            foreach(SceneBace list in sceneList)
+            //  破棄する配列番号
+            int revocation_count = -1;
+
+            //  リスト破棄用のカウンタ
+            List<int> revocation_list = new List<int>();
+
+            foreach (SceneBace revocationScene in sceneList)
             {
-                if(list.MyScene == aSceneName)
+                revocation_count++;
+
+                if (revocationScene.MyScene == aSceneName)
                 {
                     //  シーンのスクリプトを破棄
-                    Destroy(list);
-                    //  シーンを破棄
-                    SceneManager.UnloadSceneAsync(aSceneName.ToString());
+                    Destroy(revocationScene);
+
+                    revocation_list.Add(revocation_count);
                 }
+            }
+
+            foreach (int revocationCount in revocation_list)
+            {
+                //  シーンを破棄
+                SceneManager.UnloadSceneAsync(aSceneName.ToString());
+
+                sceneList.RemoveAt(revocationCount);
             }
         }
     }

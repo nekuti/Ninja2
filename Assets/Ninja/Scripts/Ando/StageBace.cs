@@ -5,21 +5,21 @@ using UnityEngine;
 
 namespace Ando
 {
-    public abstract class SceneBace : MonoBehaviour
+    public abstract class StageBace : MonoBehaviour
     {
-        //  SceneBaceを管理するもの
+        // 簡易リザルトシーン生成に使用
         protected static SceneTransitionManager sceneTransitionManager;
 
-        //  シーンがあるか確認
-        public bool sceneConfirm;
+        //  ステージがあるか確認
+        public bool stageConfirm;
 
-        //  実行するシーン
-        protected SceneName myScene;
+        //  実行するステージ
+        protected StageName myStage;
         #region プロパティ
-        public SceneName MyScene
+        public StageName MyStage
         {
             //  外部からの変更をできないように
-            get { return this.myScene; }
+            get { return this.myStage; }
             protected set { }
         }
         #endregion
@@ -27,7 +27,7 @@ namespace Ando
         protected virtual void Start()
         {
             //  シーンの有効化
-            sceneConfirm = true;
+            stageConfirm = true;
         }
 
         protected virtual void Update()
@@ -36,10 +36,18 @@ namespace Ando
         }
 
         /// <summary>
-        /// シーン遷移マネージャの登録
+        /// 簡易リザルトをステージに追加する
+        /// </summary>
+        protected virtual void AddLiteResult()
+        {
+            sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
+        }
+
+        /// <summary>
+        /// SceneTransitionManagerを登録する
         /// </summary>
         /// <param name="aSceneTransitionManager"></param>
-        public static void RgtrSceneTransitionManager(SceneTransitionManager aSceneTransitionManager)
+        public static void RgtrSceneTransition(SceneTransitionManager aSceneTransitionManager)
         {
             sceneTransitionManager = aSceneTransitionManager;
         }
