@@ -115,11 +115,22 @@ namespace Kojima
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, wireData.ShotRange, rayMask))
             {
+                // 距離を求める
+                Vector3 range = hit.point - shotPos.transform.position;
+
+                // レーザーの長さを設定
+                rayObject.transform.localScale = new Vector3(1f, range.magnitude, 1f);
+
+                // カーソルを当たった位置に張り付くように回転させる
+                targetObject.transform.rotation = Quaternion.LookRotation(hit.normal);
+                // カーソルを表示
                 targetObject.SetActive(true);
-                targetObject.transform.rotation = Quaternion.Euler(hit.normal);
             }
             else
             {
+                // レーザーの長さを設定
+                rayObject.transform.localScale = new Vector3(1f, wireData.ShotRange, 1f);
+                // カーソルを非表示
                 targetObject.SetActive(false);
             }
 
