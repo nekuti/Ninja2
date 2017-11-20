@@ -39,6 +39,18 @@ namespace Kojima
         [System.NonSerialized]
         public Player owner;
 
+        [SerializeField]
+        private LayerMask rayMask;
+        private Ray ray;
+
+        public GameObject shotPos;
+        public GameObject wireObject;
+
+        [SerializeField]
+        private GameObject rayObject;
+        [SerializeField]
+        private GameObject targetObject;
+
         // 武器ステートのリスト
         private List<HandWeaponState> weaponStateList = new List<HandWeaponState>();
         #endregion
@@ -96,6 +108,21 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+
+            // rayを設定
+            ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
+
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, wireData.ShotRange, rayMask))
+            {
+                targetObject.SetActive(true);
+                targetObject.transform.rotation = Quaternion.Euler(hit.normal);
+            }
+            else
+            {
+                targetObject.SetActive(false);
+            }
+
         }
 
         /// <summary>

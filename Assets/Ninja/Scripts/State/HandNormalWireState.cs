@@ -94,7 +94,7 @@ namespace Kojima
             if(wireTip == null)
             {
                 // ワイヤーを生成
-                wireTip = WireTip.Create(wireData, this, owner.transform, owner.transform.rotation * Vector3.forward);
+                wireTip = WireTip.Create(wireData, this, owner, owner.transform.rotation * Vector3.forward);
             }
         }
 
