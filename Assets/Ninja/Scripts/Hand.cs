@@ -123,11 +123,10 @@ namespace Kojima
 
                 // カーソルを当たった位置に張り付くように回転させる
                 cursorObject.transform.rotation = Quaternion.LookRotation(hit.normal);
+                // 移動させる
                 cursorObject.transform.position = hit.point;
                 // カーソルを表示
-                cursorObject.SetActive(true);
-
-                
+                cursorObject.SetActive(true);                
             }
             else
             {
