@@ -110,7 +110,7 @@ namespace Kojima
             base.Update();
 
             // rayを設定
-            ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.up);
+            ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
 
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, wireData.ShotRange, rayMask))
@@ -126,6 +126,8 @@ namespace Kojima
                 cursorObject.transform.position = hit.point;
                 // カーソルを表示
                 cursorObject.SetActive(true);
+
+                
             }
             else
             {
