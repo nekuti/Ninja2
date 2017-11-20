@@ -4,8 +4,8 @@ namespace Ando
 {
     public struct ResultContainer
     {
-        public Timer totalPlayTime;
-        public Timer playTime;
+        public string totalPlayTime;
+        public string playTime;
         public int totalGetMoneyValue;
         public int getMoneyValue;
         public int totalLostEnergyValue;

@@ -12,6 +12,9 @@ namespace Ando
 {
     public class PlaySceneManager : SingletonMonoBehaviour<PlaySceneManager>
     {
+        //  ステージがすでに生成しているか
+        private bool stageExist = false;
+
         [SerializeField]
         private List<StageName> stageList = new List<StageName>();
 
@@ -32,7 +35,7 @@ namespace Ando
 
         private void Start()
         {
-            SceneManager.LoadScene(stageList[(int)nowStage].ToString(), LoadSceneMode.Additive);
+            StageChange();
         }
 
         private void Update()
@@ -70,25 +73,38 @@ namespace Ando
                     sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
                 }
             }
+
         }
 
         public void StageChange()
         {
-            SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
+            //  初回起動時に分岐
+            if (stageExist)
+            {             //  ステージを削除
+                SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
+                //  ステージのスクリプトの削除
+                Destroy(GetComponent(nowStage.ToString()));
+                //  簡易リザルトを削除
+                sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
-            if (stageList.Count - 1 > (int)nowStage)
-            {
-                nowStage++;
+                if (stageList.Count - 1 > (int)nowStage)
+                {
+                    nowStage++;
+                }
+                else
+                {
+                    nowStage = 0;
+                }
             }
             else
             {
-                nowStage = 0;
+                stageExist = true;
             }
 
+            //  ステージのスクリプト追加
             var newStage = this.gameObject.AddComponent(Type.GetType("Ando." + nowStage.ToString()));
-            
-            
 
+            //  シーンの読み込み
             SceneManager.LoadScene(stageList[(int)nowStage].ToString(), LoadSceneMode.Additive);
 
         }
@@ -100,6 +116,30 @@ namespace Ando
         public static void RgtrSceneTransitionManager(SceneTransitionManager aSceneTransitionManager)
         {
             sceneTransitionManager = aSceneTransitionManager;
+        }
+
+        /// <summary>
+        /// 簡易リザルトをステージに追加する
+        /// </summary>
+        public static void AddLiteResult()
+        {
+            var a = new ResultContainer();
+
+            a.totalPlayTime = "test";
+            a.playTime = "test";
+            a.totalGetMoneyValue = 1;
+            a.getMoneyValue = 1;
+            a.totalLostEnergyValue = 0;
+            a.lostEnergyValue = 1;
+            a.killEnemyValue = 1;
+            a.useItemValue = 1;
+
+            //  簡易リザルトがすでにあるか確認
+            if (!sceneTransitionManager.SearchScene(SceneName.LiteResult))
+            {
+                sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
+                LiteResultText.SetLiteResult(a);
+            }
         }
 
     }

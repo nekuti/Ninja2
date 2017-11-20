@@ -159,14 +159,14 @@ namespace Ando
             //  リスト破棄用のカウンタ
             List<int> revocation_list = new List<int>();
 
-            foreach (SceneBace revocationScene in sceneList)
+            foreach (SceneBace sceneBace in sceneList)
             {
                 revocation_count++;
 
-                if (revocationScene.MyScene == aSceneName)
+                if (sceneBace.MyScene == aSceneName)
                 {
                     //  シーンのスクリプトを破棄
-                    Destroy(revocationScene);
+                    Destroy(sceneBace);
 
                     revocation_list.Add(revocation_count);
                 }
@@ -179,6 +179,24 @@ namespace Ando
 
                 sceneList.RemoveAt(revocationCount);
             }
+        }
+
+        /// <summary>
+        /// 該当シーンが存在するか
+        /// </summary>
+        /// <param name="aSceneName"></param>
+        /// <returns></returns>
+        public bool SearchScene(SceneName aSceneName)
+        {
+            foreach(SceneBace sceneBace in sceneList)
+            {
+                if(sceneBace.MyScene == aSceneName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

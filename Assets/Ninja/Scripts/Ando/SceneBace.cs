@@ -9,7 +9,7 @@ namespace Ando
     {
         //  SceneBaceを管理するもの
         protected static SceneTransitionManager sceneTransitionManager;
-
+        
         //  シーンがあるか確認
         public bool sceneConfirm;
 

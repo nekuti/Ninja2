@@ -13,6 +13,9 @@ namespace Ando
         //  ステージがあるか確認
         public bool stageConfirm;
 
+        //  ゴールしたか確認
+        protected bool goalFlag = false;
+
         //  実行するステージ
         protected StageName myStage;
         #region プロパティ
@@ -20,6 +23,11 @@ namespace Ando
         {
             //  外部からの変更をできないように
             get { return this.myStage; }
+            protected set { }
+        }
+        public bool GoalFlag
+        {
+            get { return this.goalFlag; }
             protected set { }
         }
         #endregion
@@ -32,15 +40,10 @@ namespace Ando
 
         protected virtual void Update()
         {
-
-        }
-
-        /// <summary>
-        /// 簡易リザルトをステージに追加する
-        /// </summary>
-        protected virtual void AddLiteResult()
-        {
-            sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                PlaySceneManager.AddLiteResult();
+            }
         }
 
         /// <summary>

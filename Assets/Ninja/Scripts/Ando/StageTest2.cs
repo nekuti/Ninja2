@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class StageTest1 : StageBace
+    public class StageTest2 : StageBace
     {
         // Use this for initialization
         private void Awake()
         {            
             //  シーン名を入れる
-            myStage = StageName.StageTest1;
+            myStage = StageName.StageTest2;
 
             goalFlag = false;
         }
