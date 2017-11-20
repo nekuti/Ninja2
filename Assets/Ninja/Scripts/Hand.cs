@@ -110,7 +110,7 @@ namespace Kojima
             base.Update();
 
             // rayを設定
-            ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
+            ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.up);
 
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, wireData.ShotRange, rayMask))
