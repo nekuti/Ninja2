@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 namespace Ando
 {
@@ -28,22 +29,24 @@ namespace Ando
         private void Start()
         {
             //SceneBaceにSceneTransitionManagerを登録
-            SceneBace.RgtrSceneTransition(this);
+            SceneBace.RgtrSceneTransitionManager(this);
 
             #region スイッチに嫌悪する部分(初回シーン設定)
             switch (firstScene)
             {
                 case SceneName.TitleTest:
-                    ChangeSceneSingle<TitleTest>();
+                    ChangeSceneSingle(SceneName.TitleTest);
                     break;
                 case SceneName.PlayTest:
-                    ChangeSceneSingle<PlayTest>();
+                    ChangeSceneSingle(SceneName.PlayTest);
                     break;
                 case SceneName.ResultTest:
-                    ChangeSceneSingle<ResultTest>();
+                    ChangeSceneSingle(SceneName.ResultTest);
                     break;
                 case SceneName.PauseTest:
-                    ChangeSceneSingle<PauseTest>();
+                    ChangeSceneSingle(SceneName.PauseTest);
+                    break;
+                default:
                     break;
             }
             #endregion
@@ -75,6 +78,28 @@ namespace Ando
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
+        public void ChangeSceneSingle(SceneName aSceneName)
+        {
+            //  新しいシーンを追加
+            var newScene = this.gameObject.AddComponent(Type.GetType("Ando."+aSceneName.ToString()));
+
+            //  シーンのスクリプトを破棄
+            foreach (SceneBace list in sceneList)
+            {
+                Destroy(list);
+            }
+
+            //  シーンリストを初期化
+            sceneList = new List<SceneBace>();
+
+            //  シーンリストに追加
+            AddSceneBace(newScene as SceneBace);
+
+            //  新しいシーンを読み込む
+            SceneManager.LoadScene(aSceneName.ToString(), LoadSceneMode.Single);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
+        }
 
         /// <summary>
         /// シーンの追加読み込み
@@ -93,14 +118,32 @@ namespace Ando
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
+        public void ChangeSceneAdd(SceneName aSceneName)
+        {
+            //  新しいシーンを追加
+            var newScene = this.gameObject.AddComponent(Type.GetType("Ando." + aSceneName.ToString()));
+
+            //  シーンリストに追加
+            AddSceneBace(newScene as SceneBace);
+
+            //  新しいシーンを読み込む
+            SceneManager.LoadScene(aSceneName.ToString(), LoadSceneMode.Additive);
+
+            Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
+        }
 
         /// <summary>
-        /// シーン情報をリストに追加　これいる…？
+        /// シーン情報をリストに追加
         /// </summary>
         /// <param name="aSceneBace"></param>
         public void AddSceneBace(SceneBace aSceneBace)
         {
+            if(aSceneBace.MyScene == SceneName.PlayTest)
+            {
+            }
+
             sceneList.Add(aSceneBace);
+
             Debug.Log(sceneList[sceneList.Count - 1] + "が追加されました");
         }
 
@@ -110,15 +153,31 @@ namespace Ando
         /// </summary>
         public void RevocationScene(SceneName aSceneName)
         {
-            foreach(SceneBace list in sceneList)
+            //  破棄する配列番号
+            int revocation_count = -1;
+
+            //  リスト破棄用のカウンタ
+            List<int> revocation_list = new List<int>();
+
+            foreach (SceneBace revocationScene in sceneList)
             {
-                if(list.MyScene == aSceneName)
+                revocation_count++;
+
+                if (revocationScene.MyScene == aSceneName)
                 {
                     //  シーンのスクリプトを破棄
-                    Destroy(list);
-                    //  シーンを破棄
-                    SceneManager.UnloadSceneAsync(aSceneName.ToString());
+                    Destroy(revocationScene);
+
+                    revocation_list.Add(revocation_count);
                 }
+            }
+
+            foreach (int revocationCount in revocation_list)
+            {
+                //  シーンを破棄
+                SceneManager.UnloadSceneAsync(aSceneName.ToString());
+
+                sceneList.RemoveAt(revocationCount);
             }
         }
     }

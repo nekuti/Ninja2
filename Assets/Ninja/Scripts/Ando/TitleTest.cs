@@ -6,20 +6,23 @@ namespace Ando
 {
     public class TitleTest : SceneBace
     {
+        [SerializeField]
+        private SceneName nextScene = SceneName.PlayTest;
+
         private void Awake()
         {
             //  シーン名を入れる
             myScene = SceneName.TitleTest;
 
             //  シーン遷移スクリプトを追加
-            RgtrSceneTransition(GetComponent<SceneTransitionManager>());
+            RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
         }
 
         protected override void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                sceneTransitionManager.ChangeSceneSingle<PlayTest>();
+                sceneTransitionManager.ChangeSceneSingle(nextScene);
             }
         }
 

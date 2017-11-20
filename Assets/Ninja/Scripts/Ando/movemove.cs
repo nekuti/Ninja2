@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MoveSwitch
+{
+   UpDown,
+   LeftRight,
+}
+
+
 public class movemove : MonoBehaviour {
+
+    [SerializeField]
+    private MoveSwitch moveSwitch = MoveSwitch.LeftRight;
 
     private float time;
 
@@ -14,6 +24,17 @@ public class movemove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         time += Time.deltaTime;
-        transform.position = new Vector3(Mathf.Sin(time), 0f, 0f);
+
+        switch (moveSwitch)
+        {
+            case MoveSwitch.UpDown:
+                transform.position = new Vector3(0f, Mathf.Sin(time), 0f);
+                break;
+            case MoveSwitch.LeftRight:
+                transform.position = new Vector3(Mathf.Sin(time), 0f, 0f);
+                break;
+        }
+
+      
 	}
 }
