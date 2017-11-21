@@ -25,3 +25,4 @@ MonoBehaviour:
   attackToTime: 0
   attackAfterTime: 1
   knockBackTime: 0
+  patrolArea: 10
