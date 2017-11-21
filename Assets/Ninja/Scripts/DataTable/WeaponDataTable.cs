@@ -18,7 +18,7 @@ namespace Kojima
         private string weaponName;
         
         [SerializeField, Tooltip("プレハブ")]
-        private GameObject weaponPrefab;
+        private Attack weaponPrefab;
         
         [SerializeField, Tooltip("武器の種類")]
         private WeaponType weaponType;
@@ -41,7 +41,7 @@ namespace Kojima
 
         #region プロパティ
         public string WeaponName { get { return weaponName; } }
-        public GameObject WeaponPrefab { get { return weaponPrefab; } }
+        public Attack WeaponPrefab { get { return weaponPrefab; } }
         public WeaponType WeaponType { get { return weaponType; } }
         public int Power { get { return power; } }
         public int PowerLevel { get { return powerLevel; } }

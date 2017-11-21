@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Name: Kunai
   m_EditorClassIdentifier: 
   weaponName: "\u30AF\u30CA\u30A4"
+  weaponPrefab: {fileID: 1346586517089186, guid: 8485e7c208c0d80419b1ecbe0a5897ca,
+    type: 2}
   weaponType: 0
-  power: 1
+  power: 5
   powerLevel: 1
   many: 3
   manyLevel: 1

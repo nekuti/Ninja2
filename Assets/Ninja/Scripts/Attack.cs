@@ -14,19 +14,19 @@ namespace Kojima
         #region メンバ変数
 
         [SerializeField,Tooltip("攻撃のタイプ")]
-        private AttackType attackType;
+        protected AttackType attackType;
 
         [SerializeField, Tooltip("攻撃の移動速度")]
-        private float speed = 4f;
+        protected float speed = 4f;
 
         [SerializeField,Tooltip("消えるまでの時間")]
-        private float time = 2f;
+        protected float time = 2f;
 
         [SerializeField,Tooltip("ユニットを貫通するか")]
-        private bool ThroughUnit = false;
+        protected bool ThroughUnit = false;
 
         [SerializeField,Tooltip("マップを貫通するか")]
-        private bool ThroughMap = false;
+        protected bool ThroughMap = false;
 
         // 攻撃力
         public float power;
@@ -52,7 +52,7 @@ namespace Kojima
         /// <summary>
         /// 更新前処理
         /// </summary>
-        private void Start()
+        protected virtual void Start()
         {
             timer = 0f;
         }
@@ -60,7 +60,7 @@ namespace Kojima
         /// <summary>
         /// 更新処理
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             if(time < timer)
             {
@@ -71,38 +71,54 @@ namespace Kojima
                 timer += Time.deltaTime;
             }
 
-            // 移動させる
-            transform.position += transform.rotation * (Vector3.forward * speed * Time.deltaTime);
+            // 攻撃を移動させる
+            MoveAttack();
         }
 
         /// <summary>
-        /// 攻撃が当たった
+        /// 攻撃が当たった(Trriger)
         /// </summary>
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
-            // 壁に当たったら削除
-            if (!ThroughMap)
+            // 壁に攻撃が当たった場合
+            if (other.gameObject.CompareTag(TagName.WireableObject) || other.gameObject.CompareTag(TagName.Object))
             {
-                if (other.gameObject.CompareTag(TagName.WireableObject) || other.gameObject.CompareTag(TagName.Object))
-                {
-                    Destroy(this.gameObject);
-                }
+                HitWall(other.gameObject);
             }
+
             // ダメージを受けるオブジェクトであれば
             var obj = other.GetComponent(typeof(IDamageable))as IDamageable;
             if(obj != null)
             {
-                Debug.Log("ダメージを受けるユニットに当たった");
+                // ユニットに攻撃が当たった場合
                 if(obj.TakeAttack(this))
                 {
-                    Debug.Log(other + "に" + this + "の攻撃が当たった");
+                    HitUnit(other.gameObject);
+                }
+            }
+        }
 
-                    // ユニットを貫通しない弾であれば当たった時点で削除
-                    if (!ThroughUnit)
-                    {
-                        Destroy(this.gameObject);
-                    }
+        /// <summary>
+        /// 攻撃が当たった(Collision)
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            // 壁に攻撃が当たった場合
+            if (collision.gameObject.CompareTag(TagName.WireableObject) || collision.gameObject.CompareTag(TagName.Object))
+            {
+                HitWall(collision.gameObject);
+            }
+
+            // ダメージを受けるオブジェクトであれば
+            var obj = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+            if (obj != null)
+            {
+                // ユニットに攻撃が当たった場合
+                if (obj.TakeAttack(this))
+                {
+                    HitUnit(collision.gameObject);
                 }
             }
         }
@@ -127,6 +143,41 @@ namespace Kojima
             obj.transform.LookAt(aTargetPos);
 
             return obj;
+        }
+
+        /// <summary>
+        /// 攻撃を動かす
+        /// </summary>
+        protected virtual void MoveAttack()
+        {
+            // 移動させる
+            transform.position += transform.rotation * (Vector3.forward * speed * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// 壁に当たった時に呼び出される処理
+        /// </summary>
+        /// <param name="aWall"></param>
+        protected virtual void HitWall(GameObject aWall)
+        {
+            // 壁に当たったら削除
+            if (!ThroughMap)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        /// <summary>
+        /// ユニットに当たった時に呼び出される処理
+        /// </summary>
+        /// <param name="aUnit"></param>
+        protected virtual void HitUnit(GameObject aUnit)
+        {
+            // ユニットを貫通しない弾であれば当たった時点で削除
+            if (!ThroughUnit)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         #endregion
