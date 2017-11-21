@@ -16,6 +16,7 @@ namespace Kojima
         float toTimer;
         float afterTimer;
         bool attackFlg;     // 攻撃の発生フラグ
+        private Vector3 target;
 
         #endregion
 
@@ -48,18 +49,19 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            target = owner.player.transform.position + new Vector3(0, 1, 0);
             if (!attackFlg)
             {
                 // 攻撃発生前の処理
                 if (toTimer > owner.enemyData.AttackToTime)
                 {
                     // 正面に攻撃を生成
-                    owner.ShotAttackForward();
+                    owner.ShotAttack(target);
                     attackFlg = true;
-                    if(owner.enemyData.Level == 2)
-                    {
-                        GameObject.Destroy(owner.gameObject);
-                    }
+                    //if(owner.enemyData.Level == 2)
+                    //{
+                    //    GameObject.Destroy(owner.gameObject);
+                    //}
                 }
                 else
                 {

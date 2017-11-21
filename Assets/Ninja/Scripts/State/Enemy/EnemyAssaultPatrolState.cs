@@ -14,6 +14,7 @@ namespace Kojima
         #region メンバ変数
 
         private Vector3 Target;
+        private float FrontTime;
 
         #endregion
 
@@ -40,22 +41,7 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            Target.y = owner.transform.position.y;
-            //目的地に着いたら待機に遷移
-            if (owner.MoveTo(Target))
-            {
-                //待機ステートへ移行
-                owner.ChangeState(EnemyStateType.Wait);
-            }
-            else
-            {
-                //目的地まで移動
-                owner.MoveTo(Target);
-                // 目的地の方を向かせる
-                owner.LookTo(Target);
-            }
-
-          
+         
 
             // プレイヤーと自身の距離を求める
             Vector3 distance = owner.player.transform.position - owner.transform.position;
@@ -65,6 +51,30 @@ namespace Kojima
             {
                 // 追跡ステートへ移行
                 owner.ChangeState(EnemyStateType.Chase);
+            }
+            else
+            {
+                Target.y = owner.transform.position.y;
+                //目的地に着いたら待機に遷移
+                if (owner.MoveTo(Target))
+                {
+                    //待機ステートへ移行
+                    owner.ChangeState(EnemyStateType.Wait);
+                }
+                else
+                {
+                    FrontTime += Time.deltaTime;
+                    if (FrontTime > 1)
+                    {
+                        owner.LookTo(Target);
+                    }
+                    else
+                    {
+                        //目的地まで移動
+                        owner.MoveTo(Target);
+                    }
+                }
+
             }
         }
 

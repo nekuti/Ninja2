@@ -30,7 +30,7 @@ namespace Kojima
         [SerializeField, Tooltip("現在の体力")]
         private float hp = 10f;
 
-        [SerializeField,Tooltip("攻撃のプレハブ")]
+        [SerializeField, Tooltip("攻撃のプレハブ")]
         public Attack attackPrefab;
 
         // 敵のデータ
@@ -101,7 +101,7 @@ namespace Kojima
             base.Update();
 
             // HPが0の場合死亡ステートへ
-            if(Hp <= 0 && !IsCurrentState(EnemyStateType.Die))
+            if (Hp <= 0 && !IsCurrentState(EnemyStateType.Die))
             {
                 ChangeState(EnemyStateType.Die);
             }
@@ -142,7 +142,7 @@ namespace Kojima
             Vector3 vec = (aPos - transform.position).normalized * enemyData.MoveSpeed;
 
             // Rigidbodyに力を加える
-            myRigidbody.AddForce(vec,ForceMode.VelocityChange);
+            myRigidbody.AddForce(vec, ForceMode.VelocityChange);
 
             // 目的座標に到着したらtrueを返す
             if ((aPos - transform.position).magnitude < enemyData.MoveSpeed * Time.deltaTime)
@@ -163,8 +163,10 @@ namespace Kojima
         public bool LookTo(Vector3 aPos)
         {
             //transform.LookAt(aPos);
+            float speed = 0.3f;
             transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(aPos - myRigidbody.position), 0.3f);
+                Quaternion.LookRotation(aPos - myRigidbody.position), speed);
+
             return true;
         }
 
@@ -189,6 +191,7 @@ namespace Kojima
             return Attack.Create(AttackPrefab, transform.position + shotPos, transform.position + shotPos + vec, enemyData.Power, tag);
         }
 
-        #endregion
     }
+
+    #endregion
 }
