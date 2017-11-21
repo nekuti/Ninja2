@@ -17,7 +17,6 @@ namespace Ando
             //RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
         }
 
- 
         /// <summary>
         /// 継承先の型を取得
         /// </summary>

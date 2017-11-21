@@ -20,7 +20,7 @@ namespace Ando
 
         protected override void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (TitleControl.GetGameStart())
             {
                 sceneTransitionManager.ChangeSceneSingle(nextScene);
             }
