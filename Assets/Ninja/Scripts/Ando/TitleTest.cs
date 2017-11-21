@@ -6,6 +6,7 @@ namespace Ando
 {
     public class TitleTest : SceneBace
     {
+        private bool animeSwitch = false;
         private void Awake()
         {
             //  シーン名を入れる
@@ -22,7 +23,11 @@ namespace Ando
         {
             if (TitleControl.GetGameStart())
             {
-                DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                if (!animeSwitch)
+                {
+                    DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                    animeSwitch = true;
+                }
                 if (DoorAnime.GetDoorAnimeState() == DoorAnimeState.End)
                 {
                     sceneTransitionManager.ChangeSceneSingle(nextScene);
