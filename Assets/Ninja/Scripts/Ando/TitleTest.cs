@@ -22,7 +22,11 @@ namespace Ando
         {
             if (TitleControl.GetGameStart())
             {
-                sceneTransitionManager.ChangeSceneSingle(nextScene);
+                DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                if (DoorAnime.GetDoorAnimeState() == DoorAnimeState.End)
+                {
+                    sceneTransitionManager.ChangeSceneSingle(nextScene);
+                }
             }
         }
 
