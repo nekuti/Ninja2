@@ -48,11 +48,14 @@ namespace Kojima
             if (owner.trackdObject != null && owner.device != null)
             {
                 float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-                if (value > 0.89f && !attackedFlg)
+                if (value > 0.89f)
                 {
-                    // クナイを発射
-                    Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
-                    attackedFlg = true;
+                    if (!attackedFlg)
+                    {
+                        // クナイを発射
+                        Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
+                        attackedFlg = true;
+                    }
                 }
                 else
                 {
