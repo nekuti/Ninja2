@@ -13,6 +13,8 @@ namespace Kojima
     {
         #region メンバ変数
 
+        private Vector3 Target;
+
         #endregion
 
         #region メソッド
@@ -29,6 +31,8 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("敵(遊撃)が巡回ステートへ遷移");
+            //目的地の設定
+            Target = Point(Random.Range(0, 360), owner.enemyData.PatrolArea) + owner.transform.position;
         }
 
         /// <summary>
@@ -36,6 +40,32 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            Target.y = owner.transform.position.y;
+            //目的地に着いたら待機に遷移
+            if (owner.MoveTo(Target))
+            {
+                //待機ステートへ移行
+                owner.ChangeState(EnemyStateType.Wait);
+            }
+            else
+            {
+                //目的地まで移動
+                owner.MoveTo(Target);
+                // 目的地の方を向かせる
+                owner.LookTo(Target);
+            }
+
+          
+
+            // プレイヤーと自身の距離を求める
+            Vector3 distance = owner.player.transform.position - owner.transform.position;
+
+            // 索敵範囲にプレイヤーが入った場合
+            if (distance.magnitude < owner.enemyData.SearchRange)
+            {
+                // 追跡ステートへ移行
+                owner.ChangeState(EnemyStateType.Chase);
+            }
         }
 
         /// <summary>
@@ -44,6 +74,13 @@ namespace Kojima
         public override void Exit()
         {
             Debug.Log("敵(遊撃)が巡回ステートを終了");
+        }
+
+        public Vector3 Point(float angle,float radius)
+        {
+            float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
+            float z = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+            return new Vector3(x,0,z);
         }
 
         #endregion

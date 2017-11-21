@@ -34,6 +34,9 @@ namespace Kojima
         {
             Debug.Log("敵(遊撃)が攻撃ステートへ遷移");
 
+            // プレイヤーの方を向かせる
+            owner.LookTo(owner.player.transform.position);
+            
             // タイマーをリセット
             toTimer = 0f;
             afterTimer = 0f;
@@ -51,11 +54,17 @@ namespace Kojima
                 if (toTimer > owner.enemyData.AttackToTime)
                 {
                     // 正面に攻撃を生成
-                    Attack.Create(owner.AttackPrefab, owner.transform.position, owner.transform.position + owner.transform.forward, owner.enemyData.Power, owner.tag);
+                    owner.ShotAttackForward();
                     attackFlg = true;
+                    if(owner.enemyData.Level == 2)
+                    {
+                        GameObject.Destroy(owner.gameObject);
+                    }
                 }
                 else
                 {
+                    // プレイヤーの方を向かせる
+                    owner.LookTo(owner.player.transform.position);
                     toTimer += Time.deltaTime;
                 }
             }

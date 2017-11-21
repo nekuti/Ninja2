@@ -76,7 +76,6 @@ PlayerSettings:
   forceSingleInstance: 0
   resizableWindow: 1
   useMacAppStoreValidation: 0
-  macAppStoreCategory: public.app-category.games
   gpuSkinning: 1
   graphicsJobs: 0
   xboxPIXTextureCapture: 0
@@ -86,7 +85,6 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
-  graphicsJobMode: 0
   macFullscreenMode: 2
   d3d9FullscreenMode: 1
   d3d11FullscreenMode: 1
@@ -204,7 +202,6 @@ PlayerSettings:
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 1
   metalAPIValidation: 1
-  iOSRenderExtraFrameOnPause: 1
   appleDeveloperTeamID: 
   iOSManualSigningProvisioningProfileID: 
   tvOSManualSigningProvisioningProfileID: 
@@ -253,7 +250,6 @@ PlayerSettings:
   wiiUGamePadStartupScreen: {fileID: 0}
   wiiUDrcBufferDisabled: 0
   wiiUProfilerLibPath: 
-  playModeTestRunnerEnabled: 0
   actionOnDotNetUnhandledException: 1
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
@@ -370,6 +366,16 @@ PlayerSettings:
   switchParentalControl: 0
   switchAllowsScreenshot: 1
   switchDataLossConfirmation: 0
+  XboxTitleId: 
+  XboxImageXexPath: 
+  XboxSpaPath: 
+  XboxGenerateSpa: 0
+  XboxDeployKinectResources: 0
+  XboxSplashScreen: {fileID: 0}
+  xboxEnableSpeech: 0
+  xboxAdditionalTitleMemorySize: 0
+  xboxDeployKinectHeadOrientation: 0
+  xboxDeployKinectHeadPosition: 0
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 

@@ -38,6 +38,8 @@ namespace Kojima
 
         private Rigidbody myRigidbody;
 
+        public Vector3 shotPos;
+
         #endregion
 
         #region プロパティ
@@ -137,7 +139,6 @@ namespace Kojima
         /// <returns></returns>
         public bool MoveTo(Vector3 aPos)
         {
-            // 
             Vector3 vec = (aPos - transform.position).normalized * enemyData.MoveSpeed;
 
             // Rigidbodyに力を加える
@@ -161,8 +162,31 @@ namespace Kojima
         /// <returns></returns>
         public bool LookTo(Vector3 aPos)
         {
-            transform.LookAt(aPos);
+            //transform.LookAt(aPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(aPos - myRigidbody.position), 0.3f);
             return true;
+        }
+
+        /// <summary>
+        /// 正面に攻撃を生成
+        /// </summary>
+        /// <param name="aPos"></param>
+        /// <returns></returns>
+        public Attack ShotAttackForward()
+        {
+            return ShotAttack(transform.position + transform.forward);
+        }
+
+        /// <summary>
+        /// 指定座標へ向けて攻撃を生成
+        /// </summary>
+        /// <param name="aPos"></param>
+        /// <returns></returns>
+        public Attack ShotAttack(Vector3 aPos)
+        {
+            Vector3 vec = aPos - transform.position;
+            return Attack.Create(AttackPrefab, transform.position + shotPos, transform.position + shotPos + vec, enemyData.Power, tag);
         }
 
         #endregion
