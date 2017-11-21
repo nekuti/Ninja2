@@ -61,7 +61,6 @@ namespace Kojima
             {
                 myRigidbody.velocity = Vector3.zero;
                 myRigidbody.isKinematic = true;
-
             }
         }
 
