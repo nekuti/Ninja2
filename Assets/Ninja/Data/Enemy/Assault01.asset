@@ -16,11 +16,13 @@ MonoBehaviour:
   enemyType: 1
   flying: 0
   knockBack: 0
+  level: 5
   hp: 10
   power: 2
-  moveSpeed: 8
-  searchRange: 6
-  attackableRange: 3
-  attackToTime: 1
+  moveSpeed: 5
+  searchRange: 10
+  attackableRange: 5
+  attackToTime: 0
   attackAfterTime: 1
-  knockBackTime: 1
+  knockBackTime: 0
+  patrolArea: 10

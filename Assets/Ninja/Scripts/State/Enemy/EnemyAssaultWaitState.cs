@@ -13,6 +13,9 @@ namespace Kojima
     {
         #region メンバ変数
 
+        private float WaitTime = 2f;
+        private float ElapsedTime;
+
         #endregion
 
         #region メソッド
@@ -29,6 +32,8 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("敵(遊撃)が待機ステートへ遷移");
+            //時間を初期に戻す
+            ElapsedTime = 0;
         }
 
         /// <summary>
@@ -36,14 +41,22 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+
             // プレイヤーと自身の距離を求める
-            Vector3 distance = owner.player.transform.position - owner.transform.position;
+            // Vector3 distance = owner.player.transform.position - owner.transform.position;
 
             // 索敵範囲にプレイヤーが入った場合
-            if(distance.magnitude < owner.enemyData.SearchRange)
-            {
+            //if(distance.magnitude < owner.enemyData.SearchRange)
+            // {
+
+            //時間の加算
+            ElapsedTime += Time.deltaTime;
+
+            //"WaitTime"の間待機
+            if (ElapsedTime > WaitTime)
+            { 
                 // 追跡ステートへ移行
-                owner.ChangeState(EnemyStateType.Chase);
+                owner.ChangeState(EnemyStateType.Patrol);
             }
         }
 

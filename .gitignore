@@ -28,3 +28,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/EnemyCharacter/PopupAsylum/PA_CubeMaps.meta
+Assets/EnemyCharacter/PopupAsylum.meta
+Assets/EnemyCharacter.meta
+Assets/EnemyCharacter/PopupAsylum/PA_SciFiCombatants.meta

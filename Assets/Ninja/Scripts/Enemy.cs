@@ -30,13 +30,15 @@ namespace Kojima
         [SerializeField, Tooltip("現在の体力")]
         private float hp = 10f;
 
-        [SerializeField,Tooltip("攻撃のプレハブ")]
+        [SerializeField, Tooltip("攻撃のプレハブ")]
         public Attack attackPrefab;
 
         // 敵のデータ
         public EnemyDataTable enemyData;
 
         private Rigidbody myRigidbody;
+
+        private bool collisioDecision = false;
 
         #endregion
 
@@ -55,6 +57,8 @@ namespace Kojima
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
+        public bool CollisioDecision { get { return collisioDecision; } }
+
         #endregion
 
         #region メソッド
@@ -99,10 +103,11 @@ namespace Kojima
             base.Update();
 
             // HPが0の場合死亡ステートへ
-            if(Hp <= 0 && !IsCurrentState(EnemyStateType.Die))
+            if (Hp <= 0 && !IsCurrentState(EnemyStateType.Die))
             {
                 ChangeState(EnemyStateType.Die);
             }
+            collisioDecision = false;
         }
 
         /// <summary>
@@ -137,11 +142,10 @@ namespace Kojima
         /// <returns></returns>
         public bool MoveTo(Vector3 aPos)
         {
-            // 
             Vector3 vec = (aPos - transform.position).normalized * enemyData.MoveSpeed;
 
             // Rigidbodyに力を加える
-            myRigidbody.AddForce(vec,ForceMode.VelocityChange);
+            myRigidbody.AddForce(vec, ForceMode.VelocityChange);
 
             // 目的座標に到着したらtrueを返す
             if ((aPos - transform.position).magnitude < enemyData.MoveSpeed * Time.deltaTime)
@@ -161,10 +165,46 @@ namespace Kojima
         /// <returns></returns>
         public bool LookTo(Vector3 aPos)
         {
-            transform.LookAt(aPos);
+            //transform.LookAt(aPos);
+            float speed = 0.3f;
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(aPos - myRigidbody.position), speed);
+
             return true;
         }
 
-        #endregion
+        /// <summary>
+        /// 正面に攻撃を生成
+        /// </summary>
+        /// <param name="aPos"></param>
+        /// <returns></returns>
+        public Attack ShotAttackForward()
+        {
+            return ShotAttack(transform.position + transform.forward);
+        }
+
+        /// <summary>
+        /// 指定座標へ向けて攻撃を生成
+        /// </summary>
+        /// <param name="aPos"></param>
+        /// <returns></returns>
+        public Attack ShotAttack(Vector3 aPos)
+        {
+            Vector3 vec = aPos - transform.position;
+            return Attack.Create(AttackPrefab, transform.position , transform.position + vec, enemyData.Power, tag);
+        }
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.tag == TagName.Object)
+            {
+                collisioDecision = true;
+            }
+            else if (collision.gameObject.tag == TagName.WireableObject)
+            {
+                collisioDecision = true;
+            }
+        }
     }
+
+    #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VR;
 
 /// <summary>
 /// 敵(突撃)の攻撃ステート
@@ -16,6 +17,7 @@ namespace Kojima
         float toTimer;
         float afterTimer;
         bool attackFlg;     // 攻撃の発生フラグ
+        private Vector3 target;
 
         #endregion
 
@@ -34,6 +36,9 @@ namespace Kojima
         {
             Debug.Log("敵(遊撃)が攻撃ステートへ遷移");
 
+            // プレイヤーの方を向かせる
+            owner.LookTo(owner.player.transform.position);
+            
             // タイマーをリセット
             toTimer = 0f;
             afterTimer = 0f;
@@ -45,17 +50,24 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            target = owner.player.transform.position + new Vector3(0, -0.3f, 0);
             if (!attackFlg)
             {
                 // 攻撃発生前の処理
                 if (toTimer > owner.enemyData.AttackToTime)
                 {
                     // 正面に攻撃を生成
-                    Attack.Create(owner.AttackPrefab, owner.transform.position, owner.transform.position + owner.transform.forward, owner.enemyData.Power, owner.tag);
+                    owner.ShotAttack(target);
                     attackFlg = true;
+                    //if(owner.enemyData.Level == 2)
+                    //{
+                    //    GameObject.Destroy(owner.gameObject);
+                    //}
                 }
                 else
                 {
+                    // プレイヤーの方を向かせる
+                    owner.LookTo(owner.player.transform.position);
                     toTimer += Time.deltaTime;
                 }
             }
