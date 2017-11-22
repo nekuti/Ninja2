@@ -10,6 +10,15 @@ using System;
 
 namespace Ando
 {
+    public enum StageTransition
+    {
+        None,
+        ResultGameClear,
+        ResultGameOver,
+        StageChange,
+        TitleBack,
+    }
+
     public class PlaySceneManager : SingletonMonoBehaviour<PlaySceneManager>
     {
         //  ステージがすでに生成しているか
@@ -19,13 +28,15 @@ namespace Ando
         private List<StageName> stageList = new List<StageName>();
 
         [SerializeField]
-        private SceneName nextScene = SceneName.ResultTest;
+        private SceneName nextScene = SceneName.TitleTest;
         [SerializeField]
         private SceneName pauseScene = SceneName.PauseTest;
 
         private StageName nowStage = StageName.StageTest1;
 
         public static SceneTransitionManager sceneTransitionManager;
+
+        private static StageTransition stageTransition = StageTransition.None;
 
         new void Awake()
         {
@@ -40,47 +51,62 @@ namespace Ando
 
         private void Update()
         {
-            //  タイムスケールの設定
-            if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
+            switch (stageTransition)
             {
-                Time.timeScale = 0.0f;
-            }
-           else
-            {
-                Time.timeScale = 1.0f;
-            }
-
-            if (!sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    sceneTransitionManager.ChangeSceneSingle(nextScene);
-                }
-                if (Input.GetMouseButtonDown(1))
-                {
-                    sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = true;
-                    sceneTransitionManager.ChangeSceneAdd(pauseScene);
-                }
-                if (Input.GetKeyDown(KeyCode.A))
-                {
+                case StageTransition.StartResult:
+                    //  リザルトを追加
+                    AddLiteResult();
+                    break;
+                case StageTransition.StageChange:
+                    //  ステージ変更
                     StageChange();
-                }
+                    break;
+                case StageTransition.TitleBack:
+                    //  タイトルへ戻る
+                    sceneTransitionManager.ChangeSceneSingle(nextScene);
+                    break;
             }
-            else if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
-            {
-                if (Input.GetMouseButtonDown(2))
-                {
-                    sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
-                }
-            }
-
+            
+            ////  タイムスケールの設定
+            //if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
+            //{
+            //    Time.timeScale = 0.0f;
+            //}
+            //else
+            //{
+            //    Time.timeScale = 1.0f;
+            //}
+            //if (!sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
+            //{
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        sceneTransitionManager.ChangeSceneSingle(nextScene);
+            //    }
+            //    if (Input.GetMouseButtonDown(1))
+            //    {
+            //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = true;
+            //        sceneTransitionManager.ChangeSceneAdd(pauseScene);
+            //    }
+            //    if (Input.GetKeyDown(KeyCode.A))
+            //    {
+            //        StageChange();
+            //    }
+            //}
+            //else if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
+            //{
+            //    if (Input.GetMouseButtonDown(2))
+            //    {
+            //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
+            //    }
+            //}
         }
 
         public void StageChange()
         {
             //  初回起動時に分岐
             if (stageExist)
-            {             //  ステージを削除
+            {
+                //  ステージを削除
                 SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
                 //  ステージのスクリプトの削除
                 Destroy(GetComponent(nowStage.ToString()));
@@ -142,5 +168,13 @@ namespace Ando
             }
         }
 
+        /// <summary>
+        ///   プレイシーン内の遷移
+        /// </summary>
+        /// <param name="aStageTransition"></param>
+        public static void SetStageTransition(StageTransition aStageTransition)
+        {
+            stageTransition = aStageTransition;
+        }
     }
 }

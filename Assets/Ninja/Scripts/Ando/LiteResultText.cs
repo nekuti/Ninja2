@@ -16,6 +16,9 @@ namespace Ando
         [SerializeField]
         private Text lostEnergyValue;
 
+        [SerializeField]
+        private Text text;
+
         // Use this for initialization
         void Start()
         {
@@ -30,7 +33,7 @@ namespace Ando
             getMoneyValue.text = resultContainer.getMoneyValue.ToString();
 
             lostEnergyValue.text = resultContainer.lostEnergyValue.ToString();
-             
+
         }
 
         public static void SetLiteResult(ResultContainer aResultContainer)

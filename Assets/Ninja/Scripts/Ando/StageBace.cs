@@ -40,10 +40,7 @@ namespace Ando
 
         protected virtual void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                PlaySceneManager.AddLiteResult();
-            }
+            
         }
 
         /// <summary>

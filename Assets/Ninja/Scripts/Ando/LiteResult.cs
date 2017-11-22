@@ -7,7 +7,6 @@ namespace Ando
 
     public class LiteResult : SceneBace
     {
-
         private void Awake()
         {
             //  シーン名を入れる
