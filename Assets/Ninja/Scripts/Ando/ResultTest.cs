@@ -6,13 +6,13 @@ namespace Ando
 {
     public class ResultTest : SceneBace
     {
-        [SerializeField]
-        private SceneName nextScene = SceneName.TitleTest;
-
         private void Awake()
         {
             //  シーン名を入れる
             myScene = SceneName.ResultTest;
+
+            //  次に遷移するシーンを設定
+            nextScene = SceneName.TitleTest;
 
             //  シーン遷移スクリプトを追加
             RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());

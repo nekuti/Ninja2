@@ -7,18 +7,18 @@ namespace Ando
     public class StageTest1 : StageBace
     {
         // Use this for initialization
-        void Start()
-        {
+        private void Awake()
+        {            
+            //  シーン名を入れる
+            myStage = StageName.StageTest1;
 
+            goalFlag = false;
         }
 
         // Update is called once per frame
         protected override void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                AddLiteResult();
-            }
+            base.Update();
         }
 
         /// <summary>

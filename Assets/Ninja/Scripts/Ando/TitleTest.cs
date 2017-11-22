@@ -6,23 +6,32 @@ namespace Ando
 {
     public class TitleTest : SceneBace
     {
-        [SerializeField]
-        private SceneName nextScene = SceneName.PlayTest;
-
+        private bool animeSwitch = false;
         private void Awake()
         {
             //  シーン名を入れる
             myScene = SceneName.TitleTest;
 
+            //  次に遷移するシーンを設定
+            nextScene = SceneName.PlayTest;
+            
             //  シーン遷移スクリプトを追加
             RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
         }
 
         protected override void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (TitleControl.GetGameStart())
             {
-                sceneTransitionManager.ChangeSceneSingle(nextScene);
+                if (!animeSwitch)
+                {
+                    DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                    animeSwitch = true;
+                }
+                if (DoorAnime.GetDoorAnimeState() == DoorAnimeState.End)
+                {
+                    sceneTransitionManager.ChangeSceneSingle(nextScene);
+                }
             }
         }
 
