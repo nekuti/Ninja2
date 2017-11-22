@@ -124,9 +124,9 @@ namespace Kojima
         /// <param name="aTransform">生成主のTransform</param>
         /// <param name="aDirection">発射する向き</param>
         /// <returns></returns>
-        public static WireTip Create(WireDataTable aWireDataTable , HandNormalWireState aHandWireState, Transform aTransform,Vector3 aDirection)
+        public static WireTip Create(WireDataTable aWireDataTable , HandNormalWireState aHandWireState, Hand aHand,Vector3 aDirection)
         {
-            return WireTip.Create(aWireDataTable.WirePrefab, aHandWireState, aTransform,aDirection);
+            return WireTip.Create(aWireDataTable.WirePrefab, aHandWireState, aHand,aDirection);
         }
         /// <summary>
         /// WireTipの生成と同時に初期化して発射
@@ -136,11 +136,11 @@ namespace Kojima
         /// <param name="aTransform">生成主のTransform</param>
         /// <param name="aDirection">発射する向き</param>
         /// <returns></returns>
-        public static WireTip Create(WireTip aPrefab,HandNormalWireState aHandWireState, Transform aTransform,Vector3 aDirection)
+        public static WireTip Create(WireTip aPrefab,HandNormalWireState aHandWireState, Hand aHand,Vector3 aDirection)
         {
-            WireTip obj = Instantiate(aPrefab,aTransform.position,aTransform.rotation) as WireTip;
+            WireTip obj = Instantiate(aPrefab,aHand.shotPos.transform.position,aHand.transform.rotation) as WireTip;
             obj.ownerWireState = aHandWireState;
-            obj.ownerTransform = aTransform;
+            obj.ownerTransform = aHand.transform;
             obj.shotDirection = aDirection;
             return obj;
         }

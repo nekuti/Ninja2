@@ -13,6 +13,8 @@ namespace Kojima
     {
         #region メンバ変数
 
+        private bool attackedFlg;
+
         #endregion
 
         #region メソッド
@@ -31,6 +33,8 @@ namespace Kojima
             base.Enter();
 
             Debug.Log("WeaponKunaiに設定");
+
+            attackedFlg = false;
         }
 
         /// <summary>
@@ -39,6 +43,26 @@ namespace Kojima
         public override void Execute()
         {
             base.Execute();
+
+            // VIVEでの入力処理
+            if (owner.trackdObject != null && owner.device != null)
+            {
+                float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+                if (value > 0.89f)
+                {
+                    if (!attackedFlg)
+                    {
+                        // クナイを発射
+                        Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
+                        attackedFlg = true;
+                    }
+                }
+                else
+                {
+                    attackedFlg = false;
+                }
+            }
+
         }
 
         /// <summary>

@@ -44,6 +44,22 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            // ワイヤー(紐)部分の表示
+            if (wireTip != null)
+            {
+                float length = (wireTip.transform.position - owner.shotPos.transform.position).magnitude;
+                // ワイヤーチップに向けてワイヤー(紐)の向きと長さを変える
+                owner.wireObject.transform.position = owner.shotPos.transform.position;
+                owner.wireObject.transform.localScale = new Vector3(1f, 1f, length);
+                owner.wireObject.transform.LookAt(wireTip.transform.position);
+                owner.wireObject.SetActive(true);
+            }
+            else
+            {
+                owner.wireObject.SetActive(false);
+            }
+
+            // キーボードでの入力処理
             if (Input.GetButtonDown("Fire2"))
             {
                 ShotWireTip();
@@ -52,6 +68,8 @@ namespace Kojima
             {
                 ReturnWireTip();
             }
+
+            // VIVEでの入力処理
             if(owner.trackdObject != null && owner.device != null)
             {
                 float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
@@ -83,6 +101,7 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
+            owner.wireObject.SetActive(false);
         }
 
         /// <summary>
@@ -94,7 +113,7 @@ namespace Kojima
             if(wireTip == null)
             {
                 // ワイヤーを生成
-                wireTip = WireTip.Create(wireData, this, owner.transform, owner.transform.rotation * Vector3.forward);
+                wireTip = WireTip.Create(wireData, this, owner, owner.transform.rotation * Vector3.forward);
             }
         }
 
