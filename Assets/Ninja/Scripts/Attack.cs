@@ -84,7 +84,7 @@ namespace Kojima
             // 壁に攻撃が当たった場合
             if (other.gameObject.CompareTag(TagName.WireableObject) || other.gameObject.CompareTag(TagName.Object))
             {
-                HitWall(other.gameObject);
+                HitTrrigerWall(other.gameObject);
             }
 
             // ダメージを受けるオブジェクトであれば
@@ -94,7 +94,7 @@ namespace Kojima
                 // ユニットに攻撃が当たった場合
                 if(obj.TakeAttack(this))
                 {
-                    HitUnit(other.gameObject);
+                    HitTrrigerUnit(other.gameObject);
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace Kojima
             // 壁に攻撃が当たった場合
             if (collision.gameObject.CompareTag(TagName.WireableObject) || collision.gameObject.CompareTag(TagName.Object))
             {
-                HitWall(collision.gameObject);
+                HitCollisionWall(collision.gameObject);
             }
 
             // ダメージを受けるオブジェクトであれば
@@ -118,7 +118,7 @@ namespace Kojima
                 // ユニットに攻撃が当たった場合
                 if (obj.TakeAttack(this))
                 {
-                    HitUnit(collision.gameObject);
+                    HitCollisionUnit(collision.gameObject);
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Kojima
         /// 壁に当たった時に呼び出される処理
         /// </summary>
         /// <param name="aWall"></param>
-        protected virtual void HitWall(GameObject aWall)
+        protected virtual void HitTrrigerWall(GameObject aWall)
         {
             // 壁に当たったら削除
             if (!ThroughMap)
@@ -171,13 +171,29 @@ namespace Kojima
         /// ユニットに当たった時に呼び出される処理
         /// </summary>
         /// <param name="aUnit"></param>
-        protected virtual void HitUnit(GameObject aUnit)
+        protected virtual void HitTrrigerUnit(GameObject aUnit)
         {
             // ユニットを貫通しない弾であれば当たった時点で削除
             if (!ThroughUnit)
             {
                 Destroy(this.gameObject);
             }
+        }
+
+        /// <summary>
+        /// 壁に当たった時に呼び出される処理
+        /// </summary>
+        /// <param name="aWall"></param>
+        protected virtual void HitCollisionWall(GameObject aWall)
+        {
+        }
+
+        /// <summary>
+        /// ユニットに当たった時に呼び出される処理
+        /// </summary>
+        /// <param name="aUnit"></param>
+        protected virtual void HitCollisionUnit(GameObject aUnit)
+        {
         }
 
         #endregion

@@ -54,7 +54,7 @@ namespace Kojima
         /// 壁に当たった時に呼び出される処理
         /// </summary>
         /// <param name="aWall"></param>
-        protected override void HitWall(GameObject aWall)
+        protected override void HitCollisionWall(GameObject aWall)
         {
             // 壁に当たったら削除
             if (!ThroughMap)
@@ -68,7 +68,7 @@ namespace Kojima
         /// ユニットに当たった時に呼び出される処理
         /// </summary>
         /// <param name="aUnit"></param>
-        protected override void HitUnit(GameObject aUnit)
+        protected override void HitCollisionUnit(GameObject aUnit)
         {
             // ユニットを貫通しない弾であれば当たった時点で削除
             if (!ThroughUnit)
