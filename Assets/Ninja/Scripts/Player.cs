@@ -94,7 +94,7 @@ namespace Kojima
         public bool TakeAttack(Attack anAttack)
         {
             // 自身が発射した攻撃でなければ
-            if (anAttack.tag != gameObject.tag)
+            if (anAttack.parentTagName != gameObject.tag)
             {
                 Energy -= anAttack.power;
                 return true;
