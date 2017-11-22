@@ -13,8 +13,8 @@ namespace Kojima
     {
         #region メンバ変数
 
-        private Vector3 Target;
-        private float FrontTime;
+        private Vector3 target;
+        private float rugTime;
 
         #endregion
 
@@ -33,7 +33,13 @@ namespace Kojima
         {
             Debug.Log("敵(遊撃)が巡回ステートへ遷移");
             //目的地の設定
-            Target = Point(Random.Range(0, 360), owner.enemyData.PatrolArea) + owner.transform.position;
+            target = Point(Random.Range(0, 360), owner.enemyData.PatrolArea) + owner.transform.position;
+            if (owner.CollisioDecision)
+            {
+                target = owner.transform.position + owner.transform.rotation * Vector3.back * owner.enemyData.PatrolArea;
+                //owner.transform.LookAt(Target);
+            }
+            rugTime = 0;
         }
 
         /// <summary>
@@ -41,8 +47,6 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-         
-
             // プレイヤーと自身の距離を求める
             Vector3 distance = owner.player.transform.position - owner.transform.position;
 
@@ -54,27 +58,31 @@ namespace Kojima
             }
             else
             {
-                Target.y = owner.transform.position.y;
+                target.y = owner.transform.position.y;
                 //目的地に着いたら待機に遷移
-                if (owner.MoveTo(Target))
+                if (owner.MoveTo(target))
                 {
                     //待機ステートへ移行
                     owner.ChangeState(EnemyStateType.Wait);
                 }
                 else
                 {
-                    FrontTime += Time.deltaTime;
-                    if (FrontTime > 1)
+                    owner.LookTo(target);
+                    rugTime += Time.deltaTime;
+                    if (rugTime > 1)
                     {
-                        owner.LookTo(Target);
+                        if (owner.CollisioDecision)
+                        {
+                            owner.ChangeState(EnemyStateType.Wait);
+                            Debug.Log("壁");
+                        }
                     }
                     else
-                    {
-                        //目的地まで移動
-                        owner.MoveTo(Target);
+                    { //owner.MoveTo(Target); 
                     }
+                        //目的地まで移動
+                        //owner.MoveTo(Target);
                 }
-
             }
         }
 
@@ -86,13 +94,12 @@ namespace Kojima
             Debug.Log("敵(遊撃)が巡回ステートを終了");
         }
 
-        public Vector3 Point(float angle,float radius)
+        public Vector3 Point(float angle, float radius)
         {
             float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
             float z = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
-            return new Vector3(x,0,z);
+            return new Vector3(x, 0, z);
         }
-
         #endregion
     }
 }

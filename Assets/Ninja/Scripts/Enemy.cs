@@ -38,7 +38,7 @@ namespace Kojima
 
         private Rigidbody myRigidbody;
 
-        public Vector3 shotPos;
+        private bool collisioDecision = false;
 
         #endregion
 
@@ -57,6 +57,8 @@ namespace Kojima
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
+        public bool CollisioDecision { get { return collisioDecision; } }
+
         #endregion
 
         #region メソッド
@@ -105,6 +107,7 @@ namespace Kojima
             {
                 ChangeState(EnemyStateType.Die);
             }
+            collisioDecision = false;
         }
 
         /// <summary>
@@ -188,9 +191,19 @@ namespace Kojima
         public Attack ShotAttack(Vector3 aPos)
         {
             Vector3 vec = aPos - transform.position;
-            return Attack.Create(AttackPrefab, transform.position + shotPos, transform.position + shotPos + vec, enemyData.Power, tag);
+            return Attack.Create(AttackPrefab, transform.position , transform.position + vec, enemyData.Power, tag);
         }
-
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.tag == TagName.Object)
+            {
+                collisioDecision = true;
+            }
+            else if (collision.gameObject.tag == TagName.WireableObject)
+            {
+                collisioDecision = true;
+            }
+        }
     }
 
     #endregion
