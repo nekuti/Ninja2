@@ -37,7 +37,7 @@ namespace Ando
         public static SceneTransitionManager sceneTransitionManager;
 
         private static StageTransition stageTransition = StageTransition.None;
-
+        public bool a = false;
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -53,7 +53,8 @@ namespace Ando
         {
             switch (stageTransition)
             {
-                case StageTransition.StartResult:
+                case StageTransition.ResultGameClear:
+                case StageTransition.ResultGameOver:
                     //  リザルトを追加
                     AddLiteResult();
                     break;
@@ -66,7 +67,11 @@ namespace Ando
                     sceneTransitionManager.ChangeSceneSingle(nextScene);
                     break;
             }
-            
+            if (Input.GetMouseButtonDown(0))
+            {
+                a = !a;
+                LiteResultText.SetTextChangeFlag(a);
+            }
             ////  タイムスケールの設定
             //if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
             //{
@@ -165,6 +170,15 @@ namespace Ando
             {
                 sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
                 LiteResultText.SetLiteResult(a);
+
+                if (stageTransition == StageTransition.ResultGameClear)
+                {
+                    LiteResultText.SetTextChangeFlag(true);
+                }
+                else if (stageTransition == StageTransition.ResultGameOver)
+                {
+                    LiteResultText.SetTextChangeFlag(false);
+                }
             }
         }
 
