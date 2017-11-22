@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VR;
 
 /// <summary>
 /// 敵(突撃)の攻撃ステート
@@ -49,7 +50,7 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            target = owner.player.transform.position + new Vector3(0, 1, 0);
+            target = owner.player.transform.position + new Vector3(0, -0.3f, 0);
             if (!attackFlg)
             {
                 // 攻撃発生前の処理
