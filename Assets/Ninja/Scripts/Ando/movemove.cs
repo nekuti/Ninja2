@@ -8,16 +8,14 @@ public enum MoveSwitch
    LeftRight,
 }
 
-
 public class movemove : MonoBehaviour {
-
     [SerializeField]
     private MoveSwitch moveSwitch = MoveSwitch.LeftRight;
 
     private float time;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         time = 0f;
 	}
 	

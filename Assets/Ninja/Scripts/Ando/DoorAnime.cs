@@ -17,9 +17,9 @@ namespace Ando
         static private DoorAnimeState animeFlag = DoorAnimeState.Stop;
 
         //  最大移動量
-        public float maxMovementAmount = 1.2f;
+        public float maxMovementAmount = 1.8f;
         //  移動量
-        public float movementAmount = 0.01f;
+        public float movementAmount = 0.02f;
 
         //  移動方向(true:右 false:左)
         public bool movementDirection = true;
