@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// HandNormalWireStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/14
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -19,6 +19,9 @@ namespace Kojima
 
         private bool hitFlg;
         private Vector3 hitHandPos;
+
+
+        private bool attackedFlg;
 
         #endregion
 
@@ -37,6 +40,7 @@ namespace Kojima
         {
             wireData = owner.WireData;
             hitFlg = false;
+            attackedFlg = false;
         }
 
         /// <summary>
@@ -81,6 +85,26 @@ namespace Kojima
                 {
                     ReturnWireTip();
                 }
+
+                // ======================================================================
+                // 文化祭の仮処理でクナイを発射する======================================
+                // (ここから)============================================================
+                if (owner.device.GetPress(SteamVR_Controller.ButtonMask.Grip))
+                {
+                    if (!attackedFlg)
+                    {
+                        // クナイを発射
+                        Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
+                        attackedFlg = true;
+                    }
+                }
+                else
+                {
+                    attackedFlg = false;
+                }
+                // (ここまで)============================================================
+                // ======================================================================
+                // ======================================================================
             }
             // ワイヤーがオブジェクトについている間の処理
             if (hitFlg)

@@ -29,6 +29,9 @@ namespace Kojima
         public override void Enter()
         {
             owner.ownerWireState.HitWireTip();
+
+            // パーティクルを生成
+            ParticleEffect.Create(ParticleEffectType.Flash_small01, owner.transform.position);
         }
 
         /// <summary>

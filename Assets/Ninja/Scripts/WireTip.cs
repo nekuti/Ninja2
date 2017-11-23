@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ワイヤーの先端のクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/12
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -67,6 +67,16 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+
+            // 回転を止める
+            if(IsCurrentState(WireTipStateType.Stop))
+            {
+                PropellerRot propeller = GetComponentInChildren<PropellerRot>();
+                if(propeller!=null)
+                {
+                    Destroy(propeller);
+                }
+            }
         }
 
         /// <summary>

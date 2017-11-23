@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 攻撃のクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/16
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -15,6 +15,9 @@ namespace Kojima
 
         [SerializeField,Tooltip("攻撃のタイプ")]
         protected AttackType attackType;
+
+        [SerializeField, Tooltip("当たった際のエフェクト")]
+        protected ParticleEffectType effect;
 
         [SerializeField, Tooltip("攻撃の移動速度")]
         protected float speed = 4f;
