@@ -67,16 +67,6 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
-
-            // 回転を止める
-            if(IsCurrentState(WireTipStateType.Stop))
-            {
-                PropellerRot propeller = GetComponentInChildren<PropellerRot>();
-                if(propeller!=null)
-                {
-                    Destroy(propeller);
-                }
-            }
         }
 
         /// <summary>
@@ -103,6 +93,8 @@ namespace Kojima
                 else
                 {
                     // ワイヤーを付けれないオブジェクトであった場合
+                    // パーティクルを生成
+                    ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
                     // ワイヤーの巻き取りを行う
                     ReturnWireTip();
                 }

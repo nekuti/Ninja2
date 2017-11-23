@@ -9,6 +9,7 @@ TagManager:
   - Object
   - Hand
   - Enemy
+  - Goal
   layers:
   - Default
   - TransparentFX

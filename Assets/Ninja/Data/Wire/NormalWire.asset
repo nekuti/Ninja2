@@ -16,5 +16,6 @@ MonoBehaviour:
     type: 2}
   wireType: 0
   shotRange: 30
-  shotSpeed: 30
-  pullSpeed: 6
+  shotSpeed: 60
+  returnSpeed: 180
+  pullSpeed: 25

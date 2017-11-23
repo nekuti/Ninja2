@@ -17,8 +17,9 @@ namespace Kojima
 
         private WireTip wireTip;
 
-        private bool hitFlg;
-        private Vector3 hitHandPos;
+        private bool trrigerDown;       // トリガーの押し離しの管理フラグ
+        private bool hitFlg;            // ワイヤーが壁に刺さった状態かのフラグ
+        private Vector3 hitHandPos;     // ワイヤーが壁に刺さった時点での手の座標
 
 
         private bool attackedFlg;
@@ -39,6 +40,7 @@ namespace Kojima
         public override void Enter()
         {
             wireData = owner.WireData;
+            trrigerDown = false;
             hitFlg = false;
             attackedFlg = false;
         }
@@ -77,13 +79,15 @@ namespace Kojima
             if(owner.trackdObject != null && owner.device != null)
             {
                 float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-                if (value > 0.89f)
+                if (value > 0.89f && !trrigerDown)
                 {
                     ShotWireTip();
+                    trrigerDown = true;
                 }
                 if (value < 0.15f && wireTip != null)
                 {
                     ReturnWireTip();
+                    trrigerDown = false;
                 }
 
                 // ======================================================================

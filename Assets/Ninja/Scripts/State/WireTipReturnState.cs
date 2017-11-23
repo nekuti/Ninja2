@@ -33,7 +33,7 @@ namespace Kojima
         /// </summary>
         public override void Enter()
         {
-            maxSpeed = owner.ownerWireState.wireData.ShotSpeed;
+            maxSpeed = owner.ownerWireState.wireData.ReturnSpeed;
             maxSqrSpeed = maxSpeed * maxSpeed;
 
             // 速度をリセット
@@ -52,8 +52,8 @@ namespace Kojima
             {
                 Vector3 dire = (owner.ownerTransform.position - owner.transform.position);
 
-                // 発射の2倍の速度で巻き取る
-                owner.myRigidbody.AddForce(dire.normalized * (owner.ownerWireState.wireData.ShotSpeed * 2f), ForceMode.Acceleration);
+                // 巻き取る
+                owner.myRigidbody.AddForce(dire.normalized * (owner.ownerWireState.wireData.ReturnSpeed), ForceMode.Acceleration);
 
                 if (owner.myRigidbody.velocity.sqrMagnitude > maxSqrSpeed)
                 {
