@@ -35,10 +35,14 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
+        [SerializeField]
+        private GameObject center;
         private Rigidbody myRigidbody;
 
 
         private bool posResetFlg;
+        private bool resultFlg;
+        private bool trrigerFlg;
 
         #endregion
 
@@ -70,6 +74,9 @@ namespace Kojima
             // Rigidbodyの取得
             myRigidbody = GetComponent<Rigidbody>();
 
+            // 敵にプレイヤーの中心を登録
+            Enemy.EntryPlayer(center);
+
             // 手を取得
             if (leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
             if (rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
@@ -80,9 +87,9 @@ namespace Kojima
         /// </summary>
         void Start()
         {
-            posResetFlg = false;
-
-            PosReset();
+            posResetFlg = true;
+            resultFlg = false;
+            trrigerFlg = true;
         }
 
         /// <summary>
@@ -107,8 +114,46 @@ namespace Kojima
             // エネルギーが0になった場合
             if (energy <= 0)
             {
-                SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
-                fade.OnStartFade(Color.black, 0.5f, true);
+                //SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
+                //fade.OnStartFade(Color.black, 0.5f, true);
+
+                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameOver);
+                resultFlg = true;
+            }
+
+            if (resultFlg)
+            {
+                // VRの入力用変数初期化
+                SteamVR_TrackedObject[] trackdObjects = GetComponentsInChildren<SteamVR_TrackedObject>();
+                for (int i = 0; i < trackdObjects.Length; i++)
+                {
+                    var device = SteamVR_Controller.Input((int)trackdObjects[i].index);
+                    float value = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+                    if (!trrigerFlg)
+                    {
+
+                        if (energy > 0)
+                        {
+                            if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+                            {
+                                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.StageChange);
+                                resultFlg = false;
+                                trrigerFlg = true;
+                                Energy = MaxEnergy;
+                            }
+                        }
+                        if (device.GetPress(SteamVR_Controller.ButtonMask.Grip))
+                        {
+                            Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.TitleBack);
+                            resultFlg = false;
+                            trrigerFlg = true;
+                        }
+                    }
+                    else if(value < 0.15)
+                    {
+                        trrigerFlg = false;
+                    }
+                }
             }
         }
 
@@ -140,6 +185,10 @@ namespace Kojima
             {
                 // ゴールした時の処理
                 posResetFlg = true;
+
+                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
+                resultFlg = true;
+
             }
         }
 

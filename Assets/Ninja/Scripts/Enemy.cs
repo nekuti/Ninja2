@@ -23,7 +23,7 @@ namespace Kojima
         #region メンバ変数
 
         // プレイヤーのオブジェクト
-        public GameObject player;
+        public static GameObject player;
 
         [SerializeField, Tooltip("体力の最大値")]
         private float maxHp = 10f;
@@ -133,6 +133,15 @@ namespace Kojima
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// プレイヤーを登録
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static void EntryPlayer(GameObject aPlayer)
+        {
+            player = aPlayer;
         }
 
         /// <summary>

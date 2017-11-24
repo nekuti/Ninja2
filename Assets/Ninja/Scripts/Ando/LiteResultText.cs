@@ -23,16 +23,21 @@ namespace Ando
         [SerializeField]
         private Text operation;
 
+        GameObject player;
+
 
         // Use this for initialization
         void Start()
         {
+            player = GameObject.Find("[Player]");
 
         }
 
         // Update is called once per frame
         void Update()
         {
+            this.gameObject.transform.position = player.transform.position + new Vector3(0, 1, 2.0f);
+
             playTimeValue.text =resultContainer.playTime;
 
             getMoneyValue.text = resultContainer.getMoneyValue.ToString();
@@ -42,12 +47,12 @@ namespace Ando
             if (textChangeFlag)
             {
                 message.text = "クリアおめでとう！";
-                operation.text = "トリガー → タイトル \nグリップボタン → 次のステージへ";
+                operation.text = "トリガー → 次のステージへ \nグリップボタン → タイトル";
             }
             else
             {
                 message.text = "GameOver";
-                operation.text = "トリガー → タイトル";
+                operation.text = "グリップボタン → タイトル";
             }
         }
 

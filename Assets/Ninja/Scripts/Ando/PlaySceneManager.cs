@@ -37,7 +37,9 @@ namespace Ando
         public static SceneTransitionManager sceneTransitionManager;
 
         private static StageTransition stageTransition = StageTransition.None;
-        public bool a = false;
+        private static bool stageUnloadFlag = false;    //  ステージをアンロードするか
+        private bool stageUnload = false;   //  ステージをアンロードしたか
+
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -46,6 +48,8 @@ namespace Ando
 
         private void Start()
         {
+            stageTransition = StageTransition.None;
+
             StageChange();
         }
 
@@ -61,17 +65,19 @@ namespace Ando
                 case StageTransition.StageChange:
                     //  ステージ変更
                     StageChange();
+                    stageTransition = StageTransition.None;
                     break;
                 case StageTransition.TitleBack:
                     //  タイトルへ戻る
                     sceneTransitionManager.ChangeSceneSingle(nextScene);
+                    stageTransition = StageTransition.None;
                     break;
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                a = !a;
-                LiteResultText.SetTextChangeFlag(a);
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    a = !a;
+            //    LiteResultText.SetTextChangeFlag(a);
+            //}
             ////  タイムスケールの設定
             //if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
             //{
@@ -104,12 +110,19 @@ namespace Ando
             //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
             //    }
             //}
+
+            if (stageUnloadFlag)
+            {
+                UnloadStage();
+                stageUnload = true;
+                stageUnloadFlag = false;
+            }
         }
 
         public void StageChange()
         {
             //  初回起動時に分岐
-            if (stageExist)
+            if (stageExist && !stageUnload)
             {
                 //  ステージを削除
                 SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
@@ -127,10 +140,25 @@ namespace Ando
                     nowStage = 0;
                 }
             }
+            else if (stageUnload)
+            {
+                //  簡易リザルトを削除
+                sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+
+                if (stageList.Count - 1 > (int)nowStage)
+                {
+                    nowStage++;
+                }
+                else
+                {
+                    nowStage = 0;
+                }
+            }
             else
             {
                 stageExist = true;
             }
+         
 
             //  ステージのスクリプト追加
             var newStage = this.gameObject.AddComponent(Type.GetType("Ando." + nowStage.ToString()));
@@ -152,24 +180,30 @@ namespace Ando
         /// <summary>
         /// 簡易リザルトをステージに追加する
         /// </summary>
-        public static void AddLiteResult()
+        public static void AddLiteResult(bool aStageUnload = true)
         {
-            var a = new ResultContainer();
 
-            a.totalPlayTime = "test";
-            a.playTime = "test";
-            a.totalGetMoneyValue = 1;
-            a.getMoneyValue = 1;
-            a.totalLostEnergyValue = 0;
-            a.lostEnergyValue = 1;
-            a.killEnemyValue = 1;
-            a.useItemValue = 1;
+            stageUnloadFlag = aStageUnload;
+
+            //var a = new ResultContainer();
+
+            //a.totalPlayTime = "test";
+            //a.playTime = "test";
+            //a.totalGetMoneyValue = 1;
+            //a.getMoneyValue = 1;
+            //a.totalLostEnergyValue = 0;
+            //a.lostEnergyValue = 1;
+            //a.killEnemyValue = 1;
+            //a.useItemValue = 1;
 
             //  簡易リザルトがすでにあるか確認
             if (!sceneTransitionManager.SearchScene(SceneName.LiteResult))
             {
+                //LiteResultText.SetLiteResult(a);
+
                 sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
-                LiteResultText.SetLiteResult(a);
+
+                Debug.Log(stageTransition.ToString());
 
                 if (stageTransition == StageTransition.ResultGameClear)
                 {
@@ -180,6 +214,14 @@ namespace Ando
                     LiteResultText.SetTextChangeFlag(false);
                 }
             }
+        }
+
+        void UnloadStage()
+        {
+            //  ステージを削除
+            SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
+            //  ステージのスクリプトの削除
+            Destroy(GetComponent(nowStage.ToString()));
         }
 
         /// <summary>

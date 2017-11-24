@@ -20,8 +20,8 @@ MonoBehaviour:
   hp: 10
   power: 2
   moveSpeed: 5
-  searchRange: 10
-  attackableRange: 5
+  searchRange: 20
+  attackableRange: 8
   attackToTime: 0
   attackAfterTime: 1
   knockBackTime: 0

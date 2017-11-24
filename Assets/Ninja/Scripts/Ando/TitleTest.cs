@@ -17,6 +17,8 @@ namespace Ando
             
             //  シーン遷移スクリプトを追加
             RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
+
+            animeSwitch = false;
         }
 
         protected override void Update()

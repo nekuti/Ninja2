@@ -37,7 +37,7 @@ namespace Kojima
             Debug.Log("敵(遊撃)が攻撃ステートへ遷移");
 
             // プレイヤーの方を向かせる
-            owner.LookTo(owner.player.transform.position);
+            owner.LookTo(Enemy.player.transform.position);
             
             // タイマーをリセット
             toTimer = 0f;
@@ -50,7 +50,7 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            target = owner.player.transform.position + new Vector3(0, -0.3f, 0);
+            target = Enemy.player.transform.position + new Vector3(0, -0.3f, 0);
             if (!attackFlg)
             {
                 // 攻撃発生前の処理
@@ -67,7 +67,7 @@ namespace Kojima
                 else
                 {
                     // プレイヤーの方を向かせる
-                    owner.LookTo(owner.player.transform.position);
+                    owner.LookTo(Enemy.player.transform.position);
                     toTimer += Time.deltaTime;
                 }
             }

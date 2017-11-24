@@ -84,8 +84,9 @@ namespace Kojima
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(this + "あたったたた");
             // 壁に攻撃が当たった場合
-            if (other.gameObject.CompareTag(TagName.WireableObject) || other.gameObject.CompareTag(TagName.Object))
+            if (other.gameObject.tag == TagName.WireableObject || other.gameObject.CompareTag(TagName.Object))
             {
                 HitTrrigerWall(other.gameObject);
             }
@@ -166,6 +167,7 @@ namespace Kojima
             // 壁に当たったら削除
             if (!ThroughMap)
             {
+                ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
                 Destroy(this.gameObject);
             }
         }
@@ -179,6 +181,7 @@ namespace Kojima
             // ユニットを貫通しない弾であれば当たった時点で削除
             if (!ThroughUnit)
             {
+                ParticleEffect.Create(effect, transform.position);
                 Destroy(this.gameObject);
             }
         }

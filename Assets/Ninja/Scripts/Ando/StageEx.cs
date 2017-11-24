@@ -1,4 +1,4 @@
-﻿//  作成者：小嶋 佑太
+﻿//  作成者：安藤 茂貴
 
 namespace Ando
 {
@@ -10,6 +10,8 @@ namespace Ando
     {
         StageTest1,
         StageTest2,
+        Stage001,
+        Stage002,
     }
 
     /// <summary>
@@ -26,6 +28,8 @@ namespace Ando
             {
                 case StageName.StageTest1: return "StageTest1";
                 case StageName.StageTest2: return "StageTest2";
+                case StageName.Stage001: return "Stage001";
+                case StageName.Stage002: return "Stage002";
 
                 default: return "error";
             }

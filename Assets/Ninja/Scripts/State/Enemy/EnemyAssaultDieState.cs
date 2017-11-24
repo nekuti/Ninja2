@@ -29,6 +29,8 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("敵(遊撃)が死亡ステートへ遷移");
+            ParticleEffect.Create(ParticleEffectType.Explosion01, owner.transform.position);
+            GameObject.Destroy(owner.gameObject);
         }
 
         /// <summary>

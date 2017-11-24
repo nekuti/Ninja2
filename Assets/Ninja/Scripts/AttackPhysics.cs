@@ -61,6 +61,7 @@ namespace Kojima
             {
                 myRigidbody.velocity = Vector3.zero;
                 myRigidbody.isKinematic = true;
+                ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
             }
         }
 

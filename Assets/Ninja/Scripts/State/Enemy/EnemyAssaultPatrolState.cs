@@ -48,7 +48,7 @@ namespace Kojima
         public override void Execute()
         {
             // プレイヤーと自身の距離を求める
-            Vector3 distance = owner.player.transform.position - owner.transform.position;
+            Vector3 distance = Enemy.player.transform.position - owner.transform.position;
 
             // 索敵範囲にプレイヤーが入った場合
             if (distance.magnitude < owner.enemyData.SearchRange)

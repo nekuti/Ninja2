@@ -37,7 +37,7 @@ namespace Kojima
         public override void Execute()
         {
             // プレイヤーと自身の距離を求める
-            Vector3 distance = owner.player.transform.position - owner.transform.position;
+            Vector3 distance = Enemy.player.transform.position - owner.transform.position;
 
             // 攻撃範囲にプレイヤーがいるか
             if(distance.magnitude < owner.enemyData.AttackableRange)
@@ -48,9 +48,9 @@ namespace Kojima
             else
             {
                 // いない場合プレイヤーの座標へ向かって移動させる
-                owner.MoveTo(owner.player.transform.position);
+                owner.MoveTo(Enemy.player.transform.position);
                 // プレイヤーの方を向かせる
-                owner.LookTo(owner.player.transform.position);
+                owner.LookTo(Enemy.player.transform.position);
             }
         }
 
