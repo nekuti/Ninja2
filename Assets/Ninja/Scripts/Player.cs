@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Playerのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/10
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -36,6 +36,9 @@ namespace Kojima
         private WeaponDataTable weaponData;
 
         private Rigidbody myRigidbody;
+
+
+        private bool posResetFlg;
 
         #endregion
 
@@ -77,6 +80,9 @@ namespace Kojima
         /// </summary>
         void Start()
         {
+            posResetFlg = false;
+
+            PosReset();
         }
 
         /// <summary>
@@ -85,6 +91,25 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+
+            // =============================
+            // やべー処理===================
+            if(posResetFlg)
+            {
+                if(PosReset())
+                {
+                    posResetFlg = false;
+                }
+            }
+            // やべー処理===================
+            // =============================
+
+            // エネルギーが0になった場合
+            if (energy <= 0)
+            {
+                SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
+                fade.OnStartFade(Color.black, 0.5f, true);
+            }
         }
 
         /// <summary>
@@ -102,6 +127,19 @@ namespace Kojima
             else
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// ゴールにぶつかった時の処理
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(TagName.Goal))
+            {
+                // ゴールした時の処理
+                posResetFlg = true;
             }
         }
 
@@ -133,6 +171,26 @@ namespace Kojima
             if(myRigidbody.velocity.sqrMagnitude > aMaxVelocity * aMaxVelocity)
             {
                 myRigidbody.velocity -= myRigidbody.velocity - (myRigidbody.velocity.normalized * aMaxVelocity);
+            }
+        }
+
+
+        public bool PosReset()
+        {
+            // 初期座標へ移動
+            GameObject pos = GameObject.Find("StartPos");
+            if (pos != null)
+            {
+                transform.position = pos.transform.position;
+                transform.rotation = pos.transform.rotation;
+                Destroy(pos);
+                Debug.Log("プレイヤーの初期座標を設定");
+                return true;
+            }
+            else
+            {
+                Debug.Log("プレイヤーの初期座標が設定されていません");
+                return false;
             }
         }
 

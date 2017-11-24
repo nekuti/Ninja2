@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 物理挙動を持ったAttackのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/21
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -73,6 +73,7 @@ namespace Kojima
             // ユニットを貫通しない弾であれば当たった時点で削除
             if (!ThroughUnit)
             {
+                ParticleEffect.Create(effect,transform.position);
                 Destroy(this.gameObject);
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// WireDataTableのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/09
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -27,6 +27,9 @@ namespace Kojima
         
         [SerializeField, Tooltip("射出速度")]
         private float shotSpeed;
+
+        [SerializeField, Tooltip("ワイヤーが戻る速度")]
+        private float returnSpeed;
         
         [SerializeField, Tooltip("巻き取り時の最高速度")]
         private float pullSpeed;
@@ -39,6 +42,7 @@ namespace Kojima
         public WireType WireType { get { return wireType;} }
         public float ShotRange { get { return shotRange; } }
         public float ShotSpeed { get { return shotSpeed; } }
+        public float ReturnSpeed { get { return returnSpeed; } }
         public float PullSpeed { get { return pullSpeed; } }
         #endregion
 

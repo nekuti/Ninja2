@@ -9,6 +9,7 @@ TagManager:
   - Object
   - Hand
   - Enemy
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - Map
   - Hand
   - Unit
+  - Player
   - Attack
-  - 
-  - 
+  - PlayerAttack
   - 
   - 
   - 

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ワイヤーの先端のクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/12
+/// 最終更新:2017/11/23
 /// </summary>
 namespace Kojima
 {
@@ -93,6 +93,8 @@ namespace Kojima
                 else
                 {
                     // ワイヤーを付けれないオブジェクトであった場合
+                    // パーティクルを生成
+                    ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
                     // ワイヤーの巻き取りを行う
                     ReturnWireTip();
                 }

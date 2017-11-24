@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4337436191897788}
   - component: {fileID: 114191285905172834}
   - component: {fileID: 135231915239095846}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AttackAssaultBullet01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4746935778166286}
   - component: {fileID: 33267930021604058}
   - component: {fileID: 23322413577710178}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
