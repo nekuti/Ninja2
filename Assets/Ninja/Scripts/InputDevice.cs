@@ -40,7 +40,6 @@ namespace Kojima
         /// </summary>
         void Awake()
         {
-            EntryTrackedDevice(this);
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace Kojima
         /// </summary>
         void Start()
         {
-
+            EntryTrackedDevice(this);
         }
 
         /// <summary>

@@ -38,6 +38,9 @@ namespace Kojima
         // Handを持つプレイヤー
         [System.NonSerialized]
         public Player owner;
+        // 右手か左手か
+        [System.NonSerialized]
+        public HandType handType;
 
         [SerializeField]
         private LayerMask rayMask;
@@ -70,6 +73,8 @@ namespace Kojima
         {
             // Handを持つプレイヤーを取得
             owner = transform.parent.GetComponent<Player>();
+            // HandTypeを取得
+            handType = GetComponent<InputDevice>().handType;
 
             // ワイヤーと武器データをプレイヤーから取得
             if(wireData == null) wireData = owner.WireData;
@@ -109,11 +114,11 @@ namespace Kojima
         {
             base.Update();
 
-            if(InputDevice.Press(ButtonType.Grip, HandType.Left))
+            if(InputDevice.Press(ButtonType.Grip, handType))
             {
                 ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
             }
-            if(InputDevice.TouchDown(ButtonType.Touchpad,HandType.Right))
+            if(InputDevice.TouchDown(ButtonType.Touchpad,handType))
             {
                 ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
             }
