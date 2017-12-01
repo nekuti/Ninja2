@@ -109,6 +109,15 @@ namespace Kojima
         {
             base.Update();
 
+            if(InputDevice.Press(ButtonType.Grip, HandType.Left))
+            {
+                ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
+            }
+            if(InputDevice.TouchDown(ButtonType.Touchpad,HandType.Right))
+            {
+                ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
+            }
+
             // rayを設定
             ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
 

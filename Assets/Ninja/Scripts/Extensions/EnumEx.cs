@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 namespace Kojima
 {
+    #region WeaponTypeの拡張メソッド
     static class WeaponTypeEx
     {
         #region メソッド
@@ -39,7 +40,9 @@ namespace Kojima
 
         #endregion
     }
+    #endregion
 
+    #region EnemyTypeの拡張メソッド
     static class EnemyTypeEx
     {
         #region
@@ -178,4 +181,44 @@ namespace Kojima
 
         #endregion
     }
+    #endregion
+
+    #region ButtonTypeの拡張メソッド
+    static class ButtonTypeEx
+    {
+        #region メソッド
+
+        public static ulong GetButtonMask(this ButtonType aSelf)
+        {
+            switch(aSelf)
+            {
+                case ButtonType.System:
+                    return SteamVR_Controller.ButtonMask.System;
+                case ButtonType.ApplicationMenu:
+                    return SteamVR_Controller.ButtonMask.ApplicationMenu;
+                case ButtonType.Grip:
+                    return SteamVR_Controller.ButtonMask.Grip;
+                case ButtonType.Axis0:
+                    return SteamVR_Controller.ButtonMask.Axis0;
+                case ButtonType.Axis1:
+                    return SteamVR_Controller.ButtonMask.Axis1;
+                case ButtonType.Axis2:
+                    return SteamVR_Controller.ButtonMask.Axis2;
+                case ButtonType.Axis3:
+                    return SteamVR_Controller.ButtonMask.Axis3;
+                case ButtonType.Axis4:
+                    return SteamVR_Controller.ButtonMask.Axis4;
+                case ButtonType.Touchpad:
+                    return SteamVR_Controller.ButtonMask.Touchpad;
+                case ButtonType.Trigger:
+                    return SteamVR_Controller.ButtonMask.Trigger;
+                default:
+                    Debug.Log("未設定のButtonType");
+                    return 0;
+            }
+        }
+
+        #endregion
+    }
+    #endregion
 }

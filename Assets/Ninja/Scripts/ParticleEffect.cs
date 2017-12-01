@@ -65,7 +65,7 @@ namespace Kojima
         {
             return Instantiate(Resources.Load(aEffectType.IsFilePathName()), aPos, Quaternion.identity) as ParticleEffect;
         }
-
+        
         #endregion
     }
 }

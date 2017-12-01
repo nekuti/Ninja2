@@ -1837,6 +1837,7 @@ MonoBehaviour:
   rightHand: {fileID: 942688873}
   wireData: {fileID: 11400000, guid: 37a55a946dda3994bae2fc5543f20fa6, type: 2}
   weaponData: {fileID: 11400000, guid: 7cb03afddfd5b644fbe1e271fb8e2fa1, type: 2}
+  center: {fileID: 0}
 --- !u!4 &1293930530
 Transform:
   m_ObjectHideFlags: 0
@@ -2720,6 +2721,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1829554302 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1919647289265140, guid: 979798c7091b77140975ef71ff131f34,
+    type: 2}
+  m_PrefabInternal: {fileID: 870815125}
+--- !u!114 &1829554303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1829554302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae8dfc97f8bdd24d8c1d999ec942725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 0
 --- !u!1 &1858160824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,3 +3068,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2038536035}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2070801273 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1580170238978846, guid: 979798c7091b77140975ef71ff131f34,
+    type: 2}
+  m_PrefabInternal: {fileID: 870815125}
+--- !u!114 &2070801274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2070801273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae8dfc97f8bdd24d8c1d999ec942725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 1

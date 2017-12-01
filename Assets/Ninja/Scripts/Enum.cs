@@ -41,3 +41,20 @@ public enum AttackType
     Strike,
     Slash,
 }
+
+/// <summary>
+/// 入力ボタンの種類
+/// </summary>
+public enum ButtonType
+{
+    System,
+    ApplicationMenu,
+    Grip,
+    Axis0,
+    Axis1,
+    Axis2,
+    Axis3,
+    Axis4,
+    Touchpad,
+    Trigger,
+}
