@@ -13,7 +13,7 @@ namespace Ando
         ResultTest,
         PauseTest,
         LiteResult,
-
+        Tutorial,
     }
 
     /// <summary>
@@ -33,6 +33,7 @@ namespace Ando
                 case SceneName.ResultTest: return "ResultTest";
                 case SceneName.PauseTest: return "PauseTest";
                 case SceneName.LiteResult: return "LiteResult";
+                case SceneName.Tutorial: return "Tutorial";
                 default: return "error";
             }
         }

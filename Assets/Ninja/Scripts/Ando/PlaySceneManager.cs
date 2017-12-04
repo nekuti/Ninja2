@@ -19,26 +19,41 @@ namespace Ando
         TitleBack,
     }
 
+    public enum StageState
+    {
+        None,
+        Run,
+        GameClear,
+        GameOver,
+    }
+
     public class PlaySceneManager : SingletonMonoBehaviour<PlaySceneManager>
     {
-        //  ステージがすでに生成しているか
-        private bool stageExist = false;
-
+        //  実行するステージのリスト
         [SerializeField]
         private List<StageName> stageList = new List<StageName>();
 
+        //  次に遷移するシーン
         [SerializeField]
         private SceneName nextScene = SceneName.TitleTest;
+        //  ポーズボタンが押されたときにロードされるシーン
         [SerializeField]
         private SceneName pauseScene = SceneName.PauseTest;
 
+        //  現在のステージ
         private StageName nowStage = StageName.StageTest1;
 
+        //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;
 
+        //  シーン遷移の方法
         private static StageTransition stageTransition = StageTransition.None;
-        private static bool stageUnloadFlag = false;    //  ステージをアンロードするか
-        private bool stageUnload = false;   //  ステージをアンロードしたか
+
+        //  プレイシーンマネージャーで管理する情報
+        private static PlayData playData = new PlayData();
+
+        //  ステージをクリアしたか判別
+        private static bool stageUnloadFlag = false;
 
         new void Awake()
         {
@@ -50,11 +65,17 @@ namespace Ando
         {
             stageTransition = StageTransition.None;
 
-            StageChange();
+            //  最初のステージを読み込む
+            StageAdd();
         }
 
         private void Update()
         {
+            if (stageUnloadFlag)
+            {
+                StageUnload();
+            }
+
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
@@ -73,6 +94,7 @@ namespace Ando
                     stageTransition = StageTransition.None;
                     break;
             }
+
             //if (Input.GetMouseButtonDown(0))
             //{
             //    a = !a;
@@ -110,62 +132,55 @@ namespace Ando
             //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
             //    }
             //}
-
-            if (stageUnloadFlag)
-            {
-                UnloadStage();
-                stageUnload = true;
-                stageUnloadFlag = false;
-            }
         }
 
+        /// <summary>
+        /// ステージを追加する
+        /// </summary>
+        private void StageAdd()
+        {
+            //  ステージのスクリプト追加
+            this.gameObject.AddComponent(Type.GetType("Ando." + nowStage.ToString()));
+
+            //  ステージの読み込み
+            SceneManager.LoadScene(stageList[(int)nowStage].ToString(), LoadSceneMode.Additive);
+        }
+
+        /// <summary>
+        /// ステージの削除
+        /// </summary>
+        private void StageUnload()
+        {
+            //  ステージを削除
+            SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
+            //  ステージのスクリプトの削除
+            Destroy(GetComponent(nowStage.ToString()));
+        }
+        /// <summary>
+        /// ステージの変更
+        /// </summary>
         public void StageChange()
         {
-            //  初回起動時に分岐
-            if (stageExist && !stageUnload)
-            {
-                //  ステージを削除
-                SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
-                //  ステージのスクリプトの削除
-                Destroy(GetComponent(nowStage.ToString()));
-                //  簡易リザルトを削除
-                sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+            //  ステージを削除
+            SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
+            //  ステージのスクリプトの削除
+            Destroy(GetComponent(nowStage.ToString()));
 
-                if (stageList.Count - 1 > (int)nowStage)
-                {
-                    nowStage++;
-                }
-                else
-                {
-                    nowStage = 0;
-                }
-            }
-            else if (stageUnload)
-            {
-                //  簡易リザルトを削除
-                sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+            //  簡易リザルトを削除
+            sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
-                if (stageList.Count - 1 > (int)nowStage)
-                {
-                    nowStage++;
-                }
-                else
-                {
-                    nowStage = 0;
-                }
+            //  ステージをクリアしたら最初のステージから
+            if (stageList.Count - 1 > (int)nowStage)
+            {
+                nowStage++;
             }
             else
             {
-                stageExist = true;
+                nowStage = 0;
             }
-         
 
-            //  ステージのスクリプト追加
-            var newStage = this.gameObject.AddComponent(Type.GetType("Ando." + nowStage.ToString()));
-
-            //  シーンの読み込み
-            SceneManager.LoadScene(stageList[(int)nowStage].ToString(), LoadSceneMode.Additive);
-
+            //  ステージを追加
+            StageAdd();
         }
 
         /// <summary>
@@ -180,10 +195,9 @@ namespace Ando
         /// <summary>
         /// 簡易リザルトをステージに追加する
         /// </summary>
-        public static void AddLiteResult(bool aStageUnload = true)
+        public static void AddLiteResult()
         {
-
-            stageUnloadFlag = aStageUnload;
+            stageUnloadFlag = true;
 
             //var a = new ResultContainer();
 
@@ -216,14 +230,6 @@ namespace Ando
             }
         }
 
-        void UnloadStage()
-        {
-            //  ステージを削除
-            SceneManager.UnloadSceneAsync(stageList[(int)nowStage].ToString());
-            //  ステージのスクリプトの削除
-            Destroy(GetComponent(nowStage.ToString()));
-        }
-
         /// <summary>
         ///   プレイシーン内の遷移
         /// </summary>
@@ -232,5 +238,69 @@ namespace Ando
         {
             stageTransition = aStageTransition;
         }
+
+        /// <summary>
+        /// プレイシーンマネージャにプレイヤーの情報を設定する
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static void SetPlayer(Kojima.Player aPlayer)
+        {
+            playData.player = aPlayer;
+        }
+
+        /// <summary>
+        /// プレイシーンマネージャにステージのスタート位置を設定する
+        /// </summary>
+        /// <param name="aStartPos"></param>
+        public static void SetStartPos(Vector3 aStartPos)
+        {
+            playData.startPos = aStartPos;
+        }
+
+        /// <summary>
+        /// プレイシーンマネージャにコントローラーの入力情報を設定する
+        /// </summary>
+        public static void SetContlollerInfo()
+        {
+
+        }
+
+        /// <summary>
+        /// プレイシーンマネージャにステージが終了したかを設定
+        /// </summary>
+        /// <returns></returns>
+        public static void SetStageEnd(StageState aStageEnd)
+        {
+            playData.stageEnd = aStageEnd;
+        }
+
+        /// <summary>
+        /// プレイヤーの情報を教える
+        /// </summary>
+        /// <returns></returns>
+        public static Kojima.Player GetPlayer()
+        {
+            return playData.player;
+        }
+
+        /// <summary>
+        /// ステージの開始位置を教える
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 GetStartPos()
+        {
+            return playData.startPos;
+        }
+
+        #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
+        /// <summary>
+        /// ステージをクリアしたか教える
+        /// </summary>
+        /// <returns></returns>
+        //public static StageState GetStageEnd()
+        //{
+        //    return playData.stageEnd;
+        //}
+        #endregion
     }
 }
