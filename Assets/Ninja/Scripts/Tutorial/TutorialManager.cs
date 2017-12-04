@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR;
+using UnityEngine.UI;
 
 namespace Kondo
 {
@@ -27,11 +28,12 @@ namespace Kondo
 
     public class TutorialManager : MonoBehaviour
     {
-
-
         // prefab
         [SerializeField]
         private List<GameObject> sequenceList = new List<GameObject>();
+
+        [SerializeField]
+        private Canvas canvas;
 
         // 外部から操作用
         public static TutorialManager instance;
@@ -62,7 +64,9 @@ namespace Kondo
             sequenceNum = (int)TutorialSequence.WireStartPop;
 
             // 始めの要素生成し要素を保存
-            currentElement = Instantiate(sequenceList[sequenceNum]);
+            //currentElement = Instantiate(sequenceList[sequenceNum]);
+
+
         }
 
 
@@ -80,7 +84,12 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                // TextのScriptを参照しNoticeを表示する関数を呼び出す
+                MoveNotice notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
+                notice.RequestDisplay("text",5,1,3);
+            }
         }
 
 
@@ -110,6 +119,12 @@ namespace Kondo
                 Debug.Log(sequenceList[sequenceNum] + "Scene");
             }
 
+        }
+
+
+        public string GetText()
+        {
+            return "text";
         }
 
 
