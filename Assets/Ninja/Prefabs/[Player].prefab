@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 114644660161019460}
   - component: {fileID: 114268653707501544}
   - component: {fileID: 135565203302851220}
+  - component: {fileID: 114208166254271376}
   m_Layer: 10
   m_Name: RightHand
   m_TagString: Hand
@@ -501,6 +502,7 @@ GameObject:
   - component: {fileID: 114051193853199992}
   - component: {fileID: 114731853361019640}
   - component: {fileID: 135848910055375908}
+  - component: {fileID: 114600207238592244}
   m_Layer: 10
   m_Name: LeftHand
   m_TagString: Hand
@@ -1646,6 +1648,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrcam: {fileID: 0}
+--- !u!114 &114208166254271376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1580170238978846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae8dfc97f8bdd24d8c1d999ec942725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 1
 --- !u!114 &114218822653694736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1782,6 +1796,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 114062514395377288}
   midori: {fileID: 1992822432379616}
+--- !u!114 &114600207238592244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1919647289265140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae8dfc97f8bdd24d8c1d999ec942725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 0
 --- !u!114 &114644660161019460
 MonoBehaviour:
   m_ObjectHideFlags: 1

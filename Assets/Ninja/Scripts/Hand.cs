@@ -116,16 +116,6 @@ namespace Kojima
         {
             base.Update();
 
-            //if(InputDevice.Press(ButtonType.Trigger, handType))
-            //{
-            //    ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
-            //    InputDevice.Pulse(1500, handType);
-            //}
-            //if(InputDevice.TouchDown(ButtonType.Trigger,handType))
-            //{
-            //    ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
-            //}
-
             if(InputDevice.ClickDownTrriger(handType))
             {
                 ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);

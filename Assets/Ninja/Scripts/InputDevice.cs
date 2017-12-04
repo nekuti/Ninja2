@@ -40,7 +40,7 @@ namespace Kojima
         public bool oldClickFlg;
 
         // トリガークリックの境界
-        public const float CLICK_BORDER = 0.85f;
+        public const float CLICK_BORDER = 0.89f;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Kojima
 
             // 前フレームのクリック判定を保持
             oldClickFlg = clickFlg;
-            // 現フレームの入力処理を記憶
+            // 現フレームのクリック判定を記憶
             clickFlg = ClickTrriger(handType) ? true : false;
         }
 
@@ -129,6 +129,20 @@ namespace Kojima
             {
                 trackedDevices[(int)aHandType].device.TriggerHapticPulse(aPower);
                 return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// トラックパッドに触れているか
+        /// </summary>
+        /// <param name="aHandType">右か左か</param>
+        /// <returns></returns>
+        public static bool IsTouch(HandType aHandType)
+        {
+            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            {
+                return trackedDevices[(int)aHandType].device.GetAxis() != Vector2.zero ? true : false;
             }
             return false;
         }
