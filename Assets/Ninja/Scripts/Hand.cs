@@ -92,6 +92,8 @@ namespace Kojima
             // ステートリストにステートを追加
             stateList.Add(new HandNormalWireState(this));
             stateList.Add(weaponStateList[(int)weaponData.WeaponType]); // 装備中の装備の武器種のステートを追加
+
+
         }
 
         /// <summary>
@@ -114,11 +116,25 @@ namespace Kojima
         {
             base.Update();
 
-            if(InputDevice.Press(ButtonType.Grip, handType))
+            //if(InputDevice.Press(ButtonType.Trigger, handType))
+            //{
+            //    ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
+            //    InputDevice.Pulse(1500, handType);
+            //}
+            //if(InputDevice.TouchDown(ButtonType.Trigger,handType))
+            //{
+            //    ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
+            //}
+
+            if(InputDevice.ClickDownTrriger(handType))
             {
                 ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
             }
-            if(InputDevice.TouchDown(ButtonType.Touchpad,handType))
+            if(InputDevice.ClickTrriger(handType))
+            {
+                InputDevice.Pulse(1500, handType);
+            }
+            if(InputDevice.ClickUpTrriger(handType))
             {
                 ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
             }
