@@ -88,20 +88,33 @@ namespace Kondo
             for(int count = 0; count < (int)PartsType.MaxParts;count++)
             {
                 controller[(int)handType][count] = parent.Find(partsName[count]).GetComponent<Transform>();
-
-                if (controller[(int)handType][count] == null)
-                {
-                    Debug.Log(partsName[count]+"をFindできませんでした。");
-                }
             }
 
             if(controller != null)
             {
-                Debug.Log("Findが完了しました");
                 isFindEnd = true;
             }
 
         }
+
+
+        /// <summary>
+        /// 左右を指定しコントローラーのベースを取得する
+        /// </summary>
+        /// <param name="aHand"></param>
+        /// <returns></returns>
+        public static Transform GetTransformBase(HandType aHand)
+        {
+            Transform t = controller[(int)aHand][(int)PartsType.Base];
+            if (t == null)
+            {
+                Debug.Log(PartsType.Base.ToString() + "の取得に失敗しました。");
+                return null;
+            }
+            return t;
+        }
+
+
 
         /// <summary>
         /// 手とパーツを指定しそのパーツのtransfomeを取得
@@ -114,7 +127,7 @@ namespace Kondo
             Transform t = controller[(int)aHand][(int)aParts];
             if(t == null)
             {
-                Debug.Log(aParts + "の取得に失敗しました。");
+                Debug.Log(aParts.ToString() + "の取得に失敗しました。");
                 return null;
             }
             return t;

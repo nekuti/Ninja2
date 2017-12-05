@@ -18,6 +18,9 @@ namespace Kondo
         public Color lineColor = Color.black;
         public Color backGroundColor = Color.black;
 
+        public PartsType searchParts;
+        public HandType hand;
+
 
 
         public LineRenderer line;
@@ -28,7 +31,11 @@ namespace Kondo
         {
             //InputDevice.ClickDownTrriger(HandType.Left);
 
+
             ResetTips();
+
+            SetTransform();
+
             //if(InputDevice.Press(ButtonType.Trigger, HandType.Left))
             //{
 
@@ -38,7 +45,7 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            SetTransform();
+            SetLinePos();
             DrawLine();
         }
 
@@ -54,9 +61,15 @@ namespace Kondo
 
         private void SetTransform()
         {
-            if(drawLineTo == null )
+            
+        }
+
+
+        private void SetLinePos()
+        {
+            if (drawLineTo == null)
             {
-                drawLineTo = FindControllerParts.GetTransfomeParts(HandType.Left, PartsType.Trigger);
+                drawLineTo = FindControllerParts.GetTransfomeParts(hand, searchParts);
 
             }
         }
@@ -70,6 +83,7 @@ namespace Kondo
             t.color = fontColor;
             t.fontSize = fontSize;
         }
+
 
         private void SetBackGround()
         {
