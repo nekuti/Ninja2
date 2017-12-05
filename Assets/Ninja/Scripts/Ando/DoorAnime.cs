@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Ando
 {
+    //  ドアのアニメーションの状態
     public enum DoorAnimeState
     {
         Stop,
@@ -78,10 +79,19 @@ namespace Ando
             }
         }
 
+        /// <summary>
+        /// ドアのアニメーションの状態を変更
+        /// </summary>
+        /// <param name="state"></param>
         public static void SetDoorAnimeState(DoorAnimeState state)
         {
             animeFlag = state;
         }
+
+        /// <summary>
+        /// 現在のドアのアニメーションの状態を取得
+        /// </summary>
+        /// <returns></returns>
         public static DoorAnimeState GetDoorAnimeState()
         {
             return animeFlag;

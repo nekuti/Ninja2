@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Ando
 {
+    //  時間計測用クラス(分～ミリ秒まで)
     public class Timer : MonoBehaviour
     {
         private int minite = 0;

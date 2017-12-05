@@ -7,8 +7,6 @@ namespace Ando
 {
     public abstract class SceneBace : MonoBehaviour
     {
-
-
         //  SceneBaceを管理するもの
         protected static SceneTransitionManager sceneTransitionManager;
         

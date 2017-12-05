@@ -240,7 +240,7 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにプレイヤーの情報を設定する
+        /// プレイシーンマネージャにプレイヤーの情報を設定
         /// </summary>
         /// <param name="aPlayer"></param>
         public static void SetPlayer(Kojima.Player aPlayer)
@@ -249,7 +249,7 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにステージのスタート位置を設定する
+        /// プレイシーンマネージャにステージのスタート位置を設定
         /// </summary>
         /// <param name="aStartPos"></param>
         public static void SetStartPos(Vector3 aStartPos)
@@ -258,11 +258,11 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにコントローラーの入力情報を設定する
+        /// プレイシーンマネージャにコントローラーの入力情報を設定
         /// </summary>
-        public static void SetContlollerInfo()
+        public static void SetContlollerInfo(Kojima.InputDevice aInputDevice)
         {
-
+            playData.inputDevice = aInputDevice;
         }
 
         /// <summary>
@@ -290,6 +290,11 @@ namespace Ando
         public static Vector3 GetStartPos()
         {
             return playData.startPos;
+        }
+
+        public static Kojima.InputDevice GetInputDevice()
+        {
+            return playData.inputDevice;
         }
 
         #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)

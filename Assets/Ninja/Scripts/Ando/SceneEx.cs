@@ -1,6 +1,4 @@
-﻿//  作成者：小嶋 佑太
-
-namespace Ando
+﻿namespace Ando
 {
     /// <summary>
     /// 各シーンのenum

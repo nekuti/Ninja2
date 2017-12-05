@@ -6,7 +6,7 @@ namespace Ando
     {
         public Kojima.Player player;
         public Vector3 startPos;
-        //  コントローラーの情報
+        public Kojima.InputDevice inputDevice;
         public StageState stageEnd;
     }
 }
