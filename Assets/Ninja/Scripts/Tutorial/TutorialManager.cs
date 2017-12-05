@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.VR;
 using UnityEngine.UI;
 
+using Kojima;
+
 namespace Kondo
 {
     /// <summary>
@@ -38,6 +40,8 @@ namespace Kondo
         // 外部から操作用
         public static TutorialManager instance;
 
+        private MoveNotice notice;
+
         // 外部からmodelの操作用
         //public static FindModel conModel = null;
         // 現在のシーン
@@ -63,6 +67,9 @@ namespace Kondo
             // WireStartPopに設定
             sequenceNum = (int)TutorialSequence.WireStartPop;
 
+            // TextのScriptを参照しNoticeを表示する関数を呼び出す
+            notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
+
             // 始めの要素生成し要素を保存
             //currentElement = Instantiate(sequenceList[sequenceNum]);
 
@@ -75,9 +82,6 @@ namespace Kondo
             Ando.PlaySceneManager.GetStartPos();
             Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
             Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
-
-
-
         }
 
 
@@ -86,9 +90,7 @@ namespace Kondo
         {
             if(Input.GetKeyDown(KeyCode.Z))
             {
-                // TextのScriptを参照しNoticeを表示する関数を呼び出す
-                MoveNotice notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
-                notice.RequestDisplay("text",5,1,3);
+                ShowNotice();
             }
         }
 
@@ -122,9 +124,9 @@ namespace Kondo
         }
 
 
-        public string GetText()
+        public void ShowNotice()
         {
-            return "text";
+            notice.RequestDisplay("aaa", 3, 1, 2.5f);
         }
 
 
