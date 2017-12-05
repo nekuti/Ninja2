@@ -13,8 +13,15 @@ namespace Ando
         End,
     }
 
-    public class TitleManager : MonoBehaviour
+    public class TitleSceneManager : MonoBehaviour
     {
+        //  シーン遷移マネージャ
+        public static SceneTransitionManager sceneTransitionManager;
+
+        //  次に遷移するシーン
+        [SerializeField]
+        private List<SceneName> nextScene =new List<SceneName> { SceneName.PlayTest, SceneName.Tutorial, SceneName.End };
+
         //  凧の情報を格納
         public List<Kite> kites;
 
@@ -29,8 +36,8 @@ namespace Ando
 
         // Update is called once per frame
         void Update()
-        {
-            foreach(Kite kete in kites)
+        {            
+            foreach (Kite kete in kites)
             {
                 //  シーン遷移のステートに情報が入っている場合はループを抜ける
                 if(transitionState != KiteType.None)
@@ -46,19 +53,21 @@ namespace Ando
                 }
             }
 
-            switch (transitionState)
+            //  シーン遷移のステートが変更された場合シーンを遷移する
+            if (transitionState != KiteType.None)
             {
-                case KiteType.Start:
-                    Debug.Log("ゲームを開始");
-                    break;
-                case KiteType.Tutorial:
-                    Debug.Log("ゲームをチュートリアル");
-                    break;
-                case KiteType.End:
-                    Debug.Log("ゲームを終了");
-                    break;
+                sceneTransitionManager.ChangeSceneSingle(nextScene[(int)transitionState]);
             }
+                            
+        }
 
+        /// <summary>
+        /// シーン遷移マネージャの登録
+        /// </summary>
+        /// <param name="aSceneTransitionManager"></param>
+        public static void RgtrSceneTransitionManager(SceneTransitionManager aSceneTransitionManager)
+        {
+            sceneTransitionManager = aSceneTransitionManager;
         }
 
     }

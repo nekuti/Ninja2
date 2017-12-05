@@ -11,7 +11,9 @@
         ResultTest,
         PauseTest,
         LiteResult,
+        TitleScene,
         Tutorial,
+        End,
     }
 
     /// <summary>
@@ -31,7 +33,9 @@
                 case SceneName.ResultTest: return "ResultTest";
                 case SceneName.PauseTest: return "PauseTest";
                 case SceneName.LiteResult: return "LiteResult";
+                case SceneName.TitleScene: return "TitleScene";
                 case SceneName.Tutorial: return "Tutorial";
+                case SceneName.End: return "End";
                 default: return "error";
             }
         }

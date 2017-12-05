@@ -12,25 +12,13 @@ namespace Ando
         //  凧に苦無が当たったか
         public bool hit = false;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag = TagName.Attack)
+            //  当たったオブジェクトのタグがAttackだった場合
+            if(collision.gameObject.tag == "Attack")
             {
                 hit = true;
             }
         }
-
     }
 }
