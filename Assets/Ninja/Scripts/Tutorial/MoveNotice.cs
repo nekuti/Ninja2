@@ -133,7 +133,7 @@ namespace Kondo
             canvasTransfome.DOMove(targetPos, moveTime)
                 .OnComplete(() =>
                 {
-                    isMoveStart = false;
+                   // isMoveStart = false;
                     sequence = NoticeSequence.none;
                 });
 
