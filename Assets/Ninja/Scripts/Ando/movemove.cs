@@ -26,7 +26,7 @@ public class movemove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //time += Time.deltaTime;
-        time += Random.Range(0.0f, 0.1f);
+        time += Random.Range(0.0f, 0.02f);
 
         switch (moveSwitch)
         {
