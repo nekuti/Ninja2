@@ -32,7 +32,7 @@ namespace Kondo
         public HandType handType;
 
         // Find用配列
-        private string[] partsName = 
+        private static string[] partsName = 
             {"base",
              "button",
              "lgrip",
@@ -43,7 +43,13 @@ namespace Kondo
 
         // 親を保存する
         // コントローラパーツのtransform取得用
-        private static Transform[][] controller = new Transform[2][];
+        //private static Transform[][] controller = new Transform[2][];
+        List<Transform> controller = new List<Transform>();
+        private static Transform[][] trs = new Transform[2][];
+
+        private static List<Transform> lController = new List<Transform>();
+        private static List<Transform> rController = new List<Transform>();
+
 
         // Findが終了しているかどうか
         private bool isFindEnd = false;
@@ -63,7 +69,7 @@ namespace Kondo
         {
             if(!isFindEnd)
             {
-                FindAllParts(this.gameObject);
+                isFindEnd =  FindAllParts(this);
             }
         }
 
@@ -73,28 +79,38 @@ namespace Kondo
         /// アタッチされたオブジェクトからパーツを探す
         /// </summary>
         /// <param name="obj"></param>
-       private void FindAllParts(GameObject obj)
+       private static bool FindAllParts(FindControllerParts aFindCon)
         {
-            Transform parent = obj.transform;
+            FindControllerParts findConParts = aFindCon;
+
+            Transform parent = findConParts.transform;
 
             // 子がいなければ処理を飛ばす
             if (parent.childCount == 0)
             {
-                Debug.Log(obj + "の子無いのでFindできません");
-                return;
+                Debug.Log(findConParts.gameObject + "の子が無いのでFindできません");
+                return false;
             }
 
             // 指定された手の各パーツをFindしていく
-            for(int count = 0; count < (int)PartsType.MaxParts;count++)
+            //for(int count = 0; count < (int)PartsType.MaxParts;count++)
+            //{
+            //    //controller[(int)handType][count] = parent.Find(partsName[count]).GetComponent<Transform>();
+            //}
+
+            // 指定された手の各パーツをFindしていく
+            for (int count = 0; count < (int)PartsType.MaxParts; count++)
             {
-                controller[(int)handType][count] = parent.Find(partsName[count]).GetComponent<Transform>();
+                //Transform trans = findConParts.transform.Find(partsName[count]).GetComponent<Transform>();
+                //lController.Add(trans);
+
+                Transform trans = findConParts.transform.Find(partsName[count]).GetComponent<Transform>();
+
+                trs[(int)findConParts.handType][count] = trans;
             }
 
-            if(controller != null)
-            {
-                isFindEnd = true;
-            }
-
+            //findConParts.isFindEnd = true;
+            return true;
         }
 
 
@@ -103,16 +119,16 @@ namespace Kondo
         /// </summary>
         /// <param name="aHand"></param>
         /// <returns></returns>
-        public static Transform GetTransformBase(HandType aHand)
-        {
-            Transform t = controller[(int)aHand][(int)PartsType.Base];
-            if (t == null)
-            {
-                Debug.Log(PartsType.Base.ToString() + "の取得に失敗しました。");
-                return null;
-            }
-            return t;
-        }
+        //public static Transform GetTransformBase(HandType aHand)
+        //{
+        //    Transform t = controller[(int)aHand][(int)PartsType.Base];
+        //    if (t == null)
+        //    {
+        //        Debug.Log(PartsType.Base.ToString() + "の取得に失敗しました。");
+        //        return null;
+        //    }
+        //    return t;
+        //}
 
 
 
@@ -124,8 +140,9 @@ namespace Kondo
         /// <returns></returns>
         public static Transform GetTransfomeParts(HandType aHand, PartsType aParts)
         {
-            Transform t = controller[(int)aHand][(int)aParts];
-            if(t == null)
+            //Transform t = lController[(int)aParts];
+            Transform t = trs[(int)aHand][(int)aParts];
+            if (t == null)
             {
                 Debug.Log(aParts.ToString() + "の取得に失敗しました。");
                 return null;
