@@ -4,68 +4,85 @@ using UnityEngine;
 
 public class TitleScroll : MonoBehaviour {
 
+    //  Sin波計算用
     private float time;
+
+    //  移動速度の倍率
     [SerializeField]
     private float moveScale = 1.0f;
 
-    private Vector3 fastPos;
-    private Vector3 endPos;
+    //  巻物の停止位置
+    private Vector3 stopPos;
 
+    //  移動許可スイッチ(true:許可, false:停止)
     [SerializeField]
     private bool moveSwitch = true;
 
+    //  停止時間保存用
     [SerializeField]
     private float waitTime = 5.0f;
-    [SerializeField]
-    private float WaitTime = 0.0f;
+
+    //  停止時間実行用
+    private float waitTimeRun = 0.0f;
+
+    //  移動量
+    private float moveValue = 0.0f;
+
     // Use this for initialization
     void Start () {
-        fastPos = this.gameObject.transform.position;
+        //  停止位置を保存
+        stopPos = this.gameObject.transform.position;
 
-        this.gameObject.transform.position += new Vector3(0, 0, -65);
+        //  巻物を画面外へ移動させる
+        this.gameObject.transform.position += new Vector3(0, 65, 0);
 
-        endPos = this.gameObject.transform.position;
+        //  停止時間を実行用変数  
+        waitTimeRun = waitTime;
 
-        WaitTime = waitTime;
+        //  変数を初期化
+        time = 0.0f;
+        moveValue = 0.0f;
 
-        time = 0f;
-        time = Random.Range(0.0f, 1.0f);
-        Debug.Log(time.ToString());
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
+        //  移動可能か
         if (moveSwitch)
         {
-            transform.position += new Vector3(0f, 0f, (Mathf.Sin(time) * moveScale));
+            moveValue = (Mathf.Sin(time) * moveScale);
+
+            transform.position -= new Vector3(0f, moveValue,0f);
+            //  計算用の変数を加算
+            time += 0.01f;
         }
         else
         {
-            WaitTime -= Time.deltaTime;
+            //  停止時間を減少
+            waitTimeRun -= Time.deltaTime;
         }
 
-        if(transform.position.z >= fastPos.z)
+        //  停止位置を超えたか確認
+        if(transform.position.y <= stopPos.y)
         {
+            //  移動可能スイッチを停止に変更
             moveSwitch = false;
         }
 
-        if (0.0f > WaitTime)
+        //  停止時間を超えたか
+        if (0.0f > waitTimeRun)
         {
+            //  移動可能スイッチを移動可能に変更
             moveSwitch = true;
 
-            if (transform.position.z <= endPos.z)
+            //  移動量がマイナスになったか
+            if (moveValue <= 0)
             {
+                //  gameObjectを削除
                 Destroy(this.gameObject);
             }
         }
-
-        //time += Time.deltaTime;
-        time += Random.Range(0.0f, 0.02f);
-
-       // transform.position += new Vector3((Mathf.Sin(time) * moveScale), 0f, 0f);
-
-
-      
+          
 	}
 }
