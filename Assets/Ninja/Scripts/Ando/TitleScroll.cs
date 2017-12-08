@@ -34,7 +34,7 @@ public class TitleScroll : MonoBehaviour {
         stopPos = this.gameObject.transform.position;
 
         //  巻物を画面外へ移動させる
-        this.gameObject.transform.position += new Vector3(0, 65, 0);
+        this.gameObject.transform.position += new Vector3(0, 34, 0);
 
         //  停止時間を実行用変数  
         waitTimeRun = waitTime;
