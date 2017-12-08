@@ -7,8 +7,8 @@ namespace Ando
 {
     public abstract class StageBace : MonoBehaviour
     {
-        // 簡易リザルトシーン生成に使用
-        protected static SceneTransitionManager sceneTransitionManager;
+        // マネージャ登録に使用
+        protected static PlaySceneManager playSceneManager;
 
         //  ステージがあるか確認
         public bool stageConfirm;
@@ -44,12 +44,12 @@ namespace Ando
         }
 
         /// <summary>
-        /// SceneTransitionManagerを登録する
+        /// PlaySceneManagerを登録する
         /// </summary>
-        /// <param name="aSceneTransitionManager"></param>
-        public static void RgtrSceneTransition(SceneTransitionManager aSceneTransitionManager)
+        /// <param name="aPlaySceneManager"></param>
+        public static void RgtrPlaySceneManager(PlaySceneManager aPlaySceneManager)
         {
-            sceneTransitionManager = aSceneTransitionManager;
+            playSceneManager = aPlaySceneManager;
         }
 
         /// <summary>

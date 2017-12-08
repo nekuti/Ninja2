@@ -8,10 +8,14 @@ namespace Ando
     //  遷移するシーンの名前
     public enum StageName
     {
+        PlayerBase,
         StageTest1,
         StageTest2,
         Stage001,
         Stage002,
+
+        //  ここより上に追加してね
+        None,
     }
 
     /// <summary>
@@ -26,6 +30,7 @@ namespace Ando
         {
             switch (aStageName)
             {
+                case StageName.PlayerBase: return "PlayerBase";
                 case StageName.StageTest1: return "StageTest1";
                 case StageName.StageTest2: return "StageTest2";
                 case StageName.Stage001: return "Stage001";
