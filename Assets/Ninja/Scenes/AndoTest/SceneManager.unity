@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneList: []
-  firstScene: 0
+  firstScene: 5
 --- !u!4 &1789841904
 Transform:
   m_ObjectHideFlags: 0

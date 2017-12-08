@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/AndoTest/SceneManager.unity
     guid: 3746724e8d2051e4a842d18b9618e292
   - enabled: 1
+    path: Assets/Ninja/Scenes/TitleScene.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
     path: Assets/Ninja/Scenes/AndoTest/TitleTest.unity
     guid: a776da2fb26d4d44aafa46d48e41d7e9
   - enabled: 1

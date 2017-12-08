@@ -60,17 +60,13 @@ namespace Kondo
         }
 
 
-         public void RequestDisplay(string aText, float aDisplayTime = 3.0f, float aMoveTime = 1.0f, float aTargetDistance = 3.0f)
+         public void RequestDisplay(string aText, float aDisplayTime = 3.0f, float aMoveTime = 1.0f, float aTargetDistance = 5.0f)
         {
-            displayTime = aDisplayTime;
-            moveTime = aMoveTime;
-            targetDistance = aTargetDistance;
-
             // eyeの正面の位置を取得
             targetPos = eye.transform.position + eye.transform.rotation * (Vector3.forward * targetDistance);
 
             // Noticeを表示用座標に移動
-            canvasTransfome.transform.position = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, 1) * targetDistance);
+            canvasTransfome.transform.position = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, -1) * targetDistance);
 
             // テキストを書き換える
             displayText = GetComponent<Text>();
@@ -126,7 +122,7 @@ namespace Kondo
                 sequence = NoticeSequence.returnNotice;
 
                 // Noticeの元の位置を取得
-                targetPos = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, 1) * targetDistance);
+                targetPos = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, -1) * targetDistance);
             }
         }
 
@@ -137,6 +133,7 @@ namespace Kondo
             canvasTransfome.DOMove(targetPos, moveTime)
                 .OnComplete(() =>
                 {
+                   // isMoveStart = false;
                     sequence = NoticeSequence.none;
                 });
 
