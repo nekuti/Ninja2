@@ -52,7 +52,7 @@ namespace Kojima
         {
             if (outRayEvent.GetPersistentEventCount() > 0)
             {
-                hitRayEvent.Invoke();
+                outRayEvent.Invoke();
                 Debug.Log("レイがはずれた時のイベントを実行");
             }
             else
@@ -68,7 +68,7 @@ namespace Kojima
         {
             if (selectEvent.GetPersistentEventCount() > 0)
             {
-                hitRayEvent.Invoke();
+                selectEvent.Invoke();
                 Debug.Log("決定時のイベントを実行");
             }
             else
