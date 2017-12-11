@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class PlayerBaseManager : MonoBehaviour
+    public class PlayerBaseManager : SingletonMonoBehaviour<PlayerBaseManager>
     {
         //  プレイシーンマネージャ
         public static PlaySceneManager playSceneManager;

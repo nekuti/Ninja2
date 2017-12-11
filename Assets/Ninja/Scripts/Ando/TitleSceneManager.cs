@@ -13,7 +13,7 @@ namespace Ando
         None,
     }
 
-    public class TitleSceneManager : MonoBehaviour
+    public class TitleSceneManager : SingletonMonoBehaviour<TitleSceneManager>
     {
         //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;

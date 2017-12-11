@@ -14,7 +14,7 @@ namespace Ando
         None,
     }
 
-    public class StageSwitch : MonoBehaviour
+    public class StageSwitch : MonoBehaviour,Kojima.ISelectable
     {
         //  レイが当たった時に表示するパーティクル
         [SerializeField]
