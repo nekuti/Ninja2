@@ -13,6 +13,7 @@
         LiteResult,
         TitleScene,
         Tutorial,
+        PlayScene,
         End,
     }
 
@@ -35,6 +36,7 @@
                 case SceneName.LiteResult: return "LiteResult";
                 case SceneName.TitleScene: return "TitleScene";
                 case SceneName.Tutorial: return "Tutorial";
+                case SceneName.PlayScene: return "PlayScene";
                 case SceneName.End: return "End";
                 default: return "error";
             }

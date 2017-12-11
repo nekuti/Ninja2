@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ninja/Scenes/AndoTest/SceneManager.unity
     guid: 3746724e8d2051e4a842d18b9618e292
-  - enabled: 1
+  - enabled: 0
     path: Assets/Ninja/Scenes/TitleScene.unity
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Ninja/Scenes/AndoTest/TitleTest.unity
     guid: a776da2fb26d4d44aafa46d48e41d7e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Ninja/Scenes/AndoTest/PlayTest.unity
     guid: bfd1e4882925ff84d8790f10ad615e03
   - enabled: 1
@@ -36,8 +36,17 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/AndoTest/StageTest2.unity
     guid: 7311a81234bdfba408dc899466fb8ad6
   - enabled: 1
+    path: Assets/Ninja/Scenes/GameScene/TitleScene.unity
+    guid: e42bb0a513d351c4d838ada5cda476a6
+  - enabled: 1
+    path: Assets/Ninja/Scenes/GameScene/PlayScene.unity
+    guid: 94e64d87948544242b56aaf4b0ed14bd
+  - enabled: 1
     path: Assets/Ninja/Scenes/AndoTest/LiteResult.unity
     guid: c5b83ce2b633e304d872f529a707565d
+  - enabled: 1
+    path: Assets/Ninja/Scenes/PlayerBase.unity
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage001.unity
     guid: 23894d5f09bfadf4bb5cad1078391f01

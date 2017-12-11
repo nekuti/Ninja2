@@ -29,6 +29,7 @@ namespace Ando
         /// </summary>
         public void HitRayObject()
         {
+            //  パーティクルを開始
             particleSystem.Play();
         }
 
@@ -37,7 +38,10 @@ namespace Ando
         /// </summary>
         public void OutRayObject()
         {
+            //  パーティクルを停止
             particleSystem.Stop();
+            //  画面に残ったパーティクルを削除
+            particleSystem.Clear();
         }
 
         /// <summary>

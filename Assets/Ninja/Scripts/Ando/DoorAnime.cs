@@ -12,6 +12,7 @@ namespace Ando
         End,
     }
 
+
     public class DoorAnime : MonoBehaviour
     {
         //  アニメーションの開始フラグ
