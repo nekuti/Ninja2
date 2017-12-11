@@ -26,14 +26,12 @@ namespace Kondo
 
         private void SetBase()
         {
-            if (baseTrans == null)
-            {
-                
-            }
-
             baseTrans = ControllerData.instance.GetPartsTransform(hand, PartsType.Base);
+
             this.transform.position = baseTrans.position;
-            this.transform.rotation = baseTrans.rotation;
+            Vector3 t = this.transform.position;
+            t.y += 0.01f;
+            this.transform.position = t;
 
         }
     }
