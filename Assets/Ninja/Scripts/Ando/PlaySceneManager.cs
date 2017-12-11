@@ -42,11 +42,14 @@ namespace Ando
 
         //  一番最初にスタートする配列番号
         [SerializeField, Tooltip("最初に実行するステージの配列番号を入力してください")]
-        private int fastStage = 1;
+        private int firstStage = 1;
 
         //  現在の実行中の配列番号
         [SerializeField]
         private int nowStageNum = 0;
+
+        //  １階層のステージ数
+        private const int FLOORNUM = 5;
 
         //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;
@@ -75,7 +78,7 @@ namespace Ando
             stageTransition = StageTransition.None;
 
             //  現在のステージを初回起動ステージに設定
-            nowStageNum = fastStage;
+            nowStageNum = firstStage;
 
             //  最初のステージを読み込む
             StageAdd();
@@ -171,7 +174,7 @@ namespace Ando
         }
 
         /// <summary>
-        /// ステージの変更（リストの最初から開始）
+        /// ステージの変更（現在のステージ配列の次を実行）
         /// </summary>
         public void StageChange()
         {
@@ -201,25 +204,18 @@ namespace Ando
         /// 指定階層のステージから開始する(0:拠点)
         /// </summary>
         /// <param name="aStageNumber">ステージの階層番号</param>
-        public void StageChange(int aStageNumber)
+        public void StageChange(int aFloorLevel)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
             //  ステージのスクリプトの削除
             Destroy(GetComponent(stageList[nowStageNum].ToString()));
 
-            //  簡易リザルトを削除
-            sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+            //  ステージ番号を指定階層の最初にする
+            nowStageNum = aFloorLevel + ((aFloorLevel - 1) * FLOORNUM);
 
-            //  ステージをクリアしたら最初のステージから
-            if (stageList.Count - 1 > nowStageNum)
-            {
-                nowStageNum++;
-            }
-            else
-            {
-                nowStageNum = 0;
-            }
+            //  簡易リザルトを削除
+            //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
             //  ステージを追加
             StageAdd();
@@ -319,14 +315,6 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにコントローラーの入力情報を設定
-        /// </summary>
-        public static void SetContlollerInfo(Kojima.InputDevice aInputDevice)
-        {
-            playData.inputDevice = aInputDevice;
-        }
-
-        /// <summary>
         /// プレイシーンマネージャにステージが終了したかを設定
         /// </summary>
         /// <param name="aStageEnd"></param>
@@ -351,15 +339,6 @@ namespace Ando
         public static Vector3 GetStartPos()
         {
             return playData.startPos;
-        }
-
-        /// <summary>
-        /// コントローラーの入力情報を教える
-        /// </summary>
-        /// <returns></returns>
-        public static Kojima.InputDevice GetInputDevice()
-        {
-            return playData.inputDevice;
         }
 
 #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)

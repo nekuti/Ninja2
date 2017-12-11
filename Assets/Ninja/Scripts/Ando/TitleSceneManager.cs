@@ -7,10 +7,10 @@ namespace Ando
     //  凧の種類
     public enum KiteType
     {
-        None,
         Start,
         Tutorial,
         End,
+        None,
     }
 
     public class TitleSceneManager : MonoBehaviour

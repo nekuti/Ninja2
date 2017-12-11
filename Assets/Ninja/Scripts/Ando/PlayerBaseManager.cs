@@ -9,13 +9,23 @@ namespace Ando
         //  プレイシーンマネージャ
         public static PlaySceneManager playSceneManager;
 
-        //  
+        //  ステージ移動用オブジェクト
         [SerializeField]
-        private List<GameObject> stageSwitch = new List<GameObject>();
+        private List<GameObject> stageSwitches = new List<GameObject>();
+
+        //  ドアの方向を向いているか確認用
+        private Ray ray;
 
         // Use this for initialization
         void Start()
         {
+            //ray = new Ray(PlaySceneManager.GetPlayer().position, PlaySceneManager.GetPlayer().transform.rotation);
+            foreach (GameObject stageSwitch in stageSwitches)
+            {
+                stageSwitch.SetActive(false);
+            }
+
+            DoorAnime.SetDoorAnimeState(DoorAnimeState.End);
 
         }
 
@@ -25,17 +35,33 @@ namespace Ando
             int i = 0;
            foreach(bool clearFloorLavel in playSceneManager.clearFloorLevel)
             {
-                var a = stageSwitch[i].GetComponent<StageSwitch>();
+                var stageSwitch = stageSwitches[i]/*.GetComponent<StageSwitch>()*/;
 
                 if (clearFloorLavel)
                 {
-                    a.ParticleActive(true);
+                    stageSwitch.SetActive(true);
                 }
                 else
                 {
-                    a.ParticleActive(false);
+                    stageSwitch.SetActive(false);
+                    //stageSwitch.ParticleActive(false);
                 }
                 i++;
+            }
+
+           foreach(GameObject stageSwitch in stageSwitches)
+            {
+                var stageSwitchScript = stageSwitch.GetComponent<StageSwitch>();
+
+                if (stageSwitchScript.ClickFlag)
+                {
+                    playSceneManager.StageChange((int)stageSwitchScript.myFloorLevel);
+                }
+            }
+
+            if(Kojima.InputDevice.Press(ButtonType.Touchpad, Kojima.HandType.Left))
+            {
+                DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
             }
         }
 
