@@ -19,5 +19,6 @@ MonoBehaviour:
   powerLevel: 1
   many: 3
   manyLevel: 1
-  speed: 1
+  speed: 0.15
   speedLevel: 1
+  recoil: 1

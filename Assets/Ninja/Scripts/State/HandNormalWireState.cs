@@ -73,61 +73,58 @@ namespace Kojima
                 ReturnWireTip();
             }
 
-            // VIVEでの入力処理
-            if(owner.trackdObject != null && owner.device != null)
+            
+            if(wireTip != null)
             {
-                if(wireTip != null)
+                if(wireTip.IsCurrentState(WireTipStateType.Shot))
                 {
-                    if(wireTip.IsCurrentState(WireTipStateType.Shot))
-                    {
-                        owner.device.TriggerHapticPulse(500);
-                    }
+                    InputDevice.Pulse(500,owner.HandType);
                 }
-
-                float value = owner.device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-                if (value > 0.89f)
-                {
-                    ShotWireTip();
-                }
-                if (value < 0.15f && wireTip != null)
-                {
-                    ReturnWireTip();
-                }
-
-                // ======================================================================
-                // 文化祭の仮処理でクナイを発射する======================================
-                // (ここから)============================================================
-                if (owner.device.GetPress(SteamVR_Controller.ButtonMask.Touchpad)||
-                    owner.device.GetPress(SteamVR_Controller.ButtonMask.Grip))
-                {
-                    if (!attackedFlg)
-                    {
-                        // クナイを発射
-                        Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
-                        attackedFlg = true;
-                        // コントローラーを振動させる
-                        owner.device.TriggerHapticPulse(3999);
-                    }
-                }
-                else
-                {
-                    attackedFlg = false;
-                }
-                // (ここまで)============================================================
-                // ======================================================================
-                // ======================================================================
             }
+
+            if (InputDevice.ClickDownTrriger(owner.HandType))
+            {
+                ShotWireTip();
+            }
+            if (!InputDevice.Touch(ButtonType.Trigger,owner.HandType) && wireTip != null)
+            {
+                ReturnWireTip();
+            }
+
+            // ======================================================================
+            // 文化祭の仮処理でクナイを発射する======================================
+            // (ここから)============================================================
+            //if (owner.device.GetPress(SteamVR_Controller.ButtonMask.Touchpad)||
+            //    owner.device.GetPress(SteamVR_Controller.ButtonMask.Grip))
+            //{
+            //    if (!attackedFlg)
+            //    {
+            //        // クナイを発射
+            //        Attack.Create(owner.WeaponData.WeaponPrefab, owner.shotPos.transform.position, owner.transform.position + owner.transform.forward, owner.WeaponData.Power, owner.tag);
+            //        attackedFlg = true;
+            //        // コントローラーを振動させる
+            //        owner.device.TriggerHapticPulse(3999);
+            //    }
+            //}
+            //else
+            //{
+            //    attackedFlg = false;
+            //}
+            // (ここまで)============================================================
+            // ======================================================================
+            // ======================================================================
+            
             // ワイヤーがオブジェクトについている間の処理
             if (hitFlg)
             {
                 // 力を加える割合
                 float percent = (hitHandPos - owner.transform.position).magnitude;
-                if (owner.trackdObject == null) percent = 1f;
+                if (!InputDevice.IsDeviceRegisterd(owner.HandType)) percent = 1f;
                 if (percent > 1) percent = 1f;
 
                 Vector3 vec = wireTip.transform.position - owner.transform.position;
 
-                owner.owner.PullPlayer(vec.normalized * wireData.PullSpeed * percent, wireData.PullSpeed);
+                owner.Owner.PullPlayer(vec.normalized * wireData.PullSpeed * percent, wireData.PullSpeed);
             }
         }
 
@@ -148,9 +145,9 @@ namespace Kojima
             if(wireTip == null)
             {
                 // ワイヤーを生成
-                wireTip = WireTip.Create(wireData, this, owner, owner.transform.rotation * Vector3.forward);
+                //wireTip = WireTip.Create(wireData, this, owner, owner.transform.rotation * Vector3.forward);
                 // コントローラーを振動させる
-                owner.device.TriggerHapticPulse(3000);
+                InputDevice.Pulse(3000, owner.HandType);
             }
         }
 
@@ -179,7 +176,7 @@ namespace Kojima
             hitFlg = true;
             hitHandPos = owner.transform.position;
             // コントローラーを振動させる
-            owner.device.TriggerHapticPulse(1000);
+            InputDevice.Pulse(1000, owner.HandType);
         }
 
         /// <summary>
