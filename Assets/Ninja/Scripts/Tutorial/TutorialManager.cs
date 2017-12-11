@@ -53,9 +53,7 @@ namespace Kondo
 
         // 現在のシーン
         public NextScene nextScene;
-
         private MoveNotice notice;
-
         private DisplayText display;
         private int noticeCount = 0;
         private int displayCount = 0;
