@@ -13,6 +13,9 @@ namespace Kojima
     {
         #region メンバ変数
 
+        // レイが当たっているSelectableオブジェクト
+        private ISelectable hitRayObject;
+
         #endregion
 
         #region メソッド
@@ -29,6 +32,8 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("手をMenuselectモードに変更");
+
+            hitRayObject = null;
         }
 
         /// <summary>
@@ -36,6 +41,38 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            // rayを設定
+            Ray ray = new Ray(owner.shotPos.transform.position, owner.transform.rotation * Vector3.forward);
+            RaycastHit hit;
+
+            // Selectableオブジェクトがレイに当たった時の処理
+            if(Physics.Raycast(ray, out hit))
+            {
+                ISelectable obj = hit.collider.GetComponent(typeof(ISelectable)) as ISelectable;
+                if(obj != null)
+                {
+                    if (hitRayObject != null)
+                    {
+                        hitRayObject.OutRayObject();
+                    }
+                    // レイが当たった時の処理を呼び出す
+                    obj.HitRayObject();
+                    hitRayObject = obj;
+                }
+            }
+            else if(hitRayObject != null)
+            {
+                // レイが外れた時の処理を呼び出す
+                hitRayObject.OutRayObject();
+                hitRayObject = null;
+            }
+
+            // レイが当たっている状態でトリガーまたはトラックパッドを押すと決定処理
+            if(InputDevice.ClickDownTrriger(owner.HandType)||
+                InputDevice.PressDown(ButtonType.Touchpad,owner.HandType))
+            {
+                hitRayObject.SelectObject();
+            }
         }
 
         /// <summary>
