@@ -59,6 +59,8 @@ namespace Kojima
                 if (energy < 0)         energy = 0;
             }
         }
+        public Hand LeftHand { get { return leftHand; } }
+        public Hand RightHand { get { return rightHand; } }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
@@ -88,8 +90,8 @@ namespace Kojima
         void Start()
         {
             posResetFlg = true;
-            resultFlg = false;
-            trrigerFlg = true;
+            //resultFlg = false;
+            //trrigerFlg = true;
         }
 
         /// <summary>
@@ -121,40 +123,40 @@ namespace Kojima
                 resultFlg = true;
             }
 
-            if (resultFlg)
-            {
-                // VRの入力用変数初期化
-                SteamVR_TrackedObject[] trackdObjects = GetComponentsInChildren<SteamVR_TrackedObject>();
-                for (int i = 0; i < trackdObjects.Length; i++)
-                {
-                    var device = SteamVR_Controller.Input((int)trackdObjects[i].index);
-                    float value = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-                    if (!trrigerFlg)
-                    {
+            //if (resultFlg)
+            //{
+            //    // VRの入力用変数初期化
+            //    SteamVR_TrackedObject[] trackdObjects = GetComponentsInChildren<SteamVR_TrackedObject>();
+            //    for (int i = 0; i < trackdObjects.Length; i++)
+            //    {
+            //        var device = SteamVR_Controller.Input((int)trackdObjects[i].index);
+            //        float value = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+            //        if (!trrigerFlg)
+            //        {
 
-                        if (energy > 0)
-                        {
-                            if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
-                            {
-                                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.StageChange);
-                                resultFlg = false;
-                                trrigerFlg = true;
-                                Energy = MaxEnergy;
-                            }
-                        }
-                        if (device.GetPress(SteamVR_Controller.ButtonMask.Grip))
-                        {
-                            Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.TitleBack);
-                            resultFlg = false;
-                            trrigerFlg = true;
-                        }
-                    }
-                    else if(value < 0.15)
-                    {
-                        trrigerFlg = false;
-                    }
-                }
-            }
+            //            if (energy > 0)
+            //            {
+            //                if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+            //                {
+            //                    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.StageChange);
+            //                    resultFlg = false;
+            //                    trrigerFlg = true;
+            //                    Energy = MaxEnergy;
+            //                }
+            //            }
+            //            if (device.GetPress(SteamVR_Controller.ButtonMask.Grip))
+            //            {
+            //                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.TitleBack);
+            //                resultFlg = false;
+            //                trrigerFlg = true;
+            //            }
+            //        }
+            //        else if(value < 0.15)
+            //        {
+            //            trrigerFlg = false;
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -220,6 +222,26 @@ namespace Kojima
             if(myRigidbody.velocity.sqrMagnitude > aMaxVelocity * aMaxVelocity)
             {
                 myRigidbody.velocity -= myRigidbody.velocity - (myRigidbody.velocity.normalized * aMaxVelocity);
+            }
+        }
+
+        /// <summary>
+        /// 手のステートを変更する
+        /// </summary>
+        /// <param name="aType">手のステート</param>
+        /// <returns></returns>
+        public bool ChangeHandState(HandStateType aType)
+        {
+            if (rightHand != null && leftHand != null)
+            {
+                rightHand.ChangeState(aType);
+                leftHand.ChangeState(aType);
+                return true;
+            }
+            else
+            {
+                Debug.Log("プレイヤーにHandが登録されていません");
+                return false;
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ViveコントローラーにアタッチするHandクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/10
+/// 最終更新:2017/12/11
 /// </summary>
 namespace Kojima
 {
