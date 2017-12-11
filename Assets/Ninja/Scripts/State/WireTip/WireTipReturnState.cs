@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// WireTipReturnStateのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/13
+/// 最終更新:2017/12/08
 /// </summary>
 namespace Kojima
 {
@@ -33,7 +33,7 @@ namespace Kojima
         /// </summary>
         public override void Enter()
         {
-            maxSpeed = owner.ownerWireState.wireData.ReturnSpeed;
+            maxSpeed = owner.Controller.MyHand.WireData.ReturnSpeed;
             maxSqrSpeed = maxSpeed * maxSpeed;
 
             // 速度をリセット
@@ -50,10 +50,10 @@ namespace Kojima
             // 少し時間を空けてから巻き取り開始
             if (timer > 0.3f)
             {
-                Vector3 dire = (owner.ownerTransform.position - owner.transform.position);
+                Vector3 dire = (owner.Controller.transform.position - owner.transform.position);
 
                 // 巻き取る
-                owner.myRigidbody.AddForce(dire.normalized * (owner.ownerWireState.wireData.ReturnSpeed), ForceMode.Acceleration);
+                owner.myRigidbody.AddForce(dire.normalized * (owner.Controller.MyHand.WireData.ReturnSpeed), ForceMode.Acceleration);
 
                 if (owner.myRigidbody.velocity.sqrMagnitude > maxSqrSpeed)
                 {
@@ -61,7 +61,7 @@ namespace Kojima
                     owner.myRigidbody.velocity -= vec;
                 }
 
-                float percent = dire.magnitude / owner.ownerWireState.wireData.ShotRange;
+                float percent = dire.magnitude / owner.Controller.MyHand.WireData.ShotRange;
                 if (percent > 1f) percent = 1f;
                 owner.myRigidbody.velocity = owner.myRigidbody.velocity * (percent)
                     + (dire.normalized * owner.myRigidbody.velocity.magnitude) * (1f - percent);

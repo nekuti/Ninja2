@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// シュリケンの攻撃ステート
+/// カタナの反動ステート
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/08
+/// 最終更新:2017/12/07
 /// </summary>
 namespace Kojima
 {
-    public class HandWeaponShurikenState : HandWeaponState
+    public class WeaponKatanaRecoilState : State<WeaponControl>
     {
         #region メンバ変数
 
@@ -21,16 +21,14 @@ namespace Kojima
         /// コンストラクタ
         /// </summary>
         /// <param name="owner"></param>
-        public HandWeaponShurikenState(Hand owner) : base(owner) { weaponType = WeaponType.Shuriken; }
+        public WeaponKatanaRecoilState(WeaponControl owner) : base(owner) { }
 
         /// <summary>
         /// このステートに遷移する時に一度だけ呼ばれる
         /// </summary>
         public override void Enter()
         {
-            base.Enter();
-
-            Debug.Log("WeaponShurikenに設定");
+            Debug.Log("WeaponKatanaの反動");
         }
 
         /// <summary>
@@ -45,7 +43,6 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-            base.Exit();
         }
 
         #endregion

@@ -18,19 +18,20 @@ namespace Kojima
     public class WireTip : StatefulObjectBase<WireTip,WireTipStateType>
     {
         #region メンバ変数
+        // 生成主のWireControl
+        private WireControl controller;
 
-        [Tooltip("発射主のWireState")]
-        public HandNormalWireState ownerWireState;
-
-        [System.NonSerialized]
-        public Transform ownerTransform;// 発射主のTransform
-
-        [System.NonSerialized]
-        public Vector3 shotDirection;   // ワイヤーを飛ばす向き
+        // ワイヤーを飛ばす向き
+        private Vector3 shotDirection;
 
         [System.NonSerialized]
         public Rigidbody myRigidbody;   // 自身のRigidbody
 
+        #endregion
+
+        #region プロパティ
+        public WireControl Controller { get{ return controller; } }
+        public Vector3 ShotDirection { get { return shotDirection; } }
         #endregion
 
         #region メソッド
@@ -96,7 +97,7 @@ namespace Kojima
                     // パーティクルを生成
                     ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
                     // ワイヤーの巻き取りを行う
-                    ReturnWireTip();
+                    controller.ChangeState(WireStateType.Return);
                 }
             }
         }
@@ -119,30 +120,27 @@ namespace Kojima
         }
 
         /// <summary>
-        /// WireTipの生成と同時に初期化して発射
+        /// WireTipの生成と同時に初期化
         /// </summary>
-        /// <param name="aWireDataTable">Wireのデータ</param>
-        /// <param name="aHandWireState">生成主のState</param>
-        /// <param name="aTransform">生成主のTransform</param>
+        /// <param name="aWireDataTable">ワイヤーのデータ</param>
+        /// <param name="aController">生成主のWireControl</param>
         /// <param name="aDirection">発射する向き</param>
         /// <returns></returns>
-        public static WireTip Create(WireDataTable aWireDataTable , HandNormalWireState aHandWireState, Hand aHand,Vector3 aDirection)
+        public static WireTip Create(WireDataTable aWireDataTable , WireControl aController,Vector3 aDirection)
         {
-            return WireTip.Create(aWireDataTable.WirePrefab, aHandWireState, aHand,aDirection);
+            return WireTip.Create(aWireDataTable.WirePrefab, aController,aDirection);
         }
         /// <summary>
-        /// WireTipの生成と同時に初期化して発射
+        /// WireTipの生成と同時に初期化
         /// </summary>
-        /// <param name="aPrefab">プレハブ</param>
-        /// <param name="aHandWireState">生成主のState</param>
-        /// <param name="aTransform">生成主のTransform</param>
+        /// <param name="aPrefab">ワイヤーのプレハブ</param>
+        /// <param name="aController">生成主のWireControl</param>
         /// <param name="aDirection">発射する向き</param>
         /// <returns></returns>
-        public static WireTip Create(WireTip aPrefab,HandNormalWireState aHandWireState, Hand aHand,Vector3 aDirection)
+        public static WireTip Create(WireTip aPrefab,WireControl aController,Vector3 aDirection)
         {
-            WireTip obj = Instantiate(aPrefab,aHand.shotPos.transform.position,aHand.transform.rotation) as WireTip;
-            obj.ownerWireState = aHandWireState;
-            obj.ownerTransform = aHand.transform;
+            WireTip obj = Instantiate(aPrefab,aController.MyHand.shotPos.transform.position,aController.transform.rotation) as WireTip;
+            obj.controller = aController;
             obj.shotDirection = aDirection;
             return obj;
         }
@@ -164,7 +162,7 @@ namespace Kojima
         /// </summary>
         public void EndReturnWireTip()
         {
-            ownerWireState.ResetWireTip();
+            controller.ReturnedWireTip();
         }
 
         #endregion

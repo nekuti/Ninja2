@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// InputManagerのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/01
+/// 最終更新:2017/12/08
 /// </summary>
 namespace Kojima
 {
@@ -61,6 +61,12 @@ namespace Kojima
         /// </summary>
         private void Update()
         {
+            // デバイスが未登録であれば登録する
+            if(!InputDevice.IsDeviceRegisterd(handType))
+            {
+                EntryTrackedDevice(this);
+            }
+
             // 最後に触れていたトラックパッドの位置を記憶
             Vector2 pos = GetTouchPos(handType);
             if(pos != Vector2.zero)
@@ -71,7 +77,7 @@ namespace Kojima
             // 前フレームのクリック判定を保持
             oldClickFlg = clickFlg;
             // 現フレームのクリック判定を記憶
-            clickFlg = ClickTrriger(handType) ? true : false;
+            clickFlg = ClickTrriger(handType);
         }
 
         /// <summary>
@@ -86,32 +92,37 @@ namespace Kojima
 
             if (trackedDevices[(int)type].trackedObject == null)
             {
-                // InputDeviceを登録
-                trackedDevices[(int)type].inputDevice = aInputDevice;
                 // TrackedObjectを登録
                 trackedDevices[(int)type].trackedObject = aInputDevice.GetComponent<SteamVR_TrackedObject>();
-                // Deviceを取得
-                trackedDevices[(int)type].device = SteamVR_Controller.Input((int)trackedDevices[(int)type].trackedObject.index);
+                // TrackedObjectの取得に成功した場合
+                if (trackedDevices[(int)type].trackedObject != null)
+                {
+                    // InputDeviceを登録
+                    trackedDevices[(int)type].inputDevice = aInputDevice;
+                    // Deviceを取得
+                    trackedDevices[(int)type].device = SteamVR_Controller.Input((int)trackedDevices[(int)type].trackedObject.index);
 
-                Debug.Log(type + "の手を登録しました");
-                return true;
+                    Debug.Log(type + "の手を登録しました");
+                    return true;
+                }
+                Debug.Log(type + "の登録に失敗しました");
             }
             else
             {
                 Debug.Log("すでに" + type + "の手は登録済みです");
-                return false;
             }
+                return false;
         }
 
         /// <summary>
         /// デバイスが登録済みか
         /// </summary>
         /// <returns></returns>
-        public bool IsDeviceRegisterd()
+        public static bool IsDeviceRegisterd(HandType aHandType)
         {
-            if(trackedDevices[(int)handType].trackedObject == null)
+            if(trackedDevices[(int)aHandType].inputDevice == null)
             {
-                Debug.Log(handType + "はデバイスが未登録です");
+                Debug.Log(aHandType + "はデバイスが未登録です");
                 return false;
             }
             return true;
@@ -125,7 +136,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool Pulse(ushort aPower, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 trackedDevices[(int)aHandType].device.TriggerHapticPulse(aPower);
                 return true;
@@ -140,7 +151,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool IsTouch(HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 return trackedDevices[(int)aHandType].device.GetAxis() != Vector2.zero ? true : false;
             }
@@ -154,7 +165,7 @@ namespace Kojima
         /// <returns></returns>
         public static Vector2 GetTouchPos(HandType aHandType)
         {
-            if(trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 return trackedDevices[(int)aHandType].device.GetAxis();
             }
@@ -168,7 +179,7 @@ namespace Kojima
         /// <returns></returns>
         public static Vector2 GetLastTouchPos(HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 return trackedDevices[(int)aHandType].inputDevice.touchPos;
             }
@@ -182,7 +193,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool ClickTrriger(HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 float value = trackedDevices[(int)aHandType].device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
                 if(value > CLICK_BORDER)
@@ -200,9 +211,9 @@ namespace Kojima
         /// <returns></returns>
         public static bool ClickDownTrriger(HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
-                if(!trackedDevices[(int)aHandType].inputDevice.oldClickFlg)
+                if (!trackedDevices[(int)aHandType].inputDevice.oldClickFlg)
                 {
                     return ClickTrriger(aHandType);
                 }
@@ -217,7 +228,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool ClickUpTrriger(HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 if (trackedDevices[(int)aHandType].inputDevice.oldClickFlg)
                 {
@@ -235,7 +246,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool Press(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 return trackedDevices[(int)aHandType].device.GetPress(aButton.GetButtonMask());
             }
@@ -250,7 +261,7 @@ namespace Kojima
         /// <returns></returns>
         public static bool PressDown(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice.IsDeviceRegisterd())
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
                 return trackedDevices[(int)aHandType].device.GetPressDown(aButton.GetButtonMask());
             }
@@ -265,12 +276,11 @@ namespace Kojima
         /// <returns></returns>
         public static bool PressUp(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice == null)
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
-                Debug.Log(aHandType + "はデバイスが未登録です");
-                return false;
+                return trackedDevices[(int)aHandType].device.GetPressUp(aButton.GetButtonMask());
             }
-            return trackedDevices[(int)aHandType].device.GetPressUp(aButton.GetButtonMask());
+                return false;
         }
 
         /// <summary>
@@ -281,12 +291,11 @@ namespace Kojima
         /// <returns></returns>
         public static bool Touch(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice == null)
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
-                Debug.Log(aHandType + "はデバイスが未登録です");
-                return false;
+                return trackedDevices[(int)aHandType].device.GetTouch(aButton.GetButtonMask());
             }
-            return trackedDevices[(int)aHandType].device.GetTouch(aButton.GetButtonMask());
+            return false;
         }
 
         /// <summary>
@@ -297,12 +306,11 @@ namespace Kojima
         /// <returns></returns>
         public static bool TouchDown(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice == null)
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
-                Debug.Log(aHandType + "はデバイスが未登録です");
-                return false;
+                return trackedDevices[(int)aHandType].device.GetTouchDown(aButton.GetButtonMask());
             }
-            return trackedDevices[(int)aHandType].device.GetTouchDown(aButton.GetButtonMask());
+            return false;
         }
 
         /// <summary>
@@ -313,12 +321,11 @@ namespace Kojima
         /// <returns></returns>
         public static bool TouchUp(ButtonType aButton, HandType aHandType)
         {
-            if (trackedDevices[(int)aHandType].inputDevice == null)
+            if (InputDevice.IsDeviceRegisterd(aHandType))
             {
-                Debug.Log(aHandType + "はデバイスが未登録です");
-                return false;
+                return trackedDevices[(int)aHandType].device.GetTouchUp(aButton.GetButtonMask());
             }
-            return trackedDevices[(int)aHandType].device.GetTouchUp(aButton.GetButtonMask());
+            return false;
         }
 
         #endregion

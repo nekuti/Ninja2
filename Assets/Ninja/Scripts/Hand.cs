@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ViveコントローラーにアタッチするHandクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/11
+/// 最終更新:2017/12/08
 /// </summary>
 namespace Kojima
 {
@@ -14,8 +14,8 @@ namespace Kojima
     /// </summary>
     public enum HandStateType
     {
-        Wire,
-        Weapon,
+        Play,
+        MenuSelect,
     }
 
     public class Hand : StatefulObjectBase<Hand,HandStateType>
@@ -27,20 +27,12 @@ namespace Kojima
         private WeaponDataTable weaponData;
 
         [SerializeField, Tooltip("最初のステート")]
-        private HandStateType defaultStateType;
-
-        // VRの入力用
-        [System.NonSerialized]
-        public SteamVR_TrackedObject trackdObject;
-        [System.NonSerialized]
-        public SteamVR_Controller.Device device;
+        private HandStateType defaultStateType = HandStateType.Play;
 
         // Handを持つプレイヤー
-        [System.NonSerialized]
-        public Player owner;
+        private Player owner;
         // 右手か左手か
-        [System.NonSerialized]
-        public HandType handType;
+        private HandType handType;
 
         [SerializeField]
         private LayerMask rayMask;
@@ -53,13 +45,12 @@ namespace Kojima
         private GameObject rayObject;
         [SerializeField]
         private GameObject cursorObject;
-
-        // 武器ステートのリスト
-        private List<HandWeaponState> weaponStateList = new List<HandWeaponState>();
+        
         #endregion
 
         #region プロパティ
         public Player Owner{ get { return owner; } }
+        public HandType HandType { get { return handType; } }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
         #endregion
@@ -77,23 +68,14 @@ namespace Kojima
             handType = GetComponent<InputDevice>().handType;
 
             // ワイヤーと武器データをプレイヤーから取得
-            if(wireData == null) wireData = owner.WireData;
-            if(weaponData == null) weaponData = owner.WeaponData;
-
-            // 武器種毎のステートを生成してリストに保存
-            weaponStateList.Add(WeaponType.Kunai.CreateWeaponState(this));
-            weaponStateList.Add(WeaponType.Shuriken.CreateWeaponState(this));
-            //weaponStateList.Add(WeaponType.Bomb.CreateWeaponState(this));
-            //weaponStateList.Add(WeaponType.Katana.CreateWeaponState(this));
+            wireData = owner.WireData;
+            weaponData = owner.WeaponData;
 
             // ステートマシンのインスタンス化
             stateMachine = new StateMachine<Hand>();
-
             // ステートリストにステートを追加
-            stateList.Add(new HandNormalWireState(this));
-            stateList.Add(weaponStateList[(int)weaponData.WeaponType]); // 装備中の装備の武器種のステートを追加
-
-
+            stateList.Add(new HandPlayState(this));
+            stateList.Add(new HandMenuselectState(this));
         }
 
         /// <summary>
@@ -101,10 +83,6 @@ namespace Kojima
         /// </summary>
         private void Start()
         {
-            // VRの入力用変数初期化
-            trackdObject = GetComponent<SteamVR_TrackedObject>();
-            if (trackdObject != null) device = SteamVR_Controller.Input((int)trackdObject.index);
-
             // 初期のステートを設定
             ChangeState(defaultStateType);
         }
@@ -115,19 +93,6 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
-
-            if(InputDevice.ClickDownTrriger(handType))
-            {
-                ParticleEffect.Create(ParticleEffectType.Explosion01, transform.position);
-            }
-            if(InputDevice.ClickTrriger(handType))
-            {
-                InputDevice.Pulse(1500, handType);
-            }
-            if(InputDevice.ClickUpTrriger(handType))
-            {
-                ParticleEffect.Create(ParticleEffectType.Ring01, transform.position);
-            }
 
             // rayを設定
             ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
@@ -164,7 +129,7 @@ namespace Kojima
         /// <returns></returns>
         public bool EquipWire()
         {
-            ChangeState(HandStateType.Wire);
+            ChangeState(HandStateType.Play);
 
             return true;
         }
@@ -175,16 +140,7 @@ namespace Kojima
         /// <returns></returns>
         public bool EquipWeapon()
         {
-            if (weaponStateList.Count > (int)weaponData.WeaponType)
-            {
-                // ステートリストをその武器に合わせて変更
-                stateList[(int)HandStateType.Weapon] = weaponStateList[(int)weaponData.WeaponType];
-            }
-            else
-            {
-                Debug.Log("指定された武器種のステートが未生成");
-            }
-            ChangeState(HandStateType.Weapon);
+            ChangeState(HandStateType.Play);
 
             return true;
         }
@@ -198,8 +154,8 @@ namespace Kojima
         {
             weaponData = aWeaponData;
 
-            // 武器を装備中であれば装備しなおす
-            if (IsCurrentState(HandStateType.Weapon))
+            // プレイ中の変更であれば即時に再生成
+            if (IsCurrentState(HandStateType.Play))
             {
                 EquipWeapon();
             }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// WireTipShotStateのクラス
+/// バクダンの攻撃ステート
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/12
+/// 最終更新:2017/12/07
 /// </summary>
 namespace Kojima
 {
-    public class WireTipShotState : State<WireTip>
+    public class WeaponBombShotState : State<WeaponControl>
     {
         #region メンバ変数
 
@@ -21,18 +21,14 @@ namespace Kojima
         /// コンストラクタ
         /// </summary>
         /// <param name="owner"></param>
-        public WireTipShotState(WireTip owner) : base(owner) { }
+        public WeaponBombShotState(WeaponControl owner) : base(owner) { }
 
         /// <summary>
         /// このステートに遷移する時に一度だけ呼ばれる
         /// </summary>
         public override void Enter()
         {
-            if(owner.myRigidbody != null)
-            {
-                // ShotSpeed分の力を加えてワイヤーを発射する
-                owner.myRigidbody.AddForce(owner.shotDirection.normalized * owner.ownerWireState.wireData.ShotSpeed, ForceMode.VelocityChange);
-            }
+            Debug.Log("WeaponBombの攻撃");
         }
 
         /// <summary>
@@ -40,12 +36,6 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            // Wireの射程を超えた場合
-            if(Vector3.Distance(owner.transform.position,owner.ownerTransform.position) > owner.ownerWireState.wireData.ShotRange)
-            {
-                // 巻き取りステートへ移行
-                owner.ReturnWireTip();
-            }
         }
 
         /// <summary>
@@ -53,7 +43,6 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-
         }
 
         #endregion

@@ -33,10 +33,14 @@ namespace Kojima
         [SerializeField, Tooltip("発射数レベル"), Range(1, 10)]
         private int manyLevel = 1;
         
-        [SerializeField, Tooltip("基本発射速度")]
-        private int speed = 1;
-        [SerializeField, Tooltip("速度レベル"), Range(1, 10)]
+        [SerializeField, Tooltip("基本連射速度(1回の発射までにかかる時間)"), Range(0f, 10f)]
+        private float speed = 1;
+        [SerializeField, Tooltip("連射レベル")]
         private int speedLevel = 1;
+
+        [SerializeField, Tooltip("反動の硬直時間"), Range(0f,10f)]
+        private float recoil = 0.5f;
+
         #endregion
 
         #region プロパティ
@@ -47,8 +51,9 @@ namespace Kojima
         public int PowerLevel { get { return powerLevel; } }
         public int Many { get { return many; } }
         public int ManyLevel { get { return manyLevel; } }
-        public int Speed { get { return speed; } }
+        public float Speed { get { return speed; } }
         public int SpeedLevel { get { return speedLevel; } }
+        public float Recoil { get { return recoil; } }
         #endregion
 
         #region メソッド
