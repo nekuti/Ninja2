@@ -35,6 +35,9 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
+        [SerializeField,Tooltip("最初に読み込まれる手のステート")]
+        private HandStateType defaultStateType;
+
         [SerializeField]
         private GameObject center;
         private Rigidbody myRigidbody;
@@ -82,6 +85,9 @@ namespace Kojima
             // 手を取得
             if (leftHand == null)leftHand = transform.Find("LeftHand").GetComponent<Hand>();
             if (rightHand == null)rightHand = transform.Find("RightHand").GetComponent<Hand>();
+            // 手の初期ステートタイプを設定
+            leftHand.defaultStateType = defaultStateType;
+            rightHand.defaultStateType = defaultStateType;
         }
 
         /// <summary>

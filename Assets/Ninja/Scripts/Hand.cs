@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ViveコントローラーにアタッチするHandクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/08
+/// 最終更新:2017/12/11
 /// </summary>
 namespace Kojima
 {
@@ -26,8 +26,9 @@ namespace Kojima
         [SerializeField, Tooltip("武器のデータ")]
         private WeaponDataTable weaponData;
 
-        [SerializeField, Tooltip("最初のステート")]
-        private HandStateType defaultStateType = HandStateType.Play;
+        // 最初に読み込まれるステート
+        [System.NonSerialized]
+        public HandStateType defaultStateType;
 
         // Handを持つプレイヤー
         private Player owner;

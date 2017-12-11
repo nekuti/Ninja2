@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// メニュー操作の手のステート
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/08
+/// 最終更新:2017/12/11
 /// </summary>
 namespace Kojima
 {
@@ -43,35 +43,53 @@ namespace Kojima
         {
             // rayを設定
             Ray ray = new Ray(owner.shotPos.transform.position, owner.transform.rotation * Vector3.forward);
-            RaycastHit hit;
+            RaycastHit[] hit;
+
+            hit = Physics.RaycastAll(ray);
+
+            bool hitFlg = false;
 
             // Selectableオブジェクトがレイに当たった時の処理
-            if(Physics.Raycast(ray, out hit))
+            if (hit.Length > 0)
             {
-                ISelectable obj = hit.collider.GetComponent(typeof(ISelectable)) as ISelectable;
-                if(obj != null)
+                for (int i = 0; i < hit.Length; i++)
                 {
-                    if (hitRayObject != null)
+                    ISelectable obj = hit[i].collider.GetComponent(typeof(ISelectable)) as ISelectable;
+                    if (obj != null)
                     {
-                        hitRayObject.OutRayObject();
+                        if (hitRayObject != obj && hitRayObject != null)
+                        {
+                            hitRayObject.OutRayObject();
+                        }
+                        // レイが当たった時の処理を呼び出す
+                        if (hitRayObject != obj)
+                        {
+                            obj.HitRayObject();
+                        }
+                        hitRayObject = obj;
+                        hitFlg = true;
                     }
-                    // レイが当たった時の処理を呼び出す
-                    obj.HitRayObject();
-                    hitRayObject = obj;
                 }
             }
-            else if(hitRayObject != null)
+            // Selectableオブジェクトに当たってない場合
+            if (!hitFlg)
             {
-                // レイが外れた時の処理を呼び出す
-                hitRayObject.OutRayObject();
+                if (hitRayObject != null)
+                {
+                    // レイが外れた時の処理を呼び出す
+                    hitRayObject.OutRayObject();
+                }
                 hitRayObject = null;
             }
 
             // レイが当たっている状態でトリガーまたはトラックパッドを押すと決定処理
-            if(InputDevice.ClickDownTrriger(owner.HandType)||
-                InputDevice.PressDown(ButtonType.Touchpad,owner.HandType))
+            if (InputDevice.ClickTrriger(owner.HandType) ||
+            InputDevice.PressDown(ButtonType.Touchpad, owner.HandType))
             {
-                hitRayObject.SelectObject();
+                if (hitRayObject != null)
+                {
+                    hitRayObject.SelectObject();
+                }
             }
         }
 
