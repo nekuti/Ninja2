@@ -31,7 +31,7 @@ namespace Kondo
         [SerializeField]
         private float displayTime = 3.0f;
 
-        public Text displayText;
+        public Text noticeText;
         private float countTime;
         private Transform canvasTransfome;
         private Vector3 targetPos;
@@ -55,9 +55,8 @@ namespace Kondo
         {
 
             InstructMovement();
-
-
         }
+
 
 
          public void RequestDisplay(string aText, float aDisplayTime = 3.0f, float aMoveTime = 1.0f, float aTargetDistance = 3.0f)
@@ -73,8 +72,8 @@ namespace Kondo
             canvasTransfome.transform.position = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, 1) * targetDistance);
 
             // テキストを書き換える
-            displayText = GetComponent<Text>();
-            displayText.text = aText;
+            noticeText = GetComponent<Text>();
+            noticeText.text = aText;
 
             sequence = NoticeSequence.moveNotice;
         } 
@@ -112,7 +111,11 @@ namespace Kondo
                     // 移動が終了時に一時停止シーケンスに移行
                     sequence = NoticeSequence.stopNotice;
                 });
-            canvasTransfome.rotation = eye.transform.rotation;
+
+            Quaternion q = eye.transform.rotation;
+            q.x = 0;
+            q.z = 0;
+            canvasTransfome.rotation = q;
         }
 
 
@@ -138,7 +141,11 @@ namespace Kondo
                 .OnComplete(() =>
                 {
                     sequence = NoticeSequence.none;
+                    canvasTransfome.position = new  Vector3(0, -5, 0); 
+
                 });
+
+            
 
             canvasTransfome.rotation = eye.transform.rotation;
 

@@ -17,24 +17,29 @@ namespace Kondo
         public Color fontColor = Color.white;
         public Color lineColor = Color.black;
         public Color backGroundColor = Color.black;
-
+        public bool isEnabled;
         public PartsType searchParts;
         public HandType hand;
 
-
-
-        public LineRenderer line;
-
+        private LineRenderer line;
+        private Text[] texts = new Text[2];
+        private int countCreate = 0;
 
         // Use this for initialization
         void Start()
         {
             //InputDevice.ClickDownTrriger(HandType.Left);
-
+            
 
             ResetTips();
 
-            SetTransform();
+            
+            // 左が0~6 右が7~11
+            // TutorialMnagerに登録
+            TutorialManager.instance.tipsList[((int)hand * 6)+(int)searchParts] = gameObject;
+            // inspectorで表示非表示を設定
+            gameObject.SetActive(isEnabled);
+
 
             //if(InputDevice.Press(ButtonType.Trigger, HandType.Left))
             //{
@@ -45,43 +50,54 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            SetLinePos();
+            SetLineTo();
             DrawLine();
         }
 
 
-        public void ResetTips()
+        /// <summary>
+        /// 外部からTipsに新しいtextを入力する
+        /// </summary>
+        /// <param name="aText"></param>
+        public void SetText(string aText)
         {
-            SetText("FrontText");
-            SetText("BackText");
+            foreach(var t in texts)
+            {
+                t.text = aText;
+            }
+        }
+
+
+
+        private void ResetTips()
+        {
+            SetingText("FrontText");
+            SetingText("BackText");
             SetLine();
             SetBackGround();
         }
 
 
-        private void SetTransform()
-        {
-            
-        }
-
-
-        private void SetLinePos()
+        private void SetLineTo()
         {
             if (drawLineTo == null)
             {
-                drawLineTo = FindControllerParts.GetTransfomeParts(hand, searchParts);
+                drawLineTo = ControllerData.instance.GetPartsTransform(hand, searchParts);
 
             }
         }
 
 
-        private void SetText(string name)
+
+        private void SetingText(string name)
         {
-            Text t = transform.Find("Canvas/" + name).GetComponent<Text>();
-            //t.material = Resources.Load("UIText") as Material;
-            t.text = displayText;
-            t.color = fontColor;
-            t.fontSize = fontSize;
+            texts[countCreate] = transform.Find("Canvas/" + name).GetComponent<Text>();
+            texts[countCreate].material = Resources.Load("UIText") as Material;
+            texts[countCreate].text = displayText;
+            texts[countCreate].color = fontColor;
+            texts[countCreate].fontSize = fontSize;
+            countCreate++;
+
         }
 
 
@@ -117,6 +133,8 @@ namespace Kondo
                 line.SetPosition(1, drawLineTo.position);
             }
         }
+
+
 
     }
 }
