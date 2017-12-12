@@ -9,8 +9,9 @@ namespace Kondo
     public class SetTips : MonoBehaviour
     {
         public HandType hand;
-        private Transform baseTrans;
+        public float upPos = 0.05f;
 
+        private Transform baseTrans;
 
         // Use this for initialization
         void Start()
@@ -21,17 +22,27 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
+            //if(Time.time > 5 )
+            //{
+
+            //}
+
+
             SetBase();
+
         }
 
         private void SetBase()
         {
             baseTrans = ControllerData.instance.GetPartsTransform(hand, PartsType.Base);
 
-            this.transform.position = baseTrans.position;
-            Vector3 t = this.transform.position;
-            t.y += 0.01f;
-            this.transform.position = t;
+            Vector3 pos = baseTrans.position;
+            pos.y += upPos;
+            this.transform.localPosition = pos;
+
+            this.transform.rotation = baseTrans.rotation;
+            this.transform.Rotate(90, 0, 0);
+
 
         }
     }

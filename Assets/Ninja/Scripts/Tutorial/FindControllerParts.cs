@@ -9,13 +9,16 @@ namespace Kondo
     {
 
         // Find用配列
-        public  string[] partsName =
-            {"base",
+        public string[] partsName =
+        {
+            "base",
              "button",
              "lgrip",
              "rgrip",
              "trackpad",
-             "trigger"};
+             "trigger"
+        };
+
 
         [SerializeField]
         private HandType hand;
@@ -28,7 +31,6 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame
@@ -43,7 +45,13 @@ namespace Kondo
 
         private bool FindAllParts(Transform aTrans)
         {
-            
+
+            if (Time.time < 3)
+            {
+                //Debug.Log("タイム : " + Time.time);
+                //return false;
+            }
+
             // 子がいなければ処理を飛ばす
             if (aTrans.childCount == 0)
             {
@@ -58,7 +66,12 @@ namespace Kondo
             {
                 if(aTrans.Find(partsName[count]) != null)
                 list.Add(aTrans.Find(partsName[count]));
+                Debug.Log("探索したパーツ : " + aTrans.Find(partsName[count]));
+
             }
+
+            Debug.Log("コントローラーパーツ探索完了");
+
 
             // listをControllerDataに保存
             ControllerData.instance.SetPartsList(hand, list);

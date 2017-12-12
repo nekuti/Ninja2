@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 using Kojima;
 
+
 namespace Kondo
 {
 
@@ -51,10 +52,14 @@ namespace Kondo
         // 外部から操作用
         public static TutorialManager instance;
 
-        // 現在のシーン
-        public NextScene nextScene;
         private MoveNotice notice;
         private DisplayText display;
+
+        // 外部からmodelの操作用
+        //public static FindModel conModel = null;
+
+        // 現在のシーン
+        public NextScene nextScene;
         private int noticeCount = 0;
         private int displayCount = 0;
 
@@ -69,6 +74,8 @@ namespace Kondo
 
         void Awake()
         {
+            Debug.Log("チュートリアルマネージャー　Awake()");
+
             instance = this;
 
             // 最初のシーンを設定
@@ -79,11 +86,14 @@ namespace Kondo
 
             // TextのScriptを参照しNoticeを操作可能にする
             notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
+            Debug.Log("チュートリアルマネージャー　notice : " + notice);
+
             // CanvasのScriptを参照しdisplayを操作可能にする
             display = displayCanvas.GetComponent<DisplayText>();
+            Debug.Log("チュートリアルマネージャー　display : "+display);
 
-            // 始めの要素生成し要素を保存
-            //currentElement = Instantiate(sequenceList[sequenceNum]);
+
+
 
 
         }
@@ -91,12 +101,16 @@ namespace Kondo
 
         void Start()
         {
+            Debug.Log("チュートリアルマネージャー　Start()");
+           
             //Ando.PlaySceneManager.GetStartPos();
             //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
             //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             ChangeScene(nextScene);
             // テキストをロード
             layout = DisplaySentence.LoadText("displayText", layout);
+
+            Debug.Log("チュートリアルマネージャー　layout : "+layout);
         }
 
 
@@ -105,6 +119,7 @@ namespace Kondo
         {
            if (Input.GetKeyDown(KeyCode.A))
             {
+                ShowNotice();
             }
         }
 
@@ -148,6 +163,8 @@ namespace Kondo
         /// <param name="aParts">設定するパーツ</param>
         public void SetEnabledTips(bool isEnabled,HandType aHand,PartsType aParts)
         {
+            Debug.Log("チュートリアルマネージャー　SetEnabledTips()");
+
             tipsList[((int)aHand * 6) + (int)aParts].SetActive(isEnabled);
         }
 
@@ -166,6 +183,7 @@ namespace Kondo
         /// <param name="isEnabled">表示 = true 非表示 = false</param>
         public void SetEnabledAllTips(bool isEnabled)
         {
+            Debug.Log("チュートリアルマネージャー　SetEnableAllTips()");
             foreach(var list in tipsList)
             {
                 list.SetActive(isEnabled);
@@ -181,6 +199,8 @@ namespace Kondo
         /// <returns></returns>
         public bool GetEnabledAllTips()
         {
+            Debug.Log("チュートリアルマネージャー　GetEnabledAllTips()");
+
             foreach (var list in tipsList)
             {
                 if (list.activeSelf)
@@ -197,9 +217,18 @@ namespace Kondo
 
         public void ShowNotice(int aSelect = 0)
         {
+            Debug.Log("チュートリアルマネージャー　ShowNotice()");
             notice.RequestDisplay(noticeText[aSelect], 3, 1, 2.5f);
             //noticeCount++;
         }
+
+
+        //public void ShowNotice()
+        //{
+        //    Debug.Log("チュートリアルマネージャー　ShowNotice()");
+
+        //    notice.RequestDisplay("aaa", 3, 1, 2.5f);
+        //}
 
 
 
@@ -212,6 +241,7 @@ namespace Kondo
 
         public void ShowDisplay(Transform pos)
         {
+            Debug.Log("チュートリアルマネージャー　ShowDisplay()");
             display.RequestDisplay(layout[displayCount], pos);
             displayCount++;
         }

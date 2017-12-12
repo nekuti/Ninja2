@@ -70,18 +70,21 @@ namespace Kondo
             //sequenceNum = (int)WireTutorialSequence.WireStartPop;
 
             // 始めの要素生成し要素を保存
-            currentElement = Instantiate(sequenceList[sequenceNum]);
+            //currentElement = Instantiate(sequenceList[sequenceNum]);
 
+            Debug.Log("ワイヤーチュートリアル　Awake()");
 
         }
 
 
         void Start()
         {
-            Ando.PlaySceneManager.GetStartPos();
-            Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
-            Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
+            //Ando.PlaySceneManager.GetStartPos();
+            //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
+            //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
+            Debug.Log("ワイヤーチュートリアル　strat()");
             currentSequence = WireTutorialSequence.WireStartPop;
+            Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
 
         }
@@ -90,7 +93,10 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Z))
+            Debug.Log("ワイヤーチュートリアル　Update()");
+
+
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 NextSequenceChanged();
 
@@ -100,16 +106,19 @@ namespace Kondo
 
         private void SequenceChange()
         {
+            Debug.Log("ワイヤーチュートリアル　SquenceChange()");
             TutorialManager tManager = TutorialManager.instance;
             switch(currentSequence)
             {
                 case WireTutorialSequence.WireStartPop:
-                    tManager.SetEnabledAllTips(false);
+                    Debug.Log("現在の順序 : " + currentSequence);
                     tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
                     break;
 
                 case WireTutorialSequence.WireControllerPop:
+                    Debug.Log("現在の順序 : " + currentSequence);
+
                     tManager.ShowDisplay(displeyPos[0]);
                     tManager.ShowNotice();
 

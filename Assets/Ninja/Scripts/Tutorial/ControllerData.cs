@@ -27,7 +27,6 @@ namespace Kondo
 
     public class ControllerData : MonoBehaviour
     {
-
         
 
         public static ControllerData instance;
@@ -55,6 +54,9 @@ namespace Kondo
 
 
 
+
+
+
         /// <summary>
         /// パーツをセットする
         /// </summary>
@@ -73,6 +75,8 @@ namespace Kondo
 
      
         }
+
+
 
 
         /// <summary>

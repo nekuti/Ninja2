@@ -39,7 +39,8 @@ namespace Kondo
 
             textAseet = Resources.Load<TextAsset>(aTextName);
             loadText = textAseet.text;
-            sprlitText = loadText.Split(char.Parse("\n"));
+            sprlitText = loadText.Split('\n','\r');
+            
             DisplayLayout item = new DisplayLayout();
             foreach (var sprlit in sprlitText)
             {
@@ -59,7 +60,16 @@ namespace Kondo
 
                 if (sprlit.StartsWith("&"))
                 {
-                    item.imageName = sprlit.Remove(0, 1);
+                    string path = sprlit.Remove(0, 1);
+                    Debug.Log("パス : " + path);
+                    Debug.Log("パス : " + path.Length);
+
+                    //item.sprite = Resources.Load<Sprite>(path);
+                    item.sprite = Resources.Load<Sprite>(path);
+                    Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
+
+
+
                 }
 
                 if (sprlit.StartsWith(">"))
@@ -71,49 +81,7 @@ namespace Kondo
             }
 
             return aLayoutList;
-            #region コメントアウト
 
-            //    textAseet = Resources.Load<TextAsset>(aTextName);
-            //    loadText = textAseet.text;
-            //    sprlitHead = loadText.Split(char.Parse("\n"));
-            //    sprliteMain = sprlitHead;
-
-
-            //      string str;
-
-            //    bool flag = false;
-            //    for(int j =0;j< 20;j++)
-            //    {
-            //        for (int i = 0; i < 3; i++)
-            //        {
-            //            //str = Regex.Match(sprlitHead[count], pattern[i]).Groups["head"].Value;
-
-            //            if (str == null)
-            //            {
-            //                count++;
-            //                Debug.Log("null");
-            //                continue;
-            //            }
-
-            //            flag = true;
-
-            //            if (i == 0) item.headLine = str;
-            //            if (i == 1) item.mainText = str;
-            //            if (i == 2) item.imageName = str;
-
-            //            count++;
-            //        }
-
-            //        if (flag)
-            //        {
-            //            flag = false;
-            //            layoutList.Add(item);
-            //            Debug.Log("タイトル :" + item.headLine);
-            //            Debug.Log("メイン :" + item.mainText);
-            //            Debug.Log("イメージ :" + item.imageName);
-            //        }
-            //    }
-            #endregion
         }
 
     }

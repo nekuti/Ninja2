@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
 using Kojima;
 
@@ -9,7 +10,6 @@ namespace Kondo
 {
     public class ControllerTips : MonoBehaviour
     {
-        public Vector3 te;
 
         public string displayText;
         public int fontSize = 14;
@@ -52,8 +52,12 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            SetLineTo();
-            DrawLine();
+            if(Time.time > 5)
+            {
+                SetLineTo();
+                DrawLine();
+            }
+        
         }
 
 
@@ -84,7 +88,8 @@ namespace Kondo
         {
             if (drawLineTo == null)
             {
-                drawLineTo = ControllerData.instance.GetPartsTransform(hand, searchParts);
+                Transform trans = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Transform>();
+                drawLineTo = trans.GetChild(0);
 
             }
         }
@@ -133,8 +138,6 @@ namespace Kondo
             {
                 line.SetPosition(0, drawLineFrom.position);
                 line.SetPosition(1, drawLineTo.position);
-
-                te = drawLineTo.position;
             }
         }
 
@@ -142,4 +145,5 @@ namespace Kondo
 
     }
 }
+
 

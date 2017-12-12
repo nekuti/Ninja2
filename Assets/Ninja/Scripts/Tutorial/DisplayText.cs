@@ -18,6 +18,8 @@ namespace Kondo
         public Text mainText;
         public Text headLineText;
         public Image image;
+        public Sprite qqqq;
+
 
         private CanvasHide canvasHide;
 
@@ -26,9 +28,12 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
+            Debug.Log("ディスプレイテキスト Start()");
+
             mainText = transform.Find("Main").GetComponent<Text>();
             headLineText = transform.Find("HeadLine").GetComponent<Text>();
             image = transform.Find("Image").GetComponent<Image>();
+            Debug.Log("ディスプレイテキスト image :"+image);
 
             // DisplayTextの表示操作用変数
             canvasHide = transform.GetComponentInChildren<CanvasHide>();
@@ -42,13 +47,17 @@ namespace Kondo
 
 
 
-        public void RequestDisplay(DisplayLayout layout, Transform aPos)
+        public void RequestDisplay(DisplayLayout aLayout, Transform aPos)
         {
+            Debug.Log("ディスプレイテキスト RequestDisplay()");
             canvasHide.HideON();
-            headLineText.text = layout.headLine;
-            mainText.text = layout.mainText;
+            headLineText.text = aLayout.headLine;
+            mainText.text = aLayout.mainText;
             transform.position = aPos.position;
-            image.sprite = Resources.Load<Sprite>(layout.imageName);
+            //qqqq = aLayout.sprite;
+            image.sprite = aLayout.sprite;
+
+            Debug.Log("ディスプレイテキスト image.sprite :" + aLayout.sprite);
         }
 
 
