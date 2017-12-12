@@ -25,7 +25,7 @@ namespace Ando
                 stageSwitch.SetActive(false);
             }
 
-            DoorAnime.SetDoorAnimeState(DoorAnimeState.End);
+            HiddenDoor.SetDoorAnimeState(DoorAnimeState.None);
 
         }
 
@@ -56,12 +56,14 @@ namespace Ando
                 if (stageSwitchScript.ClickFlag)
                 {
                     playSceneManager.StageChange((int)stageSwitchScript.myFloorLevel);
+
                 }
             }
 
-            if(Kojima.InputDevice.Press(ButtonType.Touchpad, Kojima.HandType.Left))
+            //   ドアのアニメーションが開始になった場合
+            if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.Start)
             {
-                DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                SteamVR_Fade.Start(Color.black, 2);
             }
         }
 

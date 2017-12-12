@@ -17,6 +17,13 @@ namespace Ando
         //  シーンリストの初期化
         public SceneName firstScene = SceneName.TitleTest;
 
+        //  シーン遷移時にフェードアウトをする時間(保存用)
+        private float fadeOutTime = 0.0f;
+        //  フェード後の経過時間
+        private float fadeElapsedTime = 0.0f;
+        //  フェードインの時間
+        private float fadeInTime = 1.0f;
+
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -62,8 +69,24 @@ namespace Ando
         /// シーンの上書き ※すべてのシーンが削除される
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ChangeSceneSingle<T>() where T : SceneBace
+        public void ChangeSceneSingle<T>(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f) where T : SceneBace
         {
+            //  フェードを行うか確認
+            if (aFade)
+            {
+                //  フェイドの色が透明か設定されていないので黒を設定
+                if (aFadeColor == new Color(0, 0, 0, 0))
+                {
+                    aFadeColor = new Color(0, 0, 0, 1);
+                }
+
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+
+                //  フェイドの時間を保存
+                fadeOutTime = aFadeTime;
+            }
+
             //  新しいシーンを追加
             T newScene = this.gameObject.AddComponent<T>();
 
@@ -84,7 +107,7 @@ namespace Ando
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
-        public void ChangeSceneSingle(SceneName aSceneName)
+        public void ChangeSceneSingle(SceneName aSceneName, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
         {
             //  引数がEndの場合
             if (aSceneName == SceneName.End)
@@ -93,7 +116,23 @@ namespace Ando
                 GameEnd();
                 return;
             }
-            
+
+            //  フェードを行うか確認
+            if (aFade)
+            {
+                //  フェイドの色が透明か設定されていないので黒を設定
+                if (aFadeColor == new Color(0, 0, 0, 0))
+                {
+                    aFadeColor = new Color(0, 0, 0, 1);
+                }
+
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+
+                //  フェイドの時間を保存
+                fadeOutTime = aFadeTime;
+            }
+
             //  新しいシーンを追加
             var newScene = this.gameObject.AddComponent(Type.GetType("Ando."+aSceneName.ToString()));
 
@@ -119,8 +158,24 @@ namespace Ando
         /// シーンの追加読み込み
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ChangeSceneAdd<T>() where T : SceneBace
+        public void ChangeSceneAdd<T>(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f) where T : SceneBace
         {
+            //  フェードを行うか確認
+            if (aFade)
+            {
+                //  フェイドの色が透明か設定されていないので黒を設定
+                if (aFadeColor == new Color(0, 0, 0, 0))
+                {
+                    aFadeColor = new Color(0, 0, 0, 1);
+                }
+
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+
+                //  フェイドの時間を保存
+                fadeOutTime = aFadeTime;
+            }
+
             //  新しいシーンを追加
             T newScene = this.gameObject.AddComponent<T>();
 
@@ -132,7 +187,7 @@ namespace Ando
 
             Debug.Log(sceneList[sceneList.Count - 1] + "にシーンが移動しました");
         }
-        public void ChangeSceneAdd(SceneName aSceneName)
+        public void ChangeSceneAdd(SceneName aSceneName, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
         {
             //  引数がEndの場合
             if (aSceneName == SceneName.End)
@@ -142,6 +197,21 @@ namespace Ando
                 return;
             }
 
+            //  フェードを行うか確認
+            if (aFade)
+            {
+                //  フェイドの色が透明か設定されていないので黒を設定
+                if (aFadeColor == new Color(0, 0, 0, 0))
+                {
+                    aFadeColor = new Color(0, 0, 0, 1);
+                }
+
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+
+                //  フェイドの時間を保存
+                fadeOutTime = aFadeTime;
+            }
 
             //  新しいシーンを追加
             var newScene = this.gameObject.AddComponent(Type.GetType("Ando." + aSceneName.ToString()));
@@ -235,5 +305,31 @@ namespace Ando
             //  アプリケーションを終了する
             Application.Quit();
         }
+
+        /// <summary>
+        /// フェードの解除を行う
+        /// </summary>
+        private void FadeRelease()
+        {
+            //  経過時間がフェードアウトの時間を超えたか
+            if (fadeElapsedTime < fadeOutTime)
+            {
+                //  経過時間を加算
+                fadeElapsedTime += Time.deltaTime;
+            }
+            else
+            {
+                //  フェードアウトの時間が設定されているか
+                if (fadeOutTime > 0)
+                {
+                    //  フェードを解除する
+                    SteamVR_Fade.Start(Color.clear, fadeInTime);
+                }
+                //  使用した変数を初期化
+                fadeOutTime = 0.0f;
+                fadeElapsedTime = 0.0f;
+            }
+        }
+
     }
 }
