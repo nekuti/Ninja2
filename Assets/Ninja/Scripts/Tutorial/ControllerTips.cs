@@ -9,6 +9,8 @@ namespace Kondo
 {
     public class ControllerTips : MonoBehaviour
     {
+        public Vector3 te;
+
         public string displayText;
         public int fontSize = 14;
         public Transform drawLineFrom;
@@ -131,6 +133,8 @@ namespace Kondo
             {
                 line.SetPosition(0, drawLineFrom.position);
                 line.SetPosition(1, drawLineTo.position);
+
+                te = drawLineTo.position;
             }
         }
 
