@@ -13,12 +13,12 @@ namespace Ando
         [SerializeField]
         private List<GameObject> stageSwitches = new List<GameObject>();
 
-        //  ドアの方向を向いているか確認用
-        private Ray ray;
-
         // Use this for initialization
         void Start()
         {
+            //  プレイヤーの操作をメニュー用に切り替え
+           PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
+
             //ray = new Ray(PlaySceneManager.GetPlayer().position, PlaySceneManager.GetPlayer().transform.rotation);
             foreach (GameObject stageSwitch in stageSwitches)
             {

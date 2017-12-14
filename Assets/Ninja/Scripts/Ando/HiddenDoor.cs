@@ -118,6 +118,12 @@ namespace Ando
         /// </summary>
         public void HitRayObject()
         {
+            //  nullチェック
+            if(this.gameObject == null)
+            {
+                return;
+            }
+
             //  パーティクルを開始
             particleSystem.Play();
         }
@@ -127,6 +133,12 @@ namespace Ando
         /// </summary>
         public void OutRayObject()
         {
+            //  nullチェック
+            if (this.gameObject == null)
+            {
+                return;
+            }
+            
             //  パーティクルを停止
             particleSystem.Stop();
             //  画面に残ったパーティクルを削除
@@ -138,6 +150,12 @@ namespace Ando
         /// </summary>
         public void SelectObject()
         {
+            //  nullチェック
+            if (this.gameObject == null)
+            {
+                return;
+            }
+
             //  パーティクルを停止
             particleSystem.Stop();
             //  画面に残ったパーティクルを削除

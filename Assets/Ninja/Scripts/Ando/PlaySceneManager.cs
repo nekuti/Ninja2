@@ -74,10 +74,6 @@ namespace Ando
         //  フェードインの時間
         private float fadeInTime = 1.0f;
 
-        /// ///////////////////////////////////////////////////////////////////////////////////
-        private static int playerMoney = 0;
-        /// //////////////////////////////////////////////////////////////////////////////////
-
 
         new void Awake()
         {
@@ -95,6 +91,9 @@ namespace Ando
 
             //  最初のステージを読み込む
             StageAdd(false);
+
+            playData.Initialize();
+
         }
 
         private void Update()
@@ -257,6 +256,9 @@ namespace Ando
 
             //  ステージを追加
             StageAdd(aFade,aFadeColor,aFadeTime);
+
+            //  プレイヤーの操作をプレイ用に切り替え
+            playData.player.ChangeHandState(Kojima.HandStateType.Play);
         }
 
         /// <param name="aStageNumber"></param>
@@ -282,6 +284,9 @@ namespace Ando
 
             //  ステージを追加
             StageAdd(aFade, aFadeColor, aFadeTime);
+
+            //  プレイヤーの操作をプレイ用に切り替え
+            playData.player.ChangeHandState(Kojima.HandStateType.Play);
         }
 
         /// <summary>
@@ -372,6 +377,52 @@ namespace Ando
         }
 
         /// <summary>
+        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
+        /// </summary>
+        /// <param name="aMoney"></param>
+        public static void SetPossessionMoney(int aMoney)
+        {
+            playData.possessionMoney = aMoney;
+        }
+
+        /// <summary>
+        /// 金額を加算
+        /// </summary>
+        /// <param name="anAddMoney"></param>
+        public static void AddPossessionMoney(int anAddMoney)
+        {
+            playData.possessionMoney += anAddMoney;
+        }
+
+
+        /// <summary>
+        /// 金額を減算
+        /// </summary>
+        /// <param name="aSubMoney"></param>
+        public static void SubPossessionMoney(int aSubMoney)
+        {
+            playData.possessionMoney -= aSubMoney;
+        }
+
+        /// <summary>
+        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static void SetPossessionOnigiri(int anOnigiriNum)
+        {
+            playData.possessionMoney = anOnigiriNum;
+        }
+
+        /// <summary>
+        /// おにぎりの所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionOnigili(int anAddNum)
+        {
+            playData.possessionOnigiri += anAddNum;
+        }
+
+        /// <summary>
         /// プレイシーンマネージャにステージのスタート位置を設定
         /// </summary>
         /// <param name="aStartPos"></param>
@@ -399,6 +450,24 @@ namespace Ando
         }
 
         /// <summary>
+        /// プレイヤーの所持金情報を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionMoney()
+        {
+            return playData.possessionMoney;
+        }
+
+        /// <summary>
+        /// プレイヤーのおにぎり所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionOnigiri()
+        {
+            return playData.possessionOnigiri;
+        }
+
+        /// <summary>
         /// ステージの開始位置を教える
         /// </summary>
         /// <returns></returns>
@@ -407,14 +476,7 @@ namespace Ando
             return playData.startPos;
         }
 
-        /// <summary>
-        /// ドロップした金額を設定
-        /// </summary>
-        /// <returns></returns>
-        public static void SetDropMoney(int aDropMoney)
-        {
-            playerMoney = aDropMoney;
-        }
+ 
 
 #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
         /// <summary>
