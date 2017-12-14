@@ -302,7 +302,7 @@ namespace Kondo
                     {
                         // ワイヤーシーン
                         // ワイヤーチュートリアルを重ねる
-                        SceneManager.LoadSceneAsync(aScene.ToString(), UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                        SceneManager.LoadSceneAsync("WireTutorial", UnityEngine.SceneManagement.LoadSceneMode.Additive);
                         Debug.Log("ワイヤーシーン");
                         break;
                     }
@@ -310,7 +310,7 @@ namespace Kondo
                     {
                         // アタックシーン
                         // アタックチュートリアルを重ねる
-                        SceneManager.LoadSceneAsync(aScene.ToString(), LoadSceneMode.Additive);
+                        SceneManager.LoadSceneAsync("AttackTutorial", LoadSceneMode.Additive);
                         Debug.Log("アタックシーン");
                         break;
                     }
