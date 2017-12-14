@@ -405,15 +405,6 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
-        /// </summary>
-        /// <param name="aPlayer"></param>
-        public static void SetPossessionOnigiri(int anOnigiriNum)
-        {
-            playData.possessionMoney = anOnigiriNum;
-        }
-
-        /// <summary>
         /// おにぎりの所持数を加算
         /// </summary>
         /// <param name="anAddNum"></param>

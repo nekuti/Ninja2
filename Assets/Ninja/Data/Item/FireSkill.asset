@@ -14,4 +14,4 @@ MonoBehaviour:
   itemName: "\u706B\u9041\u306E\u8853"
   explanation: "\u7BC4\u56F2\u653B\u6483\u3059\u308B\u3088"
   maxPossessionNum: 99
-  price: 100
+  price: 50
