@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class BuyWarning : MonoBehaviour
+    public class ConfirmationScreen : MonoBehaviour
     {
 
         //  警告の表示時間
         [SerializeField]
-        private float displayTime = 2.0f;
+        private float displayTime = 1.0f;
 
         //  経過時間
         private float elapsedTime = 0.0f;
@@ -28,6 +28,14 @@ namespace Ando
                 //  警告を見えないようにする
                 this.gameObject.SetActive(false);
             }
+        }
+
+        /// <summary>
+        /// 経過時間を初期化
+        /// </summary>
+        public void InitElapsedTime()
+        {
+            elapsedTime = 0.0f;
         }
     }
 }

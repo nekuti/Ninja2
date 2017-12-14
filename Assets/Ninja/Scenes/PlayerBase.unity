@@ -187,7 +187,7 @@ Prefab:
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4343086356392196, guid: d26783886e1318040b8bb5425d288542, type: 2}
       propertyPath: m_LocalPosition.x
@@ -277,11 +277,11 @@ Prefab:
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1622157496}
+      objectReference: {fileID: 1046804888}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectBack
+      value: InitItemBuyNum
       objectReference: {fileID: 0}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
@@ -1015,7 +1015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &99288270
 Transform:
   m_ObjectHideFlags: 0
@@ -5964,7 +5964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &275422859
 Transform:
   m_ObjectHideFlags: 0
@@ -6844,7 +6844,7 @@ GameObject:
   - component: {fileID: 371702292}
   - component: {fileID: 371702291}
   m_Layer: 5
-  m_Name: WeponName
+  m_Name: WeaponName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8142,7 +8142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63902ed75d1ddfd4bb00e9a7596351ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayTime: 2
+  displayTime: 1
 --- !u!23 &483301961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8573,45 +8573,7 @@ Transform:
   m_Father: {fileID: 1820788298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &553036886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 553036887}
-  m_Layer: 5
-  m_Name: Kunai
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &553036887
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 553036886}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1687090154}
-  - {fileID: 371702290}
-  - {fileID: 1159714772}
-  - {fileID: 1000393310}
-  - {fileID: 959599504}
-  m_Father: {fileID: 1001802976}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.8, y: -4.2}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!43 &558263809
+--- !u!43 &530097623
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -8739,6 +8701,44 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!1 &553036886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 553036887}
+  m_Layer: 5
+  m_Name: Kunai
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &553036887
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553036886}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1687090154}
+  - {fileID: 371702290}
+  - {fileID: 1159714772}
+  - {fileID: 1000393310}
+  - {fileID: 959599504}
+  m_Father: {fileID: 1001802976}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.8, y: -4.2}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &566856776
 GameObject:
   m_ObjectHideFlags: 0
@@ -10706,7 +10706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &758324641
 Transform:
   m_ObjectHideFlags: 0
@@ -14720,7 +14720,7 @@ GameObject:
   - component: {fileID: 819750658}
   - component: {fileID: 819750657}
   m_Layer: 5
-  m_Name: WeponLevel
+  m_Name: WeaponLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15165,7 +15165,7 @@ GameObject:
   - component: {fileID: 846966650}
   - component: {fileID: 846966652}
   m_Layer: 0
-  m_Name: WeponSelect
+  m_Name: WeaponSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15437,6 +15437,38 @@ Transform:
   m_Father: {fileID: 210357673}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &865777735
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &867363852
 GameObject:
   m_ObjectHideFlags: 0
@@ -15857,7 +15889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63902ed75d1ddfd4bb00e9a7596351ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayTime: 2
+  displayTime: 1
 --- !u!23 &899541108
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16867,12 +16899,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1001802976}
   m_Layer: 5
-  m_Name: WeponMenu
+  m_Name: WeaponMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1001802976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17248,7 +17280,7 @@ MonoBehaviour:
   itemPrice: {fileID: 965993705}
   itemBuyNum: 1
   item: {fileID: 0}
-  buyAccept: {fileID: 0}
+  buyAccept: {fileID: 483301958}
   buyWarning: {fileID: 899541105}
 --- !u!1 &1055409495
 GameObject:
@@ -18564,7 +18596,7 @@ GameObject:
   - component: {fileID: 1159714774}
   - component: {fileID: 1159714773}
   m_Layer: 5
-  m_Name: WeponLevel
+  m_Name: WeaponLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19952,7 +19984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1303109783
 Transform:
   m_ObjectHideFlags: 0
@@ -20887,12 +20919,12 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 558263809}
+      objectReference: {fileID: 530097623}
     - target: {fileID: 23667961839792906, guid: 979798c7091b77140975ef71ff131f34,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1781415997}
+      objectReference: {fileID: 865777735}
     - target: {fileID: 1138286727723422, guid: 979798c7091b77140975ef71ff131f34, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -21160,7 +21192,7 @@ GameObject:
   - component: {fileID: 1448273637}
   - component: {fileID: 1448273636}
   m_Layer: 5
-  m_Name: WeponName
+  m_Name: WeaponName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23612,7 +23644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1768505546
 Transform:
   m_ObjectHideFlags: 0
@@ -23683,38 +23715,6 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 454668, guid: ef64e91558c342a47a898fba2e6b86e4, type: 2}
   m_PrefabInternal: {fileID: 1886694320}
---- !u!21 &1781415997
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1802334922
 GameObject:
   m_ObjectHideFlags: 0
@@ -23727,7 +23727,7 @@ GameObject:
   - component: {fileID: 1802334925}
   - component: {fileID: 1802334924}
   m_Layer: 5
-  m_Name: WeponLevel
+  m_Name: WeaponLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25061,7 +25061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1881385384
 Transform:
   m_ObjectHideFlags: 0
@@ -25555,7 +25555,7 @@ GameObject:
   - component: {fileID: 1912140787}
   - component: {fileID: 1912140786}
   m_Layer: 5
-  m_Name: WeponName
+  m_Name: WeaponName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28099,7 +28099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2134192119
 RectTransform:
   m_ObjectHideFlags: 0

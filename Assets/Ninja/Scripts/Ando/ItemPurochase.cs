@@ -58,6 +58,13 @@ namespace Ando
             itemExplanation.text = item.GetItemExplanation();
             itemNum.text = itemBuyNum + "個";
             itemPrice.text = (itemBuyNum * item.GetItemPrice()).ToString() + "両";
+
+            //  購入成功時の文を経過時間を初期化後に非アクティブへ
+            buyAccept.gameObject.GetComponent<ConfirmationScreen>().InitElapsedTime();
+            buyAccept.SetActive(false);
+            //  購入失敗時の文を経過時間を初期化後に非アクティブへ
+            buyWarning.gameObject.GetComponent<ConfirmationScreen>().InitElapsedTime();
+            buyWarning.SetActive(false);
         }
 
         /// <summary>
@@ -118,12 +125,16 @@ namespace Ando
                 item.AddPossessionItem(itemBuyNum);              
 
                 //  購入成功時の文を表示
-                buyAccept.SetActive(true);          
+                buyAccept.SetActive(true);
+                //  購入失敗時の文を非表示
+                buyWarning.SetActive(false);
             }
             else
             {
                 //  購入不可時の警告文を表示
                 buyWarning.SetActive(true);
+                //  購入成功時の文を非表示
+                buyAccept.SetActive(false);
             }
         }
 

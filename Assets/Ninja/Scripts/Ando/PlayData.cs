@@ -11,7 +11,8 @@ namespace Ando
         //  所持金
         public int possessionMoney;
         //  武器のデータテーブル
-        public Kojima.WeaponDataTable weponData;
+        public Kojima.WeaponDataTable weaponData;
+
         //  アイテムの所持数
         public int possessionOnigiri;
         public int possessionFireSkill;
@@ -25,7 +26,7 @@ namespace Ando
             stageEnd = StageState.None;
 
             possessionMoney = 200;
-            weponData = null;
+            weaponData = null;
             possessionOnigiri = 0;
             possessionFireSkill = 0;
             possessionSoilSkill = 0;
