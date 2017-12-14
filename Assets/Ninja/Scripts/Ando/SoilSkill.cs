@@ -19,6 +19,8 @@ namespace Ando
         // Update is called once per frame
         void Update()
         {
+            //  所持数を表示
+            itemPossession.text = PlaySceneManager.GetPossessionSoilSkill().ToString() + "個";
 
         }
 

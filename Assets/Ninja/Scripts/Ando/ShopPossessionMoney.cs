@@ -13,7 +13,7 @@ namespace Ando
         private const int DISPLAYLIMIT = 9999;
 
         // Use this for initialization
-        void Start()
+        void Update()
         {
             var money = PlaySceneManager.GetPossessionMoney();
 
