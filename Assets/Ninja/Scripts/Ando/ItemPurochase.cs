@@ -25,22 +25,26 @@ namespace Ando
         private int itemBuyNum = 1;
 
         //  選択されたアイテム
-        private Item item = new Onigiri();
+        [SerializeField]
+        private Item item;
 
         //  購入不可時の警告文
         [SerializeField]
         private GameObject buyWarning;
 
-        // Use this for initialization
-        void Start()
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        public void Initialize()
         {
-            //if (ShopItem.GetSelectItem() == null)
-            //{
-            //    return;
-            //}
+            //  nullチェック
+            if (ShopItem.GetSelectItem() == null)
+            {
+                return;
+            }
 
             //  選択されたアイテムを設定
-            //item = ShopItem.GetSelectItem();
+            item = ShopItem.GetSelectItem();
 
             //  固定値を入力
             itemName.text = item.GetItemName();
@@ -49,11 +53,9 @@ namespace Ando
             itemPrice.text = (itemBuyNum * item.GetItemPrice()).ToString() + "両";
         }
 
-        // Update is called once per frame
-        void Update()
-        {        
-        }
-
+        /// <summary>
+        /// 変動する値を更新
+        /// </summary>
         private void DisplayTextUpdate()
         {
             //  変動する値を更新

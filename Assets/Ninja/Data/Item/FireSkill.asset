@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: FireSkill
   m_EditorClassIdentifier: 
   itemName: "\u706B\u9041\u306E\u8853"
-  explanation: "\u30A2\u30A4\u30C6\u30E0\u306E\u8AAC\u660E\u3092\u8A18\u8FF0"
+  explanation: "\u7BC4\u56F2\u653B\u6483\u3059\u308B\u3088"
   maxPossessionNum: 99
-  price: 999
+  price: 100

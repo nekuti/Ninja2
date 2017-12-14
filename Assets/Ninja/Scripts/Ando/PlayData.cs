@@ -24,7 +24,7 @@ namespace Ando
             startPos = new Vector3(0, 0, 0);
             stageEnd = StageState.None;
 
-            possessionMoney = 0;
+            possessionMoney = 200;
             weponData = null;
             possessionOnigiri = 0;
             possessionFireSkill = 0;

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: SummonsSkill
   m_EditorClassIdentifier: 
   itemName: "\u53E3\u5BC4\u306E\u8853"
-  explanation: "\u30A2\u30A4\u30C6\u30E0\u306E\u8AAC\u660E\u3092\u8A18\u8FF0"
+  explanation: "\u983C\u308A\u306B\u306A\u308B\uFF1F\u5473\u65B9\u3092\u53EC\u559A\u3059\u308B\u3088"
   maxPossessionNum: 99
-  price: 999
+  price: 100
