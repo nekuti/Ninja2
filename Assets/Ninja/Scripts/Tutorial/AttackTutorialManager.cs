@@ -74,12 +74,11 @@ namespace Kondo
             {
                 case TutorialSequence.Attack01:
                     Debug.Log("現在の順序 : " + currentSequence);
-                    // tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
-                    // tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
+
+                    tManager.ChangeMenuSelect();
                     tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
-                    tManager.ChangeMenuSelect();
                     tManager.ShowDisplay(displeyPos[0]);
 
                     break;
