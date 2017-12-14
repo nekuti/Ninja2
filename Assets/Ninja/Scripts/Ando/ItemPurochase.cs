@@ -20,14 +20,21 @@ namespace Ando
         [SerializeField]
         private Text itemPrice;
 
+        //  最初のアイテム購入個数
+        [SerializeField]
+        private const int FIRSTITEMBUYNUM = 1;
+
         //  アイテムの購入個数
         [SerializeField]
-        private int itemBuyNum = 1;
+        private int itemBuyNum = FIRSTITEMBUYNUM;
 
         //  選択されたアイテム
         [SerializeField]
         private Item item;
 
+        //  購入成功時の文
+        [SerializeField]
+        private GameObject buyAccept;
         //  購入不可時の警告文
         [SerializeField]
         private GameObject buyWarning;
@@ -83,8 +90,8 @@ namespace Ando
         /// </summary>
         public void SubItemBuyNum()
         {
-            //  購入数が0以下になっていないか確認
-            if (itemBuyNum > 0)
+            //  購入数が1以下になっていないか確認
+            if (itemBuyNum > 1)
             {
                 itemBuyNum--;
 
@@ -108,13 +115,25 @@ namespace Ando
                 PlaySceneManager.SubPossessionMoney(subMoney);
 
                 Debug.Log(itemBuyNum + "個" + item.GetItemName() + "を購入");
-                item.AddPossessionItem(itemBuyNum);
+                item.AddPossessionItem(itemBuyNum);              
+
+                //  購入成功時の文を表示
+                buyAccept.SetActive(true);          
             }
             else
             {
                 //  購入不可時の警告文を表示
                 buyWarning.SetActive(true);
             }
+        }
+
+        /// <summary>
+        /// 購入個数を初期化
+        /// </summary>
+        public void InitItemBuyNum()
+        {
+            //  購入個数を初期化
+            itemBuyNum = FIRSTITEMBUYNUM;
         }
 
     }
