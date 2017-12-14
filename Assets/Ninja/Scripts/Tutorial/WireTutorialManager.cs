@@ -16,13 +16,14 @@ namespace Kondo
         /// </summary>
         public enum TutorialSequence
         {
-            WireStartPop,
-            WireControllerPop,
-            WirePlayPop,
-            WireMovePop,
-            WirePlayMovePop1,
-            WirePlayMovePop2,
-            WireGoal,
+            Wire01,
+            Wire02,
+            Wire03,
+            Wire04,
+            Wire05,
+            Wire06,
+            Wire07,
+            Wire08,
             WireEnd,
             MaxSequence
         }
@@ -82,13 +83,21 @@ namespace Kondo
             TutorialManager tManager = TutorialManager.instance;
             switch (currentSequence)
             {
-                case TutorialSequence.WireStartPop:
+                case TutorialSequence.Wire01:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ChangeMenuSelect();
                     tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
                     break;
 
-                case TutorialSequence.WireControllerPop:
+
+                case TutorialSequence.Wire02:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ShowDisplay(displeyPos[0]);
+                    break;
+
+
+                case TutorialSequence.Wire03:
                     Debug.Log("現在の順序 : " + currentSequence);
 
                     tManager.ShowDisplay(displeyPos[0]);
@@ -104,16 +113,16 @@ namespace Kondo
                     break;
 
 
-                case TutorialSequence.WirePlayPop:
+                case TutorialSequence.Wire04:
                     Debug.Log("現在の順序 : " + currentSequence);
-
                     tManager.ShowDisplay(displeyPos[0]);
                     currentElement = Instantiate(sequenceList[sequenceNum]);
                     break;
 
 
-                case TutorialSequence.WireMovePop:
+                case TutorialSequence.Wire05:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ChangePlay();
                     tManager.HideSelectButton(false);
                     tManager.ShowDisplay(displeyPos[0]);
                     tManager.ShowNotice();
@@ -122,8 +131,9 @@ namespace Kondo
 
 
 
-                case TutorialSequence.WirePlayMovePop1:
+                case TutorialSequence.Wire06:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ChangeMenuSelect();
                     tManager.ShowDisplay(displeyPos[0]);
                     tManager.HideSelectButton(true);
 
@@ -132,15 +142,16 @@ namespace Kondo
 
 
 
-                case TutorialSequence.WirePlayMovePop2:
+                case TutorialSequence.Wire07:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ChangePlay();
                     tManager.RemoveDisplay(false);
                     moveWall[0].GetComponentInChildren<WallMove>().StartMove();
                     break;
 
 
 
-                case TutorialSequence.WireGoal:
+                case TutorialSequence.Wire08:
                     Debug.Log("現在の順序 : " + currentSequence);
                     tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
@@ -152,9 +163,8 @@ namespace Kondo
 
                 case TutorialSequence.WireEnd:
                     Debug.Log("現在の順序 : " + currentSequence);
-  
-
-                    TutorialManager.instance.NextSceneChanged();
+                    tManager.ResetPlayerTransfome();
+                    tManager.NextSceneChanged();
                     break;
             }
         {

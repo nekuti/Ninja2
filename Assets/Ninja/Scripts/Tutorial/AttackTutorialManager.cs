@@ -15,8 +15,10 @@ namespace Kondo
     /// </summary>
     public enum TutorialSequence
     {
-        AttackContrrolerPop,
-        AttackPlayPop,
+        Attack01,
+        Attack02,
+        Attack03,
+        Attack04,
         AttackEnd,
         MaxSequence
     }
@@ -42,7 +44,7 @@ namespace Kondo
         void Start()
         {
             Debug.Log("アタックチュートリアル　strat()");
-            currentSequence = TutorialSequence.AttackContrrolerPop;
+            currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
         }
@@ -70,22 +72,61 @@ namespace Kondo
 
             switch (currentSequence)
             {
-                case TutorialSequence.AttackContrrolerPop:
+                case TutorialSequence.Attack01:
                     Debug.Log("現在の順序 : " + currentSequence);
-                   // tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
-                   // tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
+                    // tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
+                    // tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
+                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
+                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
-                   // TutorialManager.instance.ShowDisplay(displeyPos[0]);
-              
+                    tManager.ChangeMenuSelect();
+                    tManager.ShowDisplay(displeyPos[0]);
 
                     break;
 
 
-                case TutorialSequence.AttackPlayPop:
+                case TutorialSequence.Attack02:
                     Debug.Log("現在の順序 : " + currentSequence);
-                  
-                    // TutorialManager.instance.ShowDisplay(displeyPos[0]);
-                    // currentElement = Instantiate(sequenceList[sequenceNum]);
+
+                    tManager.ChangePlay();
+                    tManager.ShowDisplay(displeyPos[0]);
+                    tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
+                    tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
+
+                    currentElement = Instantiate(sequenceList[sequenceNum]);
+
+                    break;
+
+
+
+                case TutorialSequence.Attack03:
+                    Debug.Log("現在の順序 : " + currentSequence);
+
+                    DestoroyCurrentElement();
+                    tManager.ChangeMenuSelect();
+                    tManager.ShowDisplay(displeyPos[0]);
+
+                    tManager.SetEnabledTips(false, HandType.Left, PartsType.Trackpad);
+                    tManager.SetEnabledTips(false, HandType.Right, PartsType.Trackpad);
+                
+
+                    break;
+
+
+
+                case TutorialSequence.Attack04:
+                    Debug.Log("現在の順序 : " + currentSequence);
+
+                    tManager.ChangeMenuSelect();
+
+                    break;
+
+
+
+                case TutorialSequence.AttackEnd:
+                    Debug.Log("現在の順序 : " + currentSequence);
+
+                    //tManager.ChangeMenuSelect();
 
                     break;
 

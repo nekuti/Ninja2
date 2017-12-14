@@ -154,6 +154,14 @@ namespace Kondo
 
 
 
+        public void ResetPlayerTransfome()
+        {
+            player.transform.position = new  Vector3(0, 0, 0);
+        }
+
+
+
+
 
         /// <summary>
         /// Tipsの表示非表示を設定する
