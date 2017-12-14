@@ -26,31 +26,35 @@ namespace Kondo
     public class TutorialManager : MonoBehaviour
     {
 
+       
+
         private string[] noticeText =
         {
             "前を向いてください",
             "コントローラーを\n見てください",
             "移動してみましょう",
+            "攻撃してみましょう",
         };
-       
 
-
-        // prefab
-        [SerializeField]
-        private List<GameObject> sequenceList = new List<GameObject>();
-
-        private List<DisplayLayout> layout = new List<DisplayLayout>();
-
-        public List<GameObject> tipsList = new List<GameObject>();
-
-        [SerializeField]
-        private Canvas canvas;
-
-        [SerializeField]
-        private Canvas displayCanvas;
 
         // 外部から操作用
         public static TutorialManager instance;
+        // 現在のシーン
+        public NextScene nextScene;
+        public List<GameObject> tipsList = new List<GameObject>();
+
+        [SerializeField]
+        private  Player player;
+
+        private List<DisplayLayout> layout = new List<DisplayLayout>();
+
+        [SerializeField]
+        private Canvas canvas;
+        [SerializeField]
+        private Canvas displayCanvas;
+
+        [SerializeField]
+        private string loadTextName;
 
         private MoveNotice notice;
         private DisplayText display;
@@ -58,18 +62,14 @@ namespace Kondo
         // 外部からmodelの操作用
         //public static FindModel conModel = null;
 
-        // 現在のシーン
-        public NextScene nextScene;
         private int noticeCount = 0;
         private int displayCount = 0;
 
 
-        // チュートリアルの動作順序
-        //private int sequenceNum;
 
-        // 現在の要素
-        //private GameObject currentElement;
-
+        //
+        public GameObject selectButton;
+        //
 
 
         void Awake()
@@ -78,79 +78,79 @@ namespace Kondo
 
             instance = this;
 
-            // 最初のシーンを設定
-            nextScene = NextScene.WireTutorial;
-
-            // WireStartPopに設定
-            //sequenceNum = (int)TutorialSequence.WireStartPop;
-
             // TextのScriptを参照しNoticeを操作可能にする
             notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
             Debug.Log("チュートリアルマネージャー　notice : " + notice);
 
             // CanvasのScriptを参照しdisplayを操作可能にする
             display = displayCanvas.GetComponent<DisplayText>();
-            Debug.Log("チュートリアルマネージャー　display : "+display);
+            Debug.Log("チュートリアルマネージャー　display : "+ display);
 
-
-
-
-
+         
         }
 
 
         void Start()
         {
             Debug.Log("チュートリアルマネージャー　Start()");
-           
-            //Ando.PlaySceneManager.GetStartPos();
-            //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
-            //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
+            // 始めのシーンを動かす
             ChangeScene(nextScene);
             // テキストをロード
-            layout = DisplaySentence.LoadText("displayText", layout);
+            layout = DisplaySentence.LoadText(loadTextName, layout);
 
-            Debug.Log("チュートリアルマネージャー　layout : "+layout);
+            Debug.Log("チュートリアルマネージャー　layout : " + layout);
         }
 
+ 
 
-        // Update is called once per frame
-        void Update()
-        {
-           if (Input.GetKeyDown(KeyCode.A))
-            {
-                ShowNotice();
-            }
-        }
 
 
         /// <summary>
-        /// 状態を次に移行する
+        /// ワイヤーチュートリアルを進める
         /// </summary>
-        public void NextStateChanged()
+        public void NextSequenceReques()
         {
-            //if (currentElement != null)
-            //{
-            //    Debug.Log(sequenceNum + "エレメント削除");
-            //    Destroy(currentElement);
-            //    sequenceNum++;
-            //}
-            //else
-            //{
-            //    //Debug.Log("エレメントが空");
-            //}
-
-
-            //// 要素が削除されていた場合
-            //// シーケンスが最後の時でない場合
-            //if (currentElement == null && sequenceNum != (int)TutorialSequence.MaxSequence)
-            //{
-            //    // 次の要素を実行
-            //    currentElement = Instantiate(sequenceList[sequenceNum]);
-            //    Debug.Log(sequenceList[sequenceNum] + "Scene");
-            //}
-
+            WireTutorialManager.instance.NextSequenceChanged();
         }
+
+
+
+
+        /// <summary>
+        /// 次のチュートリアルへ移行する
+        /// </summary>
+        public void NextSceneChanged()
+        {
+            //　重ねたシーンの破棄
+            SceneManager.UnloadSceneAsync(nextScene.ToString());
+            ChangeScene(++nextScene);
+        }
+
+
+
+
+        /// <summary>
+        /// ハンドステートをメニューに変更する
+        /// </summary>
+        public  void ChangeMenuSelect()
+        {
+            Debug.Log("ハンドステートをMenuSelectに変更");
+            player.ChangeHandState(HandStateType.MenuSelect);
+        }
+
+
+
+
+
+        /// <summary>
+        /// ハンドステートをプレイに変更する
+        /// </summary>
+        public  void ChangePlay()
+        {
+            Debug.Log("ハンドステートをPlayに変更");
+            player.ChangeHandState(HandStateType.Play);
+        }
+
 
 
 
@@ -170,10 +170,20 @@ namespace Kondo
 
 
 
+
+
+        /// <summary>
+        /// 指定したパーツのTipsのアクティブフラグを取得する
+        /// </summary>
+        /// <param name="aHand"></param>
+        /// <param name="aParts"></param>
+        /// <returns></returns>
         public bool  GetEnabledTips(HandType aHand, PartsType aParts)
         {
             return tipsList[((int)aHand * 6) + (int)aParts].activeSelf;
         }
+
+
 
 
 
@@ -223,15 +233,15 @@ namespace Kondo
         }
 
 
-        //public void ShowNotice()
-        //{
-        //    Debug.Log("チュートリアルマネージャー　ShowNotice()");
-
-        //    notice.RequestDisplay("aaa", 3, 1, 2.5f);
-        //}
 
 
 
+        /// <summary>
+        /// 指定したパーツのTipsのテキストを変更する
+        /// </summary>
+        /// <param name="aText">表示したいテキスト</param>
+        /// <param name="aHand">手の指定</param>
+        /// <param name="aParts">パーツの指定</param>
         public void SetTipsText(string aText, HandType aHand, PartsType aParts)
         {
             tipsList[((int)aHand * 6) + (int)aParts].GetComponentInChildren<ControllerTips>().SetText(aText);
@@ -239,45 +249,60 @@ namespace Kondo
 
 
 
+        /// <summary>
+        /// 次のディスプレイTextを表示する
+        /// </summary>
+        /// <param name="pos">表示する座標</param>
         public void ShowDisplay(Transform pos)
         {
+            RemoveDisplay(true);
             Debug.Log("チュートリアルマネージャー　ShowDisplay()");
             display.RequestDisplay(layout[displayCount], pos);
             displayCount++;
         }
 
 
-
-        public void RemoveDisplay()
+        /// <summary>
+        /// ディスプレイの表示を操作
+        /// </summary>
+        public void RemoveDisplay(bool aSet)
         {
             // 非表示にする
-            display.HideDisplay();
+            //display.HideDisplay();
+            displayCanvas.gameObject.SetActive(aSet);
         }
+
+
+
+        public void HideSelectButton(bool aSet)
+        {
+            selectButton.SetActive(aSet);
+        }
+
+
 
 
         ///// <summary>
         ///// 次のシーンに遷移する
         ///// </summary>
         ///// <param name="aScene"></param>
-        public void ChangeScene(NextScene aScene)
+        private void ChangeScene(NextScene aScene)
         {
             switch (aScene)
             {
                 case NextScene.WireTutorial:
                     {
-                        // アタックシ―ン
-                        nextScene = NextScene.AttackTutorial;
-                        SceneManager.LoadSceneAsync("WireTutorial", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                        // ワイヤーシーン
+                        // ワイヤーチュートリアルを重ねる
+                        SceneManager.LoadSceneAsync(aScene.ToString(), UnityEngine.SceneManagement.LoadSceneMode.Additive);
                         Debug.Log("ワイヤーシーン");
                         break;
                     }
                 case NextScene.AttackTutorial:
                     {
-                        // バトルシ―ン
-                        nextScene = NextScene.BattalTutorial;
-                        //　追加読み込みシーンの破棄
-                        SceneManager.UnloadSceneAsync("WireTutorial");
-                        //SceneManager.LoadSceneAsync("BattleTutorial", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                        // アタックシーン
+                        // アタックチュートリアルを重ねる
+                        SceneManager.LoadSceneAsync(aScene.ToString(), LoadSceneMode.Additive);
                         Debug.Log("アタックシーン");
                         break;
                     }

@@ -8,8 +8,13 @@ namespace Kondo
 {
     public class TutorialCaughtObject : MonoBehaviour
     {
+        public float deleteTime = 1.0f;
+
         [SerializeField]
         private Transform target;
+        private bool isContact = false;
+        private float time = 0.0f;
+
 
         // Use this for initialization
         void Start()
@@ -20,7 +25,34 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
+            // 目標座標に移動
             gameObject.transform.DOMove(target.position, 1.0f);
+
+            if (isContact)
+            {
+                time += Time.deltaTime;
+                if (time > deleteTime) 
+                {
+                    WireTutorialManager.instance.DestoroyCurrentElement();
+                    TutorialManager.instance.ChangeMenuSelect();
+                    WireTutorialManager.instance.NextSequenceChanged();
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// プレイヤーが接触した場合フラグをオン
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(TagName.Player))
+            {
+                isContact = true;
+            }
+
         }
     }
 }

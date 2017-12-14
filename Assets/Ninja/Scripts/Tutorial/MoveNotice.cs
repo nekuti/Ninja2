@@ -159,8 +159,10 @@ namespace Kondo
                 .OnComplete(() =>
                 {
 
+
                    // isMoveStart = false;
 
+                   // isMoveStart = false;
                     sequence = NoticeSequence.none;
                     canvasTransfome.position = new  Vector3(0, -5, 0); 
 

@@ -41,6 +41,7 @@ namespace Kondo
             loadText = textAseet.text;
             sprlitText = loadText.Split('\n','\r');
             
+
             DisplayLayout item = new DisplayLayout();
             foreach (var sprlit in sprlitText)
             {
@@ -61,8 +62,7 @@ namespace Kondo
                 if (sprlit.StartsWith("&"))
                 {
                     string path = sprlit.Remove(0, 1);
-                    Debug.Log("パス : " + path);
-                    Debug.Log("パス : " + path.Length);
+                    Debug.Log("パス : " + path + "文字数 : " + path.Length);
 
                     //item.sprite = Resources.Load<Sprite>(path);
                     item.sprite = Resources.Load<Sprite>(path);

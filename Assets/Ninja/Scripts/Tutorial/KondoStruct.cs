@@ -8,4 +8,7 @@ namespace Kondo
         public string mainText;
         public Sprite sprite;
     }
+
+
+
 }

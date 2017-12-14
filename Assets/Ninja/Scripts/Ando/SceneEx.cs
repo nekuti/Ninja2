@@ -1,6 +1,4 @@
-﻿//  作成者：小嶋 佑太
-
-namespace Ando
+﻿namespace Ando
 {
     /// <summary>
     /// 各シーンのenum
@@ -13,7 +11,10 @@ namespace Ando
         ResultTest,
         PauseTest,
         LiteResult,
+        TitleScene,
         Tutorial,
+        PlayScene,
+        End,
     }
 
     /// <summary>
@@ -33,7 +34,10 @@ namespace Ando
                 case SceneName.ResultTest: return "ResultTest";
                 case SceneName.PauseTest: return "PauseTest";
                 case SceneName.LiteResult: return "LiteResult";
+                case SceneName.TitleScene: return "TitleScene";
                 case SceneName.Tutorial: return "Tutorial";
+                case SceneName.PlayScene: return "PlayScene";
+                case SceneName.End: return "End";
                 default: return "error";
             }
         }

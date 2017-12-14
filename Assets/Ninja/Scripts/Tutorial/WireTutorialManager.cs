@@ -8,66 +8,37 @@ using Kojima;
 
 namespace Kondo
 {
-    /// <summary>
-    /// チュートリアルの順序
-    /// </summary>
-    public enum WireTutorialSequence
+
+    public class WireTutorialManager : BaseTutoralManager<WireTutorialManager>
     {
-        WireStartPop,
-        WireControllerPop,
-        WirePlayPop,
-        WireMovePop,
-        WireEnd,
-        MaxSequence
-    }
-
-
-    public class WireTutorialManager : MonoBehaviour
-    {
-
-
-        // 外部から操作用
-        public static WireTutorialManager instance;
-        // ディスプレイ表示ポジション
-        public List<Transform> displeyPos = new List<Transform>();
-
-        // prefab
-        [SerializeField]
-        private List<GameObject> sequenceList = new List<GameObject>();
+        /// <summary>
+        /// チュートリアルの順序
+        /// </summary>
+        public enum TutorialSequence
+        {
+            WireStartPop,
+            WireControllerPop,
+            WirePlayPop,
+            WireMovePop,
+            WirePlayMovePop1,
+            WirePlayMovePop2,
+            WireGoal,
+            WireEnd,
+            MaxSequence
+        }
 
         // 動く壁
         public List<GameObject> moveWall = new List<GameObject>();
+        [SerializeField]
+        private  TutorialSequence currentSequence;
 
 
-
-
-        //private MoveNotice notice;
-
-        // 外部からmodelの操作用
-        //public static FindModel conModel = null;
-        // 現在のシーン
-        //public NextScene nextScene;
-        // 現在の状態
-        //private WireTutorialSequence currentState;
-
-        public WireTutorialSequence currentSequence;
-
-        // チュートリアルの動作順序
-        private int sequenceNum;
-
-        // 現在の要素
-        private GameObject currentElement;
 
 
         void Awake()
         {
+            
             instance = this;
-
-            // 最初のシーンを設定
-            //nextScene = NextScene.WireTutorial;
-
-            // WireStartPopに設定
-            //sequenceNum = (int)WireTutorialSequence.WireStartPop;
 
             // 始めの要素生成し要素を保存
             //currentElement = Instantiate(sequenceList[sequenceNum]);
@@ -83,8 +54,8 @@ namespace Kondo
             //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
             //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             Debug.Log("ワイヤーチュートリアル　strat()");
-            currentSequence = WireTutorialSequence.WireStartPop;
-            Debug.Log("currentSequence : " + currentSequence);
+            //currentSequence =  TutorialSequence.WireStartPop;
+            //Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
 
         }
@@ -95,7 +66,7 @@ namespace Kondo
         {
             Debug.Log("ワイヤーチュートリアル　Update()");
 
-
+            // test
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 NextSequenceChanged();
@@ -104,80 +75,106 @@ namespace Kondo
         }
 
 
-        private void SequenceChange()
+        protected override void SequenceChange()
         {
+
             Debug.Log("ワイヤーチュートリアル　SquenceChange()");
             TutorialManager tManager = TutorialManager.instance;
-            switch(currentSequence)
+            switch (currentSequence)
             {
-                case WireTutorialSequence.WireStartPop:
+                case TutorialSequence.WireStartPop:
                     Debug.Log("現在の順序 : " + currentSequence);
                     tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
                     break;
 
-                case WireTutorialSequence.WireControllerPop:
+                case TutorialSequence.WireControllerPop:
                     Debug.Log("現在の順序 : " + currentSequence);
 
                     tManager.ShowDisplay(displeyPos[0]);
                     tManager.ShowNotice();
 
-                    tManager.SetEnabledTips(true,HandType.Left, PartsType.Trigger);
+                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
 
                     tManager.SetTipsText("ワイヤー", HandType.Left, PartsType.Trigger);
                     tManager.SetTipsText("ワイヤー", HandType.Right, PartsType.Trigger);
 
                     //tManager.RemoveDisplay();
-                    //moveWall[0].transform.GetComponentInChildren<WallMove>().StartMove();
                     break;
 
 
-                case WireTutorialSequence.WirePlayPop:
+                case TutorialSequence.WirePlayPop:
+                    Debug.Log("現在の順序 : " + currentSequence);
+
                     tManager.ShowDisplay(displeyPos[0]);
-                    NextElementChanged();
+                    currentElement = Instantiate(sequenceList[sequenceNum]);
                     break;
 
 
-                case WireTutorialSequence.WireMovePop:
+                case TutorialSequence.WireMovePop:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.HideSelectButton(false);
                     tManager.ShowDisplay(displeyPos[0]);
                     tManager.ShowNotice();
 
                     break;
+
+
+
+                case TutorialSequence.WirePlayMovePop1:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ShowDisplay(displeyPos[0]);
+                    tManager.HideSelectButton(true);
+
+                    break;
+
+
+
+
+                case TutorialSequence.WirePlayMovePop2:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.RemoveDisplay(false);
+                    moveWall[0].GetComponentInChildren<WallMove>().StartMove();
+                    break;
+
+
+
+                case TutorialSequence.WireGoal:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
+                    tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
+                    tManager.ShowDisplay(displeyPos[1]);
+
+                    break;
+
+
+
+                case TutorialSequence.WireEnd:
+                    Debug.Log("現在の順序 : " + currentSequence);
+  
+
+                    TutorialManager.instance.NextSceneChanged();
+                    break;
+            }
+        {
+            
             }
         }
 
-
-
-        public void NextElementChanged()
-        {
-            DestoroyCurrentElement();
-
-             sequenceNum++;
-            currentElement = Instantiate(sequenceList[sequenceNum]);
-        }
-
-
-
-
-        public void DestoroyCurrentElement()
-        {
-            if (currentElement != null)
-            {
-                Destroy(currentElement);
-            }
-        }
 
 
 
         /// <summary>
-        /// 状態を次に移行する
+        /// 次のシーケンスに移行する
         /// </summary>
-        public void NextSequenceChanged()
+        public override void NextSequenceChanged()
         {
             currentSequence++;
-            SequenceChange();
+            base.NextSequenceChanged();
         }
+
+
     }
 }
 

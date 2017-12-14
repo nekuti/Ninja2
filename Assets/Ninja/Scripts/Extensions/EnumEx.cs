@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Enumの拡張メソッド
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/15
+/// 最終更新:2017/12/07
 /// </summary>
 namespace Kojima
 {
@@ -15,25 +15,76 @@ namespace Kojima
         #region メソッド
 
         /// <summary>
-        /// WeaponTypeに対応した武器ステートを渡す
+        /// WeaponTypeに対応した武器の待機ステートを渡す
         /// </summary>
-        /// <param name="aSelf"></param>
-        /// <param name="aOwner"></param>
+        /// <param name="aSelf">武器種</param>
+        /// <param name="aOwner">生成主</param>
         /// <returns></returns>
-        public static HandWeaponState CreateWeaponState(this WeaponType aSelf,Hand aOwner)
+        public static State<WeaponControl> CreateWeaponWaitState(this WeaponType aSelf,WeaponControl aOwner)
         {
             switch (aSelf)
             {
                 case WeaponType.Kunai:
-                    return new HandWeaponKunaiState(aOwner);
+                    return new WeaponKunaiWaitState(aOwner);
 
                 case WeaponType.Shuriken:
-                    return new HandWeaponShurikenState(aOwner);
+                    return new WeaponShurikenWaitState(aOwner);
 
                 case WeaponType.Bomb:
-                    break;
+                    return new WeaponBombWaitState(aOwner);
+
                 case WeaponType.Katana:
-                    break;
+                    return new WeaponKatanaWaitState(aOwner);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// WeaponTypeに対応した武器の攻撃ステートを渡す
+        /// </summary>
+        /// <param name="aSelf">武器種</param>
+        /// <param name="aOwner">生成主</param>
+        /// <returns></returns>
+        public static State<WeaponControl> CreateWeaponShotState(this WeaponType aSelf,WeaponControl aOwner)
+        {
+            switch (aSelf)
+            {
+                case WeaponType.Kunai:
+                    return new WeaponKunaiShotState(aOwner);
+
+                case WeaponType.Shuriken:
+                    return new WeaponShurikenShotState(aOwner);
+
+                case WeaponType.Bomb:
+                    return new WeaponBombShotState(aOwner);
+
+                case WeaponType.Katana:
+                    return new WeaponKatanaShotState(aOwner);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// WeaponTypeに対応した武器の反動ステートを渡す
+        /// </summary>
+        /// <param name="aSelf">武器種</param>
+        /// <param name="aOwner">生成主</param>
+        /// <returns></returns>
+        public static State<WeaponControl> CreateWeaponRecoilState(this WeaponType aSelf, WeaponControl aOwner)
+        {
+            switch (aSelf)
+            {
+                case WeaponType.Kunai:
+                    return new WeaponKunaiRecoilState(aOwner);
+
+                case WeaponType.Shuriken:
+                    return new WeaponShurikenRecoilState(aOwner);
+
+                case WeaponType.Bomb:
+                    return new WeaponBombRecoilState(aOwner);
+
+                case WeaponType.Katana:
+                    return new WeaponKatanaRecoilState(aOwner);
             }
             return null;
         }

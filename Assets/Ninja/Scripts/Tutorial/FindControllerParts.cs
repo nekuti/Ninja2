@@ -46,6 +46,7 @@ namespace Kondo
         private bool FindAllParts(Transform aTrans)
         {
 
+
             if (Time.time < 3)
             {
                 //Debug.Log("タイム : " + Time.time);

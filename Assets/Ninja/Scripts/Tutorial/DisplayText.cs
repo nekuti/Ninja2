@@ -18,7 +18,6 @@ namespace Kondo
         public Text mainText;
         public Text headLineText;
         public Image image;
-        public Sprite qqqq;
 
 
         private CanvasHide canvasHide;
@@ -39,6 +38,9 @@ namespace Kondo
             canvasHide = transform.GetComponentInChildren<CanvasHide>();
         }
 
+
+
+
         // Update is called once per frame
         void Update()
         {
@@ -53,8 +55,7 @@ namespace Kondo
             canvasHide.HideON();
             headLineText.text = aLayout.headLine;
             mainText.text = aLayout.mainText;
-            transform.position = aPos.position;
-            //qqqq = aLayout.sprite;
+            transform.parent.position = aPos.position;
             image.sprite = aLayout.sprite;
 
             Debug.Log("ディスプレイテキスト image.sprite :" + aLayout.sprite);
@@ -66,6 +67,9 @@ namespace Kondo
         {
             canvasHide.HideOFF();
         }
+
+
+
 
         //private void InstructMovement()
         //{

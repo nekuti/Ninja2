@@ -46,6 +46,12 @@ namespace Ando
                 case SceneName.PauseTest:
                     ChangeSceneSingle(SceneName.PauseTest);
                     break;
+                case SceneName.TitleScene:
+                    ChangeSceneSingle(SceneName.TitleScene);
+                    break;
+                case SceneName.PlayScene:
+                    ChangeSceneSingle(SceneName.PlayScene);
+                    break;
                 default:
                     break;
             }
@@ -80,6 +86,14 @@ namespace Ando
         }
         public void ChangeSceneSingle(SceneName aSceneName)
         {
+            //  引数がEndの場合
+            if (aSceneName == SceneName.End)
+            {
+                //  ゲームを終了する
+                GameEnd();
+                return;
+            }
+            
             //  新しいシーンを追加
             var newScene = this.gameObject.AddComponent(Type.GetType("Ando."+aSceneName.ToString()));
 
@@ -120,6 +134,15 @@ namespace Ando
         }
         public void ChangeSceneAdd(SceneName aSceneName)
         {
+            //  引数がEndの場合
+            if (aSceneName == SceneName.End)
+            {
+                //  ゲームを終了する
+                GameEnd();
+                return;
+            }
+
+
             //  新しいシーンを追加
             var newScene = this.gameObject.AddComponent(Type.GetType("Ando." + aSceneName.ToString()));
 
@@ -193,6 +216,24 @@ namespace Ando
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// ゲームを終了する
+        /// </summary>
+        private void GameEnd()
+        {
+            //  シーンのスクリプトを破棄
+            foreach (SceneBace list in sceneList)
+            {
+                Destroy(list);
+            }
+
+            //  シーンリストを初期化
+            sceneList = new List<SceneBace>();
+
+            //  アプリケーションを終了する
+            Application.Quit();
         }
     }
 }
