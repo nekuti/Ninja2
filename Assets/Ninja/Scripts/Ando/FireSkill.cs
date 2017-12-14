@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class Onigiri : Item
+    public class FireSkill : Item
     {
         // Use this for initialization
         protected override void Start()
@@ -13,7 +13,7 @@ namespace Ando
             base.Start();
 
             //  所持数を表示
-            itemPossession.text = PlaySceneManager.GetPossessionOnigiri().ToString() + "個";
+            itemPossession.text = PlaySceneManager.GetPossessionFireSkill().ToString() + "個";
         }
 
         // Update is called once per frame
@@ -28,7 +28,7 @@ namespace Ando
         /// <returns></returns>
         public override int GetItemPossessionNum()
         {
-            return PlaySceneManager.GetPossessionOnigiri();
+            return PlaySceneManager.GetPossessionFireSkill();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Ando
         /// <param name="anAddNum"></param>
         public override void AddPossessionItem(int anAddNum)
         {
-            PlaySceneManager.AddPossessionOnigili(anAddNum);
+            PlaySceneManager.AddPossessionFireSkill(anAddNum);
         }
 
         /// <summary>
@@ -46,6 +46,7 @@ namespace Ando
         public override void SetSelectItem()
         {
             ShopItem.SetSelectItem(this);
+
         }
     }
 }

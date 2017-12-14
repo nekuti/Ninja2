@@ -421,6 +421,66 @@ namespace Ando
         {
             playData.possessionOnigiri += anAddNum;
         }
+        /// <summary>
+        /// おにぎりの所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionOnigili(int anSubNum)
+        {
+            playData.possessionOnigiri -= anSubNum;
+        }
+
+        /// <summary>
+        /// 火遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionFireSkill(int anAddNum)
+        {
+            playData.possessionFireSkill += anAddNum;
+        }
+        /// <summary>
+        /// 火遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionFireSkill(int anSubNum)
+        {
+            playData.possessionFireSkill -= anSubNum;
+        }
+
+        /// <summary>
+        /// 土遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSoilSkill(int anAddNum)
+        {
+            playData.possessionSoilSkill += anAddNum;
+        }
+        /// <summary>
+        /// 土遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSoilSkill(int anSubNum)
+        {
+            playData.possessionSoilSkill -= anSubNum;        
+        }
+
+        /// <summary>
+        /// 召喚の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSummonsSkill(int anAddNum)
+        {
+            playData.possessionSummonsSkill += anAddNum;
+        }
+        /// <summary>
+        /// 召喚の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSummonsSkill(int anSubNum)
+        {
+            playData.possessionSummonsSkill -= anSubNum;
+        }
+
 
         /// <summary>
         /// プレイシーンマネージャにステージのスタート位置を設定
@@ -466,6 +526,34 @@ namespace Ando
         {
             return playData.possessionOnigiri;
         }
+
+        /// <summary>
+        /// プレイヤーの火遁の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionFireSkill()
+        {
+            return playData.possessionFireSkill;
+        }
+
+        /// <summary>
+        /// プレイヤーの土遁の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionSoilSkill()
+        {
+            return playData.possessionSoilSkill;
+        }
+
+        /// <summary>
+        /// プレイヤーの召喚の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionSummonsSkill()
+        {
+            return playData.possessionSummonsSkill;
+        }
+
 
         /// <summary>
         /// ステージの開始位置を教える

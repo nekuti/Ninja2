@@ -14,7 +14,10 @@ namespace Ando
         public Kojima.WeaponDataTable weponData;
         //  アイテムの所持数
         public int possessionOnigiri;
-           
+        public int possessionFireSkill;
+        public int possessionSoilSkill;
+        public int possessionSummonsSkill;
+
         public void Initialize()
         {
             player = null;
@@ -24,6 +27,9 @@ namespace Ando
             possessionMoney = 0;
             weponData = null;
             possessionOnigiri = 0;
+            possessionFireSkill = 0;
+            possessionSoilSkill = 0;
+            possessionSummonsSkill = 0;
         }
     }
 }

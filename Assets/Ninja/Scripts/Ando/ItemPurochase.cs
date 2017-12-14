@@ -24,8 +24,12 @@ namespace Ando
         [SerializeField]
         private int itemBuyNum = 1;
 
+        //  選択されたアイテム
+        private Item item = new Onigiri();
+
+        //  購入不可時の警告文
         [SerializeField]
-        private Item item;
+        private GameObject buyWarning;
 
         // Use this for initialization
         void Start()
@@ -78,7 +82,7 @@ namespace Ando
         public void SubItemBuyNum()
         {
             //  購入数が0以下になっていないか確認
-            if (itemBuyNum >= 0)
+            if (itemBuyNum > 0)
             {
                 itemBuyNum--;
 
@@ -95,11 +99,20 @@ namespace Ando
             //  減少する金額
             var subMoney = itemBuyNum * item.GetItemPrice();
 
-            Debug.Log(subMoney + "を支払い");
-            PlaySceneManager.SubPossessionMoney(subMoney);
+            //  所持金を超えていないか確認
+            if(PlaySceneManager.GetPossessionMoney() >= subMoney)
+            {
+                Debug.Log(subMoney + "を支払い");
+                PlaySceneManager.SubPossessionMoney(subMoney);
 
-            Debug.Log(itemBuyNum + "個" + item.GetItemName() + "を購入");
-            item.AddPossessionItem(itemBuyNum);
+                Debug.Log(itemBuyNum + "個" + item.GetItemName() + "を購入");
+                item.AddPossessionItem(itemBuyNum);
+            }
+            else
+            {
+                //  購入不可時の警告文を表示
+                buyWarning.SetActive(true);
+            }
         }
 
     }
