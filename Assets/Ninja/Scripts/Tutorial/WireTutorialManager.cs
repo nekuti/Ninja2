@@ -58,7 +58,7 @@ namespace Kondo
             //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             Debug.Log("ワイヤーチュートリアル　strat()");
             SequenceChange();
-
+            tManager.SetSelectEven(NextSequenceChanged);
         }
 
 
@@ -152,6 +152,7 @@ namespace Kondo
 
                 case TutorialSequence.Wire08:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.ChangeMenuSelect();
                     WireTutorialManager.instance.DestoroyCurrentElement();
                     tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);

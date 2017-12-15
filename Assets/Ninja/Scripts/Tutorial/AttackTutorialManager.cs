@@ -84,9 +84,9 @@ namespace Kondo
                 case TutorialSequence.Attack01:
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                   // tManager.ChangeMenuSelect();
-                   // tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
-                   // tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
+                    tManager.ChangeMenuSelect();
+                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
+                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
                     tManager.ShowDisplay(displeyPos[0]);
 
@@ -96,10 +96,10 @@ namespace Kondo
                 case TutorialSequence.Attack02:
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                    //tManager.ChangePlay();
+                    tManager.ChangePlay();
                     tManager.ShowDisplay(displeyPos[0]);
-                    //tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
-                    //tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
+                    tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
+                    tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
 
                     enemyList.Add(Instantiate(enemyTypeList[0]));
                     enemyList[0].transform.position = enemyPos.position;
@@ -108,7 +108,7 @@ namespace Kondo
                     // 敵の生存チェック用Listを設定
                     currentElement.GetComponentInChildren<DestroyChecker>().SetCheckList(enemyList);
                     // すべての敵がnullの時呼び出される関数を設定
-                    currentElement.GetComponentInChildren<DestroyChecker>().EndFanc.AddListener(this.NextSequenceChanged);
+                    currentElement.GetComponentInChildren<DestroyChecker>().EndFunc.AddListener(this.NextSequenceChanged);
                     break;
 
 

@@ -11,7 +11,7 @@ namespace Kondo
 
         private List<GameObject> checkList = new List<GameObject>();
 
-        public UnityEngine.Events.UnityEvent EndFanc = new UnityEngine.Events.UnityEvent();
+        public UnityEngine.Events.UnityEvent EndFunc = new UnityEngine.Events.UnityEvent();
 
 
         // Use this for initialization
@@ -36,7 +36,7 @@ namespace Kondo
             // すべてnullなら設定された関数を実行
             if (count == checkList.Count)
             {
-                EndFanc.Invoke();
+                EndFunc.Invoke();
             }
         }
 

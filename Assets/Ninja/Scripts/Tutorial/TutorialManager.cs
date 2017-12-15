@@ -93,13 +93,17 @@ namespace Kondo
             Debug.Log("チュートリアルマネージャー　Start()");
             // 始めのシーンを動かす
             ChangeScene(nextScene);
-            // テキストをロード
-           
+
+            SetSelectEven(NextWireTutorial);
 
             Debug.Log("チュートリアルマネージャー　layout : " + layout);
         }
 
 
+        public void SetSelectEven(UnityEngine.Events.UnityAction aFuncName)
+        {
+            display.SetSelectEvent(aFuncName);
+        }
 
 
         /// <summary>

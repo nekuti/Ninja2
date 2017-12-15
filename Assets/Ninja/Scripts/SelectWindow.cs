@@ -27,6 +27,12 @@ namespace Kojima
 
         #endregion
 
+        #region プロパティ
+        public UnityEngine.Events.UnityEvent HitRayEvent { get { return hitRayEvent; } }
+        public UnityEngine.Events.UnityEvent OutRayEvent { get { return outRayEvent; } }
+        public UnityEngine.Events.UnityEvent SelectEvent { get { return selectEvent; } }
+        #endregion
+
         #region メソッド
 
         /// <summary>

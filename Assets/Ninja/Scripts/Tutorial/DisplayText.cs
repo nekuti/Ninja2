@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+using Kojima;
+
 namespace Kondo
 {
     public class DisplayText : MonoBehaviour
@@ -18,6 +20,7 @@ namespace Kondo
         public Text mainText;
         public Text headLineText;
         public Image image;
+        public SelectWindow selectWindow = new SelectWindow();
 
 
         private CanvasHide canvasHide;
@@ -32,6 +35,7 @@ namespace Kondo
             mainText = transform.Find("Main").GetComponent<Text>();
             headLineText = transform.Find("HeadLine").GetComponent<Text>();
             image = transform.Find("Image").GetComponent<Image>();
+            selectWindow = transform.Find("SelectButton").GetComponent<SelectWindow>();
             Debug.Log("ディスプレイテキスト image :"+image);
 
             // DisplayTextの表示操作用変数
@@ -45,6 +49,17 @@ namespace Kondo
         void Update()
         {
 
+        }
+
+
+
+        /// <summary>
+        /// SelectWindow選択時に実行する関数をセットする
+        /// </summary>
+        /// <param name="aFuncName">関数の名前</param>
+        public void SetSelectEvent(UnityEngine.Events.UnityAction aFuncsion)
+        {
+            selectWindow.SelectEvent.AddListener(aFuncsion);
         }
 
 
