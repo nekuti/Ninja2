@@ -35,7 +35,6 @@ namespace Kondo
 
 
 
-
         void Awake()
         {
             

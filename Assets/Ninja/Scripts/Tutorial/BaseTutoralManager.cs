@@ -16,13 +16,16 @@ namespace Kondo
         // 外部から操作用
         public static T instance;
 
+
+        [SerializeField]
+        protected string loadTextName;
+
         // ディスプレイ表示ポジション
         public List<Transform> displeyPos = new List<Transform>();
         [SerializeField]
         protected List<GameObject> sequenceList = new List<GameObject>();
 
-        [SerializeField]
-        protected string loadTextName;
+    
 
         protected TutorialManager tManager;
 

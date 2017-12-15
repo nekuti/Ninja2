@@ -99,8 +99,36 @@ namespace Kondo
             Debug.Log("チュートリアルマネージャー　layout : " + layout);
         }
 
- 
 
+
+
+        /// <summary>
+        /// selectBttonからwireTutorilaを進める
+        /// </summary>
+        public void NextWireTutorial()
+        {
+            WireTutorialManager.instance.NextSequenceChanged();
+        }
+
+
+
+
+        /// <summary>
+        /// selectButtonからAttackを進める
+        /// </summary>
+        public void NextAttackTutorial()
+        {
+            AttackTutorialManager.instance.NextSequenceChanged();
+
+        }
+
+
+
+
+        /// <summary>
+        /// ディスプレイテキストを読み込む
+        /// </summary>
+        /// <param name="aName">ファイルネーム</param>
         public void LoadText(string aName)
         {
             layout = DisplaySentence.LoadText(aName, layout);
