@@ -129,6 +129,20 @@ namespace Kojima
         }
 
         /// <summary>
+        /// デバイスを取得
+        /// </summary>
+        /// <param name="aHandType">右か左か</param>
+        /// <returns></returns>
+        public static SteamVR_Controller.Device GetDevice(HandType aHandType)
+        {
+            if (InputDevice.IsDeviceRegisterd(aHandType))
+            {
+                return trackedDevices[(int)aHandType].device;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// コントローラーを振動させる
         /// </summary>
         /// <param name="aPower">振動の大きさ(1~3999)</param>

@@ -56,7 +56,7 @@ namespace Kojima
                 owner.ChangeState(WeaponStateType.Recoil);
                 return;
             }
-            if(!InputDevice.TouchUp(ButtonType.Touchpad,owner.MyHand.HandType))
+            if(InputDevice.Press(ButtonType.Touchpad,owner.MyHand.HandType))
             {
                 // パッドに触れている間
 
@@ -64,7 +64,7 @@ namespace Kojima
             else
             {
                 // パッドを離した場合
-                ReleaseObject();
+                ReleaseBomb();
                 owner.ChangeState(WeaponStateType.Recoil);
             }
         }
@@ -76,18 +76,23 @@ namespace Kojima
         {
         }
 
-        private void ReleaseObject()
+        /// <summary>
+        /// 爆弾を手から離す処理
+        /// </summary>
+        private void ReleaseBomb()
         {
             if (owner.GetComponent<FixedJoint>())
             {
-                // 2
+                // FixedJointを消す
                 owner.GetComponent<FixedJoint>().connectedBody = null;
                 GameObject.Destroy(owner.GetComponent<FixedJoint>());
-                // 3
-                myBomb.GetComponent<Rigidbody>().velocity = owner.GetComponent<Rigidbody>().velocity;
-                myBomb.GetComponent<Rigidbody>().angularVelocity = owner.GetComponent<Rigidbody>().angularVelocity;
+
+                // 手を離したバクダンに慣性を与える(WeaponDataのspeed分力を強くする)
+                Vector3 velocity = InputDevice.GetDevice(owner.MyHand.HandType).velocity;
+                Vector3 angularVelocity = InputDevice.GetDevice(owner.MyHand.HandType).angularVelocity;
+                myBomb.GetComponent<Rigidbody>().velocity = velocity * owner.MyHand.WeaponData.Speed;
+                myBomb.GetComponent<Rigidbody>().angularVelocity = angularVelocity * owner.MyHand.WeaponData.Speed;
             }
-            // 4
             myBomb = null;
         }
 

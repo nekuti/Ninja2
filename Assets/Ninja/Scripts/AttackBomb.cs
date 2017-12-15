@@ -70,7 +70,12 @@ namespace Kojima
         /// <param name="collision"></param>
         protected new void OnCollisionEnter(Collision collision)
         {
-            // なにもしない
+            // ダメージを受けるオブジェクトであれば爆発する
+            var obj = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+            if (obj != null)
+            {
+                Explosion();
+            }
         }
 
         #endregion

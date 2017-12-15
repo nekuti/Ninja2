@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114267427844947670}
   - component: {fileID: 135415982083210888}
   - component: {fileID: 54974768776032496}
-  m_Layer: 14
+  m_Layer: 15
   m_Name: PlayerAttackBomb
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4054939068748250}
   - component: {fileID: 33249790380600580}
   - component: {fileID: 23535262491764800}
-  m_Layer: 14
+  m_Layer: 15
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
