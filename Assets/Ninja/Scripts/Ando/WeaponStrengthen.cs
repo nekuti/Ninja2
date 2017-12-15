@@ -34,6 +34,15 @@ namespace Ando
         [SerializeField]
         private GameObject strengthWarning;
 
+        private void Update()
+        {
+            //  変動する値を更新
+            nowWeaponLevel.text = weapon.GetWeaponLevel().ToString();
+            newWeaponLevel.text = weapon.GetWeaponLevel().ToString() + 1;
+            WeaponStrengthenPrice.text = "費用 " + weapon.GetWeponStrengthenPrice() + "両";
+        }
+
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -64,20 +73,9 @@ namespace Ando
         }
 
         /// <summary>
-        /// 変動する値を更新
+        /// 武器を強化
         /// </summary>
-        private void DisplayTextUpdate()
-        {
-            //  変動する値を更新
-            nowWeaponLevel.text = weapon.GetWeaponLevel().ToString();
-            newWeaponLevel.text = weapon.GetWeaponLevel().ToString() + 1;
-            WeaponStrengthenPrice.text = "費用 " + weapon.GetWeponStrengthenPrice() + "両";
-        }
-
-        /// <summary>
-        /// アイテムを購入
-        /// </summary>
-        public void BuyItem()
+        public void StrengthenWeapon()
         {
             //  減少する金額
             var subMoney = weapon.GetWeponStrengthenPrice();
