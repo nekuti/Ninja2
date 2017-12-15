@@ -13,14 +13,14 @@ namespace Ando
             base.Start();
 
             //  所持数を表示
-            itemPossession.text = PlaySceneManager.GetPossessionOnigiri().ToString() + "個";
+            itemPossession.text = PlaySceneManager.GetPossessionOnigiri() + "個";
         }
 
         // Update is called once per frame
         void Update()
         {
             //  所持数を表示
-            itemPossession.text = PlaySceneManager.GetPossessionOnigiri().ToString() + "個";
+            itemPossession.text = PlaySceneManager.GetPossessionOnigiri() + "個";
         }
 
         /// <summary>

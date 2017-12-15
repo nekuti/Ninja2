@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: SoilSkill
   m_EditorClassIdentifier: 
   itemName: "\u571F\u9041\u306E\u8853"
-  explanation: "\u4E00\u5B9A\u56DE\u6570\u653B\u6483\u304B\u3089\u8EAB\u3092\u5B88\u308B\u3088"
+  explanation: "\u6575\u306E\u653B\u6483\u30923\u56DE\u3060\u3051\u9632\u3050\u3053\u3068\u304C\u3067\u304D\u308B"
   maxPossessionNum: 99
   price: 80

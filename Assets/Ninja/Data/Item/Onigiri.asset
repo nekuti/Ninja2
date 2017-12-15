@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Onigiri
   m_EditorClassIdentifier: 
   itemName: "\u304A\u306B\u304E\u308A"
-  explanation: "\u4F53\u529B\u3092\u56DE\u5FA9\u3059\u308B\u3088"
+  explanation: "\u6700\u5927\u30A8\u30CD\u30EB\u30AE\u30FC\u306E5\uFF05\u3092\u56DE\u5FA9\u3059\u308B"
   maxPossessionNum: 99
   price: 20

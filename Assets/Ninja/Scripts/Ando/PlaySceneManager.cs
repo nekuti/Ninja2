@@ -377,103 +377,6 @@ namespace Ando
         }
 
         /// <summary>
-        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
-        /// </summary>
-        /// <param name="aMoney"></param>
-        public static void SetPossessionMoney(int aMoney)
-        {
-            playData.possessionMoney = aMoney;
-        }
-
-        /// <summary>
-        /// 金額を加算
-        /// </summary>
-        /// <param name="anAddMoney"></param>
-        public static void AddPossessionMoney(int anAddMoney)
-        {
-            playData.possessionMoney += anAddMoney;
-        }
-
-
-        /// <summary>
-        /// 金額を減算
-        /// </summary>
-        /// <param name="aSubMoney"></param>
-        public static void SubPossessionMoney(int aSubMoney)
-        {
-            playData.possessionMoney -= aSubMoney;
-        }
-
-        /// <summary>
-        /// おにぎりの所持数を加算
-        /// </summary>
-        /// <param name="anAddNum"></param>
-        public static void AddPossessionOnigili(int anAddNum)
-        {
-            playData.possessionOnigiri += anAddNum;
-        }
-        /// <summary>
-        /// おにぎりの所持数を減算
-        /// </summary>
-        /// <param name="anSubNum"></param>
-        public static void SubPossessionOnigili(int anSubNum)
-        {
-            playData.possessionOnigiri -= anSubNum;
-        }
-
-        /// <summary>
-        /// 火遁の術の所持数を加算
-        /// </summary>
-        /// <param name="anAddNum"></param>
-        public static void AddPossessionFireSkill(int anAddNum)
-        {
-            playData.possessionFireSkill += anAddNum;
-        }
-        /// <summary>
-        /// 火遁の術の所持数を減算
-        /// </summary>
-        /// <param name="anSubNum"></param>
-        public static void SubPossessionFireSkill(int anSubNum)
-        {
-            playData.possessionFireSkill -= anSubNum;
-        }
-
-        /// <summary>
-        /// 土遁の術の所持数を加算
-        /// </summary>
-        /// <param name="anAddNum"></param>
-        public static void AddPossessionSoilSkill(int anAddNum)
-        {
-            playData.possessionSoilSkill += anAddNum;
-        }
-        /// <summary>
-        /// 土遁の術の所持数を減算
-        /// </summary>
-        /// <param name="anSubNum"></param>
-        public static void SubPossessionSoilSkill(int anSubNum)
-        {
-            playData.possessionSoilSkill -= anSubNum;        
-        }
-
-        /// <summary>
-        /// 召喚の術の所持数を加算
-        /// </summary>
-        /// <param name="anAddNum"></param>
-        public static void AddPossessionSummonsSkill(int anAddNum)
-        {
-            playData.possessionSummonsSkill += anAddNum;
-        }
-        /// <summary>
-        /// 召喚の術の所持数を減算
-        /// </summary>
-        /// <param name="anSubNum"></param>
-        public static void SubPossessionSummonsSkill(int anSubNum)
-        {
-            playData.possessionSummonsSkill -= anSubNum;
-        }
-
-
-        /// <summary>
         /// プレイシーンマネージャにステージのスタート位置を設定
         /// </summary>
         /// <param name="aStartPos"></param>
@@ -492,6 +395,216 @@ namespace Ando
         }
 
         /// <summary>
+        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
+        /// </summary>
+        /// <param name="aMoney"></param>
+        public static void SetPossessionMoney(int aMoney)
+        {
+            playData.possessionMoney = aMoney;
+        }
+
+        /// <summary>
+        /// 金額を加算
+        /// </summary>
+        /// <param name="anAddMoney"></param>
+        public static void AddPossessionMoney(int anAddMoney)
+        {
+            playData.possessionMoney += anAddMoney;
+        }
+
+        /// <summary>
+        /// 金額を減算
+        /// </summary>
+        /// <param name="aSubMoney"></param>
+        public static void SubPossessionMoney(int aSubMoney)
+        {
+            if (playData.kunaiLevel > 0)
+            {
+                playData.possessionMoney -= aSubMoney;
+            }
+            else
+            {
+                Debug.Log("所持金が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddKunaiLevel(int anAddnum)
+        {
+            playData.kunaiLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubKunaiLevel(int aSubnum)
+        {
+            if (playData.kunaiLevel > 1)
+            {
+                playData.kunaiLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddThrowingStarLevel(int anAddnum)
+        {
+            playData.throwingStarLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubThrowingStarLevel(int aSubnum)
+        {
+            if (playData.throwingStarLevel > 1)
+            {
+                playData.throwingStarLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddBumbLevel(int anAddnum)
+        {
+            playData.bombLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubBumbLevel(int aSubnum)
+        {
+            if (playData.bombLevel > 1)
+            {
+                playData.bombLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// おにぎりの所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionOnigili(int anAddNum)
+        {
+            playData.possessionOnigiri += anAddNum;
+        }
+
+        /// <summary>
+        /// おにぎりの所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionOnigili(int aSubnum)
+        {
+            if (playData.possessionOnigiri > 0)
+            {
+                playData.possessionOnigiri -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 火遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionFireSkill(int anAddNum)
+        {
+            playData.possessionFireSkill += anAddNum;
+        }
+        
+        /// <summary>
+        /// 火遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionFireSkill(int aSubnum)
+        {
+            if (playData.possessionFireSkill > 0)
+            {
+                playData.possessionFireSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 土遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSoilSkill(int anAddNum)
+        {
+            playData.possessionSoilSkill += anAddNum;
+        }
+        
+        /// <summary>
+        /// 土遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSoilSkill(int aSubnum)
+        {
+            if (playData.possessionSoilSkill > 0)
+            {
+                playData.possessionSoilSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 召喚の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSummonsSkill(int anAddNum)
+        {
+            playData.possessionSummonsSkill += anAddNum;
+        }
+       
+        /// <summary>
+        /// 召喚の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSummonsSkill(int aSubnum)
+        {
+            if (playData.possessionSummonsSkill > 0)
+            {
+                playData.possessionSummonsSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        #region Get
+        /// <summary>
         /// プレイヤーの情報を教える
         /// </summary>
         /// <returns></returns>
@@ -501,12 +614,48 @@ namespace Ando
         }
 
         /// <summary>
+        /// ステージの開始位置を教える
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 GetStartPos()
+        {
+            return playData.startPos;
+        }
+
+        /// <summary>
         /// プレイヤーの所持金情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
         public static int GetPossessionMoney()
         {
             return playData.possessionMoney;
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetKunaiLevel()
+        {
+            return playData.kunaiLevel;
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetThrowingStarLevel()
+        {
+            return playData.throwingStarLevel;
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetBombLevel()
+        {
+            return playData.bombLevel;
         }
 
         /// <summary>
@@ -545,19 +694,10 @@ namespace Ando
             return playData.possessionSummonsSkill;
         }
 
+        #endregion
 
-        /// <summary>
-        /// ステージの開始位置を教える
-        /// </summary>
-        /// <returns></returns>
-        public static Vector3 GetStartPos()
-        {
-            return playData.startPos;
-        }
 
- 
-
-#region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
+        #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
         /// <summary>
         /// ステージをクリアしたか教える
         /// </summary>
@@ -566,6 +706,7 @@ namespace Ando
         //{
         //    return playData.stageEnd;
         //}
-#endregion
+        #endregion
+
     }
 }

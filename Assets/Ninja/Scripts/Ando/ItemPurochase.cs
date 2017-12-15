@@ -19,6 +19,9 @@ namespace Ando
         //  アイテムの値段
         [SerializeField]
         private Text itemPrice;
+        //  購入アイテムの値段
+        [SerializeField]
+        private Text itemBuyPrice;
 
         //  最初のアイテム購入個数
         [SerializeField]
@@ -57,7 +60,8 @@ namespace Ando
             itemName.text = item.GetItemName();
             itemExplanation.text = item.GetItemExplanation();
             itemNum.text = itemBuyNum + "個";
-            itemPrice.text = (itemBuyNum * item.GetItemPrice()).ToString() + "両";
+            itemPrice.text = "価格 " + item.GetItemPrice() + "両";
+            itemBuyPrice.text = "合計 " + (itemBuyNum * item.GetItemPrice()) + "両";
 
             //  購入成功時の文を経過時間を初期化後に非アクティブへ
             buyAccept.gameObject.GetComponent<ConfirmationScreen>().InitElapsedTime();
@@ -74,7 +78,7 @@ namespace Ando
         {
             //  変動する値を更新
             itemNum.text = itemBuyNum + "個";
-            itemPrice.text = (itemBuyNum * item.GetItemPrice()).ToString() + "両";
+            itemBuyPrice.text = "合計 " + (itemBuyNum * item.GetItemPrice()) + "両";
         }
 
         /// <summary>
@@ -126,6 +130,8 @@ namespace Ando
 
                 //  購入成功時の文を表示
                 buyAccept.SetActive(true);
+                //  表示文の経過時間を初期化
+                buyAccept.GetComponent<ConfirmationScreen>().InitElapsedTime();
                 //  購入失敗時の文を非表示
                 buyWarning.SetActive(false);
             }
@@ -133,6 +139,8 @@ namespace Ando
             {
                 //  購入不可時の警告文を表示
                 buyWarning.SetActive(true);
+                //  表示文の経過時間を初期化
+                buyWarning.GetComponent<ConfirmationScreen>().InitElapsedTime();
                 //  購入成功時の文を非表示
                 buyAccept.SetActive(false);
             }

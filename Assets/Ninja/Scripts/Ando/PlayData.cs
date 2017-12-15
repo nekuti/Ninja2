@@ -10,8 +10,11 @@ namespace Ando
 
         //  所持金
         public int possessionMoney;
-        //  武器のデータテーブル
-        public Kojima.WeaponDataTable weaponData;
+
+        //  武器の強化レベル
+        public int kunaiLevel;
+        public int throwingStarLevel;
+        public int bombLevel;
 
         //  アイテムの所持数
         public int possessionOnigiri;
@@ -19,14 +22,24 @@ namespace Ando
         public int possessionSoilSkill;
         public int possessionSummonsSkill;
 
+        /// <summary>
+        /// プレイシーンマネージャが保存する情報を初期化
+        /// </summary>
         public void Initialize()
         {
             player = null;
             startPos = new Vector3(0, 0, 0);
             stageEnd = StageState.None;
 
+            //  所持金
             possessionMoney = 200;
-            weaponData = null;
+
+            //  武器のレベル
+            kunaiLevel = 1;
+            throwingStarLevel = 1;
+            bombLevel = 1;
+
+            //  アイテムの所持数
             possessionOnigiri = 0;
             possessionFireSkill = 0;
             possessionSoilSkill = 0;
