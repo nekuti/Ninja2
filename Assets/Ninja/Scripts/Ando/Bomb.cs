@@ -39,6 +39,14 @@ namespace Ando
         }
 
         /// <summary>
+        /// 武器のレベルを上昇
+        /// </summary>
+        public override void AddWeponLevel()
+        {
+            PlaySceneManager.AddBumbLevel(addWeponLevel);
+        }
+
+        /// <summary>
         /// 選択された武器情報を設定
         /// </summary>
         public override void SetSelectWeapon()

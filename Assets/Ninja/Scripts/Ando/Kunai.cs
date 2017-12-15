@@ -7,7 +7,6 @@ namespace Ando
 {
     public class Kunai : Weapon
     {
-
         protected override void Start()
         {
             base.Start();
@@ -36,6 +35,14 @@ namespace Ando
         public override int GetWeaponLevel()
         {
             return PlaySceneManager.GetKunaiLevel();
+        }
+
+        /// <summary>
+        /// 武器のレベルを上昇
+        /// </summary>
+        public override void AddWeponLevel()
+        {
+            PlaySceneManager.AddKunaiLevel(addWeponLevel);
         }
 
         /// <summary>

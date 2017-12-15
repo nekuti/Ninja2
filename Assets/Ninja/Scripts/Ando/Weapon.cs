@@ -22,6 +22,10 @@ namespace Ando
         [SerializeField]
         protected Text weaponLevel;
 
+        //  武器レベルの増加量
+        [SerializeField]
+        protected int addWeponLevel = 1;
+
         // Use this for initialization
         protected virtual void Start()
         {
@@ -61,7 +65,7 @@ namespace Ando
         /// 武器の改造費を取得
         /// </summary>
         /// <returns></returns>
-        public int GetWeponStrengthen()
+        public int GetWeponStrengthenPrice()
         {
             return 0;
         }
@@ -79,6 +83,11 @@ namespace Ando
 
             Debug.Log("装備を" + weaponData.WeaponName + "に変更しました");
         }
+
+        /// <summary>
+        /// 武器レベルを上昇
+        /// </summary>
+        public abstract void AddWeponLevel();
 
         /// <summary>
         /// 装備中の武器チェックを非アクティブに
