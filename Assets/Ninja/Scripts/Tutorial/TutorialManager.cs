@@ -53,8 +53,6 @@ namespace Kondo
         [SerializeField]
         private Canvas displayCanvas;
 
-        [SerializeField]
-        private string loadTextName;
 
         private MoveNotice notice;
         private DisplayText display;
@@ -96,23 +94,17 @@ namespace Kondo
             // 始めのシーンを動かす
             ChangeScene(nextScene);
             // テキストをロード
-            layout = DisplaySentence.LoadText(loadTextName, layout);
+           
 
             Debug.Log("チュートリアルマネージャー　layout : " + layout);
         }
 
  
 
-
-
-        /// <summary>
-        /// ワイヤーチュートリアルを進める
-        /// </summary>
-        public void NextSequenceReques()
+        public void LoadText(string aName)
         {
-            WireTutorialManager.instance.NextSequenceChanged();
+            layout = DisplaySentence.LoadText(aName, layout);
         }
-
 
 
 
@@ -302,7 +294,7 @@ namespace Kondo
                     {
                         // ワイヤーシーン
                         // ワイヤーチュートリアルを重ねる
-                        SceneManager.LoadSceneAsync("WireTutorial", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                        SceneManager.LoadSceneAsync("WireTutorial", LoadSceneMode.Additive);
                         Debug.Log("ワイヤーシーン");
                         break;
                     }

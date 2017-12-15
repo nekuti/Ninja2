@@ -43,10 +43,14 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
+            base.SetTutorialManger();
+            tManager.LoadText(loadTextName);
+
             Debug.Log("アタックチュートリアル　strat()");
             currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
+
         }
 
 
@@ -58,7 +62,6 @@ namespace Kondo
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 NextSequenceChanged();
-
             }
         }
 
@@ -68,16 +71,15 @@ namespace Kondo
         protected override void SequenceChange()
         {
             Debug.Log("アタックチュートリアル　SquenceChange()");
-            TutorialManager tManager = TutorialManager.instance;
 
             switch (currentSequence)
             {
                 case TutorialSequence.Attack01:
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                    tManager.ChangeMenuSelect();
-                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
-                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
+                   // tManager.ChangeMenuSelect();
+                   // tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
+                   // tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
                     tManager.ShowDisplay(displeyPos[0]);
 
@@ -87,10 +89,10 @@ namespace Kondo
                 case TutorialSequence.Attack02:
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                    tManager.ChangePlay();
+                    //tManager.ChangePlay();
                     tManager.ShowDisplay(displeyPos[0]);
-                    tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
-                    tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
+                    //tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
+                    //tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
 
                     currentElement = Instantiate(sequenceList[sequenceNum]);
 

@@ -21,11 +21,25 @@ namespace Kondo
         [SerializeField]
         protected List<GameObject> sequenceList = new List<GameObject>();
 
+        [SerializeField]
+        protected string loadTextName;
+
+        protected TutorialManager tManager;
+
         // チュートリアルの動作順序
         protected int sequenceNum;
 
         // 現在の要素
         protected GameObject currentElement;
+
+
+     
+
+
+        protected void SetTutorialManger()
+        {
+            tManager = TutorialManager.instance;
+        }
 
 
 

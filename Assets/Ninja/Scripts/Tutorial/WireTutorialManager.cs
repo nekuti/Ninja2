@@ -49,14 +49,15 @@ namespace Kondo
         }
 
 
-        void Start()
+         void Start()
         {
+            base.SetTutorialManger();
+            tManager.LoadText(loadTextName);
+
             //Ando.PlaySceneManager.GetStartPos();
             //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
             //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             Debug.Log("ワイヤーチュートリアル　strat()");
-            //currentSequence =  TutorialSequence.WireStartPop;
-            //Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
 
         }
@@ -80,7 +81,6 @@ namespace Kondo
         {
 
             Debug.Log("ワイヤーチュートリアル　SquenceChange()");
-            TutorialManager tManager = TutorialManager.instance;
             switch (currentSequence)
             {
                 case TutorialSequence.Wire01:
@@ -153,6 +153,7 @@ namespace Kondo
 
                 case TutorialSequence.Wire08:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    WireTutorialManager.instance.DestoroyCurrentElement();
                     tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
                     tManager.ShowDisplay(displeyPos[1]);
@@ -163,6 +164,7 @@ namespace Kondo
 
                 case TutorialSequence.WireEnd:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.RemoveDisplay(false);
                     tManager.ResetPlayerTransfome();
                     tManager.NextSceneChanged();
                     break;

@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/AndoTest/PauseTest.unity
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Ninja/Scenes/AttackTutorial.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
     path: Assets/Ninja/Scenes/WireTutorial.unity
     guid: 2dc9ab00ecf076d418bb36b1f1a3a48e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Ninja/Scenes/AttackScene.unity
     guid: 00000000000000000000000000000000
   - enabled: 1

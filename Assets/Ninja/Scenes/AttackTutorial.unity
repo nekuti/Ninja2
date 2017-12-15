@@ -151,7 +151,8 @@ MonoBehaviour:
   displeyPos:
   - {fileID: 1696470394}
   sequenceList:
-  - {fileID: 1379861222858620, guid: a2523e8aec4cdea4e9924320da4620b6, type: 2}
+  - {fileID: 1341093248966306, guid: 4454ed98053607c45867d40bd2eda03c, type: 2}
+  loadTextName: AttackText
   currentSequence: 0
 --- !u!21 &263175590
 Material:

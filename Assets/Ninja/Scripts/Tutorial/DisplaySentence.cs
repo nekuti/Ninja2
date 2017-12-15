@@ -37,7 +37,7 @@ namespace Kondo
             string loadText;
             string[] sprlitText;
 
-            textAseet = Resources.Load<TextAsset>(aTextName);
+            textAseet = Resources.Load<TextAsset>("Text/"+aTextName);
             loadText = textAseet.text;
             sprlitText = loadText.Split('\n','\r');
             

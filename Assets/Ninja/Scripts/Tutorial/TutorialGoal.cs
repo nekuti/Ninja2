@@ -9,6 +9,8 @@ namespace Kondo
     public class TutorialGoal : MonoBehaviour
     {
 
+        private 
+
         // Use this for initialization
         void Start()
         {
@@ -26,10 +28,11 @@ namespace Kondo
         {
             if (collision.gameObject.CompareTag(TagName.Player))
             {
-                TutorialManager.instance.NextSequenceReques();
-                WireTutorialManager.instance.DestoroyCurrentElement();
+                WireTutorialManager.instance.NextSequenceChanged();
             }
         }
+
+      
     }
 }
 
