@@ -6291,7 +6291,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1469871441
+  randomSeed: -1294134440
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -25701,7 +25701,7 @@ Prefab:
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4343086356392196, guid: d26783886e1318040b8bb5425d288542, type: 2}
       propertyPath: m_LocalPosition.x
@@ -25790,6 +25790,21 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StrengthenWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1415498949}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}
   m_IsPrefabParent: 0
@@ -27089,7 +27104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1046804887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30882,7 +30897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1415498948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30927,7 +30942,7 @@ MonoBehaviour:
   WeaponExplanation: {fileID: 795890101}
   nowWeaponLevel: {fileID: 1846911378}
   newWeaponLevel: {fileID: 691177555}
-  WeaponStrengthenPrice: {fileID: 691177555}
+  WeaponStrengthenPrice: {fileID: 527520490}
   weapon: {fileID: 0}
   strengthAccept: {fileID: 161602111}
   strengthWarning: {fileID: 542673576}
@@ -36228,6 +36243,11 @@ Prefab:
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114052059625402378, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u8CFC\u5165"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}
   m_IsPrefabParent: 0
@@ -37110,6 +37130,11 @@ Prefab:
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114052059625402378, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u8CFC\u5165"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}
   m_IsPrefabParent: 0
@@ -37808,6 +37833,11 @@ Prefab:
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114052059625402378, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u8CFC\u5165"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}
@@ -39403,6 +39433,11 @@ Prefab:
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114052059625402378, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u8CFC\u5165\n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}

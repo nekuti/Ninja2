@@ -14,7 +14,7 @@ namespace Ando
         void Start()
         {
             //  パーティクルシステムを取得
-            this.gameObject.GetComponent<ParticleSystem>();
+            particleSystem = this.gameObject.GetComponent<ParticleSystem>();
 
             //  パーティクルシステムの動作を止める
             particleSystem.Stop();

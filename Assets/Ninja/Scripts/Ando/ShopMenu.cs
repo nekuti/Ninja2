@@ -30,6 +30,8 @@ namespace Ando
         /// </summary>
         public void Select()
         {
+            noSelect.GetComponent<SelectButton>().ParticleStop();
+
             select.SetActive(true);
             noSelect.SetActive(false);
             menuFlame.SetActive(true);
@@ -42,6 +44,8 @@ namespace Ando
         /// </summary>
         public void NoSelect()
         {
+            noSelect.GetComponent<SelectButton>().ParticleStop();
+
             select.SetActive(false);
             noSelect.SetActive(true);
             menuFlame.SetActive(false);
