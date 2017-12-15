@@ -58,6 +58,8 @@ namespace Kondo
             //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             Debug.Log("ワイヤーチュートリアル　strat()");
             SequenceChange();
+            // セレクトボタンが実行する関数を設定
+            // ワイヤーチュートリアルを進める
             tManager.SetSelectEven(NextSequenceChanged);
         }
 
@@ -87,6 +89,7 @@ namespace Kondo
                     tManager.ChangeMenuSelect();
                     tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
+
                     break;
 
 

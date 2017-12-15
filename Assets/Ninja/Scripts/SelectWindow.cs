@@ -72,6 +72,8 @@ namespace Kojima
         /// </summary>
         public void SelectObject()
         {
+
+            Debug.Log("selectEvet数 : "+selectEvent.GetPersistentEventCount());
             if (selectEvent.GetPersistentEventCount() > 0)
             {
                 selectEvent.Invoke();

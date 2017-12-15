@@ -24,7 +24,7 @@ namespace Kondo
 
 
         private CanvasHide canvasHide;
-
+        private UnityEngine.Events.UnityAction tempData;
 
 
         // Use this for initialization
@@ -59,11 +59,28 @@ namespace Kondo
         /// <param name="aFuncName">関数の名前</param>
         public void SetSelectEvent(UnityEngine.Events.UnityAction aFuncsion)
         {
+            tempData = aFuncsion;
             selectWindow.SelectEvent.AddListener(aFuncsion);
+            // selectWindow.SelectEvent.Invoke();
+            Debug.Log("自作した方のevent数 : "+selectWindow.SelectEvent.GetPersistentEventCount());
+        }
+
+
+        /// <summary>
+        /// 登録したすべてのイベントを削除
+        /// </summary>
+        public void DeleteSelectEvent()
+        {
+            selectWindow.SelectEvent.RemoveAllListeners();
         }
 
 
 
+        /// <summary>
+        /// ディスプレイを表示する
+        /// </summary>
+        /// <param name="aLayout"></param>
+        /// <param name="aPos"></param>
         public void RequestDisplay(DisplayLayout aLayout, Transform aPos)
         {
             Debug.Log("ディスプレイテキスト RequestDisplay()");
