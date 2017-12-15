@@ -9,17 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59c27bd5ba0bc3a44a1a515b4e666fd2, type: 3}
-  m_Name: Shuriken
+  m_Name: Bomb
   m_EditorClassIdentifier: 
-  weaponName: "\u30B9\u30EA\u30B1\u30F3"
-  weaponPrefab: {fileID: 114605707824433894, guid: 10c2f3fe4f32e17458e051b4d92eca8e,
+  weaponName: "\u30D0\u30AF\u30C0\u30F3"
+  weaponPrefab: {fileID: 114267427844947670, guid: 15c09f4342f3c284a8a1861b003ebdde,
     type: 2}
-  weaponType: 1
-  power: 2
+  weaponType: 2
+  power: 15
   powerLevel: 1
-  many: 10
+  many: 5
   manyLevel: 1
   speed: 1
   speedLevel: 1
-  diffusion: 5
+  diffusion: 0
   recoil: 0.5

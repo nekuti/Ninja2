@@ -74,8 +74,11 @@ namespace Kojima
         /// <summary>
         /// 初期化処理
         /// </summary>
-        void Awake()
+        private void Awake()
         {
+            // プレイヤーを登録
+            Ando.PlaySceneManager.SetPlayer(this);
+
             // Rigidbodyの取得
             myRigidbody = GetComponent<Rigidbody>();
 
@@ -93,8 +96,10 @@ namespace Kojima
         /// <summary>
         /// 更新前処理
         /// </summary>
-        void Start()
+        private void Start()
         {
+
+
             posResetFlg = true;
             //resultFlg = false;
             //trrigerFlg = true;

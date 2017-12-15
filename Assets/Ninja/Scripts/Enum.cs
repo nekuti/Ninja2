@@ -37,9 +37,10 @@ public enum EnemyType
 public enum AttackType
 {
     Bullet,
-    Explosion,
+    Blast,
     Strike,
     Slash,
+    Stone,
 }
 
 /// <summary>

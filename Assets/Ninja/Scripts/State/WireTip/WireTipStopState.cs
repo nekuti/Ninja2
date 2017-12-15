@@ -30,13 +30,6 @@ namespace Kojima
         {
             owner.Controller.HitWireTip();
 
-            // 回転を止める
-            PropellerRot propeller = owner.GetComponentInChildren<PropellerRot>();
-            if (propeller != null)
-            {
-                GameObject.Destroy(propeller);
-            }
-
             // パーティクルを生成
             ParticleEffect.Create(ParticleEffectType.Ring01, owner.transform.position);
         }

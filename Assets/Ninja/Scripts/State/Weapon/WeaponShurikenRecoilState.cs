@@ -13,6 +13,8 @@ namespace Kojima
     {
         #region メンバ変数
 
+        private float timer;
+
         #endregion
 
         #region メソッド
@@ -29,6 +31,7 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("WeaponShurikenの反動");
+            timer = 0f;
         }
 
         /// <summary>
@@ -36,6 +39,15 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            // 設定した反動時間に達したら待機へ戻す
+            if (timer > owner.MyHand.WeaponData.Recoil)
+            {
+                owner.ChangeState(WeaponStateType.Wait);
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
         }
 
         /// <summary>

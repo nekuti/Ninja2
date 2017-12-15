@@ -36,6 +36,7 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            // 攻撃ステートへ移行
             if(Input.GetButtonDown("Fire1"))
             {
                 owner.ChangeState(WeaponStateType.Shot);

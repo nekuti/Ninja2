@@ -65,13 +65,10 @@ namespace Kojima
         /// </summary>
         protected virtual void Update()
         {
-            if(time < timer)
+            // 寿命が来たら自身を消す
+            if(TimerCount())
             {
                 Destroy(this.gameObject);
-            }
-            else
-            {
-                timer += Time.deltaTime;
             }
 
             // 攻撃を移動させる
@@ -82,7 +79,7 @@ namespace Kojima
         /// 攻撃が当たった(Trriger)
         /// </summary>
         /// <param name="other"></param>
-        private void OnTriggerEnter(Collider other)
+        protected void OnTriggerEnter(Collider other)
         {
             Debug.Log(this + "あたったたた");
             // 壁に攻撃が当たった場合
@@ -107,7 +104,7 @@ namespace Kojima
         /// 攻撃が当たった(Collision)
         /// </summary>
         /// <param name="collision"></param>
-        private void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
             // 壁に攻撃が当たった場合
             if (collision.gameObject.CompareTag(TagName.WireableObject) || collision.gameObject.CompareTag(TagName.Object))
@@ -147,6 +144,23 @@ namespace Kojima
             obj.transform.LookAt(aTargetPos);
 
             return obj;
+        }
+
+        /// <summary>
+        /// タイマーを進めて寿命が来たらtrueを返す
+        /// </summary>
+        /// <returns></returns>
+        protected bool TimerCount()
+        {
+            if (time < timer)
+            {
+                return true;
+            }
+            else
+            {
+                timer += Time.deltaTime;
+                return false;
+            }
         }
 
         /// <summary>

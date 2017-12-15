@@ -38,6 +38,9 @@ namespace Kojima
         [SerializeField, Tooltip("連射レベル")]
         private int speedLevel = 1;
 
+        [SerializeField,Tooltip("弾の拡散度(値が大きいほど拡散する)"),Range(0f,90f)]
+        private float diffusion = 0f;
+
         [SerializeField, Tooltip("反動の硬直時間"), Range(0f,10f)]
         private float recoil = 0.5f;
 
@@ -53,6 +56,7 @@ namespace Kojima
         public int ManyLevel { get { return manyLevel; } }
         public float Speed { get { return speed; } }
         public int SpeedLevel { get { return speedLevel; } }
+        public float Diffusion { get { return diffusion; } }
         public float Recoil { get { return recoil; } }
         #endregion
 
