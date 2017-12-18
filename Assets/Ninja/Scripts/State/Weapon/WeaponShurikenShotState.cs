@@ -47,7 +47,7 @@ namespace Kojima
 
                 // ブレを加えて弾を生成
                 Attack.Create(owner.MyHand.WeaponData.WeaponPrefab, owner.transform.position,
-                    owner.transform.position + (dire * owner.transform.forward),owner.MyHand.WeaponData.Power, owner.tag);
+                    owner.transform.position + owner.transform.rotation * (dire * Vector3.forward),owner.MyHand.WeaponData.Power, owner.tag);
             }
 
             // 反動ステートへ移行
