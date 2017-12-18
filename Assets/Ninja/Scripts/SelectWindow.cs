@@ -137,19 +137,30 @@ namespace Kojima
             }
         }
 
-
+        /// <summary>
+        /// 動的にレイが当たった時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
         public void SetDynamicHitRayEvent(UnityEngine.Events.UnityAction aFuncName)
         {
             hitRayEvent.AddListener(aFuncName);
             isSetHitRay = true;
         }
 
+        /// <summary>
+        /// 動的にレイが外れた時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
         public void SetDynamicOutRayEvent(UnityEngine.Events.UnityAction aFuncName)
         {
             outRayEvent.AddListener(aFuncName);
             isSetOutRay = true;
         }
 
+        /// <summary>
+        /// 動的に選択された時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
         public void SetDynamicSelectEvent(UnityEngine.Events.UnityAction aFuncName)
         {
             selectEvent.AddListener(aFuncName);

@@ -57,7 +57,6 @@ namespace Kondo
             currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
-
         }
 
 
@@ -83,7 +82,7 @@ namespace Kondo
             {
                 case TutorialSequence.Attack01:
                     Debug.Log("現在の順序 : " + currentSequence);
-
+                    // ハンドをメニューセレクトに変更
                     tManager.ChangeMenuSelect();
                     tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
@@ -95,20 +94,24 @@ namespace Kondo
 
                 case TutorialSequence.Attack02:
                     Debug.Log("現在の順序 : " + currentSequence);
-
+                    // セレクトボタンを非表示
+                    tManager.HideSelectButton(false);
+                    // ハンドをプレイモードに変更
                     tManager.ChangePlay();
                     tManager.ShowDisplay(displeyPos[0]);
+                    // トラックパッドの表示を「攻撃」に変更
                     tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
                     tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
-
+                    // インスタンス化した敵をチェック用Listに追加
                     enemyList.Add(Instantiate(enemyTypeList[0]));
+                    // 敵の座標を変更
                     enemyList[0].transform.position = enemyPos.position;
-                    currentElement = Instantiate(sequenceList[sequenceNum],transform.position,Quaternion.identity);
+                    currentElement = Instantiate(sequenceList[sequenceNum]);
                   
                     // 敵の生存チェック用Listを設定
                     currentElement.GetComponentInChildren<DestroyChecker>().SetCheckList(enemyList);
                     // すべての敵がnullの時呼び出される関数を設定
-                    currentElement.GetComponentInChildren<DestroyChecker>().EndFunc.AddListener(this.NextSequenceChanged);
+                    currentElement.GetComponentInChildren<DestroyChecker>().SetEvent(this.NextSequenceChanged);
                     break;
 
 
@@ -126,6 +129,7 @@ namespace Kondo
 
                 case TutorialSequence.Attack04:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.HideSelectButton(true);
 
                     DestoroyCurrentElement();
                     tManager.ChangeMenuSelect();

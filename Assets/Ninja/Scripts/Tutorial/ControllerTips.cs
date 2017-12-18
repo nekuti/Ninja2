@@ -29,9 +29,6 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
-            //InputDevice.ClickDownTrriger(HandType.Left);
-            
-
             ResetTips();
 
             
@@ -41,11 +38,6 @@ namespace Kondo
             // inspectorで表示非表示を設定
             gameObject.SetActive(isEnabled);
 
-
-            //if(InputDevice.Press(ButtonType.Trigger, HandType.Left))
-            //{
-
-            //}
         }
 
         // Update is called once per frame

@@ -11,13 +11,9 @@ namespace Kondo
 
         private List<GameObject> checkList = new List<GameObject>();
 
-        public UnityEngine.Events.UnityEvent EndFunc = new UnityEngine.Events.UnityEvent();
+        private UnityEngine.Events.UnityEvent EndFunc = new UnityEngine.Events.UnityEvent();
 
 
-        // Use this for initialization
-        void Start()
-        {
-        }
 
         // Update is called once per frame
         void Update()
@@ -48,7 +44,15 @@ namespace Kondo
         public void SetCheckList(List<GameObject> aList)
         {
             checkList = aList;
-            //EndFanc.AddListener(() => CheckList());
+        }
+
+        /// <summary>
+        /// 終了時に実行する関数を登録する
+        /// </summary>
+        /// <param name="aFuncName"></param>
+        public void SetEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            EndFunc.AddListener(aFuncName);
         }
 
     }
