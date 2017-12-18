@@ -13,19 +13,19 @@ namespace Ando
         [SerializeField]
         private List<GameObject> stageSwitches = new List<GameObject>();
 
-        //  ドアの方向を向いているか確認用
-        private Ray ray;
-
         // Use this for initialization
         void Start()
         {
+            //  プレイヤーの操作をメニュー用に切り替え
+           PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
+
             //ray = new Ray(PlaySceneManager.GetPlayer().position, PlaySceneManager.GetPlayer().transform.rotation);
             foreach (GameObject stageSwitch in stageSwitches)
             {
                 stageSwitch.SetActive(false);
             }
 
-            DoorAnime.SetDoorAnimeState(DoorAnimeState.End);
+            HiddenDoor.SetDoorAnimeState(DoorAnimeState.None);
 
         }
 
@@ -56,12 +56,14 @@ namespace Ando
                 if (stageSwitchScript.ClickFlag)
                 {
                     playSceneManager.StageChange((int)stageSwitchScript.myFloorLevel);
+
                 }
             }
 
-            if(Kojima.InputDevice.Press(ButtonType.Touchpad, Kojima.HandType.Left))
+            //   ドアのアニメーションが開始になった場合
+            if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.Start)
             {
-                DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                SteamVR_Fade.Start(Color.black, 2);
             }
         }
 

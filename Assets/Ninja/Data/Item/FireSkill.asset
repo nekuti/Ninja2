@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89132daa50fb52f48a0c17caa2d7b65f, type: 3}
+  m_Name: FireSkill
+  m_EditorClassIdentifier: 
+  itemName: "\u706B\u9041\u306E\u8853"
+  explanation: "\u81EA\u5206\u3092\u4E2D\u5FC3\u306B\u534A\u5F845m\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+  maxPossessionNum: 99
+  price: 50

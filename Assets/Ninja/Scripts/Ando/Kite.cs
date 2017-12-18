@@ -29,6 +29,12 @@ namespace Ando
         /// </summary>
         public void HitRayObject()
         {
+            //  nullチェック
+            if (this.gameObject == null)
+            {
+                return;
+            }
+
             //  パーティクルを開始
             particleSystem.Play();
         }
@@ -38,6 +44,12 @@ namespace Ando
         /// </summary>
         public void OutRayObject()
         {
+            //  nullチェック
+            if (this.gameObject == null)
+            {
+                return;
+            }
+
             //  パーティクルを停止
             particleSystem.Stop();
             //  画面に残ったパーティクルを削除
@@ -49,41 +61,14 @@ namespace Ando
         /// </summary>
         public void SelectObject()
         {
+            //  nullチェック
+            if (this.gameObject == null)
+            {
+                return;
+            }
+
             hit = true;
         }
 
-        /// <summary>
-        /// 何かが凧に当たったか
-        /// </summary>
-        /// <param name="collision"></param>
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    //  当たったオブジェクトのタグがAttackだった場合
-        //    if(collision.gameObject.tag == "Attack")
-        //    {
-        //        //  hitフラグをtrueへ
-        //        hit = true;
-        //    }
-
-        //    //  当たったオブジェクトのタグがRayだった場合
-        //    if (collision.gameObject.tag == "Ray")
-        //    {
-        //        particleSystem.Play();
-        //    }
-        //}
-
-        /// <summary>
-        /// 凧に当たっていたオブジェクトが離れたか
-        /// </summary>
-        /// <param name="collision"></param>
-        //private void OnCollisionExit(Collision collision)
-        //{
-        //    //  離れたオブジェクトのタグがRayだった場合
-        //    if (collision.gameObject.tag == "Ray")
-        //    {
-        //        //  パーティクルを停止する
-        //        particleSystem.Stop();
-        //    }
-        //}
     }
 }

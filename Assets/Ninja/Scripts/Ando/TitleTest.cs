@@ -25,15 +25,15 @@ namespace Ando
         {
             if (TitleControl.GetGameStart())
             {
-                if (!animeSwitch)
-                {
-                    DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
-                    animeSwitch = true;
-                }
-                if (DoorAnime.GetDoorAnimeState() == DoorAnimeState.End)
-                {
-                    sceneTransitionManager.ChangeSceneSingle(nextScene);
-                }
+                //if (!animeSwitch)
+                //{
+                //    DoorAnime.SetDoorAnimeState(DoorAnimeState.Start);
+                //    animeSwitch = true;
+                //}
+                //if (DoorAnime.GetDoorAnimeState() == DoorAnimeState.End)
+                //{
+                //    sceneTransitionManager.ChangeSceneSingle(nextScene);
+                //}
             }
         }
 

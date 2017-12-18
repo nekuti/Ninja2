@@ -12,6 +12,11 @@ namespace Kojima
     public class WeaponKunaiShotState : State<WeaponControl>
     {
         #region メンバ変数
+        // 武器のデータ
+        private WeaponDataTable data;
+
+        // 武器の強化レベル
+        private int level = 1;
 
         private float timer;
 
@@ -35,6 +40,10 @@ namespace Kojima
         {
             Debug.Log("WeaponKunaiの攻撃");
 
+            data = owner.MyHand.WeaponData;
+
+            level = Ando.PlaySceneManager.GetKunaiLevel();
+
             timer = 999f;
             count = 0;
         }
@@ -45,10 +54,10 @@ namespace Kojima
         public override void Execute()
         {
             // 連射速度に合わせて弾を生成
-            if(timer > owner.MyHand.WeaponData.Speed)
+            if(timer > owner.MyHand.WeaponData.FireSpeed)
             {
-                Attack.Create(owner.MyHand.WeaponData.WeaponPrefab, owner.transform.position, owner.transform.position + owner.transform.forward,
-                    owner.MyHand.WeaponData.Power, owner.tag);
+                Attack.Create(data.WeaponPrefab, owner.transform.position, owner.transform.position + owner.transform.forward,
+                    data.Power, data.DestroyTime, data.BulletSpeed,owner.tag);
                 count++;
                 timer = 0f;
             }

@@ -36,6 +36,7 @@ namespace Ando
         //  次に遷移するシーン
         [SerializeField]
         private SceneName nextScene = SceneName.TitleTest;
+
         //  ポーズボタンが押されたときにロードされるシーン
         [SerializeField]
         private SceneName pauseScene = SceneName.PauseTest;
@@ -66,6 +67,14 @@ namespace Ando
         //  クリアした階層
         public List<bool> clearFloorLevel = new List<bool>() { false, false, false };
 
+        //  シーン遷移時にフェードアウトをする時間(保存用)
+        private float fadeOutTime = 0.0f;
+        //  フェード後の経過時間
+        private float fadeElapsedTime = 0.0f;
+        //  フェードインの時間
+        private float fadeInTime = 1.0f;
+
+
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -81,7 +90,10 @@ namespace Ando
             nowStageNum = firstStage;
 
             //  最初のステージを読み込む
-            StageAdd();
+            StageAdd(false);
+
+            playData.Initialize();
+
         }
 
         private void Update()
@@ -148,18 +160,61 @@ namespace Ando
             //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
             //    }
             //}
+
+            //  フェードの解除関数
+            this.FadeRelease();
+        }
+
+        /// <summary>
+        /// フェードの解除を行う
+        /// </summary>
+        private void FadeRelease()
+        {
+            //  経過時間がフェードアウトの時間を超えたか
+            if (fadeElapsedTime < fadeOutTime)
+            {
+                //  経過時間を加算
+                fadeElapsedTime += Time.deltaTime;
+            }
+            else
+            {
+                //  フェードアウトの時間が設定されているか
+                if (fadeOutTime > 0)
+                {
+                    //  フェードを解除する
+                    SteamVR_Fade.Start(Color.clear, fadeInTime);
+                }
+                //  使用した変数を初期化
+                fadeOutTime = 0.0f;
+                fadeElapsedTime = 0.0f;
+            }
         }
 
         /// <summary>
         /// ステージを追加する
         /// </summary>
-        private void StageAdd()
+        private void StageAdd(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
         {
+            if (aFade)
+            {
+                //  フェイドの色が透明か設定されていないので黒を設定
+                if (aFadeColor == new Color(0, 0, 0, 0))
+                {
+                    aFadeColor = new Color(0, 0, 0, 1);
+                }
+
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+
+                //  フェイドの時間を保存
+                fadeOutTime = aFadeTime;
+            }
+
             //  ステージのスクリプト追加
             this.gameObject.AddComponent(Type.GetType("Ando." + stageList[nowStageNum].ToString()));
 
             //  ステージの読み込み
-            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);
+            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);            
         }
 
         /// <summary>
@@ -176,7 +231,10 @@ namespace Ando
         /// <summary>
         /// ステージの変更（現在のステージ配列の次を実行）
         /// </summary>
-        public void StageChange()
+        /// <param name="aFade">フェードを行うか</param>
+        /// <param name="aFadeColor">フェードアウトの時の画面色</param>
+        /// <param name="aFadeTime">フェードアウトの時間</param>
+        public void StageChange(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -197,14 +255,21 @@ namespace Ando
             }
 
             //  ステージを追加
-            StageAdd();
+            StageAdd(aFade,aFadeColor,aFadeTime);
+
+            //  プレイヤーの操作をプレイ用に切り替え
+            playData.player.ChangeHandState(Kojima.HandStateType.Play);
         }
 
+        /// <param name="aStageNumber"></param>
         /// <summary>
         /// 指定階層のステージから開始する(0:拠点)
         /// </summary>
-        /// <param name="aStageNumber">ステージの階層番号</param>
-        public void StageChange(int aFloorLevel)
+        /// <param name="aFloorLevel">ステージの階層番号</param>
+        /// <param name="aFade">フェードを行うか</param>
+        /// <param name="aFadeColor">フェードアウトの時の画面色</param>
+        /// <param name="aFadeTime">フェードアウトの時間</param>
+        public void StageChange(int aFloorLevel, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -218,7 +283,10 @@ namespace Ando
             //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
             //  ステージを追加
-            StageAdd();
+            StageAdd(aFade, aFadeColor, aFadeTime);
+
+            //  プレイヤーの操作をプレイ用に切り替え
+            playData.player.ChangeHandState(Kojima.HandStateType.Play);
         }
 
         /// <summary>
@@ -235,6 +303,9 @@ namespace Ando
         /// </summary>
         public static void AddLiteResult()
         {
+            stageTransition = StageTransition.StageChange;
+            return;
+
             stageUnloadFlag = true;
 
             //var a = new ResultContainer();
@@ -324,6 +395,216 @@ namespace Ando
         }
 
         /// <summary>
+        /// プレイシーンマネージャにプレイヤーの所持金情報を設定
+        /// </summary>
+        /// <param name="aMoney"></param>
+        public static void SetPossessionMoney(int aMoney)
+        {
+            playData.possessionMoney = aMoney;
+        }
+
+        /// <summary>
+        /// 金額を加算
+        /// </summary>
+        /// <param name="anAddMoney"></param>
+        public static void AddPossessionMoney(int anAddMoney)
+        {
+            playData.possessionMoney += anAddMoney;
+        }
+
+        /// <summary>
+        /// 金額を減算
+        /// </summary>
+        /// <param name="aSubMoney"></param>
+        public static void SubPossessionMoney(int aSubMoney)
+        {
+            if (playData.kunaiLevel > 0)
+            {
+                playData.possessionMoney -= aSubMoney;
+            }
+            else
+            {
+                Debug.Log("所持金が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddKunaiLevel(int anAddnum)
+        {
+            playData.kunaiLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubKunaiLevel(int aSubnum)
+        {
+            if (playData.kunaiLevel > 1)
+            {
+                playData.kunaiLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddThrowingStarLevel(int anAddnum)
+        {
+            playData.throwingStarLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubThrowingStarLevel(int aSubnum)
+        {
+            if (playData.throwingStarLevel > 1)
+            {
+                playData.throwingStarLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを加算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void AddBumbLevel(int anAddnum)
+        {
+            playData.bombLevel += anAddnum;
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを減算
+        /// </summary>
+        /// <param name="anAddnum"></param>
+        public static void SubBumbLevel(int aSubnum)
+        {
+            if (playData.bombLevel > 1)
+            {
+                playData.bombLevel -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("武器レベルが1なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// おにぎりの所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionOnigili(int anAddNum)
+        {
+            playData.possessionOnigiri += anAddNum;
+        }
+
+        /// <summary>
+        /// おにぎりの所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionOnigili(int aSubnum)
+        {
+            if (playData.possessionOnigiri > 0)
+            {
+                playData.possessionOnigiri -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 火遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionFireSkill(int anAddNum)
+        {
+            playData.possessionFireSkill += anAddNum;
+        }
+        
+        /// <summary>
+        /// 火遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionFireSkill(int aSubnum)
+        {
+            if (playData.possessionFireSkill > 0)
+            {
+                playData.possessionFireSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 土遁の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSoilSkill(int anAddNum)
+        {
+            playData.possessionSoilSkill += anAddNum;
+        }
+        
+        /// <summary>
+        /// 土遁の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSoilSkill(int aSubnum)
+        {
+            if (playData.possessionSoilSkill > 0)
+            {
+                playData.possessionSoilSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        /// <summary>
+        /// 召喚の術の所持数を加算
+        /// </summary>
+        /// <param name="anAddNum"></param>
+        public static void AddPossessionSummonsSkill(int anAddNum)
+        {
+            playData.possessionSummonsSkill += anAddNum;
+        }
+       
+        /// <summary>
+        /// 召喚の術の所持数を減算
+        /// </summary>
+        /// <param name="anSubNum"></param>
+        public static void SubPossessionSummonsSkill(int aSubnum)
+        {
+            if (playData.possessionSummonsSkill > 0)
+            {
+                playData.possessionSummonsSkill -= aSubnum;
+            }
+            else
+            {
+                Debug.Log("所持数が0なのに減算されました。");
+            }
+        }
+
+        #region Get
+        /// <summary>
         /// プレイヤーの情報を教える
         /// </summary>
         /// <returns></returns>
@@ -341,7 +622,82 @@ namespace Ando
             return playData.startPos;
         }
 
-#region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
+        /// <summary>
+        /// プレイヤーの所持金情報を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionMoney()
+        {
+            return playData.possessionMoney;
+        }
+
+        /// <summary>
+        /// クナイの武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetKunaiLevel()
+        {
+            return playData.kunaiLevel;
+        }
+
+        /// <summary>
+        /// 手裏剣の武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetThrowingStarLevel()
+        {
+            return playData.throwingStarLevel;
+        }
+
+        /// <summary>
+        /// 爆弾の武器レベルを教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetBombLevel()
+        {
+            return playData.bombLevel;
+        }
+
+        /// <summary>
+        /// プレイヤーのおにぎり所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionOnigiri()
+        {
+            return playData.possessionOnigiri;
+        }
+
+        /// <summary>
+        /// プレイヤーの火遁の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionFireSkill()
+        {
+            return playData.possessionFireSkill;
+        }
+
+        /// <summary>
+        /// プレイヤーの土遁の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionSoilSkill()
+        {
+            return playData.possessionSoilSkill;
+        }
+
+        /// <summary>
+        /// プレイヤーの召喚の術所持数を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetPossessionSummonsSkill()
+        {
+            return playData.possessionSummonsSkill;
+        }
+
+        #endregion
+
+
+        #region ステージの状態を取得(ここ以外で使わないと思うのでコメントアウト中)
         /// <summary>
         /// ステージをクリアしたか教える
         /// </summary>
@@ -350,6 +706,7 @@ namespace Ando
         //{
         //    return playData.stageEnd;
         //}
-#endregion
+        #endregion
+
     }
 }

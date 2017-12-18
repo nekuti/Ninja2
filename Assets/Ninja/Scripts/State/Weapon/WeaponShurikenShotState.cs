@@ -13,6 +13,9 @@ namespace Kojima
     {
         #region メンバ変数
 
+        // 武器のデータ
+        private WeaponDataTable data;
+
         #endregion
 
         #region メソッド
@@ -29,6 +32,8 @@ namespace Kojima
         public override void Enter()
         {
             Debug.Log("WeaponShurikenの攻撃");
+
+            data = owner.MyHand.WeaponData;
         }
 
         /// <summary>
@@ -44,10 +49,11 @@ namespace Kojima
             {
                 // ブレを求める
                 Quaternion dire = Quaternion.Euler(Random.Range(-diffusion,diffusion), Random.Range(-diffusion,diffusion),0f);
+                Vector3 targetPos = owner.transform.position + owner.transform.rotation * (dire * Vector3.forward);
 
                 // ブレを加えて弾を生成
-                Attack.Create(owner.MyHand.WeaponData.WeaponPrefab, owner.transform.position,
-                    owner.transform.position + owner.transform.rotation * (dire * Vector3.forward),owner.MyHand.WeaponData.Power, owner.tag);
+                Attack.Create(data.WeaponPrefab, owner.transform.position,targetPos,
+                    data.Power, data.DestroyTime, data.BulletSpeed, owner.tag);
             }
 
             // 反動ステートへ移行

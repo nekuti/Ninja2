@@ -74,7 +74,10 @@ namespace Kojima
             var obj = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
             if (obj != null)
             {
-                Explosion();
+                if (!collision.gameObject.CompareTag(parentTagName))
+                {
+                    Explosion();
+                }
             }
         }
 

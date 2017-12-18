@@ -19,11 +19,11 @@ namespace Kojima
         [SerializeField, Tooltip("当たった際のエフェクト")]
         protected ParticleEffectType effect;
 
+        [SerializeField, Tooltip("消えるまでの時間")]
+        protected float time = 2f;
+
         [SerializeField, Tooltip("攻撃の移動速度")]
         protected float speed = 4f;
-
-        [SerializeField,Tooltip("消えるまでの時間")]
-        protected float time = 2f;
 
         [SerializeField,Tooltip("ユニットを貫通するか")]
         protected bool ThroughUnit = false;
@@ -128,18 +128,35 @@ namespace Kojima
         /// 攻撃を生成する
         /// </summary>
         /// <param name="aPrefab">攻撃のプレハブ</param>
-        /// <param name="aParentPos">攻撃発生場所</param>
+        /// <param name="aParentPos">攻撃発生位置</param>
         /// <param name="aTargetPos">狙う位置</param>
         /// <param name="aPower">攻撃力</param>
         /// <param name="aParentTag">攻撃者のタグ</param>
         /// <returns></returns>
         public static Attack Create(Attack aPrefab,Vector3 aParentPos, Vector3 aTargetPos,float aPower, string aParentTag)
         {
+            return Attack.Create(aPrefab, aParentPos, aTargetPos, aPower, aPrefab.time, aPrefab.speed, aParentTag);
+        }
+        /// <summary>
+        /// 攻撃を生成する
+        /// </summary>
+        /// <param name="aPrefab">攻撃のプレハブ</param>
+        /// <param name="aParentPos">攻撃の発生位置</param>
+        /// <param name="aTargetPos">狙う位置</param>
+        /// <param name="aPower">攻撃力</param>
+        /// <param name="aTime">消えるまでの時間</param>
+        /// <param name="aSpeed">弾速</param>
+        /// <param name="aParentTag">攻撃者のタグ</param>
+        /// <returns></returns>
+        public static Attack Create(Attack aPrefab, Vector3 aParentPos, Vector3 aTargetPos, float aPower,float aTime, float aSpeed, string aParentTag)
+        {
             // プレハブを生成
             Attack obj = Instantiate<Attack>(aPrefab, aParentPos, Quaternion.identity);
 
             // 初期値を設定
             obj.power = aPower;
+            obj.time = aTime;
+            obj.speed = aSpeed;
             obj.parentTagName = aParentTag;
             obj.transform.LookAt(aTargetPos);
 

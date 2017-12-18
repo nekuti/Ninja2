@@ -12,6 +12,8 @@ namespace Kojima
     public class WeaponBombShotState : State<WeaponControl>
     {
         #region メンバ変数
+        // 武器のデータ
+        private WeaponDataTable data;
 
         private AttackBomb myBomb;
 
@@ -32,9 +34,11 @@ namespace Kojima
         {
             Debug.Log("WeaponBombの攻撃");
 
+            data = owner.MyHand.WeaponData;
+
             // バクダンを生成
-            myBomb = Attack.Create(owner.MyHand.WeaponData.WeaponPrefab, owner.transform.position,
-                owner.transform.forward, owner.MyHand.WeaponData.Power, owner.tag) as AttackBomb;
+            myBomb = Attack.Create(data.WeaponPrefab, owner.transform.position,owner.transform.forward,
+                data.Power, data.DestroyTime, data.BulletSpeed, owner.tag) as AttackBomb;
             // 爆発範囲を設定
             myBomb.range = owner.MyHand.WeaponData.Many;
 
@@ -56,14 +60,10 @@ namespace Kojima
                 owner.ChangeState(WeaponStateType.Recoil);
                 return;
             }
-            if(InputDevice.Press(ButtonType.Touchpad,owner.MyHand.HandType))
-            {
-                // パッドに触れている間
 
-            }
-            else
+            // パッドを離した場合バクダンを手から離す
+            if (!InputDevice.Press(ButtonType.Touchpad,owner.MyHand.HandType))
             {
-                // パッドを離した場合
                 ReleaseBomb();
                 owner.ChangeState(WeaponStateType.Recoil);
             }
@@ -84,14 +84,18 @@ namespace Kojima
             if (owner.GetComponent<FixedJoint>())
             {
                 // FixedJointを消す
-                owner.GetComponent<FixedJoint>().connectedBody = null;
-                GameObject.Destroy(owner.GetComponent<FixedJoint>());
+                FixedJoint[] joints = owner.GetComponents<FixedJoint>();
+                for(int i = 0; i < joints.Length;i++)
+                {
+                    joints[i].connectedBody = null;
+                    GameObject.Destroy(joints[i]);
+                }
 
                 // 手を離したバクダンに慣性を与える(WeaponDataのspeed分力を強くする)
                 Vector3 velocity = InputDevice.GetDevice(owner.MyHand.HandType).velocity;
                 Vector3 angularVelocity = InputDevice.GetDevice(owner.MyHand.HandType).angularVelocity;
-                myBomb.GetComponent<Rigidbody>().velocity = velocity * owner.MyHand.WeaponData.Speed;
-                myBomb.GetComponent<Rigidbody>().angularVelocity = angularVelocity * owner.MyHand.WeaponData.Speed;
+                myBomb.GetComponent<Rigidbody>().velocity = velocity * owner.MyHand.WeaponData.BulletSpeed;
+                myBomb.GetComponent<Rigidbody>().angularVelocity = angularVelocity * owner.MyHand.WeaponData.BulletSpeed;
             }
             myBomb = null;
         }
