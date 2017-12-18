@@ -35,7 +35,7 @@ namespace Ando
         /// <returns></returns>
         public override int GetWeaponLevel()
         {
-            return PlaySceneManager.GetKunaiLevel();
+            return PlaySceneManager.GetThrowingStarLevel();
         }
 
         /// <summary>
