@@ -82,6 +82,9 @@ namespace Kondo
             {
                 case TutorialSequence.Wire01:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
+                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
+
                     tManager.ChangeMenuSelect();
                     tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
