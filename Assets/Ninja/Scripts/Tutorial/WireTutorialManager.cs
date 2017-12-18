@@ -60,7 +60,7 @@ namespace Kondo
             SequenceChange();
             // セレクトボタンが実行する関数を設定
             // ワイヤーチュートリアルを進める
-            tManager.SetSelectEven(NextSequenceChanged);
+            //tManager.SetSelectEven(NextSequenceChanged);
         }
 
 

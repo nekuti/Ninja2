@@ -25,6 +25,13 @@ namespace Kojima
         [SerializeField]
         private UnityEngine.Events.UnityEvent selectEvent = new UnityEngine.Events.UnityEvent();
 
+
+        private bool isSetHitRay = false;
+        private bool isSetOutRay = false;
+        private bool isSetSelect = false;
+
+
+
         #endregion
 
         #region プロパティ
@@ -48,6 +55,7 @@ namespace Kojima
             else
             {
                 Debug.Log("レイが当たった時のイベントが未登録");
+                DynamicHitRayObject();
             }
         }
 
@@ -64,6 +72,7 @@ namespace Kojima
             else
             {
                 Debug.Log("レイがはずれた時のイベントが未登録");
+                DynamicOutRayObject();
             }
         }
 
@@ -82,8 +91,71 @@ namespace Kojima
             else
             {
                 Debug.Log("決定時のイベントが未登録");
+                DynamicSelectObject();
             }
         }
+
+
+
+        public void DynamicHitRayObject()
+        {
+            if (isSetHitRay)
+            {
+                hitRayEvent.Invoke();
+                Debug.Log("動的に設定されたレイが当たった時のイベントを実行");
+            }
+            else
+            {
+                Debug.Log("動的に設定されたレイが当たった時のイベントが未登録");
+                DynamicSelectObject();
+            }
+        }
+
+        public void DynamicOutRayObject()
+        {
+            if (isSetOutRay)
+            {
+                outRayEvent.Invoke();
+                Debug.Log("動的に設定されたレイがはずれた時のイベントを実行");
+            }
+            else
+            {
+                Debug.Log("動的に設定されたレイがはずれた時のイベントが未登録");
+            }
+        }
+
+        public void DynamicSelectObject()
+        {
+            if (isSetSelect)
+            {
+                selectEvent.Invoke();
+                Debug.Log("動的に設定された決定時のイベントを実行");
+            }
+            else
+            {
+                Debug.Log("動的に設定された決定時のイベントが未登録");
+            }
+        }
+
+
+        public void SetDynamicHitRayEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            hitRayEvent.AddListener(aFuncName);
+            isSetHitRay = true;
+        }
+
+        public void SetDynamicOutRayEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            outRayEvent.AddListener(aFuncName);
+            isSetOutRay = true;
+        }
+
+        public void SetDynamicSelectEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            selectEvent.AddListener(aFuncName);
+            isSetSelect = true;
+        }
+
 
         #endregion
     }

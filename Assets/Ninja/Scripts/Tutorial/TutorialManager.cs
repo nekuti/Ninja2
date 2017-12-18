@@ -94,7 +94,7 @@ namespace Kondo
             // 始めのシーンを動かす
             ChangeScene(nextScene);
 
-            SetSelectEven(NextWireTutorial);
+           // SetSelectEven(NextWireTutorial);
 
             Debug.Log("チュートリアルマネージャー　layout : " + layout);
         }
