@@ -24,6 +24,11 @@ namespace Kojima
 
         private Hand myHand;
 
+        [SerializeField]
+        private int maxWeaponLevel = 5;
+
+        public int weaponLevel = 1;
+
         #endregion
 
         #region プロパティ
@@ -64,6 +69,44 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+        }
+
+        /// <summary>
+        /// 強化レベルによるボーナス%を取得(100% ~ 200%)
+        /// </summary>
+        /// <returns></returns>
+        public float LevelBonus()
+        {
+            if(Ando.PlaySceneManager.CheckEmpty())
+            {
+                switch(myHand.WeaponData.WeaponType)
+                {
+                    case WeaponType.Kunai:
+                        return LevelBonus(Ando.PlaySceneManager.GetKunaiLevel());
+                    case WeaponType.Shuriken:
+                        return LevelBonus(Ando.PlaySceneManager.GetThrowingStarLevel());
+                    case WeaponType.Bomb:
+                        return LevelBonus(Ando.PlaySceneManager.GetBombLevel());
+                    default:
+                        Debug.Log("レベルが未設定の武器");
+                        return LevelBonus(weaponLevel);
+                }
+            }
+            else
+            {
+                return LevelBonus(weaponLevel);
+            }
+        }
+        public float LevelBonus(int aLevel)
+        {
+            // 武器強化の上限値を取得
+            if(Ando.PlaySceneManager.CheckEmpty())
+            {
+                maxWeaponLevel = Ando.PlaySceneManager.GetWeaponStrengthenMaxLevel();
+            }
+
+            // 強化レベルによるボーナス%を取得(100% ~ 200%)
+            return 1f + (aLevel - 1) / (maxWeaponLevel - 1);
         }
 
         #endregion

@@ -11,6 +11,9 @@ namespace Ando
         //  所持金
         public int possessionMoney;
 
+        //  武器の強化上限
+        public int weaponStrengthenMaxLevel;
+
         //  武器の強化レベル
         public int kunaiLevel;
         public int throwingStarLevel;
@@ -33,6 +36,9 @@ namespace Ando
 
             //  所持金
             possessionMoney = 200;
+
+            //  武器強化の上限を設定
+            weaponStrengthenMaxLevel = 5;
 
             //  武器のレベル
             kunaiLevel = 1;

@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 74cbada03bcd41d49acec56746acf71e
+guid: 61566139d5c1f844aaa682fa50106e58
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: WheelBall
+    100000: WoodenBall
     100002: //RootNode
-    400000: WheelBall
+    400000: WoodenBall
     400002: //RootNode
-    2300000: WheelBall
-    3300000: WheelBall
-    4300000: WheelBall
+    2300000: WoodenBall
+    3300000: WoodenBall
+    4300000: WoodenBall
     7400000: Default Take
     11100000: //RootNode
   materials:

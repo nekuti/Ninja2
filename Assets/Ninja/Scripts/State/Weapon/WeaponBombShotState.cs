@@ -34,13 +34,14 @@ namespace Kojima
         {
             Debug.Log("WeaponBombの攻撃");
 
+            // 武器データ取得
             data = owner.MyHand.WeaponData;
 
             // バクダンを生成
             myBomb = Attack.Create(data.WeaponPrefab, owner.transform.position,owner.transform.forward,
                 data.Power, data.DestroyTime, data.BulletSpeed, owner.tag) as AttackBomb;
-            // 爆発範囲を設定
-            myBomb.range = owner.MyHand.WeaponData.Many;
+            // 爆発範囲を設定(強化レベルによって範囲増加)
+            myBomb.range = data.Many * owner.LevelBonus();
 
             FixedJoint fx = owner.gameObject.AddComponent<FixedJoint>();
             fx.breakForce = 20000;

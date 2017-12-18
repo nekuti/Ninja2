@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 74cbada03bcd41d49acec56746acf71e
+guid: 5ae1b6d4c894f9c449d33837a633a8ec
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: WheelBall
+    100000: SplitMetalBall
     100002: //RootNode
-    400000: WheelBall
+    400000: SplitMetalBall
     400002: //RootNode
-    2300000: WheelBall
-    3300000: WheelBall
-    4300000: WheelBall
+    2300000: SplitMetalBall
+    3300000: SplitMetalBall
+    4300000: SplitMetalBall
     7400000: Default Take
     11100000: //RootNode
   materials:
@@ -55,7 +55,7 @@ ModelImporter:
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0

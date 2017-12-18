@@ -15,9 +15,6 @@ namespace Kojima
         // 武器のデータ
         private WeaponDataTable data;
 
-        // 武器の強化レベル
-        private int level = 1;
-
         private float timer;
 
         // 発射数のカウント
@@ -40,9 +37,8 @@ namespace Kojima
         {
             Debug.Log("WeaponKunaiの攻撃");
 
+            // 武器データ取得
             data = owner.MyHand.WeaponData;
-
-            level = Ando.PlaySceneManager.GetKunaiLevel();
 
             timer = 999f;
             count = 0;
@@ -66,8 +62,8 @@ namespace Kojima
                 timer += Time.deltaTime;
             }
 
-            // 設定した発射数に達したら反動へ
-            if(count >= owner.MyHand.WeaponData.Many)
+            // 設定した発射数に達したら反動へ(強化レベルによって範囲増加)
+            if (count >= data.Many * owner.LevelBonus())
             {
                 owner.ChangeState(WeaponStateType.Recoil);
             }

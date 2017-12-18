@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: Bomb
   m_EditorClassIdentifier: 
   weaponName: "\u30D0\u30AF\u30C0\u30F3"
+  weaponText: "\u30B5\u30E8\u30CA\u30E9\uFF01\uFF01\uFF01"
+  weaponType: 2
   weaponPrefab: {fileID: 114267427844947670, guid: 15c09f4342f3c284a8a1861b003ebdde,
     type: 2}
-  weaponType: 2
   power: 15
-  powerLevel: 1
+  destroyTime: 3
+  bulletSpeed: 4
+  fireSpeed: 1
   many: 5
-  manyLevel: 1
-  speed: 4
-  speedLevel: 1
   diffusion: 0
-  recoil: 0.5
+  recoil: 1

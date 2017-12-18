@@ -33,6 +33,7 @@ namespace Kojima
         {
             Debug.Log("WeaponShurikenの攻撃");
 
+            // 武器データ取得
             data = owner.MyHand.WeaponData;
         }
 
@@ -44,8 +45,8 @@ namespace Kojima
             // 武器の精密度
             float diffusion = owner.MyHand.WeaponData.Diffusion;
 
-            // 設定された発射数になるまで繰り返す
-            for (int i = 0;i < owner.MyHand.WeaponData.Many;i++)
+            // 設定された発射数になるまで繰り返す(強化レベルによって発射数増加)
+            for (int i = 0;i < owner.MyHand.WeaponData.Many * owner.LevelBonus();i++)
             {
                 // ブレを求める
                 Quaternion dire = Quaternion.Euler(Random.Range(-diffusion,diffusion), Random.Range(-diffusion,diffusion),0f);

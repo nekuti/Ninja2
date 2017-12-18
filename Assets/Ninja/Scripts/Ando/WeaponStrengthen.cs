@@ -80,21 +80,34 @@ namespace Ando
             //  減少する金額
             var subMoney = weapon.GetWeponStrengthenPrice();
 
-            //  所持金を超えていないか確認
-            if (PlaySceneManager.GetPossessionMoney() >= subMoney)
+            //  武器のレベルが強化の上限を超えていないか
+            if (weapon.GetWeaponLevel() <= PlaySceneManager.GetWeaponStrengthenMaxLevel())
             {
-                Debug.Log(subMoney + "を支払い");
-                PlaySceneManager.SubPossessionMoney(subMoney);
+                //  所持金を超えていないか確認
+                if (PlaySceneManager.GetPossessionMoney() >= subMoney)
+                {
+                    Debug.Log(subMoney + "を支払い");
+                    PlaySceneManager.SubPossessionMoney(subMoney);
 
-                Debug.Log(weapon.GetWeaponName() + "を強化");
-                weapon.AddWeponLevel();
+                    Debug.Log(weapon.GetWeaponName() + "を強化");
+                    weapon.AddWeponLevel();
 
-                //  購入成功時の文を表示
-                strengthAccept.SetActive(true);
-                //  表示文の経過時間を初期化
-                strengthAccept.GetComponent<ConfirmationScreen>().InitElapsedTime();
-                //  購入失敗時の文を非表示
-                strengthWarning.SetActive(false);
+                    //  購入成功時の文を表示
+                    strengthAccept.SetActive(true);
+                    //  表示文の経過時間を初期化
+                    strengthAccept.GetComponent<ConfirmationScreen>().InitElapsedTime();
+                    //  購入失敗時の文を非表示
+                    strengthWarning.SetActive(false);
+                }
+                else
+                {
+                    //  購入不可時の警告文を表示
+                    strengthWarning.SetActive(true);
+                    //  表示文の経過時間を初期化
+                    strengthWarning.GetComponent<ConfirmationScreen>().InitElapsedTime();
+                    //  購入成功時の文を非表示
+                    strengthAccept.SetActive(false);
+                }
             }
             else
             {

@@ -52,7 +52,7 @@ namespace Ando
         /// <returns></returns>
         public string GetWeaponExplanation()
         {
-            return "ウェポンデータ更新はよ！";
+            return weaponData.WeaponText;
         }
 
         /// <summary>

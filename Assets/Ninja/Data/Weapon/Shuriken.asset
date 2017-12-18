@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: Shuriken
   m_EditorClassIdentifier: 
   weaponName: "\u30B9\u30EA\u30B1\u30F3"
+  weaponText: "\u30A2\u30A4\u30A8\u30A8\u30A8\u30A8\u30A8\u30A8\u30A8\uFF01\uFF01"
+  weaponType: 1
   weaponPrefab: {fileID: 114605707824433894, guid: 10c2f3fe4f32e17458e051b4d92eca8e,
     type: 2}
-  weaponType: 1
   power: 2
-  powerLevel: 1
+  destroyTime: 4
+  bulletSpeed: 64
+  fireSpeed: 1
   many: 10
-  manyLevel: 1
-  speed: 1
-  speedLevel: 1
-  diffusion: 5
-  recoil: 0.5
+  diffusion: 10
+  recoil: 1.5
