@@ -70,5 +70,20 @@ namespace Ando
             return false;
         }
 
+        /// <summary>
+        /// インスタンスが空かどうか確認
+        /// </summary>
+        /// <returns></returns>
+        public static bool ChackEmpty()
+        {
+            //  インスタンスがあるかどうか
+            if (instance == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

@@ -632,6 +632,15 @@ namespace Ando
         }
 
         /// <summary>
+        /// 武器強化の上限を教える
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public static int GetWeaponStrengthenMaxLevel()
+        {
+            return playData.weaponStrengthenMaxLevel;
+        }
+
+        /// <summary>
         /// クナイの武器レベルを教える
         /// </summary>
         /// <param name="aPlayer"></param>
