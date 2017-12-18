@@ -40,7 +40,6 @@ namespace Kondo
 
             // DisplayTextの表示操作用変数
             canvasHide = transform.GetComponentInChildren<CanvasHide>();
-            SetSelectEvent(test);
         }
 
 
@@ -52,10 +51,6 @@ namespace Kondo
 
         }
 
-        public void test()
-        {
-            Debug.Log("Displaytest test()");
-        }
 
 
 
@@ -67,10 +62,6 @@ namespace Kondo
         {
 
             selectWindow.SetDynamicSelectEvent(aFuncsion);
-            //tempData = aFuncsion;
-            //selectWindow.SelectEvent.AddListener(aFuncsion);
-            //// selectWindow.SelectEvent.Invoke();
-            //Debug.Log("自作した方のevent数 : "+selectWindow.SelectEvent.GetPersistentEventCount());
         }
 
 
@@ -79,8 +70,10 @@ namespace Kondo
         /// </summary>
         public void DeleteSelectEvent()
         {
-            //selectWindow.SelectEvent.RemoveAllListeners();
+            selectWindow.DeleteDynamicSelectEvent();
+
         }
+
 
 
 

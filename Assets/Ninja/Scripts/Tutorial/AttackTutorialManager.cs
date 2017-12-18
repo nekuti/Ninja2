@@ -20,6 +20,7 @@ namespace Kondo
         Attack03,
         Attack04,
         Attack05,
+        Attack06,
         AttackEnd,
         MaxSequence
     }
@@ -50,13 +51,15 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
-            base.SetTutorialManger();
+            base.SetStart();
             tManager.LoadText(loadTextName);
 
             Debug.Log("アタックチュートリアル　strat()");
             currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
+            tManager.SetSelectEven(NextSequenceChanged);
+
         }
 
 
@@ -147,17 +150,26 @@ namespace Kondo
 
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                    tManager.ChangeMenuSelect();
                     tManager.ShowDisplay(displeyPos[0]);
 
 
                     break;
 
 
-                case TutorialSequence.AttackEnd:
+                case TutorialSequence.Attack06:
+
                     Debug.Log("現在の順序 : " + currentSequence);
 
-                    //tManager.ChangeMenuSelect();
+                    tManager.ShowDisplay(displeyPos[0]);
+
+
+                    break;
+
+
+
+                case TutorialSequence.AttackEnd:
+                    Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.NextSceneRequest();
 
                     break;
 

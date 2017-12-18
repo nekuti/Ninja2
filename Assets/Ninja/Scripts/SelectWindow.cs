@@ -93,6 +93,32 @@ namespace Kojima
         }
 
 
+        /// <summary>
+        /// 動的に追加されたレイが当たった時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicHitRayEvent()
+        {
+            hitRayEvent.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// 動的に追加されたレイが外れた時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicOutRayEvent()
+        {
+            outRayEvent.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// 動的に追加された選択時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicSelectEvent()
+        {
+            selectEvent.RemoveAllListeners();
+        }
+
+
+
         #endregion
     }
 }

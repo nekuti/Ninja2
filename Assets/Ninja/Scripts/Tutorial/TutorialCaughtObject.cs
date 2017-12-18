@@ -40,20 +40,16 @@ namespace Kondo
             }
         }
 
-
-
-        /// <summary>
-        /// プレイヤーが接触した場合フラグをオン
-        /// </summary>
-        /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(TagName.Player))
             {
                 isContact = true;
             }
-
         }
+
+      
+
     }
 }
 

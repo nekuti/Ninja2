@@ -50,17 +50,14 @@ namespace Kondo
 
          void Start()
         {
-            base.SetTutorialManger();
+            base.SetStart();
             tManager.LoadText(loadTextName);
 
-            //Ando.PlaySceneManager.GetStartPos();
-            //Quaternion direction = InputTracking.GetLocalRotation(VRNode.Head);
-            //Vector3 trm = InputTracking.GetLocalPosition(VRNode.Head);
             Debug.Log("ワイヤーチュートリアル　strat()");
             SequenceChange();
             // セレクトボタンが実行する関数を設定
             // ワイヤーチュートリアルを進める
-            //tManager.SetSelectEven(NextSequenceChanged);
+            tManager.SetSelectEven(NextSequenceChanged);
         }
 
 
@@ -73,7 +70,6 @@ namespace Kondo
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 NextSequenceChanged();
-
             }
         }
 
@@ -168,16 +164,14 @@ namespace Kondo
                 case TutorialSequence.WireEnd:
                     Debug.Log("現在の順序 : " + currentSequence);
                     tManager.RemoveDisplay(false);
+                    tManager.DeleteSelectEvent();
                     tManager.ResetPlayerTransfome();
-                    tManager.NextSceneChanged();
+                    tManager.NextSceneRequest();
                     break;
             }
-        {
-            
-            }
         }
-
-
+            
+    
 
 
         /// <summary>

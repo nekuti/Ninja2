@@ -36,13 +36,13 @@ namespace Kondo
         protected GameObject currentElement;
 
 
-     
 
-
-        protected void SetTutorialManger()
+        protected void SetStart()
         {
             tManager = TutorialManager.instance;
+            SteamVR_Fade.Start(Color.clear, 1f);
         }
+
 
 
 

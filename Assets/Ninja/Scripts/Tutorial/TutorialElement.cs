@@ -27,7 +27,7 @@ namespace Kondo
 
         public void OnChangedSequence()
         {
-            TutorialManager.instance.NextSceneChanged();
+            TutorialManager.instance.NextSceneRequest();
         }
 
     }

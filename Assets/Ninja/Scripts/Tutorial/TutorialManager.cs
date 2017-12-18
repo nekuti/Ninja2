@@ -46,23 +46,22 @@ namespace Kondo
         [SerializeField]
         private  Player player;
 
-        private List<DisplayLayout> layout = new List<DisplayLayout>();
-
         [SerializeField]
         private Canvas canvas;
         [SerializeField]
         private Canvas displayCanvas;
 
+        private List<DisplayLayout> layout = new List<DisplayLayout>();
 
         private MoveNotice notice;
         private DisplayText display;
-
-        // 外部からmodelの操作用
-        //public static FindModel conModel = null;
-
         private int noticeCount = 0;
         private int displayCount = 0;
 
+        public float fadeTime = 0.5f;
+        private float countTime = 0;
+        private bool isFadeRequest = false;
+        private bool isFadeing = false;
 
 
         //
@@ -97,17 +96,128 @@ namespace Kondo
            // SetSelectEven(NextWireTutorial);
 
             Debug.Log("チュートリアルマネージャー　layout : " + layout);
+            SteamVR_Fade.Start(Color.black, 0);
         }
 
 
+
+        void Update()
+        {
+            SceneChanger();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SceneChanger()
+        {
+            if (isFadeRequest)
+            {
+                countTime += Time.deltaTime;
+
+
+                if (countTime >= fadeTime && !isFadeing)
+                {
+                    isFadeing = true;
+                    countTime = 0;
+                }
+
+                if (countTime >= fadeTime && isFadeing)
+                {
+                    NextSceneChanged();
+                    countTime = 0;
+                    isFadeing = false;
+                    isFadeRequest = false;
+                }
+
+
+            }
+        }
+
+
+
+        /// <summary>
+        /// 次のチュートリアルへ移行する
+        /// </summary>
+        private void NextSceneChanged()
+        {
+            //　重ねたシーンの破棄
+            SceneManager.UnloadSceneAsync(nextScene.ToString());
+            ChangeScene(++nextScene);
+        }
+
+
+
+        /// <summary>
+        /// シーンチェンジの要求を出す
+        /// </summary>
+        public void NextSceneRequest()
+        {
+            SteamVR_Fade.Start(Color.black, fadeTime);
+            isFadeRequest = true;
+        }
+
+
+        ///// <summary>
+        ///// 次のシーンに遷移する
+        ///// </summary>
+        ///// <param name="aScene"></param>
+        private void ChangeScene(NextScene aScene)
+        {
+            switch (aScene)
+            {
+                case NextScene.WireTutorial:
+                    {
+                        // ワイヤーシーン
+                        // ワイヤーチュートリアルを重ねる
+                        SceneManager.LoadSceneAsync("WireTutorial", LoadSceneMode.Additive);
+                        Debug.Log("ワイヤーシーン");
+                        break;
+                    }
+                case NextScene.AttackTutorial:
+                    {
+                        // アタックシーン
+                        // アタックチュートリアルを重ねる
+                        SceneManager.LoadSceneAsync("AttackTutorial", LoadSceneMode.Additive);
+                        Debug.Log("アタックシーン");
+                        break;
+                    }
+                case NextScene.BattalTutorial:
+                    {
+                        // バトル
+                        // ベータ用
+                        SceneManager.LoadScene("PlayScene");
+                        Debug.Log("ベースシーン");
+                        break;
+                    }
+                case NextScene.GoToBase:
+                    break;
+            }
+        }
+
+
+        /// <summary>
+        /// イベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
         public void SetSelectEven(UnityEngine.Events.UnityAction aFuncName)
         {
             display.SetSelectEvent(aFuncName);
         }
 
+        /// <summary>
+        /// 設定したEventを削除
+        /// </summary>
+        public void DeleteSelectEvent()
+        {
+            display.DeleteSelectEvent();
+        }
+
+
 
         /// <summary>
-        /// selectBttonからwireTutorilaを進める
+        /// wireTutorialを進める
         /// </summary>
         public void NextWireTutorial()
         {
@@ -118,7 +228,7 @@ namespace Kondo
 
 
         /// <summary>
-        /// selectButtonからAttackを進める
+        /// AttackTutorialを進める
         /// </summary>
         public void NextAttackTutorial()
         {
@@ -136,18 +246,6 @@ namespace Kondo
         public void LoadText(string aName)
         {
             layout = DisplaySentence.LoadText(aName, layout);
-        }
-
-
-
-        /// <summary>
-        /// 次のチュートリアルへ移行する
-        /// </summary>
-        public void NextSceneChanged()
-        {
-            //　重ねたシーンの破棄
-            SceneManager.UnloadSceneAsync(nextScene.ToString());
-            ChangeScene(++nextScene);
         }
 
 
@@ -177,7 +275,9 @@ namespace Kondo
 
 
 
-
+        /// <summary>
+        /// プレイヤーの座標を初期化する
+        /// </summary>
         public void ResetPlayerTransfome()
         {
             player.transform.position = new  Vector3(0, 0, 0);
@@ -256,16 +356,15 @@ namespace Kondo
 
 
 
-
+        /// <summary>
+        /// プレイヤーへの通知を表示
+        /// </summary>
+        /// <param name="aSelect"></param>
         public void ShowNotice(int aSelect = 0)
         {
             Debug.Log("チュートリアルマネージャー　ShowNotice()");
             notice.RequestDisplay(noticeText[aSelect], 3, 1, 2.5f);
-            //noticeCount++;
         }
-
-
-
 
 
         /// <summary>
@@ -305,7 +404,10 @@ namespace Kondo
         }
 
 
-
+        /// <summary>
+        /// セレクトボタンの表示非表示を設定
+        /// </summary>
+        /// <param name="aSet"></param>
         public void HideSelectButton(bool aSet)
         {
             selectButton.SetActive(aSet);
@@ -314,41 +416,6 @@ namespace Kondo
 
 
 
-        ///// <summary>
-        ///// 次のシーンに遷移する
-        ///// </summary>
-        ///// <param name="aScene"></param>
-        private void ChangeScene(NextScene aScene)
-        {
-            switch (aScene)
-            {
-                case NextScene.WireTutorial:
-                    {
-                        // ワイヤーシーン
-                        // ワイヤーチュートリアルを重ねる
-                        SceneManager.LoadSceneAsync("WireTutorial", LoadSceneMode.Additive);
-                        Debug.Log("ワイヤーシーン");
-                        break;
-                    }
-                case NextScene.AttackTutorial:
-                    {
-                        // アタックシーン
-                        // アタックチュートリアルを重ねる
-                        SceneManager.LoadSceneAsync("AttackTutorial", LoadSceneMode.Additive);
-                        Debug.Log("アタックシーン");
-                        break;
-                    }
-                case NextScene.BattalTutorial:
-                    {
-                        // ベースシ―ン
-                        nextScene = NextScene.GoToBase;
-                        Debug.Log("ベースシーン");
-                        break;
-                    }
-                case NextScene.GoToBase:
-                    break;
-            }
-        }
     }
 }
 
