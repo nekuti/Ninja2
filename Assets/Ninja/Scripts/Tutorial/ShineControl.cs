@@ -13,7 +13,7 @@ namespace Kondo
         private float ShineLength = 1.0f;
 
         [SerializeField]
-        private Color colors; 
+        private Color colors = new Color(0,0.918f,1f,1f); 
 
         private Material emission;
 
@@ -43,7 +43,7 @@ namespace Kondo
             float r = colors.r - val * val;
             float g = colors.g - val * val;
             float b = colors.b - val * val;
-            Color color = new Color(r, g, b);
+            Color color = new Color(r, g, b, colors.a);
             emission.SetColor("_EmissionColor", color);
             return false;
         }
