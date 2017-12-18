@@ -38,7 +38,7 @@ namespace Ando
         {
             //  変動する値を更新
             nowWeaponLevel.text = weapon.GetWeaponLevel().ToString();
-            newWeaponLevel.text = weapon.GetWeaponLevel().ToString() + 1;
+            newWeaponLevel.text = (weapon.GetWeaponLevel() + 1).ToString();
             WeaponStrengthenPrice.text = "費用 " + weapon.GetWeponStrengthenPrice() + "両";
         }
 
@@ -49,7 +49,7 @@ namespace Ando
         public void Initialize()
         {
             //  nullチェック
-            if (ShopItem.GetSelectItem() == null)
+            if (ShopWepon.GetSelectWeapon() == null)
             {
                 return;
             }

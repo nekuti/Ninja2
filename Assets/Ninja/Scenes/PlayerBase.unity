@@ -9979,7 +9979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &331651213
 AudioListener:
   m_ObjectHideFlags: 0
@@ -12037,7 +12037,7 @@ Transform:
   m_Children:
   - {fileID: 1708897257}
   m_Father: {fileID: 1415498948}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &542673578
 MonoBehaviour:
@@ -17289,7 +17289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &758324641
 Transform:
   m_ObjectHideFlags: 0
@@ -17389,7 +17389,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1469871441
+  randomSeed: 91149880
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24067,7 +24067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0e04fed15533847a4b2cbd58e753d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 7cb03afddfd5b644fbe1e271fb8e2fa1, type: 2}
+  weaponData: {fileID: 11400000, guid: 4887d2debd2f890468d8bc1ef73d3e7e, type: 2}
   equipmentChect: {fileID: 1201260919}
   weaponName: {fileID: 1448273636}
   weaponLevel: {fileID: 1802334924}
@@ -26367,17 +26367,17 @@ Prefab:
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1224540416}
+      objectReference: {fileID: 553036888}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 807909653}
+      objectReference: {fileID: 1224540416}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1513763001}
+      objectReference: {fileID: 807909653}
     - target: {fileID: 1038328206524068, guid: d26783886e1318040b8bb5425d288542, type: 2}
       propertyPath: m_Name
       value: SelectButton (3)
@@ -26385,12 +26385,12 @@ Prefab:
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideEquipmentChack
+      value: ChangeWepon
       objectReference: {fileID: 0}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
       propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: ParticleStop
+      value: HideEquipmentChack
       objectReference: {fileID: 0}
     - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
         type: 2}
@@ -26426,6 +26426,11 @@ Prefab:
         type: 2}
       propertyPath: randomSeed
       value: -575006005
+      objectReference: {fileID: 0}
+    - target: {fileID: 114330759732208602, guid: d26783886e1318040b8bb5425d288542,
+        type: 2}
+      propertyPath: selectEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HideEquipmentChack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d26783886e1318040b8bb5425d288542, type: 2}
@@ -30825,8 +30830,8 @@ RectTransform:
   - {fileID: 527520489}
   - {fileID: 917128951}
   - {fileID: 161602112}
-  - {fileID: 2126561012}
   - {fileID: 542673577}
+  - {fileID: 2126561012}
   m_Father: {fileID: 846966649}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38396,7 +38401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1881385384
 Transform:
   m_ObjectHideFlags: 0
