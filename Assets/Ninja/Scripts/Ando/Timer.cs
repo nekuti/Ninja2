@@ -57,6 +57,7 @@ namespace Ando
                     }
                 }
             }
+
         }
 
         /// <summary>
@@ -65,6 +66,9 @@ namespace Ando
         public void TimerStart()
         {
             timerFlag = true;
+
+            Debug.Log(timerFlag);
+
         }
 
         /// <summary>
@@ -96,12 +100,47 @@ namespace Ando
         }
 
         /// <summary>
-        /// 計測結果を取得
+        /// 計測結果をString型で取得
         /// </summary>
         /// <returns></returns>
         public string GetTimeString()
         {
             text = minite.ToString("00") + ":" + second.ToString("00") + "." + (milliSecond * 100).ToString("00");
+
+            return text;
+        }
+
+        /// <summary>
+        /// 計測結果をFloat型で取得
+        /// </summary>
+        /// <returns></returns>
+        public float GetTimeFloat()
+        {
+            return ((minite * 100) + second + milliSecond);
+        }
+
+        /// <summary>
+        /// 経過時間(float)をストリングに変換する
+        /// </summary>
+        /// <param name="aValue"></param>
+        /// <returns></returns>
+        public string FloatToString(float aValue)
+        {
+           int value = 0;
+
+            //  分の計算
+            value = (int)(aValue / 100);
+            text = value.ToString("00") + ":";
+
+            //  秒の計算
+            aValue -= value;
+            value = (int)aValue;
+            text += value.ToString("00")+ ".";
+
+            //  ミリ秒の計算(切り捨てされる数値は気にしない方向で)
+            aValue -= value;
+            value = (int)(aValue * 100);
+            text += value.ToString("00");
 
             return text;
         }

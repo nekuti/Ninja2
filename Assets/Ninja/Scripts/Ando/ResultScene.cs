@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Ando
 {
-
     public class ResultScene : SceneBace
     {
         private void Awake()
@@ -13,7 +12,10 @@ namespace Ando
             myScene = SceneName.ResultScene;
 
             //  シーン遷移スクリプトを追加
-            //RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
+            RgtrSceneTransitionManager(GetComponent<SceneTransitionManager>());
+
+            //  リザルトシーンマネージャにシーン遷移マネージャを登録
+            ResultSceneManager.RgtrSceneTransitionManager(sceneTransitionManager);
         }
 
         /// <summary>
@@ -24,5 +26,6 @@ namespace Ando
         {
             return this.GetType();
         }
+
     }
 }

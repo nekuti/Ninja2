@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ando
 {
-    public struct ResultContainer
+    public class ResultContainer : MonoBehaviour
     {
         public Timer totalPlayTimer;
+        public float oldTotalPlayTime;
         public Timer playTimer;
         public int totalGetMoneyValue;
         public int getMoneyValue;
@@ -18,18 +20,19 @@ namespace Ando
         /// <summary>
         /// 初期化
         /// </summary>
-        public void Initialize()
+        public void Initialize(GameObject aGameObject)
         {
-            Timer totalPlayTimer = new Timer();
-
-            Timer playTimer = new Timer();
+            totalPlayTimer = aGameObject.AddComponent<Timer>();
+            oldTotalPlayTime = 0;
+            playTimer = aGameObject.AddComponent<Timer>();
             totalGetMoneyValue = 0;
             getMoneyValue = 0;
             totalLostEnergyValue = 0;
             lostEnergyValue = 0;
             killEnemyValue = 0;
             useItemValue = 0;
-            stageEvaluation.Clear();
+            stageEvaluation = new List<int>();
+
         }
 
         /// <summary>
@@ -40,9 +43,23 @@ namespace Ando
             totalPlayTimer.TimerStart();
         }
 
-        public void TimerStart()
+        /// <summary>
+        /// ステージのプレイ時間の計測を開始する
+        /// </summary>
+        public void PlayTimerStart()
         {
+            playTimer.TimerStart();
+        }
 
+        /// <summary>
+        /// 総プレイ時間の計測を停止する
+        /// </summary>
+        public void TotalTimerStop()
+        {
+            totalPlayTimer.TimerStop();
+
+            //  過去の計測結果に足す
+            oldTotalPlayTime += totalPlayTimer.GetTimeFloat();
         }
 
         /// <summary>

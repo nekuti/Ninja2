@@ -16,6 +16,7 @@ namespace Ando
         ResultGameClear,
         ResultGameOver,
         StageChange,
+        ReturnPlayBase,
         TitleBack,
     }
 
@@ -35,7 +36,7 @@ namespace Ando
 
         //  次に遷移するシーン
         [SerializeField]
-        private SceneName nextScene = SceneName.TitleTest;
+        private SceneName nextScene = SceneName.ResultScene;
 
         //  ポーズボタンが押されたときにロードされるシーン
         [SerializeField]
@@ -58,6 +59,7 @@ namespace Ando
         //  シーン遷移の方法
         private static StageTransition stageTransition = StageTransition.None;
 
+        //  PlayDataの初期化用
         public PlayData initPlayData;
         //  プレイシーンマネージャーで管理する情報
         private static PlayData playData = new PlayData();
@@ -75,6 +77,8 @@ namespace Ando
         //  フェードインの時間
         private float fadeInTime = 1.0f;
 
+        //  リザルトに渡す情報
+        private ResultContainer resultContainer;
 
         new void Awake()
         {
@@ -84,7 +88,11 @@ namespace Ando
 
         private void Start()
         {
+            //  PlayDataに初期化用データを入れる
             playData = initPlayData;
+            //  リザルトに渡す情報の初期化
+            resultContainer = new ResultContainer();
+            resultContainer.Initialize(this.gameObject);
 
             //  ステージの遷移をNoneに設定
             stageTransition = StageTransition.None;
@@ -94,17 +102,10 @@ namespace Ando
 
             //  最初のステージを読み込む
             StageAdd(false);
-
         }
 
         private void Update()
         {
-            //  リザルト表示するためにステージを消すか
-            if (stageUnloadFlag)
-            {
-                StageUnload();
-            }
-
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
@@ -116,6 +117,9 @@ namespace Ando
                     //  ステージ変更
                     StageChange();
                     stageTransition = StageTransition.None;
+                    break;
+                case StageTransition.ReturnPlayBase:
+                    StageChange(0);
                     break;
                 case StageTransition.TitleBack:
                     //  タイトルへ戻る
@@ -215,7 +219,23 @@ namespace Ando
             this.gameObject.AddComponent(Type.GetType("Ando." + stageList[nowStageNum].ToString()));
 
             //  ステージの読み込み
-            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);            
+            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);
+
+
+            /* β用----------------------------------------------------------------------------*/
+            if (nowStageNum == 1)
+            {
+                //  プレイ時間の計測開始
+                resultContainer.totalPlayTimer.TimerStart();
+            }
+
+            if(stageList.Count - 1 > nowStageNum)
+            {
+                StageUnload();
+                ResultSceneManager.RgtrResultContainer(resultContainer);
+                sceneTransitionManager.ChangeSceneAdd(nextScene);
+            }
+           /*----------------------------------------------------------------------------------*/
         }
 
         /// <summary>
@@ -319,7 +339,6 @@ namespace Ando
             //a.lostEnergyValue = 1;
             //a.killEnemyValue = 1;
             //a.useItemValue = 1;
-
 
             //  簡易リザルトがすでにあるか確認
             if (!sceneTransitionManager.SearchScene(SceneName.LiteResult))

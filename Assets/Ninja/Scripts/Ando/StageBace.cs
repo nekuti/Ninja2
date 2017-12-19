@@ -10,6 +10,9 @@ namespace Ando
         // マネージャ登録に使用
         protected static PlaySceneManager playSceneManager;
 
+        //  スタート位置
+        protected GameObject startPos;
+
         //  ステージがあるか確認
         public bool stageConfirm;
 
@@ -36,6 +39,9 @@ namespace Ando
         {
             //  シーンの有効化
             stageConfirm = true;
+
+            //  開始位置を登録
+            PlaySceneManager.SetStartPos(startPos.gameObject.transform.position);
         }
 
         protected virtual void Update()

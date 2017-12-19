@@ -13,6 +13,10 @@ namespace Ando
         StageTest2,
         Stage001,
         Stage002,
+        Stage003,
+        Stage004,
+
+        BossStage01,
 
         //  ここより上に追加してね
         None,
@@ -35,6 +39,9 @@ namespace Ando
                 case StageName.StageTest2: return "StageTest2";
                 case StageName.Stage001: return "Stage001";
                 case StageName.Stage002: return "Stage002";
+                case StageName.Stage003: return "Stage003";
+                case StageName.Stage004: return "Stage004";
+                case StageName.BossStage01: return "BossStage01";
 
                 default: return "error";
             }
