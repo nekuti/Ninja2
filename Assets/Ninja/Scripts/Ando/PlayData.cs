@@ -2,7 +2,32 @@
 
 namespace Ando
 {
-    public struct PlayData
+
+    /// <summary>
+    /// 武器のデータ
+    /// </summary>
+    [System.Serializable]
+    public class WeaponData
+    {
+        public Kojima.WeaponDataTable weaponData;
+        public int strengthenLevel;
+    }
+
+    /// <summary>
+    /// アイテムのデータ
+    /// </summary>
+    [System.Serializable]
+    public class ItemData
+    {
+        //  アイテムのデータテーブル
+        public ItemDataTable itemData;
+
+        //  所持数
+        public int possession;
+    }
+
+    [System.Serializable]
+    public class PlayData
     {
         public Kojima.Player player;
         public Vector3 startPos;
@@ -14,42 +39,15 @@ namespace Ando
         //  武器の強化上限
         public int weaponStrengthenMaxLevel;
 
-        //  武器の強化レベル
-        public int kunaiLevel;
-        public int throwingStarLevel;
-        public int bombLevel;
+        //  武器のデータ
+        public WeaponData kunai;
+        public WeaponData throwingStar;
+        public WeaponData bomb;
 
-        //  アイテムの所持数
-        public int possessionOnigiri;
-        public int possessionFireSkill;
-        public int possessionSoilSkill;
-        public int possessionSummonsSkill;
-
-        /// <summary>
-        /// プレイシーンマネージャが保存する情報を初期化
-        /// </summary>
-        public void Initialize()
-        {
-            player = null;
-            startPos = new Vector3(0, 0, 0);
-            stageEnd = StageState.None;
-
-            //  所持金
-            possessionMoney = 200;
-
-            //  武器強化の上限を設定
-            weaponStrengthenMaxLevel = 5;
-
-            //  武器のレベル
-            kunaiLevel = 1;
-            throwingStarLevel = 1;
-            bombLevel = 1;
-
-            //  アイテムの所持数
-            possessionOnigiri = 0;
-            possessionFireSkill = 0;
-            possessionSoilSkill = 0;
-            possessionSummonsSkill = 0;
-        }
+        //  アイテムのデータ
+        public ItemData onigiri;
+        public ItemData fireSkill;
+        public ItemData soilSkill;
+        public ItemData summonsSkill;
     }
 }
