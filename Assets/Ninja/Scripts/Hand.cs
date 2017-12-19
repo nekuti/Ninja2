@@ -95,6 +95,12 @@ namespace Kojima
         {
             base.Update();
 
+            if(InputDevice.Press(ButtonType.Grip,handType))
+            {
+
+            }
+
+
             // rayを設定
             ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
 

@@ -82,20 +82,21 @@ namespace Kojima
                 switch(myHand.WeaponData.WeaponType)
                 {
                     case WeaponType.Kunai:
-                        return LevelBonus(Ando.PlaySceneManager.GetKunaiLevel());
+                        weaponLevel = Ando.PlaySceneManager.GetKunaiLevel();
+                        break;
                     case WeaponType.Shuriken:
-                        return LevelBonus(Ando.PlaySceneManager.GetThrowingStarLevel());
+                        weaponLevel = Ando.PlaySceneManager.GetThrowingStarLevel();
+                        break;
                     case WeaponType.Bomb:
-                        return LevelBonus(Ando.PlaySceneManager.GetBombLevel());
+                        weaponLevel = Ando.PlaySceneManager.GetBombLevel();
+                        break;
                     default:
-                        Debug.Log("レベルが未設定の武器");
-                        return LevelBonus(weaponLevel);
+                        Debug.Log(myHand.WeaponData.WeaponType + "のレベルが未設定");
+                        break;
                 }
             }
-            else
-            {
-                return LevelBonus(weaponLevel);
-            }
+            return LevelBonus(weaponLevel);
+
         }
         public float LevelBonus(int aLevel)
         {

@@ -276,6 +276,25 @@ namespace Kojima
             }
         }
 
+        /// <summary>
+        /// オニギリを使用
+        /// </summary>
+        /// <param name="aData"></param>
+        public void UseOnigiri(ItemHealDataTable aData)
+        {
+            if(Ando.PlaySceneManager.CheckEmpty())
+            {
+                // オニギリが1個以上あるか
+                int count = Ando.PlaySceneManager.GetPossessionOnigiri();
+                if(count > 0)
+                {
+                    // オニギリを使用
+                    Ando.PlaySceneManager.SubPossessionOnigili(1);
+                    // 回復量に合わせてエネルギーを割合回復
+                    Energy += Energy * (aData.HealPoint / maxEnergy);
+                }
+            }
+        }
 
         #endregion
     }
