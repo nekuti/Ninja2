@@ -31,8 +31,8 @@ namespace Kondo
         [SerializeField]
         private float displayTime = 3.0f;
 
-        public Text displayText;
-        private float countTime;
+        public Text noticeText;
+        private float countTime　= 0.0f;
         private Transform canvasTransfome;
         private Vector3 targetPos;
         private NoticeSequence sequence;
@@ -47,31 +47,37 @@ namespace Kondo
 
             // キャンバスの座標を取得
             canvasTransfome = t.transform.root.gameObject.transform;
+            Debug.Log("ムーブノーツ　Start()");
+
 
         }
 
         // Update is called once per frame
         void Update()
         {
-
             InstructMovement();
-
-
         }
 
 
-         public void RequestDisplay(string aText, float aDisplayTime = 3.0f, float aMoveTime = 1.0f, float aTargetDistance = 5.0f)
+
+         public void RequestDisplay(string aText, float aDisplayTime = 3.0f, float aMoveTime = 1.0f, float aTargetDistance = 3.0f)
         {
+
+            Debug.Log("ムーブノーツ　RequestDisplay()");
+            displayTime = aDisplayTime;
+            moveTime = aMoveTime;
+            targetDistance = aTargetDistance;
+
             // eyeの正面の位置を取得
             targetPos = eye.transform.position + eye.transform.rotation * (Vector3.forward * targetDistance);
 
             // Noticeを表示用座標に移動
-            canvasTransfome.transform.position = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, -1) * targetDistance);
+            canvasTransfome.transform.position = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, 1) * targetDistance);
 
             // テキストを書き換える
-            displayText = GetComponent<Text>();
-            displayText.text = aText;
-
+            noticeText = GetComponent<Text>();
+            noticeText.text = aText;
+            Debug.Log("ムーブノーツ　表示するテキスト : "+ noticeText.text);
             sequence = NoticeSequence.moveNotice;
         } 
 
@@ -99,8 +105,12 @@ namespace Kondo
         }
 
 
+
+
         private void GoNotice()
         {
+            Debug.Log("ムーブノーツ　GoNotice()");
+
             // 目標座標に移動させる
             canvasTransfome.DOMove(targetPos, moveTime)
                 .OnComplete(() =>
@@ -108,12 +118,21 @@ namespace Kondo
                     // 移動が終了時に一時停止シーケンスに移行
                     sequence = NoticeSequence.stopNotice;
                 });
-            canvasTransfome.rotation = eye.transform.rotation;
+
+            Quaternion q = eye.transform.rotation;
+            q.x = 0;
+            q.z = 0;
+            canvasTransfome.rotation = q;
         }
+
+
 
 
         private void StopNotice()
         {
+
+            Debug.Log("ムーブノーツ　StopNotice()");
+
             countTime += Time.deltaTime;
             if(countTime >= displayTime)
             {
@@ -122,20 +141,34 @@ namespace Kondo
                 sequence = NoticeSequence.returnNotice;
 
                 // Noticeの元の位置を取得
-                targetPos = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, -1) * targetDistance);
+                targetPos = eye.transform.position + eye.transform.rotation * (new Vector3(0, -1, 1) * targetDistance);
+
             }
         }
 
 
+
+
         private void ReturnNotice()
         {
+
+            Debug.Log("ムーブノーツ　ReturnNotice()");
+
             // 目標座標に移動させる
             canvasTransfome.DOMove(targetPos, moveTime)
                 .OnComplete(() =>
                 {
+
+
+                   // isMoveStart = false;
+
                    // isMoveStart = false;
                     sequence = NoticeSequence.none;
+                    canvasTransfome.position = new  Vector3(0, -5, 0); 
+
                 });
+
+            
 
             canvasTransfome.rotation = eye.transform.rotation;
 

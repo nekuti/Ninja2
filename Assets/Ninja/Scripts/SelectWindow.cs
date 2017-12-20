@@ -25,6 +25,14 @@ namespace Kojima
         [SerializeField]
         private UnityEngine.Events.UnityEvent selectEvent = new UnityEngine.Events.UnityEvent();
 
+
+
+        #endregion
+
+        #region プロパティ
+        public UnityEngine.Events.UnityEvent HitRayEvent { get { return hitRayEvent; } }
+        public UnityEngine.Events.UnityEvent OutRayEvent { get { return outRayEvent; } }
+        public UnityEngine.Events.UnityEvent SelectEvent { get { return selectEvent; } }
         #endregion
 
         #region メソッド
@@ -34,15 +42,7 @@ namespace Kojima
         /// </summary>
         public void HitRayObject()
         {
-            if(hitRayEvent.GetPersistentEventCount() > 0)
-            {
-                hitRayEvent.Invoke();
-                Debug.Log("レイが当たった時のイベントを実行");
-            }
-            else
-            {
-                Debug.Log("レイが当たった時のイベントが未登録");
-            }
+            hitRayEvent.Invoke();
         }
 
         /// <summary>
@@ -50,15 +50,8 @@ namespace Kojima
         /// </summary>
         public void OutRayObject()
         {
-            if (outRayEvent.GetPersistentEventCount() > 0)
-            {
-                outRayEvent.Invoke();
-                Debug.Log("レイがはずれた時のイベントを実行");
-            }
-            else
-            {
-                Debug.Log("レイがはずれた時のイベントが未登録");
-            }
+            outRayEvent.Invoke();
+
         }
 
         /// <summary>
@@ -66,16 +59,65 @@ namespace Kojima
         /// </summary>
         public void SelectObject()
         {
-            if (selectEvent.GetPersistentEventCount() > 0)
-            {
-                selectEvent.Invoke();
-                Debug.Log("決定時のイベントを実行");
-            }
-            else
-            {
-                Debug.Log("決定時のイベントが未登録");
-            }
+
+            selectEvent.Invoke();
+
         }
+
+
+        /// <summary>
+        /// 動的にレイが当たった時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
+        public void SetDynamicHitRayEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            hitRayEvent.AddListener(aFuncName);
+        }
+
+        /// <summary>
+        /// 動的にレイが外れた時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
+        public void SetDynamicOutRayEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            outRayEvent.AddListener(aFuncName);
+        }
+
+        /// <summary>
+        /// 動的に選択された時のイベントを登録
+        /// </summary>
+        /// <param name="aFuncName"></param>
+        public void SetDynamicSelectEvent(UnityEngine.Events.UnityAction aFuncName)
+        {
+            selectEvent.AddListener(aFuncName);
+        }
+
+
+        /// <summary>
+        /// 動的に追加されたレイが当たった時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicHitRayEvent()
+        {
+            hitRayEvent.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// 動的に追加されたレイが外れた時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicOutRayEvent()
+        {
+            outRayEvent.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// 動的に追加された選択時のイベントを削除
+        /// </summary>
+        public void DeleteDynamicSelectEvent()
+        {
+            selectEvent.RemoveAllListeners();
+        }
+
+
 
         #endregion
     }
