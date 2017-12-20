@@ -17,11 +17,5 @@ namespace Ando
             //  パーティクルを開始
             particleSystem.Play();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }   
     }
 }

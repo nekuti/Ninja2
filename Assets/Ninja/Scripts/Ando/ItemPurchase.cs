@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Ando
 {
-    public class ItemPurochase : MonoBehaviour
+    public class ItemPurchase : MonoBehaviour
     {
         //  アイテムの名前
         [SerializeField]
