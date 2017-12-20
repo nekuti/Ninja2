@@ -157,12 +157,7 @@ namespace Kojima
             }
         }
 
-        /// <summary>
-        /// EnemyのDieStateを生成
-        /// </summary>
-        /// <param name="aSelf"></param>
-        /// <param name="aOwner"></param>
-        /// <returns></returns>
+
         public static State<Enemy> CreateDieState(this EnemyType aSelf, Enemy aOwner)
         {
             switch (aSelf)
@@ -174,10 +169,12 @@ namespace Kojima
                 case EnemyType.Sniper:
                     return new EnemySniperDieState(aOwner);
                 default:
-                    Debug.Log("DieStateが未設定の敵");
+                    Debug.Log("DamageStateが未設定の敵");
                     return null;
             }
         }
+
+
 
         #endregion
     }

@@ -15,13 +15,15 @@ MonoBehaviour:
   enemyPrefab: {fileID: 0}
   enemyType: 0
   flying: 0
-  knockBack: 1
+  knockBack: 0
   level: 1
   hp: 10
   power: 2
-  moveSpeed: 3
-  searchRange: 6
-  attackableRange: 3
-  attackToTime: 1
-  attackAfterTime: 1
-  knockBackTime: 1
+  moveSpeed: 5
+  attackMoveSpeed: 10
+  searchRange: 10
+  attackableRange: 2
+  attackToTime: 0
+  attackAfterTime: 0
+  knockBackTime: 0
+  patrolArea: 10

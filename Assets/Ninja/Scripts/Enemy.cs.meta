@@ -1,13 +1,13 @@
 fileFormatVersion: 2
 guid: 9a003096414c9054ea69a0bd91233bcd
-timeCreated: 1512016629
+timeCreated: 1512723059
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - attackPrefab: {instanceID: 0}
   - enemyData: {instanceID: 0}
-  executionOrder: 100
+  executionOrder: -100
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

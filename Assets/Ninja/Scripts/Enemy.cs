@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// Enemyのクラス
@@ -33,12 +34,18 @@ namespace Kojima
         [SerializeField, Tooltip("攻撃のプレハブ")]
         public Attack attackPrefab;
 
+        private static float flameCount = 0;
+
+        private static float secondCount = 0;
+
+        private static float timerCount = 0;
+
         // 敵のデータ
         public EnemyDataTable enemyData;
 
         private Rigidbody myRigidbody;
 
-        private bool collisioDecision = false;
+        private bool collisionDecision = false;
 
         #endregion
 
@@ -57,7 +64,7 @@ namespace Kojima
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
-        public bool CollisioDecision { get { return collisioDecision; } }
+        public bool CollisioDecision { get { return collisionDecision; } }
 
         #endregion
 
@@ -66,7 +73,7 @@ namespace Kojima
         /// <summary>
         /// 初期化処理
         /// </summary>
-        void Awake()
+        protected void Awake()
         {
             if (enemyData == null) Debug.Log("敵データが未設定です");
             if (attackPrefab == null) Debug.Log("攻撃のプレハブが未設定です");
@@ -88,7 +95,7 @@ namespace Kojima
         /// <summary>
         /// 更新前処理
         /// </summary>
-        void Start()
+        protected void Start()
         {
             // 初期のステートを設定
             ChangeState(EnemyStateType.Wait);
@@ -105,9 +112,12 @@ namespace Kojima
             // HPが0の場合死亡ステートへ
             if (Hp <= 0 && !IsCurrentState(EnemyStateType.Die))
             {
+                Debug.Log("死んで");
                 ChangeState(EnemyStateType.Die);
+
             }
-            collisioDecision = false;
+            collisionDecision = false;
+
         }
 
         /// <summary>
@@ -151,13 +161,19 @@ namespace Kojima
         /// <returns></returns>
         public bool MoveTo(Vector3 aPos)
         {
-            Vector3 vec = (aPos - transform.position).normalized * enemyData.MoveSpeed;
+            return MoveTo(aPos, enemyData.MoveSpeed);
+        }
+        private bool MoveTo(Vector3 aPos,float aSpeed)
+        {
+            Vector3 vec = (aPos - transform.position).normalized * aSpeed;
 
             // Rigidbodyに力を加える
             myRigidbody.AddForce(vec, ForceMode.VelocityChange);
 
             // 目的座標に到着したらtrueを返す
-            if ((aPos - transform.position).magnitude < enemyData.MoveSpeed * Time.deltaTime)
+            //if ((aPos - transform.position).magnitude < enemyData.MoveSpeed * Time.deltaTime)
+            if ((aPos - transform.position).magnitude < 0.5f)
+            //if ((aPos - transform.position).magnitude < vec.magnitude)
             {
                 return true;
             }
@@ -165,6 +181,11 @@ namespace Kojima
             {
                 return false;
             }
+        }
+
+        public bool QuickMoveTo(Vector3 aPos)
+        {
+            return MoveTo(aPos, enemyData.AttackMoveSpeed);
         }
 
         /// <summary>
@@ -175,11 +196,18 @@ namespace Kojima
         public bool LookTo(Vector3 aPos)
         {
             //transform.LookAt(aPos);
-            float speed = 0.3f;
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(aPos - myRigidbody.position), speed);
+            float angle = 180f;
+            Quaternion lookRotate = Quaternion.LookRotation(aPos - myRigidbody.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotate, angle * Time.deltaTime);
 
-            return true;
+            if (transform.rotation == lookRotate)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -206,11 +234,43 @@ namespace Kojima
         {
             if (collision.gameObject.tag == TagName.Object)
             {
-                collisioDecision = true;
+                collisionDecision = true;
             }
             else if (collision.gameObject.tag == TagName.WireableObject)
             {
-                collisioDecision = true;
+                collisionDecision = true;
+            }
+            else
+            {
+                collisionDecision = false;
+            }
+        }
+        public bool FlameWaitTime(float flame)
+        {
+            if (flameCount > flame)
+            {
+                flameCount = 0;
+                return true;
+            }
+            else
+            {
+                flameCount++;
+                return false;
+            }
+        }
+
+        public bool SecondWaitime(float second)
+        {
+            if(timerCount >= second)
+            {
+                timerCount = 0;
+                secondCount = 0;
+                return true;
+            }
+            else
+            {
+                timerCount += Time.deltaTime;
+                return false;
             }
         }
     }
