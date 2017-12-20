@@ -40,6 +40,10 @@ namespace Kojima
 
         [SerializeField]
         private GameObject center;
+
+        [SerializeField]
+        private Attack blastPrefab;
+
         private Rigidbody myRigidbody;
 
 
@@ -112,9 +116,18 @@ namespace Kojima
         {
             base.Update();
 
+            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left))
+            {
+                UseKaton();
+            }
+            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right))
+            {
+                UseOnigiri();
+            }
+
             // =============================
             // やべー処理===================
-            if(posResetFlg)
+            if (posResetFlg)
             {
                 if(PosReset())
                 {
@@ -276,6 +289,60 @@ namespace Kojima
             }
         }
 
+        /// <summary>
+        /// オニギリを使用
+        /// </summary>
+        /// <param name="aData"></param>
+        public void UseOnigiri()
+        {
+            if(Ando.PlaySceneManager.CheckEmpty())
+            {
+                Ando.ItemData onigiri = Ando.PlaySceneManager.GetOnigiri();
+                // オニギリが1個以上あるか
+                if(onigiri.possession > 0)
+                {
+                    // オニギリを消費
+                    Ando.PlaySceneManager.SubPossessionOnigiri(1);
+                    // 回復量に合わせてエネルギーを割合回復
+                    Energy += maxEnergy * ((onigiri.itemData as ItemHealDataTable).HealPoint / 100f);
+                }
+            }
+            else
+            {
+                Debug.Log("PlaySceneManagerが無いのでオニギリ食べ放題");
+                Energy += maxEnergy * (5f / 100f);
+            }
+        }
+
+        /// <summary>
+        /// 火遁術の使用
+        /// </summary>
+        public void UseKaton()
+        {
+            if(Ando.PlaySceneManager.CheckEmpty())
+            {
+                Ando.ItemData katon = Ando.PlaySceneManager.GetFireSkill();
+                // アイテムが1個以上あるか
+                if(katon.possession > 0)
+                {
+                    // アイテムを消費
+                    Ando.PlaySceneManager.SubPossessionFireSkill(1);
+
+                    ItemAttackDataTable data = katon.itemData as ItemAttackDataTable;
+                    AttackBlast blast = Attack.Create(data.Prefab, transform.position, 
+                        transform.forward, data.Power, data.DestroyTime, data.BulletSpeed, tag) as AttackBlast;
+                    blast.transform.localScale = new Vector3(data.Range, data.Range, data.Range);
+                }
+            }
+            else
+            {
+                Debug.Log("PlaySceneManagerが無いのでカトン使い放題");
+
+                AttackBlast blast = Attack.Create(blastPrefab, transform.position, transform.forward, 20, 0.2f, 0, tag) as AttackBlast;
+                // 爆発範囲を設定(強化レベルによって範囲増加)
+                blast.transform.localScale = new Vector3(10f, 10f, 10f);
+            }
+        }
 
         #endregion
     }

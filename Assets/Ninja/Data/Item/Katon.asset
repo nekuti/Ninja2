@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2e6b241604ec24881cbaad38801f64, type: 3}
+  m_Name: Katon
+  m_EditorClassIdentifier: 
+  itemName: "\u30AB\u30C8\u30F3"
+  explanation: "\u81EA\u5206\u3092\u4E2D\u5FC3\u306B\u534A\u5F845m\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+  maxPossessionNum: 10
+  price: 50
+  prefab: {fileID: 114750570625792836, guid: 0f77038086446774a962b390242292da, type: 2}
+  power: 20
+  range: 10
+  destroyTime: 0.2
+  bulletSpeed: 0
