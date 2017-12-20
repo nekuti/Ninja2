@@ -16,4 +16,5 @@ public static class TagName
 	public const string Hand = "Hand";
 	public const string Enemy = "Enemy";
 	public const string Goal = "Goal";
+    public const string Floor = "Floor";
 }

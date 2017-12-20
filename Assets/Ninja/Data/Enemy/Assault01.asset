@@ -17,12 +17,13 @@ MonoBehaviour:
   flying: 0
   knockBack: 0
   level: 1
-  hp: 10
+  hp: 1
   power: 2
   moveSpeed: 5
-  searchRange: 20
-  attackableRange: 8
+  attackMoveSpeed: 3
+  searchRange: 3
+  attackableRange: 2
   attackToTime: 0
-  attackAfterTime: 1
+  attackAfterTime: 0
   knockBackTime: 0
   patrolArea: 10

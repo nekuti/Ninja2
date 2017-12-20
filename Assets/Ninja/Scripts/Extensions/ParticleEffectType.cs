@@ -19,6 +19,7 @@ namespace Kojima
         Flash_small01,
         Ring01,
         Explosion01,
+        Explosion_small01,
     }
 
     /// <summary>

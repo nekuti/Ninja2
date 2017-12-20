@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1017523885835456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.072945}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4986760571412774}
   m_Father: {fileID: 0}
@@ -160,8 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   effect: 0
-  speed: 4
-  time: 3
+  speed: 100
+  time: 5
   ThroughUnit: 0
   ThroughMap: 0
   power: 0
