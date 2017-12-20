@@ -28,7 +28,7 @@ namespace Kojima
             // 取得金額をPlaySceneManagerに登録
             if (Ando.PlaySceneManager.CheckEmpty())
             {
-                Ando.PlaySceneManager.AddPossessionOnigili(itemCount);
+                Ando.PlaySceneManager.AddPossessionOnigiri(itemCount);
             }
             // オブジェクトを削除
             Destroy(this.gameObject);

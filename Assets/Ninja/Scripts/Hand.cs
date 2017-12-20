@@ -95,9 +95,13 @@ namespace Kojima
         {
             base.Update();
 
-            if(InputDevice.Press(ButtonType.Grip,handType))
+            if (InputDevice.Press(ButtonType.Grip, handType) || Input.GetKeyDown(KeyCode.A))
             {
-
+                owner.UseOnigiri();
+            }
+            if (InputDevice.Press(ButtonType.Grip, handType) || Input.GetKeyDown(KeyCode.S))
+            {
+                owner.UseKaton();
             }
 
 
@@ -127,18 +131,6 @@ namespace Kojima
                 // カーソルを非表示
                 cursorObject.SetActive(false);
             }
-
-        }
-
-        /// <summary>
-        /// ワイヤーを装備
-        /// </summary>
-        /// <returns></returns>
-        public bool EquipWire()
-        {
-            ChangeState(HandStateType.Play);
-
-            return true;
         }
 
         /// <summary>

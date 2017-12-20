@@ -38,7 +38,7 @@ namespace Ando
         {
             this.gameObject.transform.position = player.transform.position + new Vector3(0, 1, 2.0f);
 
-            playTimeValue.text =resultContainer.playTime;
+            playTimeValue.text =resultContainer.playTimer.GetTimeString();
 
             getMoneyValue.text = resultContainer.getMoneyValue.ToString();
 
