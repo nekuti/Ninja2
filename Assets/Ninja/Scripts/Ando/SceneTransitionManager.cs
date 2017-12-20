@@ -38,18 +38,8 @@ namespace Ando
             //SceneBaceにSceneTransitionManagerを登録
             SceneBace.RgtrSceneTransitionManager(this);
 
-            #region スイッチに嫌悪する部分(初回シーン設定)
             switch (firstScene)
             {
-                case SceneName.TitleTest:
-                    ChangeSceneSingle(SceneName.TitleTest);
-                    break;
-                case SceneName.PlayTest:
-                    ChangeSceneSingle(SceneName.PlayTest);
-                    break;
-                case SceneName.ResultTest:
-                    ChangeSceneSingle(SceneName.ResultTest);
-                    break;
                 case SceneName.PauseTest:
                     ChangeSceneSingle(SceneName.PauseTest);
                     break;
@@ -59,10 +49,12 @@ namespace Ando
                 case SceneName.PlayScene:
                     ChangeSceneSingle(SceneName.PlayScene);
                     break;
+                case SceneName.ResultScene:
+                    ChangeSceneSingle(SceneName.PlayScene);
+                    break;
                 default:
                     break;
             }
-            #endregion
         }
 
         /// <summary>

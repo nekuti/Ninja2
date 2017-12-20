@@ -16,6 +16,7 @@ namespace Ando
         ResultGameClear,
         ResultGameOver,
         StageChange,
+        ReturnPlayBase,
         TitleBack,
     }
 
@@ -35,7 +36,7 @@ namespace Ando
 
         //  次に遷移するシーン
         [SerializeField]
-        private SceneName nextScene = SceneName.TitleTest;
+        private SceneName nextScene = SceneName.ResultScene;
 
         //  ポーズボタンが押されたときにロードされるシーン
         [SerializeField]
@@ -58,6 +59,8 @@ namespace Ando
         //  シーン遷移の方法
         private static StageTransition stageTransition = StageTransition.None;
 
+        //  PlayDataの初期化用
+        public PlayData initPlayData;
         //  プレイシーンマネージャーで管理する情報
         private static PlayData playData = new PlayData();
 
@@ -74,6 +77,8 @@ namespace Ando
         //  フェードインの時間
         private float fadeInTime = 1.0f;
 
+        //  リザルトに渡す情報
+        private ResultContainer resultContainer;
 
         new void Awake()
         {
@@ -83,6 +88,12 @@ namespace Ando
 
         private void Start()
         {
+            //  PlayDataに初期化用データを入れる
+            playData = initPlayData;
+            //  リザルトに渡す情報の初期化
+            resultContainer = new ResultContainer();
+            resultContainer.Initialize(this.gameObject);
+
             //  ステージの遷移をNoneに設定
             stageTransition = StageTransition.None;
 
@@ -91,19 +102,10 @@ namespace Ando
 
             //  最初のステージを読み込む
             StageAdd(false);
-
-            playData.Initialize();
-
         }
 
         private void Update()
         {
-            //  リザルト表示するためにステージを消すか
-            if (stageUnloadFlag)
-            {
-                StageUnload();
-            }
-
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
@@ -115,6 +117,9 @@ namespace Ando
                     //  ステージ変更
                     StageChange();
                     stageTransition = StageTransition.None;
+                    break;
+                case StageTransition.ReturnPlayBase:
+                    StageChange(0);
                     break;
                 case StageTransition.TitleBack:
                     //  タイトルへ戻る
@@ -214,7 +219,23 @@ namespace Ando
             this.gameObject.AddComponent(Type.GetType("Ando." + stageList[nowStageNum].ToString()));
 
             //  ステージの読み込み
-            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);            
+            SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);
+
+
+            /* β用----------------------------------------------------------------------------*/
+            if (nowStageNum == 1)
+            {
+                //  プレイ時間の計測開始
+                resultContainer.totalPlayTimer.TimerStart();
+            }
+
+            if(stageList.Count - 1 > nowStageNum)
+            {
+                StageUnload();
+                ResultSceneManager.RgtrResultContainer(resultContainer);
+                sceneTransitionManager.ChangeSceneAdd(nextScene);
+            }
+           /*----------------------------------------------------------------------------------*/
         }
 
         /// <summary>
@@ -319,7 +340,6 @@ namespace Ando
             //a.killEnemyValue = 1;
             //a.useItemValue = 1;
 
-
             //  簡易リザルトがすでにあるか確認
             if (!sceneTransitionManager.SearchScene(SceneName.LiteResult))
             {
@@ -418,7 +438,7 @@ namespace Ando
         /// <param name="aSubMoney"></param>
         public static void SubPossessionMoney(int aSubMoney)
         {
-            if (playData.kunaiLevel > 0)
+            if (playData.kunai.strengthenLevel > 0)
             {
                 playData.possessionMoney -= aSubMoney;
             }
@@ -434,7 +454,7 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void AddKunaiLevel(int anAddnum)
         {
-            playData.kunaiLevel += anAddnum;
+            playData.kunai.strengthenLevel += anAddnum;
         }
 
         /// <summary>
@@ -443,9 +463,9 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void SubKunaiLevel(int aSubnum)
         {
-            if (playData.kunaiLevel > 1)
+            if (playData.kunai.strengthenLevel > 1)
             {
-                playData.kunaiLevel -= aSubnum;
+                playData.kunai.strengthenLevel -= aSubnum;
             }
             else
             {
@@ -459,7 +479,7 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void AddThrowingStarLevel(int anAddnum)
         {
-            playData.throwingStarLevel += anAddnum;
+            playData.throwingStar.strengthenLevel += anAddnum;
         }
 
         /// <summary>
@@ -468,9 +488,9 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void SubThrowingStarLevel(int aSubnum)
         {
-            if (playData.throwingStarLevel > 1)
+            if (playData.throwingStar.strengthenLevel > 1)
             {
-                playData.throwingStarLevel -= aSubnum;
+                playData.throwingStar.strengthenLevel -= aSubnum;
             }
             else
             {
@@ -484,7 +504,7 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void AddBumbLevel(int anAddnum)
         {
-            playData.bombLevel += anAddnum;
+            playData.bomb.strengthenLevel += anAddnum;
         }
 
         /// <summary>
@@ -493,9 +513,9 @@ namespace Ando
         /// <param name="anAddnum"></param>
         public static void SubBumbLevel(int aSubnum)
         {
-            if (playData.bombLevel > 1)
+            if (playData.bomb.strengthenLevel > 1)
             {
-                playData.bombLevel -= aSubnum;
+                playData.bomb.strengthenLevel -= aSubnum;
             }
             else
             {
@@ -507,20 +527,20 @@ namespace Ando
         /// おにぎりの所持数を加算
         /// </summary>
         /// <param name="anAddNum"></param>
-        public static void AddPossessionOnigili(int anAddNum)
+        public static void AddPossessionOnigiri(int anAddNum)
         {
-            playData.possessionOnigiri += anAddNum;
+            playData.onigiri.possession += anAddNum;
         }
 
         /// <summary>
         /// おにぎりの所持数を減算
         /// </summary>
         /// <param name="anSubNum"></param>
-        public static void SubPossessionOnigili(int aSubnum)
+        public static void SubPossessionOnigiri(int aSubnum)
         {
-            if (playData.possessionOnigiri > 0)
+            if (playData.onigiri.possession > 0)
             {
-                playData.possessionOnigiri -= aSubnum;
+                playData.onigiri.possession -= aSubnum;
             }
             else
             {
@@ -534,7 +554,7 @@ namespace Ando
         /// <param name="anAddNum"></param>
         public static void AddPossessionFireSkill(int anAddNum)
         {
-            playData.possessionFireSkill += anAddNum;
+            playData.fireSkill.possession += anAddNum;
         }
         
         /// <summary>
@@ -543,9 +563,9 @@ namespace Ando
         /// <param name="anSubNum"></param>
         public static void SubPossessionFireSkill(int aSubnum)
         {
-            if (playData.possessionFireSkill > 0)
+            if (playData.fireSkill.possession > 0)
             {
-                playData.possessionFireSkill -= aSubnum;
+                playData.fireSkill.possession -= aSubnum;
             }
             else
             {
@@ -559,7 +579,7 @@ namespace Ando
         /// <param name="anAddNum"></param>
         public static void AddPossessionSoilSkill(int anAddNum)
         {
-            playData.possessionSoilSkill += anAddNum;
+            playData.soilSkill.possession += anAddNum;
         }
         
         /// <summary>
@@ -568,9 +588,9 @@ namespace Ando
         /// <param name="anSubNum"></param>
         public static void SubPossessionSoilSkill(int aSubnum)
         {
-            if (playData.possessionSoilSkill > 0)
+            if (playData.soilSkill.possession > 0)
             {
-                playData.possessionSoilSkill -= aSubnum;
+                playData.soilSkill.possession -= aSubnum;
             }
             else
             {
@@ -584,7 +604,7 @@ namespace Ando
         /// <param name="anAddNum"></param>
         public static void AddPossessionSummonsSkill(int anAddNum)
         {
-            playData.possessionSummonsSkill += anAddNum;
+            playData.summonsSkill.possession += anAddNum;
         }
        
         /// <summary>
@@ -593,9 +613,9 @@ namespace Ando
         /// <param name="anSubNum"></param>
         public static void SubPossessionSummonsSkill(int aSubnum)
         {
-            if (playData.possessionSummonsSkill > 0)
+            if (playData.summonsSkill.possession > 0)
             {
-                playData.possessionSummonsSkill -= aSubnum;
+                playData.summonsSkill.possession -= aSubnum;
             }
             else
             {
@@ -641,66 +661,66 @@ namespace Ando
         }
 
         /// <summary>
-        /// クナイの武器レベルを教える
+        /// クナイの情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetKunaiLevel()
+        public static WeaponData GetKunai()
         {
-            return playData.kunaiLevel;
+            return playData.kunai;
         }
 
         /// <summary>
-        /// 手裏剣の武器レベルを教える
+        /// 手裏剣の情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetThrowingStarLevel()
+        public static WeaponData GetThrowingStar()
         {
-            return playData.throwingStarLevel;
+            return playData.throwingStar;
         }
 
         /// <summary>
-        /// 爆弾の武器レベルを教える
+        /// 爆弾の情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetBombLevel()
+        public static WeaponData GetBomb()
         {
-            return playData.bombLevel;
+            return playData.bomb;
         }
 
         /// <summary>
-        /// プレイヤーのおにぎり所持数を教える
+        /// おにぎりの情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetPossessionOnigiri()
+        public static ItemData GetOnigiri()
         {
-            return playData.possessionOnigiri;
+            return playData.onigiri;
         }
 
         /// <summary>
-        /// プレイヤーの火遁の術所持数を教える
+        /// 火遁の術の情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetPossessionFireSkill()
+        public static ItemData GetFireSkill()
         {
-            return playData.possessionFireSkill;
+            return playData.fireSkill;
         }
 
         /// <summary>
-        /// プレイヤーの土遁の術所持数を教える
+        /// 土遁の術の情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetPossessionSoilSkill()
+        public static ItemData GetSoilSkill()
         {
-            return playData.possessionSoilSkill;
+            return playData.soilSkill;
         }
 
         /// <summary>
-        /// プレイヤーの召喚の術所持数を教える
+        /// 召喚の術の情報を教える
         /// </summary>
         /// <param name="aPlayer"></param>
-        public static int GetPossessionSummonsSkill()
+        public static ItemData GetSummonsSkill()
         {
-            return playData.possessionSummonsSkill;
+            return playData.summonsSkill;
         }
 
         #endregion

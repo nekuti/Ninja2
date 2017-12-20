@@ -7,10 +7,8 @@ namespace Ando
 {
     public abstract class Item : MonoBehaviour
     {
-
-        //  アイテムのデータテーブルを保存
-        [SerializeField]
-        protected Ando.ItemDataTable itemData;
+        //  アイテムのデータテーブル
+        protected ItemDataTable itemData;
 
         //  アイテムの名前
         [SerializeField]
@@ -22,49 +20,29 @@ namespace Ando
         [SerializeField]
         protected Text itemPossession;
 
-        protected virtual void Start()
-        {
-            //  テキストにデータを挿入
-            itemName.text = GetItemName();
-            itemPrice.text = GetItemPrice().ToString() + "両";
-            itemPossession.text = "エラー";
-        }
-
         /// <summary>
         /// アイテムの名前を取得
         /// </summary>
         /// <returns></returns>
-        public string GetItemName()
-        {
-            return itemData.itemName;
-        }
+        public abstract string GetItemName();
 
         /// <summary>
         /// アイテムの説明を取得
         /// </summary>
         /// <returns></returns>
-        public string GetItemExplanation()
-        {
-            return itemData.explanation;
-        }
+        public abstract string GetItemExplanation();
 
         /// <summary>
         /// アイテムの金額を取得
         /// </summary>
         /// <returns></returns>
-        public int GetItemPrice()
-        {
-            return itemData.price;
-        }
+        public abstract int GetItemPrice();
 
         /// <summary>
         /// アイテムの所持数上限を取得
         /// </summary>
         /// <returns></returns>
-        public int GetItemMaxPossessionNum()
-        {
-            return itemData.maxPossessionNum;
-        }
+        public abstract int GetItemMaxPossessionNum();
 
         /// <summary>
         /// アイテムの所持数を取得

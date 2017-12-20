@@ -12154,7 +12154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2169d5e0623282342b7fd989d42691c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 7cb03afddfd5b644fbe1e271fb8e2fa1, type: 2}
   equipmentChect: {fileID: 1587106180}
   weaponName: {fileID: 371702291}
   weaponLevel: {fileID: 1159714773}
@@ -12209,7 +12208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572e19a2450d2ca46929dd4136d6e73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 500c0c5549c5b944c9fa9213297c21f3, type: 2}
   itemName: {fileID: 831092188}
   itemPrice: {fileID: 1893849377}
   itemPossession: {fileID: 2040188598}
@@ -24067,7 +24065,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0e04fed15533847a4b2cbd58e753d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 4887d2debd2f890468d8bc1ef73d3e7e, type: 2}
   equipmentChect: {fileID: 1201260919}
   weaponName: {fileID: 1448273636}
   weaponLevel: {fileID: 1802334924}
@@ -26737,7 +26734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001802976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27067,7 +27064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1046804887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27105,7 +27102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1046804886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436ba1da6622f86489ff576ef1db288a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8683fe11ed739e247a69eea41d58d083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: {fileID: 41178039}
@@ -28931,7 +28928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcff12cbadf6fae4092bcc20b14a2da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 4887d2debd2f890468d8bc1ef73d3e7e, type: 2}
   equipmentChect: {fileID: 1121240510}
   weaponName: {fileID: 1912140786}
   weaponLevel: {fileID: 819750657}
@@ -30544,7 +30540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b248dd4b37a8d24f913239c5894e15a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: f6630305945f2da499c544ca4f2c06e9, type: 2}
   itemName: {fileID: 2104990676}
   itemPrice: {fileID: 111274596}
   itemPossession: {fileID: 1548679937}
@@ -36595,7 +36590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afcab3b038969a42b1c84c313759189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 7b238373c18631a48ad3306a3cb157b6, type: 2}
   itemName: {fileID: 176397346}
   itemPrice: {fileID: 1885208662}
   itemPossession: {fileID: 235477421}
@@ -40438,7 +40432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bcb2df8fa06d9438b6ac873ce931b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 77039b960ee04c24eac5d8b7f11dc42d, type: 2}
   itemName: {fileID: 457968682}
   itemPrice: {fileID: 1572925100}
   itemPossession: {fileID: 259354289}

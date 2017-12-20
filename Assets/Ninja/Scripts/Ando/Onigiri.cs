@@ -7,20 +7,60 @@ namespace Ando
 {
     public class Onigiri : Item
     {
-        // Use this for initialization
-        protected override void Start()
+        void Start()
         {
-            base.Start();
+            //  アイテムのデータテーブルを取得
+            itemData = PlaySceneManager.GetOnigiri().itemData;
 
+            //  名前を表示
+            itemName.text = GetItemName();
+            //  値段を表示
+            itemPrice.text = GetItemPrice().ToString();
             //  所持数を表示
-            itemPossession.text = PlaySceneManager.GetPossessionOnigiri() + "個";
+            itemPossession.text = GetItemPossessionNum() + "個";
         }
 
         // Update is called once per frame
         void Update()
         {
             //  所持数を表示
-            itemPossession.text = PlaySceneManager.GetPossessionOnigiri() + "個";
+            itemPossession.text = GetItemPossessionNum() + "個";
+        }
+
+        /// <summary>
+        /// アイテムの名前を取得
+        /// </summary>
+        /// <returns></returns>
+        public override string GetItemName()
+        {
+            return itemData.itemName;
+        }
+
+        /// <summary>
+        /// アイテムの説明を取得
+        /// </summary>
+        /// <returns></returns>
+        public override string GetItemExplanation()
+        {
+            return itemData.explanation;
+        }
+
+        /// <summary>
+        /// アイテムの金額を取得
+        /// </summary>
+        /// <returns></returns>
+        public override int GetItemPrice()
+        {
+            return itemData.price;
+        }
+
+        /// <summary>
+        /// アイテムの所持数上限を取得
+        /// </summary>
+        /// <returns></returns>
+        public override int GetItemMaxPossessionNum()
+        {
+            return itemData.maxPossessionNum;
         }
 
         /// <summary>
@@ -29,7 +69,7 @@ namespace Ando
         /// <returns></returns>
         public override int GetItemPossessionNum()
         {
-            return PlaySceneManager.GetPossessionOnigiri();
+            return PlaySceneManager.GetOnigiri().possession;
         }
 
         /// <summary>
@@ -38,7 +78,7 @@ namespace Ando
         /// <param name="anAddNum"></param>
         public override void AddPossessionItem(int anAddNum)
         {
-            PlaySceneManager.AddPossessionOnigili(anAddNum);
+            PlaySceneManager.AddPossessionOnigiri(anAddNum);
         }
 
         /// <summary>
