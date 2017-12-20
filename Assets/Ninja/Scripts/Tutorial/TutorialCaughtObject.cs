@@ -40,15 +40,14 @@ namespace Kondo
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.CompareTag(TagName.Player))
+            if (other.gameObject.CompareTag(TagName.Player))
             {
                 isContact = true;
             }
         }
 
-      
 
     }
 }
