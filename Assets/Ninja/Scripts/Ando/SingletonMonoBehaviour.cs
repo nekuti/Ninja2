@@ -77,7 +77,7 @@ namespace Ando
         public static bool CheckEmpty()
         {
             //  インスタンスがあるかどうか
-            if (instance == null)
+            if (instance != null)
             {
                 return true;
             }

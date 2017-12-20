@@ -47,6 +47,9 @@ namespace Kojima
         [SerializeField, Tooltip("反動の硬直時間"), Range(0f,10f)]
         private float recoil = 0.5f;
 
+        [SerializeField, Tooltip("基本強化費用")]
+        private int cost = 400;
+
         #endregion
 
         #region プロパティ
@@ -61,6 +64,7 @@ namespace Kojima
         public int Many { get { return many; } }
         public float Diffusion { get { return diffusion; } }
         public float Recoil { get { return recoil; } }
+        public int Cost { get { return cost; } }
         #endregion
 
         #region メソッド
