@@ -41,6 +41,9 @@ namespace Kojima
         [SerializeField, Tooltip("移動速度")]
         private float moveSpeed = 3f;
 
+        [SerializeField, Tooltip("移動速度")]
+        private float attackMoveSpeed = 3f;
+
         [SerializeField,Tooltip("索敵範囲")]
         private float searchRange = 6f;
 
@@ -71,6 +74,7 @@ namespace Kojima
         public float Hp { get { return hp; } }
         public float Power { get { return power; } }
         public float MoveSpeed { get { return moveSpeed; } }
+        public float AttackMoveSpeed { get { return attackMoveSpeed; } }
         public float SearchRange { get { return searchRange; } }
         public float AttackableRange { get { return attackableRange; } }
         public float AttackToTime { get { return attackToTime; } }

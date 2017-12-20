@@ -83,7 +83,7 @@ namespace Kojima
             }
 
             // レイが当たっている状態でトリガーまたはトラックパッドを押すと決定処理
-            if (InputDevice.ClickTrriger(owner.HandType) ||
+            if (InputDevice.ClickDownTrriger(owner.HandType) ||
             InputDevice.PressDown(ButtonType.Touchpad, owner.HandType))
             {
                 if (hitRayObject != null)
