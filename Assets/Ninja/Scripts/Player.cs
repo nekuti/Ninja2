@@ -116,11 +116,13 @@ namespace Kojima
         {
             base.Update();
 
-            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left))
+            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left)||
+                Input.GetKeyDown(KeyCode.A))
             {
                 UseKaton();
             }
-            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right))
+            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right)||
+                Input.GetKeyDown(KeyCode.S))
             {
                 UseOnigiri();
             }
