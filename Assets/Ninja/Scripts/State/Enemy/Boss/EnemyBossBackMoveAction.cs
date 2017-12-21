@@ -33,7 +33,6 @@ public class EnemyBossBackMoveAction : State<EnemyBoss>
 
             if (owner.CollisionObject)
             {
-                owner.animator.SetBool("MoveBack", false);
                 jumpFlag = true;
                 jumpForce = 30f;
             }
@@ -44,6 +43,7 @@ public class EnemyBossBackMoveAction : State<EnemyBoss>
     public override void Exit()
     {
         //jumpFlag = false;
+        owner.animator.SetBool("MoveBack", false);
     }
 
     public void OnStartPosJump()
@@ -61,8 +61,6 @@ public class EnemyBossBackMoveAction : State<EnemyBoss>
                     owner.ChangeState(EnemyBossStateType.Wait);
                 }
             }
-
-
         }
     }
 }
