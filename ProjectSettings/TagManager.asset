@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Goal
   - Floor
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -27,8 +28,8 @@ TagManager:
   - Player
   - Attack
   - PlayerAttack
-  - 
-  - 
+  - Bomb
+  - PlayerBomb
   - 
   - 
   - 
