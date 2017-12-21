@@ -48,8 +48,7 @@ namespace Ando
         /// <returns></returns>
         public override string GetWeaponExplanation()
         {
-            return "説明はよ";
-            //return weaponData.WeaponText;
+            return weaponData.WeaponText;
         }
 
         /// <summary>

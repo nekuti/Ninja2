@@ -12,7 +12,7 @@ namespace Ando
             base.Start();
 
             //  武器のデータテーブルを保存
-            weaponData = PlaySceneManager.GetThrowingStar().weaponData;
+            weaponData = PlaySceneManager.GetKunai().weaponData;
 
             //  プレイヤーの現在の装備を確認
             if (PlaySceneManager.GetPlayer().WeaponData.WeaponName == weaponData.WeaponName)
@@ -48,8 +48,7 @@ namespace Ando
         /// <returns></returns>
         public override string GetWeaponExplanation()
         {
-            return "説明はよ";
-            //return weaponData.WeaponText;
+            return weaponData.WeaponText;
         }        
 
         /// <summary>

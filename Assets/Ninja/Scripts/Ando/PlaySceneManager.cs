@@ -106,6 +106,11 @@ namespace Ando
 
         private void Update()
         {
+            if (stageUnloadFlag)
+            {
+                stageTransition = StageTransition.StageChange;
+                stageUnloadFlag = false;
+            }
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
@@ -229,12 +234,12 @@ namespace Ando
                 resultContainer.totalPlayTimer.TimerStart();
             }
 
-            if(stageList.Count - 1 > nowStageNum)
-            {
-                StageUnload();
-                ResultSceneManager.RgtrResultContainer(resultContainer);
-                sceneTransitionManager.ChangeSceneAdd(nextScene);
-            }
+            //if(stageList.Count - 1 > nowStageNum)
+            //{
+            //    StageUnload();
+            //    ResultSceneManager.RgtrResultContainer(resultContainer);
+            //    sceneTransitionManager.ChangeSceneAdd(nextScene);
+            //}
            /*----------------------------------------------------------------------------------*/
         }
 
@@ -324,10 +329,11 @@ namespace Ando
         /// </summary>
         public static void AddLiteResult()
         {
-            stageTransition = StageTransition.StageChange;
+            //   stageTransition = StageTransition.StageChange;
+            stageUnloadFlag = true;
+
             return;
 
-            stageUnloadFlag = true;
 
             //var a = new ResultContainer();
 

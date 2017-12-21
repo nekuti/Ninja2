@@ -1481,8 +1481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4db98002c6dcd4d8253f4c210efe14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  hp: 10
+  maxHp: 100
+  hp: 100
   attackPrefab: {fileID: 114456640126795910, guid: a12efb4253fa5924cb4665831bb152de,
     type: 2}
   enemyData: {fileID: 11400000, guid: d2f85419c3635e747bd979c546943c96, type: 2}

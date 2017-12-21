@@ -10,7 +10,6 @@ TagManager:
   - Hand
   - Enemy
   - Goal
-  - Floor
   layers:
   - Default
   - TransparentFX

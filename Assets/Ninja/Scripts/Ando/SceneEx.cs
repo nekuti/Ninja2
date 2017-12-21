@@ -12,7 +12,7 @@
         PauseTest,
         LiteResult,
         TitleScene,
-        Tutorial,
+        TutorialScene2,
         PlayScene,
         ResultScene,
         End,
@@ -36,7 +36,7 @@
                 case SceneName.PauseTest: return "PauseTest";
                 case SceneName.LiteResult: return "LiteResult";
                 case SceneName.TitleScene: return "TitleScene";
-                case SceneName.Tutorial: return "Tutorial";
+                case SceneName.TutorialScene2: return "TutorialScene2";
                 case SceneName.PlayScene: return "PlayScene";
                 case SceneName.ResultScene: return "ResultScene";
                 case SceneName.End: return "End";

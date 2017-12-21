@@ -20,7 +20,7 @@ namespace Ando
 
         //  次に遷移するシーン
         [SerializeField]
-        private List<SceneName> nextScene =new List<SceneName> { SceneName.PlayScene, SceneName.Tutorial, SceneName.End };
+        private List<SceneName> nextScene =new List<SceneName> { SceneName.PlayScene, SceneName.TutorialScene2, SceneName.End };
 
         //  凧の情報を格納
         public List<Kite> kites;

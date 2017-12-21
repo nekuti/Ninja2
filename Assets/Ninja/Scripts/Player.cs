@@ -107,6 +107,9 @@ namespace Kojima
             posResetFlg = true;
             //resultFlg = false;
             //trrigerFlg = true;
+
+            /*β版処理*/
+            Ando.PlaySceneManager.SetPlayer(this);
         }
 
         /// <summary>

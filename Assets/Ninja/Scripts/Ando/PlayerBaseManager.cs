@@ -65,6 +65,13 @@ namespace Ando
             {
                 SteamVR_Fade.Start(Color.black, 2);
             }
+
+            if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.End)
+            {
+                playSceneManager.StageChange();
+
+                PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
+            }
         }
 
         /// <summary>
