@@ -13,6 +13,7 @@ public class EnemyBossChooseState : State<EnemyBoss>
 
     public override void Enter()
     {
+        Random.Range(0, 80);
         chooseState = Random.Range(0, 80);
         Debug.Log(chooseState);
     }

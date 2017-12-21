@@ -7,7 +7,11 @@ PhysicMaterial:
   m_PrefabInternal: {fileID: 0}
   m_Name: Player
   dynamicFriction: 0
+<<<<<<< HEAD
   staticFriction: 0.2
+=======
+  staticFriction: 0.4
+>>>>>>> caf6c3a4ac29cd9015960a8fe9034ab05889feaf
   bounciness: 0
   frictionCombine: 1
   bounceCombine: 0

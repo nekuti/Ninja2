@@ -4,12 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - WireTip
-  - WireableObject
-  - Object
-  - Hand
-  - Enemy
-  - Goal
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -19,13 +14,13 @@ TagManager:
   - UI
   - 
   - 
-  - WireTip
-  - Map
-  - Hand
-  - Unit
-  - Player
-  - Attack
-  - PlayerAttack
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

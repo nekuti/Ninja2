@@ -16,7 +16,7 @@ public class EnemyBossStandByState : State<EnemyBoss>
     public override void Execute()
     {
         Vector3 distance = Enemy.player.transform.position - owner.transform.position;
-        if (distance.magnitude < owner.enemyData.SearchRange)
+        //if (distance.magnitude < owner.enemyData.SearchRange)
         {
             // 追跡ステートへ移行
             owner.ChangeState(EnemyBossStateType.Wait);

@@ -19,6 +19,7 @@ namespace Kojima
         Flash_small01,
         Ring01,
         Explosion01,
+        Explosion02,
         Explosion_small01,
     }
 
@@ -42,6 +43,7 @@ namespace Kojima
                 case ParticleEffectType.Flash_small01:  return "Flash_small01";
                 case ParticleEffectType.Ring01:         return "Ring01";
                 case ParticleEffectType.Explosion01:    return "Explosion01";
+                case ParticleEffectType.Explosion02:    return "Explosion02";
                 default:                                return "error";
             }
         }

@@ -104,8 +104,11 @@ namespace Kojima
         /// </summary>
         public void ReturnedWireTip()
         {
-            GameObject.Destroy(wireTip.gameObject);
-            wireTip = null;
+            if (wireTip != null)
+            {
+                GameObject.Destroy(wireTip.gameObject);
+                wireTip = null;
+            }
             ChangeState(WireStateType.Wait);
         }
 

@@ -26,7 +26,7 @@ public class EnemyBossWaitState : State<EnemyBoss>
         if (owner.FlameWaitTime(50))
         {
             // 探索ステートに移行
-            owner.ChangeState(EnemyBossStateType.MoveAttackAction);
+            owner.ChangeState(EnemyBossStateType.Choose);
         }
     }
     

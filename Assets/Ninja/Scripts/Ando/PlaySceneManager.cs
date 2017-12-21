@@ -234,6 +234,7 @@ namespace Ando
                 resultContainer.totalPlayTimer.TimerStart();
             }
 
+            playData.player.ResetPosition(playData.startPos);
             //if(stageList.Count - 1 > nowStageNum)
             //{
             //    StageUnload();
@@ -282,9 +283,6 @@ namespace Ando
 
             //  ステージを追加
             StageAdd(aFade,aFadeColor,aFadeTime);
-
-            //  プレイヤーの操作をプレイ用に切り替え
-            playData.player.ChangeHandState(Kojima.HandStateType.Play);
         }
 
         /// <param name="aStageNumber"></param>

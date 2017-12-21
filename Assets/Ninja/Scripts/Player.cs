@@ -119,11 +119,13 @@ namespace Kojima
         {
             base.Update();
 
-            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left))
+            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left)||
+                Input.GetKeyDown(KeyCode.A))
             {
                 UseKaton();
             }
-            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right))
+            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right)||
+                Input.GetKeyDown(KeyCode.S))
             {
                 UseOnigiri();
             }
@@ -345,6 +347,12 @@ namespace Kojima
                 // 爆発範囲を設定(強化レベルによって範囲増加)
                 blast.transform.localScale = new Vector3(10f, 10f, 10f);
             }
+        }
+
+        public void ResetPosition(Vector3 aPos)
+        {
+            transform.position = aPos;
+            myRigidbody.velocity = Vector3.zero;
         }
 
         #endregion

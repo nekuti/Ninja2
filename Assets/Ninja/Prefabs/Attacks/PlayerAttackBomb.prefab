@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114267427844947670}
   - component: {fileID: 135415982083210888}
   - component: {fileID: 54974768776032496}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: PlayerAttackBomb
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4054939068748250}
   - component: {fileID: 33249790380600580}
   - component: {fileID: 23535262491764800}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 4
   effect: 2
-  speed: 0
   time: 4
+  speed: 0
   ThroughUnit: 0
   ThroughMap: 0
   power: 15
@@ -155,7 +155,7 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1641242981246626}
-  m_Material: {fileID: 13400000, guid: 3d8d1e1c225a79a4a89cf2fb038a5d72, type: 2}
+  m_Material: {fileID: 13400000, guid: f84d696245cd67f49948e00b707d24a6, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

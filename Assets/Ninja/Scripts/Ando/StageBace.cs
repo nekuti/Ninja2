@@ -11,7 +11,7 @@ namespace Ando
         protected static PlaySceneManager playSceneManager;
 
         //  スタート位置
-        protected GameObject startPos;
+       // protected GameObject startPos;
 
         //  ステージがあるか確認
         public bool stageConfirm;
@@ -41,7 +41,7 @@ namespace Ando
             stageConfirm = true;
 
             //  開始位置を登録
-            PlaySceneManager.SetStartPos(startPos.gameObject.transform.position);
+            // PlaySceneManager.SetStartPos(startPos.gameObject.transform.position);
         }
 
         protected virtual void Update()

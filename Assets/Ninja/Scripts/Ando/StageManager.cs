@@ -17,6 +17,9 @@ namespace Ando
         {
             //  開始地点を設定
             PlaySceneManager.SetStartPos(startObj.gameObject.transform.position);
+
+            //  プレイヤーの操作をプレイ用に切り替え
+            PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
         }
 
         // Update is called once per frame

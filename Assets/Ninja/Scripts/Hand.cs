@@ -95,16 +95,6 @@ namespace Kojima
         {
             base.Update();
 
-            if (InputDevice.Press(ButtonType.Grip, handType) || Input.GetKeyDown(KeyCode.A))
-            {
-                owner.UseOnigiri();
-            }
-            if (InputDevice.Press(ButtonType.Grip, handType) || Input.GetKeyDown(KeyCode.S))
-            {
-                owner.UseKaton();
-            }
-
-
             // rayを設定
             ray = new Ray(shotPos.transform.position, transform.rotation * Vector3.forward);
 
