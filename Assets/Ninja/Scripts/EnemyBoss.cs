@@ -42,6 +42,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
     // 敵のデータ
     public EnemyDataTable enemyData;
 
+    [System.NonSerialized]
     public Rigidbody myRigidbody;
 
     private bool collisionObject = false;
@@ -50,6 +51,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
 
 
     //アニメーター
+    [System.NonSerialized]
     public Animator animator;
 
     #endregion

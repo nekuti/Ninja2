@@ -17,8 +17,8 @@ MonoBehaviour:
   flying: 0
   knockBack: 1
   level: 1
-  hp: 10
-  power: 2
+  hp: 2525
+  power: 5
   moveSpeed: 10
   attackMoveSpeed: 100
   searchRange: 100
@@ -26,4 +26,4 @@ MonoBehaviour:
   attackToTime: 1
   attackAfterTime: 1
   knockBackTime: 1
-  patrolArea: 30
+  patrolArea: 50

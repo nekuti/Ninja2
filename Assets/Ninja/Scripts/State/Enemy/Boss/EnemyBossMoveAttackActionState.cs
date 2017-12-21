@@ -46,7 +46,7 @@ public class EnemyBossMoveAttackActionState : State<EnemyBoss>
                 if ((attackSpace / 2).magnitude >= (target - owner.transform.position).magnitude)
                 {
                     Debug.Log("半分");
-                    owner.ShotAttack(Enemy.player.transform.position);
+                    owner.ShotAttack(owner.transform.position + new Vector3 (0,3,0), Enemy.player.transform.position);
                     shotFlag = false;
                 }
             }

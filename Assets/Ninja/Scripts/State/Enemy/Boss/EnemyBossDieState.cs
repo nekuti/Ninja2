@@ -10,7 +10,9 @@ public class EnemyBossDieState : State<EnemyBoss>
 
     public override void Enter()
     {
-
+        Debug.Log("敵(遊撃)が死亡ステートへ遷移");
+        ParticleEffect.Create(ParticleEffectType.Explosion02, owner.transform.position);
+        GameObject.Destroy(owner.gameObject);
     }
 
     public override void Execute()
