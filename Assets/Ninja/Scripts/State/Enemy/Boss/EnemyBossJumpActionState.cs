@@ -45,9 +45,9 @@ public class EnemyBossJumpActionState : State<EnemyBoss>
     public override void Exit()
     {
         Debug.Log("発射");
-        for (int i = 0; i < 45; i++)
+        for (int i = 0; i < 30; i++)
         {
-            owner.ShotAttack(new Vector3(0,1,0) + owner.transform.position ,owner.Point(i * 8, 10) + owner.transform.position + new Vector3 (0,1,0));
+            owner.ShotAttack(new Vector3(0,1,0) + owner.transform.position ,owner.Point(i * 12, 10) + owner.transform.position + new Vector3 (0,1,0));
         }
         owner.animator.SetBool("Landing", false);
     }

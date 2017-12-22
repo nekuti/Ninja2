@@ -23,6 +23,8 @@ namespace Ando
     public enum StageState
     {
         None,
+        LoadStart,
+        LoadComplete,
         Run,
         GameClear,
         GameOver,
@@ -65,7 +67,7 @@ namespace Ando
         private static PlayData playData = new PlayData();
 
         //  ステージをクリアしたか判別
-        private static bool stageUnloadFlag = false;
+        private static bool stageClearFlag = false;
 
         //  クリアした階層
         public List<bool> clearFloorLevel = new List<bool>() { false, false, false };
@@ -79,6 +81,15 @@ namespace Ando
 
         //  リザルトに渡す情報
         private ResultContainer resultContainer;
+
+        //  ステージの状態
+        private StageState stageState = StageState.None;
+
+        // シーンが変わるまでの待ち時間
+        [SerializeField]
+        private float fadeWaitTime = 2.0f;
+        //  経過時間
+        private float　progresstime = 0.0f;
 
         new void Awake()
         {
@@ -106,22 +117,59 @@ namespace Ando
 
         private void Update()
         {
-            if (stageUnloadFlag)
+            if (stageState == StageState.LoadStart)
             {
-                stageTransition = StageTransition.StageChange;
-                stageUnloadFlag = false;
+                if (SceneManager.GetSceneByName(stageList[nowStageNum].IsName().ToString()) != null)
+                {
+                    stageState = StageState.LoadComplete;
+
+                    /* β用----------------------------------------------------------------------------*/
+                    if (nowStageNum == 1)
+                    {
+                        //  プレイ時間の計測開始
+                        resultContainer.totalPlayTimer.TimerStart();
+                    }
+
+                    playData.player.ResetPosition(playData.startPos);
+
+                    Debug.Log("プレイヤーに設定した値" + playData.startPos);
+
+                    //if(stageList.Count - 1 > nowStageNum)
+                    //{
+                    //    StageUnload();
+                    //    ResultSceneManager.RgtrResultContainer(resultContainer);
+                    //    sceneTransitionManager.ChangeSceneAdd(nextScene);
+                    //}
+                    /*----------------------------------------------------------------------------------*/
+                }
+            
             }
+
+            if (stageState == StageState.LoadComplete)
+            {
+
+                if (stageClearFlag)
+                {
+                    stageClearFlag = false;
+                    stageTransition = StageTransition.StageChange;
+                }
+
+                Debug.Log("ステートを" + stageTransition);
+            }
+
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
-                case StageTransition.ResultGameOver:
                     //  リザルトを追加
                     AddLiteResult();
                     break;
+                case StageTransition.ResultGameOver:
+                    stageTransition = StageTransition.TitleBack;
+                    break;
                 case StageTransition.StageChange:
-                    //  ステージ変更
-                    StageChange();
-                    stageTransition = StageTransition.None;
+                        //  ステージ変更
+                        StageChange();
+                        stageTransition = StageTransition.None;
                     break;
                 case StageTransition.ReturnPlayBase:
                     StageChange(0);
@@ -226,22 +274,10 @@ namespace Ando
             //  ステージの読み込み
             SceneManager.LoadScene(stageList[nowStageNum].ToString(), LoadSceneMode.Additive);
 
+            Debug.Log(stageList[nowStageNum] + "を読み込み");
 
-            /* β用----------------------------------------------------------------------------*/
-            if (nowStageNum == 1)
-            {
-                //  プレイ時間の計測開始
-                resultContainer.totalPlayTimer.TimerStart();
-            }
-
-            playData.player.ResetPosition(playData.startPos);
-            //if(stageList.Count - 1 > nowStageNum)
-            //{
-            //    StageUnload();
-            //    ResultSceneManager.RgtrResultContainer(resultContainer);
-            //    sceneTransitionManager.ChangeSceneAdd(nextScene);
-            //}
-           /*----------------------------------------------------------------------------------*/
+            //  ステージの状態をシーンの読み込み開始に設定
+            stageState = StageState.LoadStart;
         }
 
         /// <summary>
@@ -327,8 +363,7 @@ namespace Ando
         /// </summary>
         public static void AddLiteResult()
         {
-            //   stageTransition = StageTransition.StageChange;
-            stageUnloadFlag = true;
+            stageClearFlag = true;
 
             return;
 

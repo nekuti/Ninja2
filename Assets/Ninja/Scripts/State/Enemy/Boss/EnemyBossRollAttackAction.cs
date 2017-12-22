@@ -6,7 +6,7 @@ using Kojima;
 
 public class EnemyBossRollAttackAction : State<EnemyBoss> {
 
-    public float Speed = 3.0f;
+    public float speed = 3.0f;
     public float angle = 360f;
 
     public EnemyBossRollAttackAction(EnemyBoss owner) : base(owner) { }
@@ -18,10 +18,10 @@ public class EnemyBossRollAttackAction : State<EnemyBoss> {
 
     public override void Execute()
     {
-       owner.transform.Rotate(new Vector3(0, angle, 0) * Time.deltaTime * Speed, Space.Self);
-        if(owner.FlameWaitTime(10))
+       owner.transform.Rotate(new Vector3(0, angle, 0) * Time.deltaTime * speed, Space.Self);
+        //if(owner.FlameWaitTime(1))
         {
-            owner.ShotAttack(owner.transform.position + new Vector3(0,1,0) ,owner.Point(Random.Range(0,360),10) + new Vector3(0,Random.Range(0,5),0));
+            owner.ShotAttack(owner.transform.position + new Vector3(0,3,0) , owner.Point(Random.Range(0,360),10) + owner.transform.position + new Vector3(0,Random.Range(3,8),0));
         }
         if (owner.SecondWaitime(2))
         {

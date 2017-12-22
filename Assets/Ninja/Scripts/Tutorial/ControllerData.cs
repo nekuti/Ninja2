@@ -31,6 +31,16 @@ namespace Kondo
 
         public static ControllerData instance;
 
+        private bool isEndFind = false;
+
+
+        public bool IsEndFind
+
+        {
+            set { isEndFind = value; }
+            get { return isEndFind; }
+        }
+
 
         [SerializeField]
         private List<Transform> lController = new List<Transform>();
@@ -63,7 +73,6 @@ namespace Kondo
         /// <param name="obj"></param>
         public void SetPartsList(HandType aHand, List<Transform> aList)
         {
-
             if (aHand == HandType.Left)
             {
                 lController = aList;
@@ -72,8 +81,6 @@ namespace Kondo
             {
                 rController = aList;
             }
-
-     
         }
 
 
@@ -87,6 +94,7 @@ namespace Kondo
         /// <returns></returns>
         public Transform GetPartsTransform(HandType aHand,PartsType aParts)
         {
+
             List<Transform> list = new List<Transform>();
             if (aHand == HandType.Left)
             {

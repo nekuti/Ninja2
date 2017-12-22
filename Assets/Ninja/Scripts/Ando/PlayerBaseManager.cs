@@ -17,7 +17,7 @@ namespace Ando
         void Start()
         {
             //  プレイヤーの操作をメニュー用に切り替え
-           PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
+            PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
 
             //ray = new Ray(PlaySceneManager.GetPlayer().position, PlaySceneManager.GetPlayer().transform.rotation);
             foreach (GameObject stageSwitch in stageSwitches)
@@ -27,6 +27,12 @@ namespace Ando
 
             HiddenDoor.SetDoorAnimeState(DoorAnimeState.None);
 
+            /*β版用処理*/
+            for (int i = 0; i < 20; i++)
+            {
+                PlaySceneManager.GetPlayer().UseOnigiri();
+            }
+            /*β版用処理*/
         }
 
         // Update is called once per frame

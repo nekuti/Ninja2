@@ -69,6 +69,5 @@ namespace Ando
 
             hit = true;
         }
-
     }
 }

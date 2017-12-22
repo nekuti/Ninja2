@@ -63,7 +63,6 @@ namespace Kondo
         private bool isFadeRequest = false;
         private bool isFadeing = false;
 
-
         //
         public GameObject selectButton;
         //
@@ -82,21 +81,18 @@ namespace Kondo
             // CanvasのScriptを参照しdisplayを操作可能にする
             display = displayCanvas.GetComponent<DisplayText>();
             Debug.Log("チュートリアルマネージャー　display : "+ display);
+            
+            // 始めのシーンを動かす
+            ChangeScene(nextScene);
 
-         
+            SteamVR_Fade.Start(Color.black, 0);
+
         }
 
 
         void Start()
         {
-            Debug.Log("チュートリアルマネージャー　Start()");
-            // 始めのシーンを動かす
-            ChangeScene(nextScene);
 
-           // SetSelectEven(NextWireTutorial);
-
-            Debug.Log("チュートリアルマネージャー　layout : " + layout);
-            SteamVR_Fade.Start(Color.black, 0);
         }
 
 
@@ -112,6 +108,8 @@ namespace Kondo
         /// </summary>
         private void SceneChanger()
         {
+
+
             if (isFadeRequest)
             {
                 countTime += Time.deltaTime;

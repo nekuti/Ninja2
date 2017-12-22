@@ -22,10 +22,6 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            //if(Time.time > 5 )
-            //{
-
-            //}
 
 
             SetBase();
@@ -34,6 +30,11 @@ namespace Kondo
 
         private void SetBase()
         {
+            if(!ControllerData.instance.IsEndFind)
+            {
+                return;
+            }
+
             baseTrans = ControllerData.instance.GetPartsTransform(hand, PartsType.Base);
 
             Vector3 pos = baseTrans.position;

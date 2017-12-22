@@ -4,6 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - WireTip
+  - WireableObject
+  - Object
+  - Hand
+  - Enemy
+  - Goal
+  - Floor
   - Attack
   layers:
   - Default
@@ -14,15 +21,15 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - WireTip
+  - Map
+  - Hand
+  - Unit
+  - Player
+  - Attack
+  - PlayerAttack
+  - Bomb
+  - PlayerBomb
   - 
   - 
   - 

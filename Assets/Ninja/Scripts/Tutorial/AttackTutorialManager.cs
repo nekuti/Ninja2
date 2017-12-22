@@ -51,7 +51,6 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
-            base.SetStart();
             tManager.LoadText(loadTextName);
 
             Debug.Log("アタックチュートリアル　strat()");
@@ -59,7 +58,7 @@ namespace Kondo
             Debug.Log("currentSequence : " + currentSequence);
             SequenceChange();
             tManager.SetSelectEven(NextSequenceChanged);
-
+            NextSequenceChanged();
         }
 
 
@@ -67,6 +66,12 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
+
+            if (base.StartSequence())
+            {
+                NextSequenceChanged();
+            }
+
             // test
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -109,8 +114,8 @@ namespace Kondo
                     enemyList.Add(Instantiate(enemyTypeList[0]));
                     // 敵の座標を変更
                     enemyList[0].transform.position = enemyPos.position;
-                    currentElement = Instantiate(sequenceList[sequenceNum]);
-                  
+                    base.NextElementChanged();
+
                     // 敵の生存チェック用Listを設定
                     currentElement.GetComponentInChildren<DestroyChecker>().SetCheckList(enemyList);
                     // すべての敵がnullの時呼び出される関数を設定

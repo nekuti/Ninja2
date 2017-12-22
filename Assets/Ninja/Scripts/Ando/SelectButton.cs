@@ -25,6 +25,11 @@ namespace Ando
         /// </summary>
         public void ParticleStart()
         {
+            if(this == null)
+            {
+                return;
+            }
+
             particleSystem.Play();
         }
 

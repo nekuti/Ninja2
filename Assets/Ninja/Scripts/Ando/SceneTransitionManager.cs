@@ -46,6 +46,9 @@ namespace Ando
                 case SceneName.TitleScene:
                     ChangeSceneSingle(SceneName.TitleScene);
                     break;
+                case SceneName.TutorialScene2:
+                    ChangeSceneSingle(SceneName.TutorialScene2);
+                    break;
                 case SceneName.PlayScene:
                     ChangeSceneSingle(SceneName.PlayScene);
                     break;

@@ -16,7 +16,8 @@ public class EnemyBossDamageState : State<EnemyBoss>
     public override void Execute()
     {
         ParticleEffect.Create(ParticleEffectType.Explosion_small01, owner.transform.position);
-        GameObject.Destroy(owner.gameObject);
+       /*β版で操作しましたｂｙ安藤*/
+        //GameObject.Destroy(owner.gameObject);
     }
 
     public override void Exit()

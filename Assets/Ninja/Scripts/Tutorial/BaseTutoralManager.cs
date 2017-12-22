@@ -16,7 +16,6 @@ namespace Kondo
         // 外部から操作用
         public static T instance;
 
-
         [SerializeField]
         protected string loadTextName;
 
@@ -24,8 +23,6 @@ namespace Kondo
         public List<Transform> displeyPos = new List<Transform>();
         [SerializeField]
         protected List<GameObject> sequenceList = new List<GameObject>();
-
-    
 
         protected TutorialManager tManager;
 
@@ -35,12 +32,34 @@ namespace Kondo
         // 現在の要素
         protected GameObject currentElement;
 
+        private bool firstFlag = true;
+
+        void Start()
+        {
+            tManager = TutorialManager.instance;
+        }
 
 
         protected void SetStart()
         {
-            tManager = TutorialManager.instance;
-            SteamVR_Fade.Start(Color.clear, 1f);
+        }
+
+
+
+        protected bool StartSequence()
+        {
+            if (firstFlag)
+            {
+                if (ControllerData.instance.IsEndFind)
+                {
+                    firstFlag = false;
+                    SteamVR_Fade.Start(Color.clear, 1f);
+                    return true;
+                }
+
+            }
+
+            return false;
         }
 
 
@@ -59,8 +78,18 @@ namespace Kondo
         {
             DestoroyCurrentElement();
 
-            sequenceNum++;
             currentElement = Instantiate(sequenceList[sequenceNum]);
+            sequenceNum++;
+        }
+
+
+
+
+        /// <summary>
+        /// 次のシーケンスに移行する
+        /// </summary>
+        public virtual void NextSequenceChanged()
+        {
         }
 
 
@@ -78,19 +107,7 @@ namespace Kondo
             }
         }
 
-
-
-
-
-        /// <summary>
-        /// 次のシーケンスに移行する
-        /// </summary>
-        public virtual void NextSequenceChanged()
-        {
-            //currentSequence++;
-            SequenceChange();
-        }
-
     }
+
 }
 

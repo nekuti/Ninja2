@@ -10,33 +10,45 @@ namespace Kondo
     public class ControllerTips : MonoBehaviour
     {
 
+        enum TipsChild
+        {
+            BackGround,
+            FrontText,
+            BackText,
+        }
+
+
+
         public string displayText;
-        public int fontSize = 14;
         public Transform drawLineFrom;
         public Transform drawLineTo;
-        public float lineWidth = 0.001f;
-        public Color fontColor = Color.white;
-        public Color lineColor = Color.black;
-        public Color backGroundColor = Color.black;
         public bool isEnabled;
         public PartsType searchParts;
         public HandType hand;
+        public TipsData tipsData;
 
         private LineRenderer line;
         private Text[] texts = new Text[2];
         private int countCreate = 0;
+        private Renderer partsRender;
+        private Color basePartsColor;
+
+        private const int LINE_NUM = 1;
+        private const int CANVAS_NUM = 2;
 
         // Use this for initialization
         void Start()
         {
             ResetTips();
 
-            
             // 左が0~6 右が7~11
             // TutorialMnagerに登録
             TutorialManager.instance.tipsList[((int)hand * 6)+(int)searchParts] = gameObject;
             // inspectorで表示非表示を設定
             gameObject.SetActive(isEnabled);
+
+            partsRender = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Renderer>();
+            basePartsColor = partsRender.material.color;
 
         }
 
@@ -65,11 +77,29 @@ namespace Kondo
         }
 
 
+        /// <summary>
+        /// Tipsの着く先のMateroalの色を変更
+        /// </summary>
+        /// <param name=""></param>
+        public void SetMaterialColor(Color aColor)
+        {
+            partsRender.material.SetColor("_Color",aColor);
+        }
+
+
+
+        public void ResetMaterialColor()
+        {
+            partsRender.material.SetColor("_Color", basePartsColor);
+        }
+
+
+
 
         private void ResetTips()
         {
-            SetingText("FrontText");
-            SetingText("BackText");
+            SetingText(TipsChild.FrontText);
+            SetingText(TipsChild.BackText);
             SetLine();
             SetBackGround();
         }
@@ -77,7 +107,7 @@ namespace Kondo
 
         private void SetLineTo()
         {
-            if (drawLineTo == null)
+            if (drawLineTo == null && ControllerData.instance.IsEndFind)
             {
                 Transform trans = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Transform>();
                 drawLineTo = trans.GetChild(0);
@@ -87,13 +117,13 @@ namespace Kondo
 
 
 
-        private void SetingText(string name)
+        private void SetingText(TipsChild aChild)
         {
-            texts[countCreate] = transform.Find("Canvas/" + name).GetComponent<Text>();
+            texts[countCreate] = transform.GetChild(CANVAS_NUM).GetChild((int)aChild).GetComponent<Text>();
             texts[countCreate].material = Resources.Load("UIText") as Material;
             texts[countCreate].text = displayText;
-            texts[countCreate].color = fontColor;
-            texts[countCreate].fontSize = fontSize;
+            texts[countCreate].color = tipsData.fontColor;
+            texts[countCreate].fontSize = tipsData.fontSize;
             countCreate++;
 
         }
@@ -101,20 +131,22 @@ namespace Kondo
 
         private void SetBackGround()
         {
-            Image backGroud = transform.Find("Canvas/BackGround").GetComponent<Image>();
-            backGroud.color = backGroundColor;
+            Image backGroud = transform.GetChild(CANVAS_NUM).GetChild((int)TipsChild.BackGround).GetComponent<Image>();
+            backGroud.color = tipsData.backColor;
         }
+
+
 
 
         private void SetLine()
         {
-            line = transform.Find("Line").GetComponent<LineRenderer>();
+            line = transform.GetChild(LINE_NUM).GetComponent<LineRenderer>();
             //line.material = Resources.Load("TooltipLine") as Material;
-            line.material.color = lineColor;
-            line.startColor = lineColor;
-            line.endColor = lineColor;
-            line.startWidth = lineWidth;
-            line.endWidth = lineWidth;
+            line.material.color = tipsData.lineColor;
+            line.startColor = tipsData.lineColor;
+            line.endColor = tipsData.lineColor;
+            line.startWidth = tipsData.lineWidth;
+            line.endWidth = tipsData.lineWidth;
 
             if (drawLineFrom == null)
             {

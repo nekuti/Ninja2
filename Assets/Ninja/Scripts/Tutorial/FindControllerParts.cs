@@ -47,16 +47,16 @@ namespace Kondo
         {
 
 
-            if (Time.time < 3)
+            if (Time.time < 1)
             {
                 //Debug.Log("タイム : " + Time.time);
-                //return false;
+                return false;
             }
 
             // 子がいなければ処理を飛ばす
-            if (aTrans.childCount == 0)
+            if (aTrans.childCount != 16)
             {
-                Debug.Log(hand + "の" + aTrans.gameObject + "の子が無いのでFindできません");
+                Debug.Log("ModelChild : "+aTrans.childCount);
                 return false;
             }
 
@@ -67,12 +67,13 @@ namespace Kondo
             {
                 if(aTrans.Find(partsName[count]) != null)
                 list.Add(aTrans.Find(partsName[count]));
-                Debug.Log("探索したパーツ : " + aTrans.Find(partsName[count]));
+                Debug.Log(hand + "探索したパーツ : " + aTrans.Find(partsName[count]));
 
             }
 
-            Debug.Log("コントローラーパーツ探索完了");
+            Debug.Log(hand + "のコントローラーパーツ探索完了");
 
+            ControllerData.instance.IsEndFind = true; 
 
             // listをControllerDataに保存
             ControllerData.instance.SetPartsList(hand, list);

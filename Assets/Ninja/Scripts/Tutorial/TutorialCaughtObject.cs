@@ -40,11 +40,16 @@ namespace Kondo
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+
+        private void OnCollisionEnter(Collision collision)
         {
-            if (other.gameObject.CompareTag(TagName.Player))
+            //Debug.Log(other.gameObject.tag + "何かが当たった");
+
+            if (collision.gameObject.CompareTag(TagName.Player))
             {
                 isContact = true;
+                Debug.Log(collision.gameObject.tag + "何かが当たった");
+
             }
         }
 

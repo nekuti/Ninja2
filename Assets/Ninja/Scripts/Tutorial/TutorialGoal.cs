@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 namespace Kondo
 {
     public class TutorialGoal : MonoBehaviour
     {
 
-        private 
 
         // Use this for initialization
         void Start()
@@ -22,8 +19,9 @@ namespace Kondo
         {
 
         }
-
-
+    
+        
+       
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(TagName.Player))

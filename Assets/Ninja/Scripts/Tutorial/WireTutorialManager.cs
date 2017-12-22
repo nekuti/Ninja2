@@ -50,11 +50,9 @@ namespace Kondo
 
          void Start()
         {
-            base.SetStart();
             tManager.LoadText(loadTextName);
 
             Debug.Log("ワイヤーチュートリアル　strat()");
-            SequenceChange();
             // セレクトボタンが実行する関数を設定
             // ワイヤーチュートリアルを進める
             tManager.SetSelectEven(NextSequenceChanged);
@@ -64,7 +62,12 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            Debug.Log("ワイヤーチュートリアル　Update()");
+            // Debug.Log("ワイヤーチュートリアル　Update()");
+
+            if(base.StartSequence())
+            {
+                NextSequenceChanged();
+            }
 
             // test
             if (Input.GetKeyDown(KeyCode.Z))
@@ -117,7 +120,7 @@ namespace Kondo
                 case TutorialSequence.Wire04:
                     Debug.Log("現在の順序 : " + currentSequence);
                     tManager.ShowDisplay(displeyPos[0]);
-                    currentElement = Instantiate(sequenceList[sequenceNum]);
+                    base.NextElementChanged();
                     break;
 
 
@@ -155,7 +158,7 @@ namespace Kondo
                 case TutorialSequence.Wire08:
                     Debug.Log("現在の順序 : " + currentSequence);
                     tManager.ChangeMenuSelect();
-                    WireTutorialManager.instance.DestoroyCurrentElement();
+                    base.DestoroyCurrentElement();
                     tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
                     tManager.ShowDisplay(displeyPos[1]);
