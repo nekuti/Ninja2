@@ -42,7 +42,7 @@ namespace Ando
         // Update is called once per frame
         void Update()
         {
-            //  ドアのアニメーションフラグがスタートの時の処理
+            //  ドアのアニメーションフラグが実行中の時の処理
             if (animeFlag == DoorAnimeState.Run)
             {
                 //  停止位置の半分で回転速度を変更

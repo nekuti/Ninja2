@@ -3532,9 +3532,20 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!1 &536735271 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1776474391948816, guid: 18f76205d8761d34e95c809fd7944166,
+  m_PrefabParentObject: {fileID: 1491004563619254, guid: 18f76205d8761d34e95c809fd7944166,
     type: 2}
   m_PrefabInternal: {fileID: 536735270}
+--- !u!114 &536735272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 536735271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b699606e61e1a36498fb1f6c8f414fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &553836930 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4425498560933594, guid: 390c630b2cf90e44298486e0dac8d3a4,
@@ -4508,7 +4519,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startObj: {fileID: 428910183}
-  goalObj: {fileID: 536735271}
+  goalObj: {fileID: 536735272}
+  fadeInColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeInTime: 1
 --- !u!4 &664394957
 Transform:
   m_ObjectHideFlags: 0

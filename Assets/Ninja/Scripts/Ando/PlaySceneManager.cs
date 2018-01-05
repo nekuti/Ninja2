@@ -72,12 +72,12 @@ namespace Ando
         //  クリアした階層
         public List<bool> clearFloorLevel = new List<bool>() { false, false, false };
 
-        //  シーン遷移時にフェードアウトをする時間(保存用)
-        private float fadeOutTime = 0.0f;
-        //  フェード後の経過時間
-        private float fadeElapsedTime = 0.0f;
-        //  フェードインの時間
-        private float fadeInTime = 1.0f;
+        ////  シーン遷移時にフェードアウトをする時間(保存用)
+        //private float fadeOutTime = 0.0f;
+        ////  フェード後の経過時間
+        //private float fadeElapsedTime = 0.0f;
+        ////  フェードインの時間
+        //private float fadeInTime = 1.0f;
 
         //  リザルトに渡す情報
         private ResultContainer resultContainer;
@@ -112,7 +112,7 @@ namespace Ando
             nowStageNum = firstStage;
 
             //  最初のステージを読み込む
-            StageAdd(false);
+            StageAdd(/*false*/);
         }
 
         private void Update()
@@ -157,6 +157,7 @@ namespace Ando
                 Debug.Log("ステートを" + stageTransition);
             }
 
+            //  シーンの遷移
             switch (stageTransition)
             {
                 case StageTransition.ResultGameClear:
@@ -219,54 +220,54 @@ namespace Ando
             //    }
             //}
 
-            //  フェードの解除関数
-            this.FadeRelease();
+            ////  フェードの解除関数
+            //this.FadeRelease();
         }
 
         /// <summary>
         /// フェードの解除を行う
         /// </summary>
-        private void FadeRelease()
-        {
-            //  経過時間がフェードアウトの時間を超えたか
-            if (fadeElapsedTime < fadeOutTime)
-            {
-                //  経過時間を加算
-                fadeElapsedTime += Time.deltaTime;
-            }
-            else
-            {
-                //  フェードアウトの時間が設定されているか
-                if (fadeOutTime > 0)
-                {
-                    //  フェードを解除する
-                    SteamVR_Fade.Start(Color.clear, fadeInTime);
-                }
-                //  使用した変数を初期化
-                fadeOutTime = 0.0f;
-                fadeElapsedTime = 0.0f;
-            }
-        }
+        //private void FadeRelease()
+        //{
+        //    //  経過時間がフェードアウトの時間を超えたか
+        //    if (fadeElapsedTime < fadeOutTime)
+        //    {
+        //        //  経過時間を加算
+        //        fadeElapsedTime += Time.deltaTime;
+        //    }
+        //    else
+        //    {
+        //        //  フェードアウトの時間が設定されているか
+        //        if (fadeOutTime > 0)
+        //        {
+        //            //  フェードを解除する
+        //            SteamVR_Fade.Start(Color.clear, fadeInTime);
+        //        }
+        //        //  使用した変数を初期化
+        //        fadeOutTime = 0.0f;
+        //        fadeElapsedTime = 0.0f;
+        //    }
+        //}
 
         /// <summary>
         /// ステージを追加する
         /// </summary>
-        private void StageAdd(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
+        private void StageAdd(/*bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
         {
-            if (aFade)
-            {
-                //  フェイドの色が透明か設定されていないので黒を設定
-                if (aFadeColor == new Color(0, 0, 0, 0))
-                {
-                    aFadeColor = new Color(0, 0, 0, 1);
-                }
+            //if (aFade)
+            //{
+            //    //  フェイドの色が透明か設定されていないので黒を設定
+            //    if (aFadeColor == new Color(0, 0, 0, 0))
+            //    {
+            //        aFadeColor = new Color(0, 0, 0, 1);
+            //    }
 
-                //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+            //    //  指定色、指定時間でフェード開始
+            //    SteamVR_Fade.Start(aFadeColor, aFadeTime);
 
-                //  フェイドの時間を保存
-                fadeOutTime = aFadeTime;
-            }
+            //    //  フェイドの時間を保存
+            //    fadeOutTime = aFadeTime;
+            //}
 
             //  ステージのスクリプト追加
             this.gameObject.AddComponent(Type.GetType("Ando." + stageList[nowStageNum].ToString()));
@@ -278,6 +279,9 @@ namespace Ando
 
             //  ステージの状態をシーンの読み込み開始に設定
             stageState = StageState.LoadStart;
+
+            //  フェードを解除する
+            SteamVR_Fade.Start(Color.clear, 1.0f);
         }
 
         /// <summary>
@@ -297,7 +301,7 @@ namespace Ando
         /// <param name="aFade">フェードを行うか</param>
         /// <param name="aFadeColor">フェードアウトの時の画面色</param>
         /// <param name="aFadeTime">フェードアウトの時間</param>
-        public void StageChange(bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
+        public void StageChange(/*bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -318,7 +322,7 @@ namespace Ando
             }
 
             //  ステージを追加
-            StageAdd(aFade,aFadeColor,aFadeTime);
+            StageAdd(/*aFade,aFadeColor,aFadeTime*/);
         }
 
         /// <param name="aStageNumber"></param>
@@ -329,7 +333,7 @@ namespace Ando
         /// <param name="aFade">フェードを行うか</param>
         /// <param name="aFadeColor">フェードアウトの時の画面色</param>
         /// <param name="aFadeTime">フェードアウトの時間</param>
-        public void StageChange(int aFloorLevel, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f)
+        public void StageChange(int aFloorLevel/*, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -343,7 +347,7 @@ namespace Ando
             //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
             //  ステージを追加
-            StageAdd(aFade, aFadeColor, aFadeTime);
+            StageAdd(/*aFade, aFadeColor, aFadeTime*/);
 
             //  プレイヤーの操作をプレイ用に切り替え
             playData.player.ChangeHandState(Kojima.HandStateType.Play);

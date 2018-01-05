@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ando
 {
-    public class PlayerBaseManager : SingletonMonoBehaviour<PlayerBaseManager>
+    public class PlayerBaseManager : StageManager
     {
         //  プレイシーンマネージャ
         public static PlaySceneManager playSceneManager;
@@ -36,7 +36,7 @@ namespace Ando
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
             int i = 0;
            foreach(bool clearFloorLavel in playSceneManager.clearFloorLevel)
@@ -69,7 +69,7 @@ namespace Ando
             //   ドアのアニメーションが開始になった場合
             if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.Start)
             {
-                SteamVR_Fade.Start(Color.black, 2);
+                FadeStart();
             }
 
             if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.End)

@@ -19725,7 +19725,6 @@ GameObject:
   m_Component:
   - component: {fileID: 370190756}
   - component: {fileID: 370190757}
-  - component: {fileID: 370190758}
   m_Layer: 0
   m_Name: PlayerBaseManager
   m_TagString: Untagged
@@ -19757,23 +19756,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a5f656b5d8ab342a7d79991703e03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startObj: {fileID: 813419652}
+  goalObj: {fileID: 0}
+  fadeInColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeInTime: 3
   stageSwitches:
   - {fileID: 2124473266}
   - {fileID: 592505921}
   - {fileID: 1844620673}
---- !u!114 &370190758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 370190755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef9cc6c94d985694699d1e4dceaf4a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startObj: {fileID: 813419652}
-  goalObj: {fileID: 0}
 --- !u!1 &371702289
 GameObject:
   m_ObjectHideFlags: 0

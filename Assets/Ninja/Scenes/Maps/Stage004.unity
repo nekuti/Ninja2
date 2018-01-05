@@ -10134,6 +10134,22 @@ Transform:
   m_PrefabParentObject: {fileID: 4902253856745050, guid: 18f76205d8761d34e95c809fd7944166,
     type: 2}
   m_PrefabInternal: {fileID: 940589043}
+--- !u!1 &940589045 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1491004563619254, guid: 18f76205d8761d34e95c809fd7944166,
+    type: 2}
+  m_PrefabInternal: {fileID: 940589043}
+--- !u!114 &940589046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 940589045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b699606e61e1a36498fb1f6c8f414fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &946775970 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4425498560933594, guid: 390c630b2cf90e44298486e0dac8d3a4,
@@ -20596,8 +20612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9cc6c94d985694699d1e4dceaf4a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startObj: {fileID: 0}
-  goalObj: {fileID: 1858829451}
+  startObj: {fileID: 1858829451}
+  goalObj: {fileID: 940589046}
+  fadeInColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeInTime: 1
 --- !u!4 &1880044773
 Transform:
   m_ObjectHideFlags: 0
