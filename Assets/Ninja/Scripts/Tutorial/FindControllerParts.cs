@@ -28,6 +28,7 @@ namespace Kondo
 
         public List<Transform> list = new List<Transform>();
 
+
         // Use this for initialization
         void Start()
         {
@@ -45,16 +46,16 @@ namespace Kondo
 
         private bool FindAllParts(Transform aTrans)
         {
+            float waitTime = 1f;
+            int childNum = 6; // 本来は16個
 
-
-            if (Time.time < 1)
+            if (Time.time < waitTime)
             {
-                //Debug.Log("タイム : " + Time.time);
                 return false;
             }
 
             // 子がいなければ処理を飛ばす
-            if (aTrans.childCount != 16)
+            if (aTrans.childCount != childNum)
             {
                 Debug.Log("ModelChild : "+aTrans.childCount);
                 return false;
@@ -67,7 +68,7 @@ namespace Kondo
             {
                 if(aTrans.Find(partsName[count]) != null)
                 list.Add(aTrans.Find(partsName[count]));
-                Debug.Log(hand + "探索したパーツ : " + aTrans.Find(partsName[count]));
+                Debug.Log(hand + "の探索したパーツ : " + aTrans.Find(partsName[count]));
 
             }
 

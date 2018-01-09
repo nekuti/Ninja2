@@ -49,14 +49,14 @@ namespace Kondo
 
 
         // Use this for initialization
-        void Start()
+        new void Start()
         {
+            base.Start();
             tManager.LoadText(loadTextName);
 
             Debug.Log("アタックチュートリアル　strat()");
             currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
-            SequenceChange();
             tManager.SetSelectEven(NextSequenceChanged);
             NextSequenceChanged();
         }
@@ -69,7 +69,7 @@ namespace Kondo
 
             if (base.StartSequence())
             {
-                NextSequenceChanged();
+                SequenceChange();
             }
 
             // test
@@ -189,7 +189,7 @@ namespace Kondo
         public override void NextSequenceChanged()
         {
             currentSequence++;
-            base.NextSequenceChanged();
+            SequenceChange();
         }
 
     }

@@ -48,8 +48,10 @@ namespace Kondo
         }
 
 
-         void Start()
+        new void Start()
         {
+            base.Start();
+            tManager.hoge();
             tManager.LoadText(loadTextName);
 
             Debug.Log("ワイヤーチュートリアル　strat()");
@@ -66,7 +68,7 @@ namespace Kondo
 
             if(base.StartSequence())
             {
-                NextSequenceChanged();
+                SequenceChange();
             }
 
             // test
@@ -89,7 +91,7 @@ namespace Kondo
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
                     tManager.ChangeMenuSelect();
-                    tManager.ShowNotice();
+                   // tManager.ShowNotice();
                     tManager.ShowDisplay(displeyPos[0]);
 
                     break;
@@ -105,7 +107,7 @@ namespace Kondo
                     Debug.Log("現在の順序 : " + currentSequence);
 
                     tManager.ShowDisplay(displeyPos[0]);
-                    tManager.ShowNotice();
+                    //tManager.ShowNotice();
 
                     tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
@@ -129,7 +131,7 @@ namespace Kondo
                     tManager.ChangePlay();
                     tManager.HideSelectButton(false);
                     tManager.ShowDisplay(displeyPos[0]);
-                    tManager.ShowNotice();
+                   // tManager.ShowNotice();
 
                     break;
 
@@ -186,7 +188,7 @@ namespace Kondo
         public override void NextSequenceChanged()
         {
             currentSequence++;
-            base.NextSequenceChanged();
+            SequenceChange();
         }
 
 

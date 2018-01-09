@@ -46,14 +46,14 @@ namespace Kondo
         [SerializeField]
         private  Player player;
 
-        [SerializeField]
-        private Canvas canvas;
+       // [SerializeField]
+       // private Canvas canvas;
         [SerializeField]
         private Canvas displayCanvas;
 
         private List<DisplayLayout> layout = new List<DisplayLayout>();
 
-        private MoveNotice notice;
+        //private MoveNotice notice;
         private DisplayText display;
         private int noticeCount = 0;
         private int displayCount = 0;
@@ -75,17 +75,19 @@ namespace Kondo
             instance = this;
 
             // TextのScriptを参照しNoticeを操作可能にする
-            notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
-            Debug.Log("チュートリアルマネージャー　notice : " + notice);
+           // notice = canvas.GetComponentInChildren<Text>().GetComponent<MoveNotice>();
+            //Debug.Log("チュートリアルマネージャー　notice : " + notice);
 
             // CanvasのScriptを参照しdisplayを操作可能にする
             display = displayCanvas.GetComponent<DisplayText>();
             Debug.Log("チュートリアルマネージャー　display : "+ display);
-            
+
+
+            SteamVR_Fade.Start(Color.black, 0);
+
             // 始めのシーンを動かす
             ChangeScene(nextScene);
 
-            SteamVR_Fade.Start(Color.black, 0);
 
         }
 
@@ -104,32 +106,32 @@ namespace Kondo
 
 
         /// <summary>
-        /// 
+        /// シーンの変更を行う
         /// </summary>
         private void SceneChanger()
         {
-
-
+          
             if (isFadeRequest)
             {
                 countTime += Time.deltaTime;
 
-
-                if (countTime >= fadeTime && !isFadeing)
+                if (countTime >= fadeTime)
                 {
-                    isFadeing = true;
-                    countTime = 0;
+                    //　フェードが終了している場合
+                    if (!isFadeing)
+                    {
+                        isFadeing = true;
+                        countTime = 0;
+                    }
+                    else
+                    {
+                        countTime = 0;
+                        isFadeing = false;
+                        isFadeRequest = false;
+                        NextSceneChanged();
+                    }
+
                 }
-
-                if (countTime >= fadeTime && isFadeing)
-                {
-                    NextSceneChanged();
-                    countTime = 0;
-                    isFadeing = false;
-                    isFadeRequest = false;
-                }
-
-
             }
         }
 
@@ -198,14 +200,17 @@ namespace Kondo
         /// <summary>
         /// イベントを登録
         /// </summary>
-        /// <param name="aFuncName"></param>
+        /// <param name="aFuncName">関数の名前</param>
         public void SetSelectEven(UnityEngine.Events.UnityAction aFuncName)
         {
             display.SetSelectEvent(aFuncName);
         }
 
+
+
+
         /// <summary>
-        /// 設定したEventを削除
+        /// 登録したすべてのEventを削除
         /// </summary>
         public void DeleteSelectEvent()
         {
@@ -214,25 +219,25 @@ namespace Kondo
 
 
 
-        /// <summary>
-        /// wireTutorialを進める
-        /// </summary>
-        public void NextWireTutorial()
-        {
-            WireTutorialManager.instance.NextSequenceChanged();
-        }
+        ///// <summary>
+        ///// wireTutorialを進める
+        ///// </summary>
+        //public void NextWireTutorial()
+        //{
+        //    WireTutorialManager.instance.NextSequenceChanged();
+        //}
 
 
 
 
-        /// <summary>
-        /// AttackTutorialを進める
-        /// </summary>
-        public void NextAttackTutorial()
-        {
-            AttackTutorialManager.instance.NextSequenceChanged();
+        ///// <summary>
+        ///// AttackTutorialを進める
+        ///// </summary>
+        //public void NextAttackTutorial()
+        //{
+        //    AttackTutorialManager.instance.NextSequenceChanged();
 
-        }
+        //}
 
 
 
@@ -246,6 +251,12 @@ namespace Kondo
             layout = DisplaySentence.LoadText(aName, layout);
         }
 
+
+
+        public void hoge()
+        {
+            Debug.Log("Hoge");
+        }
 
 
 
@@ -284,24 +295,6 @@ namespace Kondo
 
 
 
-
-        /// <summary>
-        /// Tipsの表示非表示を設定する
-        /// </summary>
-        /// <param name="isEnabled">表示 = true 非表示 = false</param>
-        /// <param name="aHand">設定するコントローラー</param>
-        /// <param name="aParts">設定するパーツ</param>
-        public void SetEnabledTips(bool isEnabled,HandType aHand,PartsType aParts)
-        {
-            Debug.Log("チュートリアルマネージャー　SetEnabledTips()");
-
-            tipsList[((int)aHand * 6) + (int)aParts].SetActive(isEnabled);
-        }
-
-
-
-
-
         /// <summary>
         /// 指定したパーツのTipsのアクティブフラグを取得する
         /// </summary>
@@ -313,22 +306,6 @@ namespace Kondo
             return tipsList[((int)aHand * 6) + (int)aParts].activeSelf;
         }
 
-
-
-
-
-        /// <summary>
-        /// 全てのTipsの表示非表示を設定する
-        /// </summary>
-        /// <param name="isEnabled">表示 = true 非表示 = false</param>
-        public void SetEnabledAllTips(bool isEnabled)
-        {
-            Debug.Log("チュートリアルマネージャー　SetEnableAllTips()");
-            foreach(var list in tipsList)
-            {
-                list.SetActive(isEnabled);
-            }
-        }
 
 
 
@@ -355,14 +332,48 @@ namespace Kondo
 
 
         /// <summary>
-        /// プレイヤーへの通知を表示
+        /// Tipsの表示非表示を設定する
         /// </summary>
-        /// <param name="aSelect"></param>
-        public void ShowNotice(int aSelect = 0)
+        /// <param name="isEnabled">表示 = true 非表示 = false</param>
+        /// <param name="aHand">設定するコントローラー</param>
+        /// <param name="aParts">設定するパーツ</param>
+        public void SetEnabledTips(bool isEnabled, HandType aHand, PartsType aParts)
         {
-            Debug.Log("チュートリアルマネージャー　ShowNotice()");
-            notice.RequestDisplay(noticeText[aSelect], 3, 1, 2.5f);
+            Debug.Log("チュートリアルマネージャー　SetEnabledTips()");
+
+            tipsList[((int)aHand * 6) + (int)aParts].SetActive(isEnabled);
         }
+
+
+
+
+
+        /// <summary>
+        /// 全てのTipsの表示非表示を設定する
+        /// </summary>
+        /// <param name="isEnabled">表示 = true 非表示 = false</param>
+        public void SetEnabledAllTips(bool isEnabled)
+        {
+            Debug.Log("チュートリアルマネージャー　SetEnableAllTips()");
+            foreach(var list in tipsList)
+            {
+                list.SetActive(isEnabled);
+            }
+        }
+
+
+
+        
+
+        ///// <summary>
+        ///// プレイヤーへの通知を表示
+        ///// </summary>
+        ///// <param name="aSelect"></param>
+        //public void ShowNotice(int aSelect = 0)
+        //{
+        //    Debug.Log("チュートリアルマネージャー　ShowNotice()");
+        //    notice.RequestDisplay(noticeText[aSelect], 3, 1, 2.5f);
+        //}
 
 
         /// <summary>
@@ -397,7 +408,6 @@ namespace Kondo
         public void RemoveDisplay(bool aSet)
         {
             // 非表示にする
-            //display.HideDisplay();
             displayCanvas.gameObject.SetActive(aSet);
         }
 

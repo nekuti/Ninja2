@@ -60,7 +60,9 @@ namespace Kondo
                 SetLineTo();
                 DrawLine();
             }
-        
+
+
+
         }
 
 
@@ -78,7 +80,7 @@ namespace Kondo
 
 
         /// <summary>
-        /// Tipsの着く先のMateroalの色を変更
+        /// Tipsの着く先のMaterialの色を変更
         /// </summary>
         /// <param name=""></param>
         public void SetMaterialColor(Color aColor)
@@ -87,7 +89,9 @@ namespace Kondo
         }
 
 
-
+        /// <summary>
+        /// Tipsの先のMaterialの色をリセット
+        /// </summary>
         public void ResetMaterialColor()
         {
             partsRender.material.SetColor("_Color", basePartsColor);
