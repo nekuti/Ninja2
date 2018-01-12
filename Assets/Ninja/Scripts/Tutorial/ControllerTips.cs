@@ -30,8 +30,8 @@ namespace Kondo
         private LineRenderer line;
         private Text[] texts = new Text[2];
         private int countCreate = 0;
-        private Renderer partsRender;
-        private Color basePartsColor;
+        //private Renderer partsRender;
+        //private Color basePartsColor;
 
         private const int LINE_NUM = 1;
         private const int CANVAS_NUM = 2;
@@ -47,8 +47,8 @@ namespace Kondo
             // inspectorで表示非表示を設定
             gameObject.SetActive(isEnabled);
 
-            partsRender = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Renderer>();
-            basePartsColor = partsRender.material.color;
+            //partsRender = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Renderer>();
+            //basePartsColor = partsRender.material.color;
 
         }
 
@@ -60,7 +60,9 @@ namespace Kondo
                 SetLineTo();
                 DrawLine();
             }
-        
+
+
+
         }
 
 
@@ -77,21 +79,23 @@ namespace Kondo
         }
 
 
-        /// <summary>
-        /// Tipsの着く先のMateroalの色を変更
-        /// </summary>
-        /// <param name=""></param>
-        public void SetMaterialColor(Color aColor)
-        {
-            partsRender.material.SetColor("_Color",aColor);
-        }
+        ///// <summary>
+        ///// Tipsの着く先のMaterialの色を変更
+        ///// </summary>
+        ///// <param name=""></param>
+        //public void SetMaterialColor(Color aColor)
+        //{
+        //    partsRender.material.SetColor("_Color",aColor);
+        //}
 
 
-
-        public void ResetMaterialColor()
-        {
-            partsRender.material.SetColor("_Color", basePartsColor);
-        }
+        ///// <summary>
+        ///// Tipsの先のMaterialの色をリセット
+        ///// </summary>
+        //public void ResetMaterialColor()
+        //{
+        //    partsRender.material.SetColor("_Color", basePartsColor);
+        //}
 
 
 
@@ -120,7 +124,7 @@ namespace Kondo
         private void SetingText(TipsChild aChild)
         {
             texts[countCreate] = transform.GetChild(CANVAS_NUM).GetChild((int)aChild).GetComponent<Text>();
-            texts[countCreate].material = Resources.Load("UIText") as Material;
+            //texts[countCreate].material = Resources.Load("UIText") as Material;
             texts[countCreate].text = displayText;
             texts[countCreate].color = tipsData.fontColor;
             texts[countCreate].fontSize = tipsData.fontSize;

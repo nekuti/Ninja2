@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 1468824557024024, guid: 8d0e79b29bc2ff5458e5cecfce7cff19, type: 2}
   enemyList: []
   enemyTypeList:
-  - {fileID: 1206934167836314, guid: 4454ed98053607c45867d40bd2eda03c, type: 2}
+  - {fileID: 1710565406569746, guid: 17fa2422c2bced14daf8823970b9980c, type: 2}
   - {fileID: 1586539004490296, guid: 681a4a7da6cd8b94d950083aa926ea91, type: 2}
   enemyPos: {fileID: 1000752944}
   currentSequence: 0
@@ -256,7 +256,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4558407073011156, guid: 41f54dbfee9cb744d82ea3e8497ae388, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1623614254507848, guid: 41f54dbfee9cb744d82ea3e8497ae388, type: 2}
       propertyPath: m_IsActive
@@ -1285,7 +1285,7 @@ Transform:
   - {fileID: 1928917525}
   - {fileID: 234292458}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1294038461
 Mesh:
@@ -1689,7 +1689,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1928917524
 GameObject:
@@ -2295,7 +2295,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4862624233844206, guid: 93d490d367919284c9a5bdba6a756b54, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1826804554010872, guid: 93d490d367919284c9a5bdba6a756b54, type: 2}
       propertyPath: m_IsActive

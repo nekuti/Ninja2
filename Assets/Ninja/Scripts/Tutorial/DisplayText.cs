@@ -17,15 +17,15 @@ namespace Kondo
             returnDisplay,
         }
 
+        
+
         public Text mainText;
         public Text headLineText;
         public Image image;
-        public SelectWindow selectWindow = new SelectWindow();
+        public SelectWindow selectWindow;
 
 
         private CanvasHide canvasHide;
-        private UnityEngine.Events.UnityAction tempData;
-
 
         // Use this for initialization
         void Start()
@@ -85,7 +85,7 @@ namespace Kondo
         public void RequestDisplay(DisplayLayout aLayout, Transform aPos)
         {
             Debug.Log("ディスプレイテキスト RequestDisplay()");
-            canvasHide.HideON();
+            //canvasHide.HideON();
             headLineText.text = aLayout.headLine;
             mainText.text = aLayout.mainText;
             transform.parent.position = aPos.position;

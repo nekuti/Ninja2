@@ -47,6 +47,9 @@ namespace Kondo
         [SerializeField]
         private List<Transform> rController = new List<Transform>();
 
+        [SerializeField]
+        private List<Transform> ControllerList = new List<Transform>();
+
 
 
         // Use this for initialization
@@ -55,6 +58,9 @@ namespace Kondo
             instance = this;
 
         }
+
+
+
 
         // Update is called once per frame
         void Update()
@@ -65,14 +71,19 @@ namespace Kondo
 
 
 
-
-
         /// <summary>
         /// パーツをセットする
         /// </summary>
         /// <param name="obj"></param>
         public void SetPartsList(HandType aHand, List<Transform> aList)
         {
+
+            //int count = 0;
+            //foreach (var list in aList)
+            //{
+            //    ControllerList[count + ((int)aHand * 6)] = list;
+            //}
+
             if (aHand == HandType.Left)
             {
                 lController = aList;
@@ -102,11 +113,14 @@ namespace Kondo
             }
             else
             {
-               list =  rController;
+                list = rController;
             }
 
             return list[(int)aParts];
+
+           // return ControllerList[(int)aParts + ((int)aHand * 6)];
         }
+
 
     }
 

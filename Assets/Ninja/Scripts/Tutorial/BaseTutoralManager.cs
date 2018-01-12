@@ -34,7 +34,7 @@ namespace Kondo
 
         private bool firstFlag = true;
 
-        void Start()
+        protected void Start()
         {
             tManager = TutorialManager.instance;
         }
