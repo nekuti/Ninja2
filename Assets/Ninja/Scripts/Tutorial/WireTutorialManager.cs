@@ -75,6 +75,7 @@ namespace Kondo
             {
                 case TutorialSequence.Wire01:
                     Debug.Log("現在の順序 : " + currentSequence);
+                    tManager.SetEnabledAllTips(false);
                     tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
                     tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
