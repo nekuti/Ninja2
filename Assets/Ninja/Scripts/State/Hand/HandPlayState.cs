@@ -48,6 +48,10 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            if(InputDevice.Press(ButtonType.Grip,owner.HandType))
+            {
+                Debug.Log("アイテム使用ウィンドウを表示");
+            }
         }
 
         /// <summary>
