@@ -12,7 +12,7 @@ namespace Kojima
     public class EnemyAssaultDieState : State<Enemy>
     {
         #region メンバ変数
-
+        GameObject Item;
         #endregion
 
         #region メソッド
@@ -28,9 +28,16 @@ namespace Kojima
         /// </summary>
         public override void Enter()
         {
+            Item = owner.ItemPrefab;
+
             Debug.Log("敵(遊撃)が死亡ステートへ遷移");
+
             ParticleEffect.Create(ParticleEffectType.Explosion01, owner.transform.position);
+
+            owner.DropItem(owner.transform.position);
+
             GameObject.Destroy(owner.gameObject);
+
         }
 
         /// <summary>
@@ -44,7 +51,8 @@ namespace Kojima
         /// このステートから他のステートに遷移するときに一度だけ呼ばれる
         /// </summary>
         public override void Exit()
-        {
+        { 
+
             Debug.Log("敵(遊撃)が死亡ステートを終了");
         }
 
