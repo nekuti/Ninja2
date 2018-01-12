@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec0f7de816df514a8b7e1b099f23cfb, type: 3}
   m_Name: Result Assessment Data Table
   m_EditorClassIdentifier: 
-  level1PlayTime: 080000000c00000012000000
+  level1PlayTime: 180000002400000036000000
   level2PlayTime: 080000000c00000012000000
   level3PlayTime: 080000000c00000012000000
   level1GetMoney: 0a0000000500000002000000
   level2GetMoney: 000000000000000000000000
   level3GetMoney: 000000000000000000000000
-  level1LostEnergy: 0a000000140000001e000000
+  level1LostEnergy: 140000003200000050000000
   level2LostEnergy: 000000000000000000000000
   level3LostEnergy: 000000000000000000000000

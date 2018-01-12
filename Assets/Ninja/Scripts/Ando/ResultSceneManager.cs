@@ -72,17 +72,19 @@ namespace Ando
         private static ResultContainer resultContainer;
         int i = 0;
 
-        int a = 1;
         // Use this for initialization
         void Start()
         {
             //  インスペクターで設定するもの以外を設定
             playTimeAssessment = 0;
             getMoneyAssessment = 0;
-            lostEnergyAssessment = 0;     
+            lostEnergyAssessment = 0;
+
+            //  プレイヤーの操作をメニュー用に切り替え
+            PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
 
             //  階層の分岐
-            switch (a)
+            switch (resultContainer.floorLevel)
             {
                 case 1:
                     playTimeReferenceValue = resultAssessmentDataTable.level1PlayTime;
@@ -105,8 +107,8 @@ namespace Ando
             }
 
             //  テスト用に作成
-            resultContainer = new ResultContainer();
-            resultContainer.Initialize(this.gameObject);
+            //resultContainer = new ResultContainer();
+            //resultContainer.Initialize(this.gameObject);
         }
 
         // Update is called once per frame
@@ -141,20 +143,28 @@ namespace Ando
 
             //  各項目の評価
             #region 時間
-            if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[0])
+            if (resultContainer.clearFlag)
             {
-                playTimeRankImage.sprite = imageList[0];
-                playTimeAssessment = YUU;
-            }
-            else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[1])
-            {
-                playTimeRankImage.sprite = imageList[1];
-                playTimeAssessment = RYOU;
-            }
-            else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[2])
-            {
-                playTimeRankImage.sprite = imageList[2];
-                playTimeAssessment = KA;
+                if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[0])
+                {
+                    playTimeRankImage.sprite = imageList[0];
+                    playTimeAssessment = YUU;
+                }
+                else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[1])
+                {
+                    playTimeRankImage.sprite = imageList[1];
+                    playTimeAssessment = RYOU;
+                }
+                else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[2])
+                {
+                    playTimeRankImage.sprite = imageList[2];
+                    playTimeAssessment = KA;
+                }
+                else
+                {
+                    playTimeRankImage.sprite = imageList[3];
+                    playTimeAssessment = FU;
+                }
             }
             else
             {
@@ -224,24 +234,24 @@ namespace Ando
                 {
                     if (totalScore >= ASSESSMENT_MAX)
                     {
-                        totalRankImage.sprite = imageList[0];
+                        totalRankImage.sprite = totalImageList[0];
                     }
                     else
                     {
-                        totalRankImage.sprite = imageList[1];
+                        totalRankImage.sprite = totalImageList[1];
                     }
                 }
                 else
                 {
-                    totalRankImage.sprite = imageList[2];
+                    totalRankImage.sprite = totalImageList[2];
                 }
             }
             else
             {
-                totalRankImage.sprite = imageList[3];
+                totalRankImage.sprite = totalImageList[3];
             }
-
             #endregion
+
         }
 
         /// <summary>

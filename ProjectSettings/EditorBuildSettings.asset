@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Ninja/Scenes/SceneManager.unity
+    path: Assets/Ninja/Scenes/GameScene/SceneManager.unity
     guid: 3746724e8d2051e4a842d18b9618e292
   - enabled: 1
     path: Assets/Ninja/Scenes/GameScene/TitleScene.unity

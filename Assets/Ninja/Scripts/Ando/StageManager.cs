@@ -59,7 +59,7 @@ namespace Ando
                 //  フェードが完了したか
                 if (fadeElapsedTime < fadeInTime)
                 {
-                    PlaySceneManager.SetStageTransition(StageTransition.ResultGameClear);
+                    PlaySceneManager.SetStageTransition(StageTransition.StageClear);
                 }
             }
         }

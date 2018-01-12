@@ -13,6 +13,7 @@ namespace Ando
     public enum StageTransition
     {
         None,
+        StageClear,
         ResultGameClear,
         ResultGameOver,
         StageChange,
@@ -66,9 +67,6 @@ namespace Ando
         //  プレイシーンマネージャーで管理する情報
         private static PlayData playData = new PlayData();
 
-        //  ステージをクリアしたか判別
-        private static bool stageClearFlag = false;
-
         //  クリアした階層
         public List<bool> clearFloorLevel = new List<bool>() { false, false, false };
 
@@ -119,54 +117,82 @@ namespace Ando
         {
             if (stageState == StageState.LoadStart)
             {
+                //  ステージのロードが完了したか確認
                 if (SceneManager.GetSceneByName(stageList[nowStageNum].IsName().ToString()) != null)
-                {
+                {                    
+                    //  ステートをロード完了に変更
                     stageState = StageState.LoadComplete;
 
-                    /* β用----------------------------------------------------------------------------*/
-                    if (nowStageNum == 1)
-                    {
-                        //  プレイ時間の計測開始
-                        resultContainer.totalPlayTimer.TimerStart();
-                    }
+                    //  ループカウント(0がプレイヤーベースなので1から計算開始)
+                    var i = 1;
 
+                    while (true)
+                    {
+                        if (nowStageNum == i * FLOORNUM)
+                        {
+                            //  プレイ時間の計測開始
+                            resultContainer.PlayTimerStart();
+                            //  稼いだ金額を現在の所持金分マイナスした値に設定
+                            resultContainer.InitMoneyValue(playData.possessionMoney);
+                            //  プレイする階層を設定
+                            resultContainer.SetFloorLevel(i);
+
+                            Debug.Log("階層を" + i + "に設定");
+
+                            //  計測を開始したのでループを出る
+                            break;
+                        }
+
+                        i++;
+
+                        //  ステージの数を超えたか確認
+                        if (FLOORNUM * i > stageList.Count - 1)
+                        {
+                            //  階層の開始ステージではないのでループを出る
+                            break;
+                        }
+                    }
+                 
+                    //  プレイヤーの座標をステージの開始位置へ
                     playData.player.ResetPosition(playData.startPos);
 
                     Debug.Log("プレイヤーに設定した値" + playData.startPos);
 
-                    //if(stageList.Count - 1 > nowStageNum)
-                    //{
-                    //    StageUnload();
-                    //    ResultSceneManager.RgtrResultContainer(resultContainer);
-                    //    sceneTransitionManager.ChangeSceneAdd(nextScene);
-                    //}
-                    /*----------------------------------------------------------------------------------*/
                 }
             
             }
 
-            if (stageState == StageState.LoadComplete)
-            {
-
-                if (stageClearFlag)
-                {
-                    stageClearFlag = false;
-                    stageTransition = StageTransition.StageChange;
-                }
-
-                Debug.Log("ステートを" + stageTransition);
-            }
+            ////  ステージのロードが完了しているか
+            //if (stageState == StageState.LoadComplete)
+            //{
+            //    //  ステージがクリアしたとき
+            //    if (stageClearFlag)
+            //    {
+            //        stageClearFlag = false;
+            //        stageTransition = StageTransition.StageChange;
+            //    }
+            //    Debug.Log("ステートを" + stageTransition);
+            //}
 
             //  シーンの遷移
             switch (stageTransition)
             {
+                case StageTransition.StageClear:
+                    //  ステージ変更
+                    StageChange();
+                    stageTransition = StageTransition.None;
+                    break;
                 case StageTransition.ResultGameClear:
+                    clearFloorLevel[resultContainer.floorLevel] = true;
                     //  リザルトを追加
-                    AddLiteResult();
+                    AddResult();
                     break;
                 case StageTransition.ResultGameOver:
-                    stageTransition = StageTransition.TitleBack;
+                    //  リザルトを追加
+                    AddResult();
                     break;
+                    //stageTransition = StageTransition.TitleBack;
+                    //break;
                 case StageTransition.StageChange:
                         //  ステージ変更
                         StageChange();
@@ -252,23 +278,8 @@ namespace Ando
         /// <summary>
         /// ステージを追加する
         /// </summary>
-        private void StageAdd(/*bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
+        private void StageAdd()
         {
-            //if (aFade)
-            //{
-            //    //  フェイドの色が透明か設定されていないので黒を設定
-            //    if (aFadeColor == new Color(0, 0, 0, 0))
-            //    {
-            //        aFadeColor = new Color(0, 0, 0, 1);
-            //    }
-
-            //    //  指定色、指定時間でフェード開始
-            //    SteamVR_Fade.Start(aFadeColor, aFadeTime);
-
-            //    //  フェイドの時間を保存
-            //    fadeOutTime = aFadeTime;
-            //}
-
             //  ステージのスクリプト追加
             this.gameObject.AddComponent(Type.GetType("Ando." + stageList[nowStageNum].ToString()));
 
@@ -301,7 +312,7 @@ namespace Ando
         /// <param name="aFade">フェードを行うか</param>
         /// <param name="aFadeColor">フェードアウトの時の画面色</param>
         /// <param name="aFadeTime">フェードアウトの時間</param>
-        public void StageChange(/*bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
+        public void StageChange()
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -322,7 +333,7 @@ namespace Ando
             }
 
             //  ステージを追加
-            StageAdd(/*aFade,aFadeColor,aFadeTime*/);
+            StageAdd();
         }
 
         /// <param name="aStageNumber"></param>
@@ -333,7 +344,7 @@ namespace Ando
         /// <param name="aFade">フェードを行うか</param>
         /// <param name="aFadeColor">フェードアウトの時の画面色</param>
         /// <param name="aFadeTime">フェードアウトの時間</param>
-        public void StageChange(int aFloorLevel/*, bool aFade = true, Color aFadeColor = new Color(), float aFadeTime = 1.0f*/)
+        public void StageChange(int aFloorLevel)
         {
             //  ステージを削除
             SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
@@ -347,7 +358,7 @@ namespace Ando
             //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
 
             //  ステージを追加
-            StageAdd(/*aFade, aFadeColor, aFadeTime*/);
+            StageAdd();
 
             //  プレイヤーの操作をプレイ用に切り替え
             playData.player.ChangeHandState(Kojima.HandStateType.Play);
@@ -365,41 +376,39 @@ namespace Ando
         /// <summary>
         /// 簡易リザルトをステージに追加する
         /// </summary>
-        public static void AddLiteResult()
+        public void AddResult()
         {
-            stageClearFlag = true;
+            //stageClearFlag = true;
 
-            return;
+            //return;
 
+            //  リザルトコンテナに値を設定
+            resultContainer.PlayTimerStop();
+            resultContainer.SetMoneyValue(playData.possessionMoney);
+            resultContainer.lostEnergyValue = 1;
 
-            //var a = new ResultContainer();
-
-            //a.totalPlayTime = "test";
-            //a.playTime = "test";
-            //a.totalGetMoneyValue = 1;
-            //a.getMoneyValue = 1;
-            //a.totalLostEnergyValue = 0;
-            //a.lostEnergyValue = 1;
-            //a.killEnemyValue = 1;
-            //a.useItemValue = 1;
-
-            //  簡易リザルトがすでにあるか確認
-            if (!sceneTransitionManager.SearchScene(SceneName.LiteResult))
+            //  リザルトがすでにあるか確認
+            if (!sceneTransitionManager.SearchScene(SceneName.ResultScene))
             {
                 //LiteResultText.SetLiteResult(a);
                 
-                sceneTransitionManager.ChangeSceneAdd(SceneName.LiteResult);
+                //  リザルトシーンを追加
+                sceneTransitionManager.ChangeSceneAdd(SceneName.ResultScene);
 
                 Debug.Log(stageTransition.ToString());
 
+                //  クリアしたか否かで分岐
                 if (stageTransition == StageTransition.ResultGameClear)
                 {
-                    LiteResultText.SetTextChangeFlag(true);
+                    resultContainer.SetClearFlag(true);
                 }
                 else if (stageTransition == StageTransition.ResultGameOver)
                 {
-                    LiteResultText.SetTextChangeFlag(false);
+                    resultContainer.SetClearFlag(false);
                 }
+
+                //  リザルトコンテナを登録
+                ResultSceneManager.RgtrResultContainer(resultContainer);
             }
         }
 

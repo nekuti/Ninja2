@@ -28,7 +28,6 @@ namespace Ando {
             else
             {
                 Debug.Log(boss.Hp);
-
             }
         }
     }
