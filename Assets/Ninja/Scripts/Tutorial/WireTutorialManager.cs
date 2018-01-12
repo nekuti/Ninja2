@@ -35,23 +35,11 @@ namespace Kondo
 
 
 
-        void Awake()
-        {
-            
-            instance = this;
-
-            // 始めの要素生成し要素を保存
-            //currentElement = Instantiate(sequenceList[sequenceNum]);
-
-            Debug.Log("ワイヤーチュートリアル　Awake()");
-
-        }
-
 
         new void Start()
         {
             base.Start();
-            tManager.hoge();
+            instance = this;
             tManager.LoadText(loadTextName);
 
             Debug.Log("ワイヤーチュートリアル　strat()");

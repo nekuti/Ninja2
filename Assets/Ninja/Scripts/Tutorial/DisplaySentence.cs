@@ -61,17 +61,18 @@ namespace Kondo
 
                 if (sprlit.StartsWith("&"))
                 {
-                    string path = sprlit.Remove(0, 1);
+                    string path = "Image/Tutorial/" + sprlit.Remove(0, 1);
                     Debug.Log("パス : " + path + "  文字数 : " + path.Length);
 
                     item.sprite = Resources.Load<Sprite>(path);
+                    Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
 
                     if (item.sprite == null)
                     {
                         item.sprite = Resources.Load<Sprite>("noImage");
                     }
 
-                    Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
+                   // Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
 
                 }
 

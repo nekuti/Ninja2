@@ -41,24 +41,20 @@ namespace Kondo
         public TutorialSequence currentSequence;
 
 
-        private void Awake()
-        {
-            instance = this;
-        }
-
 
 
         // Use this for initialization
         new void Start()
         {
             base.Start();
+            instance = this;
             tManager.LoadText(loadTextName);
-
+     
             Debug.Log("アタックチュートリアル　strat()");
             currentSequence = TutorialSequence.Attack01;
             Debug.Log("currentSequence : " + currentSequence);
             tManager.SetSelectEven(NextSequenceChanged);
-            NextSequenceChanged();
+            //NextSequenceChanged();
         }
 
 
