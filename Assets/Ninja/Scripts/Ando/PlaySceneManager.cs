@@ -83,11 +83,8 @@ namespace Ando
         //  ステージの状態
         private StageState stageState = StageState.None;
 
-        // シーンが変わるまでの待ち時間
-        [SerializeField]
-        private float fadeWaitTime = 2.0f;
-        //  経過時間
-        private float　progresstime = 0.0f;
+        //  ステージが存在しているか
+        private bool stageExist = false;
 
         new void Awake()
         {
@@ -128,7 +125,7 @@ namespace Ando
 
                     while (true)
                     {
-                        if (nowStageNum == i * FLOORNUM)
+                        if (nowStageNum == (i * FLOORNUM) + 1)
                         {
                             //  プレイ時間の計測開始
                             resultContainer.PlayTimerStart();
@@ -186,13 +183,13 @@ namespace Ando
                     clearFloorLevel[resultContainer.floorLevel] = true;
                     //  リザルトを追加
                     AddResult();
+                    stageTransition = StageTransition.None;
                     break;
                 case StageTransition.ResultGameOver:
                     //  リザルトを追加
                     AddResult();
+                    stageTransition = StageTransition.None;
                     break;
-                    //stageTransition = StageTransition.TitleBack;
-                    //break;
                 case StageTransition.StageChange:
                         //  ステージ変更
                         StageChange();
@@ -291,8 +288,12 @@ namespace Ando
             //  ステージの状態をシーンの読み込み開始に設定
             stageState = StageState.LoadStart;
 
+            //  ステージの存在フラグをtrueへ
+            stageExist = true;
+
             //  フェードを解除する
             SteamVR_Fade.Start(Color.clear, 1.0f);
+            Debug.Log("フェードを解除");
         }
 
         /// <summary>
@@ -300,10 +301,17 @@ namespace Ando
         /// </summary>
         private void StageUnload()
         {
-            //  ステージを削除
-            SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
-            //  ステージのスクリプトの削除
-            Destroy(GetComponent(stageList[nowStageNum].ToString()));
+            //  ステージが存在しているか
+            if (stageExist)
+            {
+                //  ステージを削除
+                SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
+                //  ステージのスクリプトの削除
+                Destroy(GetComponent(stageList[nowStageNum].ToString()));
+
+                //  ステージの存在フラグをfalseへ
+                stageExist = false;
+            }
         }
 
         /// <summary>
@@ -315,12 +323,7 @@ namespace Ando
         public void StageChange()
         {
             //  ステージを削除
-            SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
-            //  ステージのスクリプトの削除
-            Destroy(GetComponent(stageList[nowStageNum].ToString()));
-
-            //  簡易リザルトを削除
-            //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+            StageUnload();
 
             //  ステージをクリアしたら最初のステージから
             if (stageList.Count - 1 > nowStageNum)
@@ -347,15 +350,14 @@ namespace Ando
         public void StageChange(int aFloorLevel)
         {
             //  ステージを削除
-            SceneManager.UnloadSceneAsync(stageList[nowStageNum].ToString());
-            //  ステージのスクリプトの削除
-            Destroy(GetComponent(stageList[nowStageNum].ToString()));
+            StageUnload();
 
             //  ステージ番号を指定階層の最初にする
             nowStageNum = aFloorLevel + ((aFloorLevel - 1) * FLOORNUM);
-
-            //  簡易リザルトを削除
-            //sceneTransitionManager.RevocationScene(SceneName.LiteResult);
+            if(nowStageNum < 0)
+            {
+                nowStageNum = 0;
+            }
 
             //  ステージを追加
             StageAdd();
@@ -378,10 +380,9 @@ namespace Ando
         /// </summary>
         public void AddResult()
         {
-            //stageClearFlag = true;
-
-            //return;
-
+            //  ステージを削除
+            StageUnload();
+           
             //  リザルトコンテナに値を設定
             resultContainer.PlayTimerStop();
             resultContainer.SetMoneyValue(playData.possessionMoney);

@@ -75,6 +75,10 @@ namespace Ando
         // Use this for initialization
         void Start()
         {
+            //  フェードを解除する
+            SteamVR_Fade.Start(Color.clear, 1.0f);
+            Debug.Log("フェードを解除");
+
             //  インスペクターで設定するもの以外を設定
             playTimeAssessment = 0;
             getMoneyAssessment = 0;

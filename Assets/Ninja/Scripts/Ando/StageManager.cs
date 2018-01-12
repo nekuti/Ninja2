@@ -43,23 +43,26 @@ namespace Ando
 
         protected void Update()
         {
-            //  ゴールした場合
-            if(goalObj.GoalFlag == true)
-            {
-                //  フェードの開始
-                FadeStart();
-            }
-
-            //  フェードを実行中か
-            if (fadeInflag)
-            {
-                //  経過時間の加算
-                fadeElapsedTime += Time.deltaTime;
-
-                //  フェードが完了したか
-                if (fadeElapsedTime < fadeInTime)
+            if (goalObj != null)
+            {           
+                //  ゴールした場合
+                if (goalObj.GoalFlag == true)
                 {
-                    PlaySceneManager.SetStageTransition(StageTransition.StageClear);
+                    //  フェードの開始
+                    FadeStart();
+                }
+
+                //  フェードを実行中か
+                if (fadeInflag)
+                {
+                    //  経過時間の加算
+                    fadeElapsedTime += Time.deltaTime;
+
+                    //  フェードが完了したか
+                    if (fadeElapsedTime < fadeInTime)
+                    {
+                        PlaySceneManager.SetStageTransition(StageTransition.StageClear);
+                    }
                 }
             }
         }
@@ -72,6 +75,7 @@ namespace Ando
 
             //  指定色、指定時間でフェード開始
             SteamVR_Fade.Start(fadeInColor, fadeInTime);
+            Debug.Log("フェードを開始");
         }
     }
 }
