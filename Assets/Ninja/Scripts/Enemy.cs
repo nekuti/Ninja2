@@ -34,6 +34,10 @@ namespace Kojima
         [SerializeField, Tooltip("攻撃のプレハブ")]
         public Attack attackPrefab;
 
+        [SerializeField, Tooltip("アイテムのプレハブ")]
+        public GameObject itemPrefab;
+
+
         private static float flameCount = 0;
 
         private static float secondCount = 0;
@@ -63,6 +67,7 @@ namespace Kojima
             }
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
+        public GameObject ItemPrefab{ get {return itemPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
         public bool CollisioDecision { get { return collisionDecision; } }
 
@@ -245,6 +250,12 @@ namespace Kojima
                 collisionDecision = false;
             }
         }
+
+        public void DropItem(Vector3 aPos)
+        {
+            Instantiate(itemPrefab, aPos, Quaternion.identity);
+        }
+
         public bool FlameWaitTime(float flame)
         {
             if (flameCount > flame)
