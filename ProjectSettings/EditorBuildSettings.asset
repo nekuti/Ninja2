@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/GameScene/TitleScene.unity
     guid: e42bb0a513d351c4d838ada5cda476a6
   - enabled: 1
-    path: Assets/Ninja/Scenes/TutorialScene2.unity
+    path: Assets/Ninja/Scenes/TutorialMainScene.unity
     guid: c4f9b3cdd949cb8408cb2a778d98fc9e
   - enabled: 1
     path: Assets/Ninja/Scenes/WireTutorial.unity
