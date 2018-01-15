@@ -49,13 +49,14 @@ namespace Ando
         [SerializeField, Tooltip("最初に実行するステージの配列番号を入力してください")]
         private int firstStage = 1;
 
+        //  １階層のステージ数
+        [SerializeField]
+        private int FLOORNUM = 3;
+
         //  現在の実行中の配列番号
         [SerializeField]
         private int nowStageNum = 0;
-
-        //  １階層のステージ数
-        private const int FLOORNUM = 5;
-
+        
         //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;
 

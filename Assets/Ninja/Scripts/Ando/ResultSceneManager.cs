@@ -285,5 +285,25 @@ namespace Ando
 
             sceneTransitionManager.RevocationScene(SceneName.ResultScene);
         }
+
+        /// <summary>
+        /// リザルトコンテナの情報をリセット
+        /// </summary>
+        public void ResetResultContainer()
+        {
+            Debug.Log("データのリセットを呼び出し");
+
+            //  トータルの情報に登録
+            resultContainer.oldTotalPlayTime += resultContainer.playTimer.GetTimeFloat();
+            resultContainer.totalGetMoneyValue += resultContainer.getMoneyValue;
+            resultContainer.totalLostEnergyValue += resultContainer.lostEnergyValue;
+
+            //  データのリセット
+            resultContainer.PlayTimerReset();
+            resultContainer.getMoneyValue = 0;
+            resultContainer.lostEnergyValue = 0;
+
+            Debug.Log("データのリセット" + resultContainer.playTimer.GetTimeString());
+        }
     }
 }
