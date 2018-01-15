@@ -253,7 +253,10 @@ namespace Kojima
 
         public void DropItem(Vector3 aPos)
         {
-            Instantiate(itemPrefab, aPos, Quaternion.identity);
+            if(ItemPrefab != null)
+            {
+                Instantiate(itemPrefab, aPos, Quaternion.identity);
+            }
         }
 
         public bool FlameWaitTime(float flame)

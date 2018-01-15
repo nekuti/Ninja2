@@ -43,7 +43,7 @@ namespace Kondo
 
             // 左が0~6 右が7~11
             // TutorialMnagerに登録
-            TutorialManager.instance.tipsList[((int)hand * 6)+(int)searchParts] = gameObject;
+            TutorialManager.instance.tipsList[((int)hand * 6)+(int)searchParts] = this.gameObject;
             // inspectorで表示非表示を設定
             gameObject.SetActive(isEnabled);
 
@@ -60,7 +60,7 @@ namespace Kondo
                 SetLineTo();
                 DrawLine();
             }
-
+           
 
 
         }
@@ -102,10 +102,10 @@ namespace Kondo
 
         private void ResetTips()
         {
-            SetingText(TipsChild.FrontText);
-            SetingText(TipsChild.BackText);
+            SetingText("FrontText");
+            SetingText("BackText");
             SetLine();
-            SetBackGround();
+           
         }
 
 
@@ -121,13 +121,13 @@ namespace Kondo
 
 
 
-        private void SetingText(TipsChild aChild)
+        private void SetingText(string name)
         {
-            texts[countCreate] = transform.GetChild(CANVAS_NUM).GetChild((int)aChild).GetComponent<Text>();
+            texts[countCreate] = transform.Find("Canvas").Find(name).GetComponent<Text>();
             //texts[countCreate].material = Resources.Load("UIText") as Material;
             texts[countCreate].text = displayText;
-            texts[countCreate].color = tipsData.fontColor;
-            texts[countCreate].fontSize = tipsData.fontSize;
+            texts[countCreate].color = Color.white;
+            texts[countCreate].fontSize = 14;
             countCreate++;
 
         }
@@ -135,8 +135,8 @@ namespace Kondo
 
         private void SetBackGround()
         {
-            Image backGroud = transform.GetChild(CANVAS_NUM).GetChild((int)TipsChild.BackGround).GetComponent<Image>();
-            backGroud.color = tipsData.backColor;
+           // Image backGroud = transform.GetChild(CANVAS_NUM).GetChild((int)TipsChild.BackGround).GetComponent<Image>();
+            //backGroud.color = tipsData.backColor;
         }
 
 
@@ -144,13 +144,18 @@ namespace Kondo
 
         private void SetLine()
         {
-            line = transform.GetChild(LINE_NUM).GetComponent<LineRenderer>();
+            line = transform.Find("Line").GetComponent<LineRenderer>();
             //line.material = Resources.Load("TooltipLine") as Material;
-            line.material.color = tipsData.lineColor;
-            line.startColor = tipsData.lineColor;
-            line.endColor = tipsData.lineColor;
-            line.startWidth = tipsData.lineWidth;
-            line.endWidth = tipsData.lineWidth;
+            //line.material.color = tipsData.lineColor;
+            //line.startColor = tipsData.lineColor;
+            //line.endColor = tipsData.lineColor;
+            //line.startWidth = tipsData.lineWidth;
+            //line.endWidth = tipsData.lineWidth;
+            line.material.color = Color.black;
+            line.startColor = Color.black;
+            line.endColor = Color.black;
+            line.startWidth = 0.001f;
+            line.endWidth = 0.001f;
 
             if (drawLineFrom == null)
             {

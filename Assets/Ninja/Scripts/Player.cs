@@ -217,7 +217,7 @@ namespace Kojima
                 // ゴールした時の処理
                 posResetFlg = true;
 
-                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
+                //Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
                 resultFlg = true;
 
             }

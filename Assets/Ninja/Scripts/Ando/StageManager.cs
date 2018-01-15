@@ -59,7 +59,7 @@ namespace Ando
                     fadeElapsedTime += Time.deltaTime;
 
                     //  フェードが完了したか
-                    if (fadeElapsedTime < fadeInTime)
+                    if (fadeInTime < fadeElapsedTime)
                     {
                         PlaySceneManager.SetStageTransition(StageTransition.StageClear);
                     }
@@ -70,12 +70,15 @@ namespace Ando
         //  フェードの開始
         public void FadeStart()
         {
-            //  フラグをtrueへ
-            fadeInflag = true;
+            if (!fadeInflag)
+            {
+                //  フラグをtrueへ
+                fadeInflag = true;
 
-            //  指定色、指定時間でフェード開始
-            SteamVR_Fade.Start(fadeInColor, fadeInTime);
-            Debug.Log("フェードを開始");
+                //  指定色、指定時間でフェード開始
+                SteamVR_Fade.Start(fadeInColor, fadeInTime);
+                Debug.Log("フェードを開始");
+            }
         }
     }
 }

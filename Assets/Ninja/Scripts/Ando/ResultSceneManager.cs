@@ -118,29 +118,29 @@ namespace Ando
         // Update is called once per frame
         void Update()
         {
-            playTime.text = resultContainer.totalPlayTimer.GetTimeString();
-            getMoney.text = resultContainer.totalGetMoneyValue.ToString();
-            lostEnergy.text = resultContainer.totalLostEnergyValue.ToString();
+            playTime.text = resultContainer.playTimer.GetTimeString();
+            getMoney.text = resultContainer.getMoneyValue.ToString();
+            lostEnergy.text = resultContainer.lostEnergyValue.ToString();
 
             /*デバック用////////////////////////////////////////*/
             if (Input.GetKeyDown(KeyCode.A))
             {
-                resultContainer.TotalTimerStart();
+                resultContainer.PlayTimerStart();
                 Debug.Log("A");
             }
             if (Input.GetKeyDown(KeyCode.B))
             {
-                resultContainer.TotalTimerStop();
+                resultContainer.PlayTimerStop();
                 Debug.Log("B");
             }
             if (Input.GetKeyDown(KeyCode.C))
             {
-                resultContainer.totalGetMoneyValue++;
+                resultContainer.getMoneyValue++;
                 Debug.Log("C");
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                resultContainer.totalLostEnergyValue += 5;
+                resultContainer.lostEnergyValue += 5;
                 Debug.Log("D");
             }
             /*///////////////////////////////////////////////////*/
@@ -149,17 +149,17 @@ namespace Ando
             #region 時間
             if (resultContainer.clearFlag)
             {
-                if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[0])
+                if (resultContainer.playTimer.Second < playTimeReferenceValue[0])
                 {
                     playTimeRankImage.sprite = imageList[0];
                     playTimeAssessment = YUU;
                 }
-                else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[1])
+                else if (resultContainer.playTimer.Second < playTimeReferenceValue[1])
                 {
                     playTimeRankImage.sprite = imageList[1];
                     playTimeAssessment = RYOU;
                 }
-                else if (resultContainer.totalPlayTimer.Second < playTimeReferenceValue[2])
+                else if (resultContainer.playTimer.Second < playTimeReferenceValue[2])
                 {
                     playTimeRankImage.sprite = imageList[2];
                     playTimeAssessment = KA;
@@ -178,11 +178,11 @@ namespace Ando
             #endregion
 
             #region お金
-            if (resultContainer.totalGetMoneyValue >= getMoneyReferenceValue[2])
+            if (resultContainer.getMoneyValue >= getMoneyReferenceValue[2])
             {
-                if (resultContainer.totalGetMoneyValue >= getMoneyReferenceValue[1])
+                if (resultContainer.getMoneyValue >= getMoneyReferenceValue[1])
                 {
-                    if (resultContainer.totalGetMoneyValue >= getMoneyReferenceValue[0])
+                    if (resultContainer.getMoneyValue >= getMoneyReferenceValue[0])
                     {
                         getMoneyRankImage.sprite = imageList[0];
                         getMoneyAssessment = YUU;
@@ -207,17 +207,17 @@ namespace Ando
             #endregion
 
             #region エネルギー
-            if (resultContainer.totalLostEnergyValue < lostEnergyeReferenceValue[0])
+            if (resultContainer.lostEnergyValue < lostEnergyeReferenceValue[0])
             {
                 lostEnergyRankImage.sprite = imageList[0];
                 lostEnergyAssessment = YUU;
             }
-            else if (resultContainer.totalLostEnergyValue < lostEnergyeReferenceValue[1])
+            else if (resultContainer.lostEnergyValue < lostEnergyeReferenceValue[1])
             {
                 lostEnergyRankImage.sprite = imageList[1];
                 lostEnergyAssessment = RYOU;
             }
-            else if (resultContainer.totalLostEnergyValue < lostEnergyeReferenceValue[2])
+            else if (resultContainer.lostEnergyValue < lostEnergyeReferenceValue[2])
             {
                 lostEnergyRankImage.sprite = imageList[2];
                 lostEnergyAssessment = KA;

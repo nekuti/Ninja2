@@ -55,7 +55,7 @@ namespace Kondo
 
         //private MoveNotice notice;
         private DisplayText display;
-        private int noticeCount = 0;
+        //private int noticeCount = 0;
         private int displayCount = 0;
 
         public float fadeTime = 0.5f;

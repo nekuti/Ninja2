@@ -81,7 +81,7 @@ namespace Ando
             var subMoney = weapon.GetWeponStrengthenPrice();
 
             //  武器のレベルが強化の上限を超えていないか
-            if (weapon.GetWeaponLevel() <= PlaySceneManager.GetWeaponStrengthenMaxLevel())
+            if (weapon.GetWeaponLevel() < PlaySceneManager.GetWeaponStrengthenMaxLevel())
             {
                 //  所持金を超えていないか確認
                 if (PlaySceneManager.GetPossessionMoney() >= subMoney)

@@ -125,7 +125,7 @@ namespace Ando
 
                     while (true)
                     {
-                        if (nowStageNum == (i * FLOORNUM) + 1)
+                        if (nowStageNum == (i * FLOORNUM) + 1 || nowStageNum == 1)
                         {
                             //  プレイ時間の計測開始
                             resultContainer.PlayTimerStart();
@@ -155,6 +155,9 @@ namespace Ando
 
                     Debug.Log("プレイヤーに設定した値" + playData.startPos);
 
+                    //  フェードを解除する
+                    SteamVR_Fade.Start(Color.clear, 1.0f);
+                    Debug.Log("フェードを解除");
                 }
             
             }
@@ -180,7 +183,7 @@ namespace Ando
                     stageTransition = StageTransition.None;
                     break;
                 case StageTransition.ResultGameClear:
-                    clearFloorLevel[resultContainer.floorLevel] = true;
+                    clearFloorLevel[resultContainer.floorLevel - 1] = true;
                     //  リザルトを追加
                     AddResult();
                     stageTransition = StageTransition.None;
@@ -290,10 +293,6 @@ namespace Ando
 
             //  ステージの存在フラグをtrueへ
             stageExist = true;
-
-            //  フェードを解除する
-            SteamVR_Fade.Start(Color.clear, 1.0f);
-            Debug.Log("フェードを解除");
         }
 
         /// <summary>
@@ -353,7 +352,7 @@ namespace Ando
             StageUnload();
 
             //  ステージ番号を指定階層の最初にする
-            nowStageNum = aFloorLevel + ((aFloorLevel - 1) * FLOORNUM);
+            nowStageNum = ((aFloorLevel - 1) * FLOORNUM) + 1;
             if(nowStageNum < 0)
             {
                 nowStageNum = 0;

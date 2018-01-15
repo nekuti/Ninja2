@@ -38,6 +38,10 @@ namespace Ando
         /// </summary>
         public void ParticleStop()
         {
+            if(this == null)
+            {
+                return;
+            }
             particleSystem.Stop();
             particleSystem.Clear();
         }

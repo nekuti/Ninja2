@@ -866,16 +866,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: "\u30C8\u30EA\u30AC\u30FC"
-  fontSize: 14
   drawLineFrom: {fileID: 224914774836817972}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
   searchParts: 5
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114081016920970094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -887,7 +883,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -921,16 +917,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: "\u5DE6\u30B0\u30EA\u30C3\u30D7"
-  fontSize: 14
   drawLineFrom: {fileID: 224950234749564528}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
   searchParts: 2
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114117788759591054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -979,7 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1040,16 +1032,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: "\u30E1\u30CB\u30E5\u30FC"
-  fontSize: 14
   drawLineFrom: {fileID: 224581204475819370}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
   searchParts: 1
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114287823993898604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1082,7 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1214,7 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1247,7 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1280,7 +1268,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1313,7 +1301,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1347,16 +1335,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: "\u30C8\u30E9\u30C3\u30AF\u30D1\u30C3\u30C9"
-  fontSize: 14
   drawLineFrom: {fileID: 224339938606131944}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
   searchParts: 4
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114587188140179668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1395,7 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1428,7 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1461,7 +1445,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1574,16 +1558,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: "\u53F3\u30B0\u30EA\u30C3\u30D7"
-  fontSize: 14
   drawLineFrom: {fileID: 224562234367335194}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
   searchParts: 3
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114860983670737164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1595,7 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1666,16 +1646,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: base
-  fontSize: 14
   drawLineFrom: {fileID: 224238609041522422}
   drawLineTo: {fileID: 0}
-  lineWidth: 0.001
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  backGroundColor: {r: 0, g: 0, b: 0, a: 1}
   isEnabled: 1
-  searchParts: 1
+  searchParts: 0
   hand: 1
+  tipsData: {fileID: 11400000, guid: baa6a7d236f5e974daf0281b22fb66c2, type: 2}
 --- !u!114 &114956142541272734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1741,7 +1717,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 236e3208ace86514cbf9db752cef7b54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
