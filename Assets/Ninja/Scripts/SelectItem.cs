@@ -9,62 +9,39 @@ using UnityEngine;
 /// </summary>
 namespace Kojima
 {
-    public class SelectItem : MonoBehaviour,ISelectable
+    enum ItemType
+    {
+        Onigiri,
+        Katon,
+    }
+
+    public class SelectItem : MonoBehaviour
     {
         #region メンバ変数
 
-        public Ando.ItemDataTable data;
-
-        public Player myPlayer;
-
+        [SerializeField,Tooltip("アイテムの種類")]
+        private ItemType itemType;
 
         #endregion
 
         #region メソッド
 
         /// <summary>
-        /// 初期化処理
+        /// アイテムを使用する
         /// </summary>
-        private void Awake()
+        public void UseItem(Player aPlayer)
         {
-
-        }
-
-        /// <summary>
-        /// 更新前処理
-        /// </summary>
-        private void Start()
-        {
-
-        }
-
-        /// <summary>
-        /// 更新処理
-        /// </summary>
-        private void Update()
-        {
-
-        }
-
-        /// <summary>
-        /// レイが当たった
-        /// </summary>
-        public void HitRayObject()
-        {
-        }
-
-        /// <summary>
-        /// レイが外れた
-        /// </summary>
-        public void OutRayObject()
-        {
-        }
-
-        /// <summary>
-        /// 決定がされた
-        /// </summary>
-        public void SelectObject()
-        {
+            switch(itemType)
+            {
+                // オニギリを使用する
+                case ItemType.Onigiri:
+                    aPlayer.UseOnigiri();
+                    break;
+                // カトンを使用する
+                case ItemType.Katon:
+                    aPlayer.UseKaton();
+                    break;
+            }
         }
 
         #endregion

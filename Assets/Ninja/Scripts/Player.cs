@@ -38,6 +38,9 @@ namespace Kojima
         [SerializeField,Tooltip("最初に読み込まれる手のステート")]
         private HandStateType defaultStateType;
 
+        [SerializeField, Tooltip("アイテム選択ウィンドウのプレハブ")]
+        private GameObject selectItemPrefab;
+
         [SerializeField]
         private GameObject center;
 
@@ -70,6 +73,7 @@ namespace Kojima
         public Hand RightHand { get { return rightHand; } }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
+        public GameObject SelectItemPrefab { get { return selectItemPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
         #endregion
 
@@ -303,6 +307,7 @@ namespace Kojima
             if(Ando.PlaySceneManager.CheckEmpty())
             {
                 Ando.ItemData onigiri = Ando.PlaySceneManager.GetOnigiri();
+                Debug.Log(onigiri);
                 // オニギリが1個以上あるか
                 if(onigiri.possession > 0)
                 {
@@ -327,6 +332,7 @@ namespace Kojima
             if(Ando.PlaySceneManager.CheckEmpty())
             {
                 Ando.ItemData katon = Ando.PlaySceneManager.GetFireSkill();
+                Debug.Log(katon);
                 // アイテムが1個以上あるか
                 if(katon.possession > 0)
                 {
