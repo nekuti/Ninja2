@@ -6,7 +6,6 @@ namespace Ando
 {
     public class MenuSceneManager : MonoBehaviour
     {
-
         //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;
 
@@ -17,12 +16,20 @@ namespace Ando
         [SerializeField]
         private SceneName nextScene = SceneName.None;
 
+        //  シーン開始時のプレイヤーの初期位置
+        [SerializeField]
+        private GameObject startPos;
+
+        //  プレイヤーの元の位置
+        private static Vector3 oldPlayerPos;
+
         void Start()
         {
             Kojima.Player player = FindObjectOfType<Kojima.Player>();
 
             if (player != null)
             {
+                oldPlayerPos = player.transform.position;
                 player.ResetPosition(startPos.transform.position);
             }
             else
@@ -88,5 +95,21 @@ namespace Ando
             sceneTransitionManager.ChangeSceneSingle(nextScene);
         }
 
+        //  シーンを削除
+        public static void RevocationScene()
+        {
+            Kojima.Player player = FindObjectOfType<Kojima.Player>();
+
+            if (player != null)
+            {
+                player.ResetPosition(oldPlayerPos);
+            }
+            else
+            {
+                Debug.Log("プレイヤーがいません");
+            }
+
+            sceneTransitionManager.RevocationScene(SceneName.MenuScene);
+        }
     }
 }

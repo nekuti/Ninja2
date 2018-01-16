@@ -28,7 +28,7 @@ namespace Ando
                 }
                 else
                 {
-                    sceneTransitionManager.RevocationScene(SceneName.MenuScene);
+                    MenuSceneManager.RevocationScene();
                     pauseSwitch = false;
                 }
             }
