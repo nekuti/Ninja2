@@ -48,7 +48,7 @@ namespace Ando
 
         //  次に遷移するシーン
         [SerializeField]
-        private SceneName nextScene = SceneName.PlayScene;
+        private SceneName nextScene = SceneName.None;
 
         //  評価基準
         [SerializeField]
@@ -76,7 +76,7 @@ namespace Ando
         void Start()
         {
             //  フェードを解除する
-            SteamVR_Fade.Start(Color.clear, 1.0f);
+            SteamVR_FadeEx.Start(Color.clear, 1.0f);
             Debug.Log("フェードを解除");
 
             //  インスペクターで設定するもの以外を設定

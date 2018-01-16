@@ -74,9 +74,9 @@ namespace Ando
             {
                 //  フラグをtrueへ
                 fadeInflag = true;
-
+                
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(fadeInColor, fadeInTime);
+                SteamVR_FadeEx.Start(fadeInColor, fadeInTime);
                 Debug.Log("フェードを開始");
             }
         }

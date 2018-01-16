@@ -27,8 +27,6 @@ namespace Ando
         LoadStart,
         LoadComplete,
         Run,
-        GameClear,
-        GameOver,
     }
 
     public class PlaySceneManager : SingletonMonoBehaviour<PlaySceneManager>
@@ -117,7 +115,7 @@ namespace Ando
             {
                 //  ステージのロードが完了したか確認
                 if (SceneManager.GetSceneByName(stageList[nowStageNum].IsName().ToString()) != null)
-                {                    
+                {                      
                     //  ステートをロード完了に変更
                     stageState = StageState.LoadComplete;
 
@@ -157,124 +155,57 @@ namespace Ando
                     Debug.Log("プレイヤーに設定した値" + playData.startPos);
 
                     //  フェードを解除する
-                    SteamVR_Fade.Start(Color.clear, 1.0f);
+                    SteamVR_FadeEx.Start(Color.clear, 1.0f);
                     Debug.Log("フェードを解除");
                 }
             
             }
 
-            ////  ステージのロードが完了しているか
-            //if (stageState == StageState.LoadComplete)
-            //{
-            //    //  ステージがクリアしたとき
-            //    if (stageClearFlag)
-            //    {
-            //        stageClearFlag = false;
-            //        stageTransition = StageTransition.StageChange;
-            //    }
-            //    Debug.Log("ステートを" + stageTransition);
-            //}
-
-            //  シーンの遷移
-            switch (stageTransition)
+            //  ロードが完了したか
+            if(stageState == StageState.LoadComplete)
             {
-                case StageTransition.StageClear:
-                    //  ステージ変更
-                    StageChange();
-                    stageTransition = StageTransition.None;
-                    break;
-                case StageTransition.ResultGameClear:
-                    clearFloorLevel[resultContainer.floorLevel - 1] = true;
-                    //  リザルトを追加
-                    AddResult();
-                    stageTransition = StageTransition.None;
-                    break;
-                case StageTransition.ResultGameOver:
-                    //  リザルトを追加
-                    AddResult();
-                    stageTransition = StageTransition.None;
-                    break;
-                case StageTransition.StageChange:
+                //  ステートを実行中に変更
+                stageState = StageState.Run;
+            }
+
+            //  実行中か
+            if(stageState == StageState.Run)
+            {
+                //  シーンの遷移
+                switch (stageTransition)
+                {
+                    case StageTransition.StageClear:
                         //  ステージ変更
                         StageChange();
                         stageTransition = StageTransition.None;
-                    break;
-                case StageTransition.ReturnPlayBase:
-                    StageChange(0);
-                    break;
-                case StageTransition.TitleBack:
-                    //  タイトルへ戻る
-                    sceneTransitionManager.ChangeSceneSingle(nextScene);
-                    stageTransition = StageTransition.None;
-                    break;
-            }
-
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    a = !a;
-            //    LiteResultText.SetTextChangeFlag(a);
-            //}
-            ////  タイムスケールの設定
-            //if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
-            //{
-            //    Time.timeScale = 0.0f;
-            //}
-            //else
-            //{
-            //    Time.timeScale = 1.0f;
-            //}
-            //if (!sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
-            //{
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        sceneTransitionManager.ChangeSceneSingle(nextScene);
-            //    }
-            //    if (Input.GetMouseButtonDown(1))
-            //    {
-            //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = true;
-            //        sceneTransitionManager.ChangeSceneAdd(pauseScene);
-            //    }
-            //    if (Input.GetKeyDown(KeyCode.A))
-            //    {
-            //        StageChange();
-            //    }
-            //}
-            //else if (sceneTransitionManager.GetComponent<PlayTest>().PauseFlag)
-            //{
-            //    if (Input.GetMouseButtonDown(2))
-            //    {
-            //        sceneTransitionManager.GetComponent<PlayTest>().PauseFlag = false;
-            //    }
-            //}
-
-            ////  フェードの解除関数
-            //this.FadeRelease();
+                        break;
+                    case StageTransition.ResultGameClear:
+                        clearFloorLevel[resultContainer.floorLevel - 1] = true;
+                        //  リザルトを追加
+                        AddResult();
+                        stageTransition = StageTransition.None;
+                        break;
+                    case StageTransition.ResultGameOver:
+                        //  リザルトを追加
+                        AddResult();
+                        stageTransition = StageTransition.None;
+                        break;
+                    case StageTransition.StageChange:
+                        //  ステージ変更
+                        StageChange();
+                        stageTransition = StageTransition.None;
+                        break;
+                    case StageTransition.ReturnPlayBase:
+                        StageChange(0);
+                        break;
+                    case StageTransition.TitleBack:
+                        //  タイトルへ戻る
+                        sceneTransitionManager.ChangeSceneSingle(nextScene);
+                        stageTransition = StageTransition.None;
+                        break;
+                }
+            }           
         }
-
-        /// <summary>
-        /// フェードの解除を行う
-        /// </summary>
-        //private void FadeRelease()
-        //{
-        //    //  経過時間がフェードアウトの時間を超えたか
-        //    if (fadeElapsedTime < fadeOutTime)
-        //    {
-        //        //  経過時間を加算
-        //        fadeElapsedTime += Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        //  フェードアウトの時間が設定されているか
-        //        if (fadeOutTime > 0)
-        //        {
-        //            //  フェードを解除する
-        //            SteamVR_Fade.Start(Color.clear, fadeInTime);
-        //        }
-        //        //  使用した変数を初期化
-        //        fadeOutTime = 0.0f;
-        //        fadeElapsedTime = 0.0f;
-        //    }
-        //}
 
         /// <summary>
         /// ステージを追加する

@@ -29,8 +29,11 @@ namespace Ando
 
         void Update()
         {
-            //  武器レベルを表示
-            weaponLevel.text = GetWeaponLevel() + "LV";
+            if (GetWeaponLevel() < PlaySceneManager.GetWeaponStrengthenMaxLevel())
+            {
+                //  武器レベルを表示
+                weaponLevel.text = GetWeaponLevel() + "LV";
+            }
         }
 
         /// <summary>

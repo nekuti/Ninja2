@@ -36,7 +36,7 @@ namespace Ando
 
         // Update is called once per frame
         void Update()
-        {            
+        {
             foreach (Kite kete in kites)
             {
                 //  シーン遷移のステートに情報が入っている場合はループを抜ける
