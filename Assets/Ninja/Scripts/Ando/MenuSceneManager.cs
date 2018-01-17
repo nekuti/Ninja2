@@ -20,6 +20,10 @@ namespace Ando
         [SerializeField]
         private GameObject startPos;
 
+        //  メニューウィンドウ
+        [SerializeField]
+        private GameObject menuWindow;
+
         //　選択可能な拠点に戻るボタン
         [SerializeField]
         private GameObject selectReturnButton;
@@ -53,6 +57,9 @@ namespace Ando
                     oldHandState = Kojima.HandStateType.Play;
                 }
                 Debug.Log("保存されたHandState" + oldHandState);
+
+                //  ウィンドウの位置を変更
+                menuWindow.transform.rotation = player.transform.rotation;
 
                 //  座標を更新
                 player.ResetPosition(startPos.transform.position);
@@ -123,6 +130,8 @@ namespace Ando
             {
                 Debug.Log("プレイシーンマネージャがありません");
             }
+
+            Menu.MenuEnd();
         }
 
         /// <summary>
@@ -134,7 +143,7 @@ namespace Ando
 
             Debug.Log("遷移シーンを" + nextScene + "に設定");
 
-            sceneTransitionManager.ChangeSceneSingle(nextScene);
+            Menu.MenuEnd();
         }
 
         //  シーンを削除

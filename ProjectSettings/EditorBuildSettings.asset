@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/GameScene/ResultScene.unity
     guid: e3022c360b4e55a48a0edbd1846fdb5f
   - enabled: 1
-    path: Assets/Ninja/Scenes/GameScene/PauseScene.unity
+    path: Assets/Ninja/Scenes/GameScene/MenuScene.unity
     guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage001.unity

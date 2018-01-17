@@ -15,7 +15,7 @@ public static class SteamVR_FadeEx
         run = true;
     }
 
-    public static bool RunCheck(this SteamVR_Fade self)
+    public static bool RunCheck()
     {
         if (run)
         {
