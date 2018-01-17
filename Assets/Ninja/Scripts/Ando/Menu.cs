@@ -25,11 +25,13 @@ namespace Ando
                 {
                     sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene,false);
                     pauseSwitch = true;
+                    Debug.Log("メニューへ" + pauseSwitch);
                 }
                 else
                 {
                     MenuSceneManager.RevocationScene();
                     pauseSwitch = false;
+                    Debug.Log("メニュー解除" + pauseSwitch);
                 }
             }
         }

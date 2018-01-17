@@ -6847,9 +6847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97f53ce3c6f70b428e155f3a753d14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementAmount: 1.8
-  movementAmount: 0.02
-  movementDirection: 1
 --- !u!114 &114459995344757980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6861,9 +6858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97f53ce3c6f70b428e155f3a753d14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementAmount: 1.8
-  movementAmount: 0.02
-  movementDirection: 0
 --- !u!114 &114463901086793152
 MonoBehaviour:
   m_ObjectHideFlags: 1

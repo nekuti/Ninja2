@@ -20,21 +20,62 @@ namespace Ando
         [SerializeField]
         private GameObject startPos;
 
+        //　選択可能な拠点に戻るボタン
+        [SerializeField]
+        private GameObject selectReturnButton;
+        //  選択不可な拠点に戻るボタン
+        [SerializeField]
+        private GameObject noSelectReturnButton;
+
         //  プレイヤーの元の位置
         private static Vector3 oldPlayerPos;
+        //  プレイヤーの元のHandState
+        private static Kojima.HandStateType oldHandState;
 
         void Start()
         {
+            //  プレイヤーを検索
             Kojima.Player player = FindObjectOfType<Kojima.Player>();
 
             if (player != null)
             {
+                //  プレイヤーの座標を保存
                 oldPlayerPos = player.transform.position;
+                Debug.Log("保存された座標" + oldPlayerPos);
+
+                //  ハンドステートを保存
+                if (player.RightHand.IsCurrentState(Kojima.HandStateType.MenuSelect))
+                {
+                    oldHandState = Kojima.HandStateType.MenuSelect;
+                }
+                else
+                {
+                    oldHandState = Kojima.HandStateType.Play;
+                }
+                Debug.Log("保存されたHandState" + oldHandState);
+
+                //  座標を更新
                 player.ResetPosition(startPos.transform.position);
+                Debug.Log("プレイヤー座標" + startPos.transform.position + "に設定");
+                //  HandStateを更新
+                player.ChangeHandState(Kojima.HandStateType.MenuSelect);
+                Debug.Log("HandStateをMenuSelectへ");
             }
             else
             {
                 Debug.Log("プレイヤーがいません");
+            }
+
+            //  プレイシーンマネージャがあるかで選択ボタンを変更
+            if(playSceneManager == null)
+            {
+                selectReturnButton.SetActive(false);
+                noSelectReturnButton.SetActive(true);
+            }
+            else
+            {
+                selectReturnButton.SetActive(true);
+                noSelectReturnButton.SetActive(false);
             }
         }
 
@@ -61,6 +102,7 @@ namespace Ando
             if (aPlaySceneManager != null)
             {
                 playSceneManager = aPlaySceneManager;
+                Debug.Log("プレイシーンマネージャを設定しました");
             }
             else
             {
@@ -99,10 +141,11 @@ namespace Ando
         public static void RevocationScene()
         {
             Kojima.Player player = FindObjectOfType<Kojima.Player>();
-
+            
             if (player != null)
             {
                 player.ResetPosition(oldPlayerPos);
+                player.ChangeHandState(oldHandState);
             }
             else
             {

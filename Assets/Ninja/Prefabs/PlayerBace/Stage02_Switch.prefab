@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 1544097286584860}
+  myFloorLevel: 4
 --- !u!198 &198005651280495460
 ParticleSystem:
   m_ObjectHideFlags: 1
