@@ -32,6 +32,9 @@ namespace Ando
         void Start()
         {
             transitionState = KiteType.None;
+
+            //  画面の色を初期化するためにClearでフェードをかける
+            SteamVR_FadeEx.Start(Color.clear, 1);
         }
 
         // Update is called once per frame

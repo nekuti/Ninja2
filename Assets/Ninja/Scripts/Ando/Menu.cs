@@ -20,8 +20,8 @@ namespace Ando
         {
             if (!SteamVR_FadeEx.RunCheck())
             {
-                if (Kojima.InputDevice.Press(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
-                Kojima.InputDevice.Press(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
+                if (Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
+                Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
                 {
                     if (!pauseSwitch)
                     {
