@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR;
-using UnityEngine.UI;
-
-using Kojima;
 
 namespace Kondo
 {
@@ -70,101 +66,96 @@ namespace Kondo
         protected override void SequenceChange()
         {
 
-            Debug.Log("ワイヤーチュートリアル　SquenceChange()");
+            Debug.Log("現在の順序 : " + currentSequence);
             switch (currentSequence)
             {
                 case TutorialSequence.Wire01:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.SetEnabledAllTips(false);
-                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
-                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
+                    {
+                        tManager.SetEnabledAllTips(false);
+                        tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
+                        tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
-                    tManager.ChangeMenuSelect();
-                   // tManager.ShowNotice();
-                    tManager.ShowDisplay(displeyPos[0]);
+                        tManager.ChangeMenuSelect();
+                        // tManager.ShowNotice();
+                        tManager.ShowDisplay(displeyPos[0]);
 
-                    break;
-
+                        break;
+                    }
 
                 case TutorialSequence.Wire02:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ShowDisplay(displeyPos[0]);
-                    break;
-
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
 
                 case TutorialSequence.Wire03:
-                    Debug.Log("現在の順序 : " + currentSequence);
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        //tManager.ShowNotice();
 
-                    tManager.ShowDisplay(displeyPos[0]);
-                    //tManager.ShowNotice();
+                        tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
+                        tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
 
-                    tManager.SetEnabledTips(true, HandType.Left, PartsType.Trigger);
-                    tManager.SetEnabledTips(true, HandType.Right, PartsType.Trigger);
+                        tManager.SetTipsText("ワイヤー", HandType.Left, PartsType.Trigger);
+                        tManager.SetTipsText("ワイヤー", HandType.Right, PartsType.Trigger);
 
-                    tManager.SetTipsText("ワイヤー", HandType.Left, PartsType.Trigger);
-                    tManager.SetTipsText("ワイヤー", HandType.Right, PartsType.Trigger);
-
-                    //tManager.RemoveDisplay();
-                    break;
-
+                        //tManager.RemoveDisplay();
+                        break;
+                    }
 
                 case TutorialSequence.Wire04:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ShowDisplay(displeyPos[0]);
-                    base.NextElementChanged();
-                    break;
-
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        base.NextElementChanged();
+                        break;
+                    }
 
                 case TutorialSequence.Wire05:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ChangePlay();
-                    tManager.HideSelectButton(false);
-                    tManager.ShowDisplay(displeyPos[0]);
-                   // tManager.ShowNotice();
+                    {
+                        tManager.ChangePlay();
+                        tManager.HideSelectButton(false);
+                        tManager.ShowDisplay(displeyPos[0]);
+                        // tManager.ShowNotice();
 
-                    break;
-
-
+                        break;
+                    }
 
                 case TutorialSequence.Wire06:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ChangeMenuSelect();
-                    tManager.ShowDisplay(displeyPos[0]);
-                    tManager.HideSelectButton(true);
+                    {
+                        tManager.ChangeMenuSelect();
+                        tManager.ShowDisplay(displeyPos[0]);
+                        tManager.HideSelectButton(true);
 
-                    break;
-
-
-
+                        break;
+                    }
 
                 case TutorialSequence.Wire07:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ChangePlay();
-                    tManager.RemoveDisplay(false);
-                    moveWall[0].GetComponentInChildren<WallMove>().StartMove();
-                    break;
-
-
+                    {
+                        tManager.ChangePlay();
+                        tManager.RemoveDisplay(false);
+                        moveWall[0].GetComponentInChildren<WallMove>().StartMove();
+                        break;
+                    }
 
                 case TutorialSequence.Wire08:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.ChangeMenuSelect();
-                    base.DestoroyCurrentElement();
-                    tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
-                    tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
-                    tManager.ShowDisplay(displeyPos[1]);
+                    {
+                        tManager.ChangeMenuSelect();
+                        base.DestoroyCurrentElement();
+                        tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
+                        tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
+                        tManager.ShowDisplay(displeyPos[1]);
 
-                    break;
-
-
+                        break;
+                    }
 
                 case TutorialSequence.WireEnd:
-                    Debug.Log("現在の順序 : " + currentSequence);
-                    tManager.RemoveDisplay(false);
-                    tManager.DeleteSelectEvent();
-                    tManager.ResetPlayerTransfome();
-                    tManager.NextSceneRequest();
-                    break;
+                    {
+                        tManager.DeleteSelectEvent();
+                        tManager.ResetPlayerTransfome();
+                        tManager.NextSceneRequest();
+                        break;
+                    }
+
             }
         }
             

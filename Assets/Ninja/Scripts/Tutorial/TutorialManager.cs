@@ -16,7 +16,7 @@ namespace Kondo
     {
         WireTutorial,
         AttackTutorial,
-        BattalTutorial,
+        ItemTutorial,
         GoToBase,
     }
 
@@ -178,21 +178,27 @@ namespace Kondo
                 case NextScene.AttackTutorial:
                     {
                         // アタックシーン
+                        ResetPlayerTransfome();
                         // アタックチュートリアルを重ねる
                         SceneManager.LoadSceneAsync("AttackTutorial", LoadSceneMode.Additive);
                         Debug.Log("アタックシーン");
                         break;
                     }
-                case NextScene.BattalTutorial:
+                case NextScene.ItemTutorial:
                     {
-                        // バトル
-                        // ベータ用
+                        // アイテムチュートリアル
+                        // アイテムチュートリアルを重ねる
+                        SceneManager.LoadSceneAsync("ItemTutorial", LoadSceneMode.Additive);
+                        break;
+                    }
+                case NextScene.GoToBase:
+                    {
+                        RemoveDisplay(false);
                         SceneManager.LoadScene("PlayScene");
                         Debug.Log("ベースシーン");
                         break;
                     }
-                case NextScene.GoToBase:
-                    break;
+
             }
         }
 

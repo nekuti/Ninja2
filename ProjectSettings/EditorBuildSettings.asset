@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/AttackTutorial.unity
     guid: f13db4ac2b273944ab93a6050ed557da
   - enabled: 1
+    path: Assets/Ninja/Scenes/ItemTutorial.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
     path: Assets/Ninja/Scenes/GameScene/PlayScene.unity
     guid: 94e64d87948544242b56aaf4b0ed14bd
   - enabled: 1
