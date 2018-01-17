@@ -35,7 +35,7 @@ namespace Kojima
         public Attack attackPrefab;
 
         [SerializeField, Tooltip("アイテムのプレハブ")]
-        public GameObject itemPrefab;
+        public ItemBase itemPrefab;
 
 
         private static float flameCount = 0;
@@ -67,7 +67,7 @@ namespace Kojima
             }
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
-        public GameObject ItemPrefab{ get {return itemPrefab; } }
+        public ItemBase ItemPrefab{ get {return itemPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
         public bool CollisioDecision { get { return collisionDecision; } }
 
@@ -253,13 +253,14 @@ namespace Kojima
 
         public void DropItem(Vector3 aPos)
         {
-            Instantiate(itemPrefab, aPos, Quaternion.identity);
+            ItemBase item = GameObject.Instantiate<ItemBase>(itemPrefab, aPos, Quaternion.identity);
+            item.SetItemCount(Random.Range(enemyData.DropMoneyMin,enemyData.DropMoneyMax));
         }
 
         public bool FlameWaitTime(float flame)
         {
             if (flameCount > flame)
-            {
+            {   
                 flameCount = 0;
                 return true;
             }

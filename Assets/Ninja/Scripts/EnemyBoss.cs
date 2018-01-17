@@ -9,11 +9,20 @@ public enum EnemyBossStateType
     StandBy,
     Wait,
     Choose,
+    //Boss1
     JumpAction,
     SummonAction,
     MoveAttackAction,
     MoveBackAction,
     RollAttackAction,
+    //Boss2
+    B2NearAction,
+    B2FarAttackAction,
+    B2NearAttackAction,
+    //Boss3
+    B3NearAction,
+    B3FarAttackAction,
+    B3NearAttackAction,
     Damage,
     Die,
 }
@@ -96,11 +105,21 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
         stateList.Add(enemyData.EnemyType.CreateBossStandByState(this));
         stateList.Add(enemyData.EnemyType.CreateBossWaitState(this));
         stateList.Add(enemyData.EnemyType.CreateBossChooseState(this));
+        //Boss1
         stateList.Add(enemyData.EnemyType.CreateBossJumpActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBossSummonActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBossMoveAttackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBossMoveBackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBossRollAttackAction(this));
+        //Boss2
+        stateList.Add(enemyData.EnemyType.CreateBoss2NearActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss2FarAttackActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss2NearAttackActionState(this));
+        //Boss3
+        stateList.Add(enemyData.EnemyType.CreateBoss3NearActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3FarAttackActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3NearAttackActionState(this));
+
         stateList.Add(enemyData.EnemyType.CreateBossDamageState(this));
         stateList.Add(enemyData.EnemyType.CreateBossDieState(this));
     }
@@ -201,7 +220,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
     {
         return MoveTo(aPos, enemyData.AttackMoveSpeed);
     }
-   
+
     /// <summary>
     /// 指定座標を向くように回転させる
     /// </summary>
@@ -225,6 +244,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
 
 
     }
+
 
     /// <summary>
     /// 正面に攻撃を生成

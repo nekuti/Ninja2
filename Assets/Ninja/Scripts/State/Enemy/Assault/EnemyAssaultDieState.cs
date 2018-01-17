@@ -12,7 +12,7 @@ namespace Kojima
     public class EnemyAssaultDieState : State<Enemy>
     {
         #region メンバ変数
-        GameObject Item;
+        ItemBase Item;
         #endregion
 
         #region メソッド
@@ -36,8 +36,6 @@ namespace Kojima
 
             owner.DropItem(owner.transform.position);
 
-            GameObject.Destroy(owner.gameObject);
-
         }
 
         /// <summary>
@@ -45,6 +43,7 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
+            GameObject.Destroy(owner.gameObject);
         }
 
         /// <summary>

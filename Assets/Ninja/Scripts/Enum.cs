@@ -30,6 +30,8 @@ public enum EnemyType
     Assault,
     Sniper,
     Boss,
+    Boss2,
+    Boss3,
 }
 
 /// <summary>

@@ -20,6 +20,10 @@ static class EnemyTypeBoss
         {
             case EnemyType.Boss:
                 return new EnemyBossStandByState(aOwner);
+            case EnemyType.Boss2:
+                return new EnemyBoss2StandByState(aOwner);
+            case EnemyType.Boss3:
+                return new EnemyBoss3StandByState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
@@ -31,6 +35,10 @@ static class EnemyTypeBoss
         {
             case EnemyType.Boss:
                 return new EnemyBossWaitState(aOwner);
+            case EnemyType.Boss2:
+                return new EnemyBoss2WaitState(aOwner);
+            case EnemyType.Boss3:
+                return new EnemyBoss3WaitState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
@@ -42,6 +50,10 @@ static class EnemyTypeBoss
         {
             case EnemyType.Boss:
                 return new EnemyBossChooseState(aOwner);
+            case EnemyType.Boss2:
+                return new EnemyBoss2ChooseState(aOwner);
+            case EnemyType.Boss3:
+                return new EnemyBoss3ChooseState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
@@ -86,7 +98,7 @@ static class EnemyTypeBoss
         switch (aSelf)
         {
             case EnemyType.Boss:
-                return new EnemyBossBackMoveAction(aOwner);
+                return new EnemyBossBackMoveActionState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
@@ -98,12 +110,82 @@ static class EnemyTypeBoss
         switch (aSelf)
         {
             case EnemyType.Boss:
-                return new EnemyBossRollAttackAction(aOwner);
+                return new EnemyBossRollAttackActionState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
         }
     }
+    public static State<EnemyBoss> CreateBoss2NearActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss2:
+                return new EnemyBoss2NearActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+    public static State<EnemyBoss> CreateBoss2FarAttackActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss2:
+                return new EnemyBoss2FarAttackActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+    public static State<EnemyBoss> CreateBoss2NearAttackActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss2:
+                return new EnemyBoss2NearAttackActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+
+    public static State<EnemyBoss> CreateBoss3NearActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss3:
+                return new EnemyBoss3NearActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+    public static State<EnemyBoss> CreateBoss3FarAttackActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss3:
+                return new EnemyBoss3FarAttackActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+    public static State<EnemyBoss> CreateBoss3NearAttackActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss3:
+                return new EnemyBoss3NearAttackActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+
+
+
 
     public static State<EnemyBoss> CreateBossDamageState(this EnemyType aSelf, EnemyBoss aOwner)
     {
