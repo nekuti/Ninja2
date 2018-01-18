@@ -18,11 +18,12 @@ namespace Ando
         // Update is called once per frame
         void Update()
         {
-            if (!SteamVR_FadeEx.RunCheck())
+            if (Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
+            Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
             {
-                if (Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
-                Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
+                if (!SteamVR_FadeEx.RunCheck())
                 {
+
                     if (!pauseSwitch)
                     {
                         sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene, false);

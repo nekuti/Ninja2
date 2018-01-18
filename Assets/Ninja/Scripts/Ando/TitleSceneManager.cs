@@ -28,6 +28,14 @@ namespace Ando
         //  シーン遷移のステート
         private KiteType transitionState = KiteType.None;
 
+        //  プレイヤーのGameObject
+        [SerializeField]
+        private Kojima.Player player;
+
+        //  スタート位置
+        [SerializeField]
+        private GameObject startPos;
+
         // Use this for initialization
         void Start()
         {
@@ -35,6 +43,12 @@ namespace Ando
 
             //  画面の色を初期化するためにClearでフェードをかける
             SteamVR_FadeEx.Start(Color.clear, 1);
+
+            if (player != null && startPos != null)
+            {
+                //  プレイヤーの初期位置を設定
+                player.ResetPosition(startPos.transform.position);
+            }
         }
 
         // Update is called once per frame
