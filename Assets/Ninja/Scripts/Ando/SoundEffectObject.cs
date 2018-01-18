@@ -39,5 +39,13 @@ namespace Ando
             SESource.PlayOneShot(aSE);
             Debug.Log("SEの音源に" + aSE.name + "を設定しました");
         }
+
+        /// <summary>
+        /// 再生を停止する
+        /// </summary>
+        public void SoundStop()
+        {
+            SESource.Stop();
+        }
     }
 }

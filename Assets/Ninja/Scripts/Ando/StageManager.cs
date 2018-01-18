@@ -41,6 +41,12 @@ namespace Ando
             fadeElapsedTime = 0.0f;
         }
 
+        protected void Start()
+        {
+            //  ステージBGMを再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_NOMALSTAGE01);
+        }
+
         protected void Update()
         {
             if (goalObj != null)

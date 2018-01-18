@@ -23,7 +23,6 @@ namespace Ando
             {
                 if (!SteamVR_FadeEx.RunCheck())
                 {
-
                     if (!pauseSwitch)
                     {
                         sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene, false);

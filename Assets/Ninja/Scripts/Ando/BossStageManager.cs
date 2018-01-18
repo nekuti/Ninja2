@@ -10,8 +10,11 @@ namespace Ando {
 
         private float time = 0.0f;
 
-        void Start() {
+        new void Start() {
             time = 0;
+
+            //  ステージBGMを再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_BOSSSTAGE01);
         }
 
         new void Update()

@@ -46,9 +46,6 @@ namespace Ando
             //  変数を初期化
             time = 0.0f;
             moveValue = 0.0f;
-
-            AudioManager.Instance.PlaySE("SE01", gameObject.transform.position);
-
         }
 
         // Update is called once per frame

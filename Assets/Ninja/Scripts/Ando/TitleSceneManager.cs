@@ -49,6 +49,8 @@ namespace Ando
                 //  プレイヤーの初期位置を設定
                 player.ResetPosition(startPos.transform.position);
             }
+
+            AudioManager.Instance.PlayBGM(AudioName.BGM_NOMALSTAGE01);
         }
 
         // Update is called once per frame

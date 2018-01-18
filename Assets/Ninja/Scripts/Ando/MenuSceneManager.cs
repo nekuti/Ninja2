@@ -67,6 +67,9 @@ namespace Ando
                 //  HandStateを更新
                 player.ChangeHandState(Kojima.HandStateType.MenuSelect);
                 Debug.Log("HandStateをMenuSelectへ");
+
+                //  選択音を再生
+                AudioManager.Instance.PlaySE(AudioName.SE_DECISION02, player.transform.position);
             }
             else
             {
@@ -155,6 +158,9 @@ namespace Ando
             {
                 player.ResetPosition(oldPlayerPos);
                 player.ChangeHandState(oldHandState);
+
+                //  キャンセル音を再生
+                AudioManager.Instance.PlaySE(AudioName.SE_RELEASE01, player.transform.position);
             }
             else
             {

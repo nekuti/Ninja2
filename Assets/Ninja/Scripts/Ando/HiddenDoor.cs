@@ -77,6 +77,9 @@ namespace Ando
             {
                 //  ステートを実行中に変更
                 animeFlag = DoorAnimeState.Run;
+
+                //  ゲームの開始音を再生
+                AudioManager.Instance.PlaySE(AudioName.SE_START01, this.gameObject.transform.position);
             }
 
             if (Input.GetKeyDown(KeyCode.A))

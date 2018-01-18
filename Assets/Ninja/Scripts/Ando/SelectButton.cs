@@ -25,7 +25,7 @@ namespace Ando
         /// </summary>
         public void ParticleStart()
         {
-            if(this == null)
+            if (this == null)
             {
                 return;
             }
