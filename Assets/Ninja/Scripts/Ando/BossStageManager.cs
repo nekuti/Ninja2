@@ -10,8 +10,11 @@ namespace Ando {
 
         private float time = 0.0f;
 
-        void Start() {
+        new void Start() {
             time = 0;
+
+            //  ステージBGMを再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_BOSSSTAGE01);
         }
 
         new void Update()
@@ -28,6 +31,11 @@ namespace Ando {
             else
             {
                 Debug.Log(boss.Hp);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
             }
         }
     }

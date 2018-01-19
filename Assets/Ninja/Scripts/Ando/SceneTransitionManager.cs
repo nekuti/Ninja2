@@ -76,7 +76,7 @@ namespace Ando
                 }
 
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+                SteamVR_FadeEx.Start(aFadeColor, aFadeTime);
 
                 //  フェイドの時間を保存
                 fadeOutTime = aFadeTime;
@@ -122,7 +122,7 @@ namespace Ando
                 }
 
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+                SteamVR_FadeEx.Start(aFadeColor, aFadeTime);
 
                 //  フェイドの時間を保存
                 fadeOutTime = aFadeTime;
@@ -165,7 +165,7 @@ namespace Ando
                 }
 
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+                SteamVR_FadeEx.Start(aFadeColor, aFadeTime);
 
                 //  フェイドの時間を保存
                 fadeOutTime = aFadeTime;
@@ -202,7 +202,7 @@ namespace Ando
                 }
 
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(aFadeColor, aFadeTime);
+                SteamVR_FadeEx.Start(aFadeColor, aFadeTime);
 
                 //  フェイドの時間を保存
                 fadeOutTime = aFadeTime;
@@ -318,7 +318,7 @@ namespace Ando
                 if (fadeOutTime > 0)
                 {
                     //  フェードを解除する
-                    SteamVR_Fade.Start(Color.clear, fadeInTime);
+                    SteamVR_FadeEx.Start(Color.clear, fadeInTime);
                 }
                 //  使用した変数を初期化
                 fadeOutTime = 0.0f;

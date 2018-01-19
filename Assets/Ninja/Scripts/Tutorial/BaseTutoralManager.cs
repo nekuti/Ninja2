@@ -56,7 +56,6 @@ namespace Kondo
                     SteamVR_Fade.Start(Color.clear, 1f);
                     return true;
                 }
-
             }
 
             return false;

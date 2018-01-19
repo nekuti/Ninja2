@@ -33,7 +33,7 @@ namespace Ando
             //  プレイヤーの操作をプレイ用に切り替え
             PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
 
-            //  ステージの繊維をNoneに設定
+            //  ステージの遷移をNoneに設定
             PlaySceneManager.SetStageTransition(StageTransition.None);
 
             //  インスペクターで設定しない変数の初期化
@@ -41,8 +41,19 @@ namespace Ando
             fadeElapsedTime = 0.0f;
         }
 
+        protected void Start()
+        {
+            //  ステージBGMを再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_NOMALSTAGE01);
+        }
+
         protected void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                FadeStart();
+            }
+
             if (goalObj != null)
             {           
                 //  ゴールした場合
@@ -74,9 +85,9 @@ namespace Ando
             {
                 //  フラグをtrueへ
                 fadeInflag = true;
-
+                
                 //  指定色、指定時間でフェード開始
-                SteamVR_Fade.Start(fadeInColor, fadeInTime);
+                SteamVR_FadeEx.Start(fadeInColor, fadeInTime);
                 Debug.Log("フェードを開始");
             }
         }

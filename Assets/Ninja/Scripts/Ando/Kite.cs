@@ -68,6 +68,9 @@ namespace Ando
             }
 
             hit = true;
+
+            //  選択音を再生する
+            AudioManager.Instance.PlaySE(AudioName.SE_DECISION02, this.gameObject.transform.position);
         }
     }
 }

@@ -36,10 +36,20 @@ namespace Ando
 
         private void Update()
         {
-            //  変動する値を更新
             nowWeaponLevel.text = weapon.GetWeaponLevel().ToString();
-            newWeaponLevel.text = (weapon.GetWeaponLevel() + 1).ToString();
-            WeaponStrengthenPrice.text = "費用 " + weapon.GetWeponStrengthenPrice() + "両";
+
+            //  武器の強化が最大まで行われているか確認
+            if (weapon.GetWeaponLevel() < PlaySceneManager.GetWeaponStrengthenMaxLevel())
+            {
+                //  変動する値を更新
+                newWeaponLevel.text = (weapon.GetWeaponLevel() + 1).ToString();
+                WeaponStrengthenPrice.text = "費用 " + weapon.GetWeponStrengthenPrice() + "両";
+            }
+            else
+            {
+                newWeaponLevel.text = "-";
+                WeaponStrengthenPrice.text = "費用 " + "0" + "両";
+            }
         }
 
 

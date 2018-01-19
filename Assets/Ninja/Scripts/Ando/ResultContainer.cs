@@ -13,8 +13,8 @@ namespace Ando
         public Timer playTimer;
         public int totalGetMoneyValue;
         public int getMoneyValue;
-        public int totalLostEnergyValue;
-        public int lostEnergyValue;
+        public float totalLostEnergyValue;
+        public float lostEnergyValue;
         public int killEnemyValue;
         public int useItemValue;
         public List<int> stageEvaluation;
@@ -106,17 +106,31 @@ namespace Ando
             playTimer.TimerReset();
         }   
 
+
         /// <summary>
-        /// 稼いだ金額を加算
+        /// 稼いだ金額を初期化
         /// </summary>
+        /// <param name="aNowMoney"></param>
         public void InitMoneyValue(int aNowMoney)
         {
             getMoneyValue = -aNowMoney;
         }
 
+        /// <summary>
+        /// 稼いだ金額を加算
+        /// </summary>
         public void SetMoneyValue(int aNowMoney)
         {
             getMoneyValue += aNowMoney;
+        }
+
+        /// <summary>
+        /// 消費エネルギーを設定する
+        /// </summary>
+        /// <param name="aAddValue"></param>
+        public void SetLostEnergy(float aLostEnergy)
+        {
+            lostEnergyValue = aLostEnergy;
         }
 
         /// <summary>
