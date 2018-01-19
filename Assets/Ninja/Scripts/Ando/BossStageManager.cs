@@ -32,6 +32,11 @@ namespace Ando {
             {
                 Debug.Log(boss.Hp);
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
+            }
         }
     }
 }

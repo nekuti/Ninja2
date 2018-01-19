@@ -56,6 +56,21 @@ namespace Ando
         // Update is called once per frame
         void Update()
         {
+            /* デバック処理 */
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                transitionState = KiteType.Start;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                transitionState = KiteType.Tutorial;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                transitionState = KiteType.End;
+            }
+            /* ここまで */
+
             foreach (Kite kete in kites)
             {
                 //  シーン遷移のステートに情報が入っている場合はループを抜ける
@@ -76,8 +91,7 @@ namespace Ando
             if (transitionState != KiteType.None)
             {
                 sceneTransitionManager.ChangeSceneSingle(nextScene[(int)transitionState]);
-            }
-                            
+            }  
         }
 
         /// <summary>

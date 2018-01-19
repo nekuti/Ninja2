@@ -82,16 +82,16 @@ namespace Ando
                 AudioManager.Instance.PlaySE(AudioName.SE_START01, this.gameObject.transform.position);
             }
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 particleSystem.Play();
             }
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 particleSystem.Stop();
                 particleSystem.Clear();
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 particleSystem.Stop();
                 animeFlag = DoorAnimeState.Start;

@@ -14,6 +14,8 @@ namespace Ando
     {
         None,
         StageClear,
+        ResultStart,
+        ResultRun,
         ResultGameClear,
         ResultGameOver,
         StageChange,
@@ -85,6 +87,9 @@ namespace Ando
         //  ステージが存在しているか
         private bool stageExist = false;
 
+        //  消費エネルギー(ゲーム終了時に保存しなくてもいい情報なのでこっち)
+        private static float lostEnergy = 0f;
+
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -107,6 +112,9 @@ namespace Ando
 
             //  最初のステージを読み込む
             StageAdd(/*false*/);
+
+            //  消費エネルギーを0に
+            lostEnergy = 0f;
         }
 
         private void Update()
@@ -132,8 +140,10 @@ namespace Ando
                             resultContainer.InitMoneyValue(playData.possessionMoney);
                             //  プレイする階層を設定
                             resultContainer.SetFloorLevel(i);
-
                             Debug.Log("階層を" + i + "に設定");
+
+                            //  消費エネルギーを0に
+                            lostEnergy = 0f;
 
                             //  計測を開始したのでループを出る
                             break;
@@ -157,8 +167,7 @@ namespace Ando
                     //  フェードを解除する
                     SteamVR_FadeEx.Start(Color.clear, 1.0f);
                     Debug.Log("フェードを解除");
-                }
-            
+                }          
             }
 
             //  ロードが完了したか
@@ -178,17 +187,33 @@ namespace Ando
                         //  ステージ変更
                         StageChange();
                         stageTransition = StageTransition.None;
+                        Debug.Log("ステージクリア");
+
+                        break;
+                    case StageTransition.ResultStart:
+                        //  プレイヤーの座標をステージの開始位置へ
+                        playData.player.ResetPosition(playData.startPos);
+                        Debug.Log("プレイヤーに設定した値" + playData.startPos);
+
+                        stageTransition = StageTransition.ResultRun;
+                        break;
+                    case StageTransition.ResultRun:
                         break;
                     case StageTransition.ResultGameClear:
+                        //  クリアしたフロアのフラグをtrueへ
                         clearFloorLevel[resultContainer.floorLevel - 1] = true;
                         //  リザルトを追加
                         AddResult();
-                        stageTransition = StageTransition.None;
+                        stageTransition = StageTransition.ResultStart;
+                        Debug.Log("クリアリザルトへ");
+
                         break;
                     case StageTransition.ResultGameOver:
                         //  リザルトを追加
                         AddResult();
-                        stageTransition = StageTransition.None;
+                        stageTransition = StageTransition.ResultStart;
+                        Debug.Log("ゲームオーバーリザルトへ");
+
                         break;
                     case StageTransition.StageChange:
                         //  ステージ変更
@@ -197,14 +222,18 @@ namespace Ando
                         break;
                     case StageTransition.ReturnPlayBase:
                         StageChange(0);
+                        Debug.Log("拠点に戻ります");
+
                         break;
                     case StageTransition.TitleBack:
                         //  タイトルへ戻る
                         sceneTransitionManager.ChangeSceneSingle(nextScene);
                         stageTransition = StageTransition.None;
+                        Debug.Log("タイトルに戻ります");
+
                         break;
                 }
-            }           
+            }    
         }
 
         /// <summary>
@@ -317,7 +346,7 @@ namespace Ando
             //  リザルトコンテナに値を設定
             resultContainer.PlayTimerStop();
             resultContainer.SetMoneyValue(playData.possessionMoney);
-            resultContainer.lostEnergyValue = 1;
+            resultContainer.lostEnergyValue = lostEnergy;
 
             //  リザルトがすでにあるか確認
             if (!sceneTransitionManager.SearchScene(SceneName.ResultScene))
@@ -430,6 +459,17 @@ namespace Ando
             {
                 Debug.Log("所持金が0なのに減算されました。");
             }
+        }
+
+        /// <summary>
+        /// 消費エネルギーを加算する
+        /// </summary>
+        /// <param name="anAddValue"></param>
+        public static void AddLostEnergy(float anAddValue)
+        {
+            Debug.Log("現在の消費エネルギー:" + lostEnergy +  "に" + anAddValue + "を加算");
+
+            lostEnergy += anAddValue;
         }
 
         /// <summary>

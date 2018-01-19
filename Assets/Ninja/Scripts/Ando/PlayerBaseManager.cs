@@ -14,12 +14,11 @@ namespace Ando
         private List<GameObject> stageSwitches = new List<GameObject>();
 
         // Use this for initialization
-        void Start()
+        new void Start()
         {
             //  プレイヤーの操作をメニュー用に切り替え
             PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
 
-            //ray = new Ray(PlaySceneManager.GetPlayer().position, PlaySceneManager.GetPlayer().transform.rotation);
             foreach (GameObject stageSwitch in stageSwitches)
             {
                 stageSwitch.SetActive(false);
@@ -27,12 +26,8 @@ namespace Ando
 
             HiddenDoor.SetDoorAnimeState(DoorAnimeState.None);
 
-            /*β版用処理*/
-            for (int i = 0; i < 20; i++)
-            {
-                PlaySceneManager.GetPlayer().UseOnigiri();
-            }
-            /*β版用処理*/
+            //  拠点BGMを再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_BASE01);
         }
 
         // Update is called once per frame

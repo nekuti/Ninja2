@@ -7472,6 +7472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextScene: 0
   startPos: {fileID: 1931966728}
+  menuWindow: {fileID: 293488185}
   selectReturnButton: {fileID: 1047207478}
   noSelectReturnButton: {fileID: 2005509456}
 --- !u!4 &1686047003

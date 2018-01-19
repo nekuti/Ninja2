@@ -13,6 +13,8 @@ public static class SteamVR_FadeEx
 
         fadeColor = newColor;
         run = true;
+
+        Debug.Log("設定した色" + fadeColor);
     }
 
     public static bool RunCheck()
@@ -20,9 +22,10 @@ public static class SteamVR_FadeEx
         if (run)
         {
             var compositor = Valve.VR.OpenVR.Compositor;
-            //  引数がよくわからないのでとりあえずtrue
-            var color = compositor.GetCurrentFadeColor(true);
+            var color = compositor.GetCurrentFadeColor(false);
             Color myColor = new Color(color.r, color.g, color.b, color.a);
+
+            Debug.Log("設定した色:" + fadeColor + "と現在の色:" + myColor + "で比較");
 
             if (fadeColor == myColor)
             {
@@ -34,6 +37,5 @@ public static class SteamVR_FadeEx
         }
 
         return false;
-
     }
 }

@@ -10,6 +10,10 @@ namespace Ando
         //  シーン遷移マネージャ
         public static SceneTransitionManager sceneTransitionManager;
 
+        //  開始地点
+        [SerializeField]
+        private GameObject startObj;
+
         //  評価用データテーブル
         [SerializeField]
         private ResultAssessmentDataTable resultAssessmentDataTable;
@@ -73,8 +77,15 @@ namespace Ando
         int i = 0;
 
         // Use this for initialization
-        void Start()
+        　new void Awake()
         {
+            base.Awake();
+
+            //  開始地点を設定
+            PlaySceneManager.SetStartPos(startObj.gameObject.transform.position);
+
+            Debug.Log("設定された値：" + startObj.gameObject.transform.position + "　所持している値：" + PlaySceneManager.GetStartPos());
+
             //  フェードを解除する
             SteamVR_FadeEx.Start(Color.clear, 1.0f);
             Debug.Log("フェードを解除");
@@ -113,8 +124,23 @@ namespace Ando
             //  テスト用に作成
             //resultContainer = new ResultContainer();
             //resultContainer.Initialize(this.gameObject);
-        }
 
+            //Time.timeScale = 0;
+
+            //  リザルト用曲を再生
+            AudioManager.Instance.PlayBGM(AudioName.BGM_RESULT01);
+
+            if (resultContainer.clearFlag)
+            {
+                //  クリアジングルを再生
+                AudioManager.Instance.PlaySE(AudioName.SE_GAMECLEAR01,this.gameObject.transform.position);
+            }
+            else
+            {
+                //  ゲームオーバージングルを再生
+                AudioManager.Instance.PlaySE(AudioName.SE_GAMEOVER01, this.gameObject.transform.position);
+            }
+        }
         // Update is called once per frame
         void Update()
         {
@@ -123,25 +149,26 @@ namespace Ando
             lostEnergy.text = resultContainer.lostEnergyValue.ToString();
 
             /*デバック用////////////////////////////////////////*/
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 resultContainer.PlayTimerStart();
-                Debug.Log("A");
             }
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 resultContainer.PlayTimerStop();
-                Debug.Log("B");
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 resultContainer.getMoneyValue++;
-                Debug.Log("C");
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 resultContainer.lostEnergyValue += 5;
-                Debug.Log("D");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                ReturnPlayBase();
+                ResetResultContainer();
             }
             /*///////////////////////////////////////////////////*/
 
@@ -284,6 +311,8 @@ namespace Ando
             PlaySceneManager.SetStageTransition(StageTransition.ReturnPlayBase);
 
             sceneTransitionManager.RevocationScene(SceneName.ResultScene);
+
+            Time.timeScale = 1;
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Ando
             //  プレイヤーの操作をプレイ用に切り替え
             PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
 
-            //  ステージの繊維をNoneに設定
+            //  ステージの遷移をNoneに設定
             PlaySceneManager.SetStageTransition(StageTransition.None);
 
             //  インスペクターで設定しない変数の初期化
@@ -49,6 +49,11 @@ namespace Ando
 
         protected void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                FadeStart();
+            }
+
             if (goalObj != null)
             {           
                 //  ゴールした場合
