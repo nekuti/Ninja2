@@ -28,7 +28,7 @@ namespace Kondo
 
         public List<Transform> list = new List<Transform>();
 
-        private const int CHILD_NUM = 16;
+        private const int CHILD_NUM = 16; // 16
         private const float WAIT_TIME = 1f;
 
 

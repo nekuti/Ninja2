@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33261455446893520}
   - component: {fileID: 65100536591926106}
   - component: {fileID: 23590162008934212}
-  - component: {fileID: 114683364066491648}
+  - component: {fileID: 114051640450931298}
   m_Layer: 9
   m_Name: Ground
   m_TagString: Object
@@ -81,7 +81,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1269297456361102}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65100536591926106
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114683364066491648
+--- !u!114 &114051640450931298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,95 +102,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269297456361102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cd9432855aed4f4d9d9fff2252da1f5, type: 3}
+  m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  front:
-    side: 0
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 2
-      position: {x: 0, y: 1}
-    - index: 3
-      position: {x: 1, y: 1}
-    - index: 0
-      position: {x: 0, y: 0}
-    - index: 1
-      position: {x: 1, y: 0}
-  back:
-    side: 1
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 6
-      position: {x: 0, y: 1}
-    - index: 7
-      position: {x: 1, y: 1}
-    - index: 10
-      position: {x: 0, y: 0}
-    - index: 11
-      position: {x: 1, y: 0}
-  right:
-    side: 3
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 23
-      position: {x: 1, y: 0}
-    - index: 21
-      position: {x: 0, y: 1}
-    - index: 20
-      position: {x: 0, y: 0}
-    - index: 22
-      position: {x: 1, y: 1}
-  left:
-    side: 2
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 19
-      position: {x: 1, y: 0}
-    - index: 17
-      position: {x: 0, y: 1}
-    - index: 16
-      position: {x: 0, y: 0}
-    - index: 18
-      position: {x: 1, y: 1}
-  top:
-    side: 4
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 4
-      position: {x: 0, y: 1}
-    - index: 5
-      position: {x: 1, y: 1}
-    - index: 8
-      position: {x: 0, y: 0}
-    - index: 9
-      position: {x: 1, y: 0}
-  bottom:
-    side: 5
-    offset: {x: 0, y: 0}
-    scale: {x: 1, y: 1}
-    rotation: 0
-    uvs:
-    - index: 15
-      position: {x: 1, y: 0}
-    - index: 13
-      position: {x: 0, y: 1}
-    - index: 12
-      position: {x: 0, y: 0}
-    - index: 14
-      position: {x: 1, y: 1}
-  offset: {x: 0, y: 0}
-  scale: {x: 1, y: 1}
-  rotation: 0
-  oldScale: {x: 10, y: 0.1, z: 10}
+  tilingSide: 5
+  tilingHeight: 5
