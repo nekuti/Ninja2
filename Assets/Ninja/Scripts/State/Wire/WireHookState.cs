@@ -59,7 +59,7 @@ namespace Kojima
 
             Vector3 vec = owner.wireTip.transform.position - owner.transform.position;
             // プレイヤーを飛ばす
-            owner.MyHand.Owner.PullPlayer(vec.normalized * owner.MyHand.WireData.PullSpeed * percent, owner.MyHand.WireData.PullSpeed);
+            owner.MyHand.MyPlayer.PullPlayer(vec.normalized * owner.MyHand.WireData.PullSpeed * percent, owner.MyHand.WireData.PullSpeed);
         }
 
         /// <summary>

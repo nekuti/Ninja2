@@ -294,7 +294,7 @@ namespace Kojima
             {
                 return trackedDevices[(int)aHandType].device.GetPressUp(aButton.GetButtonMask());
             }
-                return false;
+            return false;
         }
 
         /// <summary>

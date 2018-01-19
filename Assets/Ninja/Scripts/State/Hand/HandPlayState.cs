@@ -19,6 +19,8 @@ namespace Kojima
         // ワイヤー管理クラス
         private WireControl wire;
 
+        private GameObject mySelectItem;
+
         #endregion
 
         #region メソッド
@@ -48,10 +50,47 @@ namespace Kojima
         /// </summary>
         public override void Execute()
         {
-            if(InputDevice.Press(ButtonType.Grip,owner.HandType))
+            // アイテム使用の処理==============================================
+            // グリップを押した
+            if (InputDevice.PressDown(ButtonType.Grip, owner.HandType))
             {
                 Debug.Log("アイテム使用ウィンドウを表示");
+                // ウィンドウを生成
+                if (mySelectItem == null)
+                {
+                    mySelectItem = GameObject.Instantiate(owner.MyPlayer.SelectItemPrefab, owner.transform.position + owner.transform.forward, owner.transform.rotation);
+                    mySelectItem.transform.parent = owner.MyPlayer.transform;
+                }
             }
+            // グリップを離した
+            if(InputDevice.PressUp(ButtonType.Grip,owner.HandType))
+            {
+                // グリップを離した時点の正面にレイを飛ばす
+                Ray ray = new Ray(owner.shotPos.transform.position, owner.transform.rotation * Vector3.forward);
+                RaycastHit[] hit = Physics.RaycastAll(ray);
+
+                // SelectItemオブジェクトにレイが当っていた場合
+                if (hit.Length > 0)
+                {
+                    for (int i = 0; i < hit.Length; i++)
+                    {
+                        SelectItem obj = hit[i].collider.GetComponent(typeof(SelectItem)) as SelectItem;
+                        if (obj != null)
+                        {
+                            // アイテムを使用する
+                            obj.UseItem(this.owner.MyPlayer);
+                        }
+                    }
+                }
+
+                // ウィンドウを消す
+                if (mySelectItem != null)
+                {
+                    GameObject.Destroy(mySelectItem);
+                }
+            }
+            // ================================================================
+
         }
 
         /// <summary>

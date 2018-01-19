@@ -124,7 +124,7 @@ namespace Kojima
 
                 Vector3 vec = wireTip.transform.position - owner.transform.position;
 
-                owner.Owner.PullPlayer(vec.normalized * wireData.PullSpeed * percent, wireData.PullSpeed);
+                owner.MyPlayer.PullPlayer(vec.normalized * wireData.PullSpeed * percent, wireData.PullSpeed);
             }
         }
 

@@ -3587,6 +3587,7 @@ MonoBehaviour:
   wireData: {fileID: 11400000, guid: 37a55a946dda3994bae2fc5543f20fa6, type: 2}
   weaponData: {fileID: 11400000, guid: 19d65d4bdc495e143b613ab024b855ce, type: 2}
   defaultStateType: 0
+  selectItemPrefab: {fileID: 0}
   center: {fileID: 0}
   blastPrefab: {fileID: 114750570625792836, guid: 0f77038086446774a962b390242292da,
     type: 2}
@@ -4264,6 +4265,8 @@ MonoBehaviour:
   wireData: {fileID: 11400000, guid: 37a55a946dda3994bae2fc5543f20fa6, type: 2}
   weaponData: {fileID: 11400000, guid: 19d65d4bdc495e143b613ab024b855ce, type: 2}
   defaultStateType: 0
+  selectItemPrefab: {fileID: 1971350813307280, guid: dd539decc56b92c42a100f11fe921bf3,
+    type: 2}
   center: {fileID: 214379210}
   blastPrefab: {fileID: 114750570625792836, guid: 0f77038086446774a962b390242292da,
     type: 2}

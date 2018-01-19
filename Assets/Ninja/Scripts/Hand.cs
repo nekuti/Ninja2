@@ -31,7 +31,7 @@ namespace Kojima
         public HandStateType defaultStateType;
 
         // Handを持つプレイヤー
-        private Player owner;
+        private Player myPlayer;
         // 右手か左手か
         private HandType handType;
 
@@ -50,7 +50,7 @@ namespace Kojima
         #endregion
 
         #region プロパティ
-        public Player Owner{ get { return owner; } }
+        public Player MyPlayer{ get { return myPlayer; } }
         public HandType HandType { get { return handType; } }
         public WireDataTable WireData { get { return wireData; } }
         public WeaponDataTable WeaponData { get { return weaponData; } }
@@ -64,13 +64,13 @@ namespace Kojima
         private void Awake()
         {
             // Handを持つプレイヤーを取得
-            owner = transform.parent.GetComponent<Player>();
+            myPlayer = transform.parent.GetComponent<Player>();
             // HandTypeを取得
             handType = GetComponent<InputDevice>().handType;
 
             // ワイヤーと武器データをプレイヤーから取得
-            wireData = owner.WireData;
-            weaponData = owner.WeaponData;
+            wireData = myPlayer.WireData;
+            weaponData = myPlayer.WeaponData;
 
             // ステートマシンのインスタンス化
             stateMachine = new StateMachine<Hand>();
