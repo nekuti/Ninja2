@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 33522876603897198}
   - component: {fileID: 65324759279688640}
   - component: {fileID: 23866360032516288}
+  - component: {fileID: 114817063798474776}
   m_Layer: 9
   m_Name: Wall_lu
   m_TagString: Object
@@ -93,6 +94,7 @@ GameObject:
   - component: {fileID: 33118013775253166}
   - component: {fileID: 65861654439725572}
   - component: {fileID: 23778041858608496}
+  - component: {fileID: 114254943691157562}
   m_Layer: 9
   m_Name: Wall_l
   m_TagString: Object
@@ -111,6 +113,7 @@ GameObject:
   - component: {fileID: 33552981061975908}
   - component: {fileID: 65465057811203410}
   - component: {fileID: 23361245221692826}
+  - component: {fileID: 114319105236914636}
   m_Layer: 9
   m_Name: Wall_r
   m_TagString: Object
@@ -129,6 +132,7 @@ GameObject:
   - component: {fileID: 33883790100573950}
   - component: {fileID: 65474507554992600}
   - component: {fileID: 23536044790583796}
+  - component: {fileID: 114199212559026076}
   m_Layer: 9
   m_Name: Wall_rb
   m_TagString: Object
@@ -539,6 +543,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114199212559026076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888161608351354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilingSide: 2
+  tilingHeight: 2
 --- !u!114 &114236537308452024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,6 +569,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShineLength: 1
   colors: {r: 0, g: 0.918, b: 1, a: 1}
+--- !u!114 &114254943691157562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730277004345478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilingSide: 2
+  tilingHeight: 2
+--- !u!114 &114319105236914636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807082935116326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilingSide: 2
+  tilingHeight: 2
 --- !u!114 &114406176721304286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -565,3 +608,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShineLength: 1
   colors: {r: 0, g: 0.918, b: 1, a: 1}
+--- !u!114 &114817063798474776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1143999564445416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilingSide: 2
+  tilingHeight: 2

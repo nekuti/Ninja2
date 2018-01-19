@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Tiling : MonoBehaviour
 {
-    [SerializeField, Range(1, 100)]
-    private float tilingSide = 1;
+    //[SerializeField, Range(1, 500)]
+    //private float tilingSide = 1;
 
-    [SerializeField, Range(1, 100)]
-    private float tilingHeight = 1;
+    //[SerializeField, Range(1, 500)]
+    //private float tilingHeight = 1;
 
 
 
@@ -16,7 +16,15 @@ public class Tiling : MonoBehaviour
 
     private void OnValidate()
     {
-        render = GetComponent<Renderer>();
-        render.material.mainTextureScale = new Vector2(tilingSide, tilingHeight);
+        //if (UnityEditor.PrefabUtility.GetPrefabParent(gameObject) != null)
+        //{
+        //    UnityEditor.PrefabUtility.DisconnectPrefabInstance(gameObject);
+        //}
+        //render = GetComponent<Renderer>();
+        //if (render != null)
+        //{
+        //    render.material.mainTextureScale = new Vector2(tilingSide, tilingHeight);
+        //    //render.sharedMaterial.mainTextureScale = new Vector2(tilingSide, tilingHeight);
+        //}
     }
 }

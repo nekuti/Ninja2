@@ -20,6 +20,7 @@ namespace Kondo
             Wire06,
             Wire07,
             Wire08,
+            Wire09,
             WireEnd,
             MaxSequence
         }
@@ -139,11 +140,20 @@ namespace Kondo
 
                 case TutorialSequence.Wire08:
                     {
+                        moveWall[1].GetComponentInChildren<WallMove>().StartMove();
                         tManager.ChangeMenuSelect();
                         base.DestoroyCurrentElement();
                         tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                         tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);
                         tManager.ShowDisplay(displeyPos[1]);
+
+                        break;
+                    }
+
+                case TutorialSequence.Wire09:
+                    {
+                        tManager.ChangePlay();
+                        tManager.RemoveDisplay(false);
 
                         break;
                     }
