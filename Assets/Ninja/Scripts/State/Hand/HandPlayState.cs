@@ -59,7 +59,7 @@ namespace Kojima
                 if (mySelectItem == null)
                 {
                     mySelectItem = GameObject.Instantiate(owner.MyPlayer.SelectItemPrefab, owner.transform.position + owner.transform.forward, owner.transform.rotation);
-                    mySelectItem.transform.rotation = Quaternion.Euler(0f, mySelectItem.transform.rotation.y, 0f);
+                    mySelectItem.transform.parent = owner.MyPlayer.transform;
                 }
             }
             // グリップを離した
