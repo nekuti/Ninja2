@@ -297,6 +297,11 @@ namespace Kojima
                 return false;
             }
         }
+        public void ResetPosition(Vector3 aPos)
+        {
+            transform.position = aPos;
+            myRigidbody.velocity = Vector3.zero;
+        }
 
         /// <summary>
         /// オニギリを使用
@@ -355,10 +360,19 @@ namespace Kojima
             }
         }
 
-        public void ResetPosition(Vector3 aPos)
+        /// <summary>
+        /// エネルギーを消費
+        /// </summary>
+        /// <param name="aEnergy">消費エネルギー量</param>
+        /// <returns></returns>
+        public bool ExpenseEnergy(float aEnergy)
         {
-            transform.position = aPos;
-            myRigidbody.velocity = Vector3.zero;
+            if(Energy - aEnergy > 0)
+            {
+                Energy -= aEnergy;
+                return true;
+            }
+            return false;
         }
 
         #endregion

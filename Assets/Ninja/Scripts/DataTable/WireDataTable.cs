@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// WireDataTableのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/11/23
+/// 最終更新:2018/01/19
 /// </summary>
 namespace Kojima
 {
@@ -21,17 +21,20 @@ namespace Kojima
         
         [SerializeField, Tooltip("ワイヤーの種類")]
         private WireType wireType;
+
+        [SerializeField, Tooltip("発射時に消費するエネルギー"),Range(0f,100f)]
+        private float energyCost;
         
-        [SerializeField, Tooltip("射程距離")]
+        [SerializeField, Tooltip("射程距離"),Range(10f,200f)]
         private float shotRange;
         
-        [SerializeField, Tooltip("射出速度")]
+        [SerializeField, Tooltip("射出速度"),Range(10f,200f)]
         private float shotSpeed;
 
-        [SerializeField, Tooltip("ワイヤーが戻る速度")]
+        [SerializeField, Tooltip("ワイヤーが戻る速度"),Range(10f,200f)]
         private float returnSpeed;
         
-        [SerializeField, Tooltip("巻き取り時の最高速度")]
+        [SerializeField, Tooltip("巻き取り時の最高速度"),Range(10f,100f)]
         private float pullSpeed;
 
         #endregion
@@ -40,6 +43,7 @@ namespace Kojima
         public string WireName { get { return wireName; } }
         public WireTip WirePrefab { get { return wirePrefab; } }
         public WireType WireType { get { return wireType;} }
+        public float EnergyCost { get { return energyCost; } }
         public float ShotRange { get { return shotRange; } }
         public float ShotSpeed { get { return shotSpeed; } }
         public float ReturnSpeed { get { return returnSpeed; } }

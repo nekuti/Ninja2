@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// WireControlのクラス
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/08
+/// 最終更新:2018/01/19
 /// </summary>
 namespace Kojima
 {
@@ -80,6 +80,18 @@ namespace Kojima
             {
                 // ワイヤー未使用時は非アクティブにする
                 myHand.wireObject.SetActive(false);
+            }
+        }
+        
+        /// <summary>
+        /// このスクリプトが破棄されるとき
+        /// </summary>
+        private void OnDestroy()
+        {
+            if(wireTip != null)
+            {
+                // 持っているワイヤーチップを削除
+                Destroy(wireTip.gameObject);
             }
         }
 
