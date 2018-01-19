@@ -13,7 +13,8 @@ public class EnemyBoss2ChooseState : State<EnemyBoss> {
     }
     public override void Execute()
     {
-        owner.ChangeState(EnemyBossStateType.B2NearAction);
+        //owner.ChangeState(EnemyBossStateType.B2NearAction);
+        owner.ChangeState(EnemyBossStateType.B2StalkingAction);
     }
 
     public override void Exit()

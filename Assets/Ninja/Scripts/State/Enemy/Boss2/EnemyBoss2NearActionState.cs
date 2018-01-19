@@ -89,4 +89,6 @@ public class EnemyBoss2NearActionState :  State<EnemyBoss>{
             return true;
         }
     }
+
+
 }

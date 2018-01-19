@@ -150,6 +150,18 @@ static class EnemyTypeBoss
         }
     }
 
+    public static State<EnemyBoss> CreateBoss2StalkingActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss2:
+                return new EnemyBoss2StajkingActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+
     public static State<EnemyBoss> CreateBoss3NearActionState(this EnemyType aSelf, EnemyBoss aOwner)
     {
         switch (aSelf)
