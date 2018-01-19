@@ -9,24 +9,21 @@ using UnityEngine;
 /// </summary>
 namespace Kojima
 {
-    public abstract class Item<T> : MonoBehaviour
+    public abstract class Item<T> : ItemBase
         where T : Ando.ItemDataTable
     {
         #region メンバ変数
         [SerializeField,Tooltip("アイテムのデータ")]
         protected T dataTable;
 
-        [SerializeField,Tooltip("アイテムの個数")]
-        protected int itemCount = 1;
-
         #endregion
 
         #region プロパティ
         public T DataTable { get { return dataTable; } }
-        public int ItemCount { get { return itemCount; } }
         #endregion
 
         #region メソッド
+
 
         /// <summary>
         /// アイテムが拾われた時の処理

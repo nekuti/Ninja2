@@ -16,7 +16,6 @@ MonoBehaviour:
   enemyType: 3
   flying: 0
   knockBack: 1
-  level: 1
   hp: 10
   power: 5
   moveSpeed: 10
@@ -27,3 +26,5 @@ MonoBehaviour:
   attackAfterTime: 1
   knockBackTime: 1
   patrolArea: 50
+  dropMoneyMax: 1
+  dropMoneyMin: 1

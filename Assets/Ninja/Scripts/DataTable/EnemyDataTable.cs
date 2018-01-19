@@ -29,9 +29,6 @@ namespace Kojima
         [SerializeField,Tooltip("ノックバックするか")]
         private bool knockBack = true;
 
-        [SerializeField, Tooltip("行動レベル"), Range(1, 5)]
-        private int level = 1;
-
         [SerializeField,Tooltip("体力")]
         private float hp = 10f;
 
@@ -59,8 +56,14 @@ namespace Kojima
         [SerializeField,Tooltip("ノックバックの硬直時間")]
         private float knockBackTime = 1f;
 
-        [SerializeField, Tooltip("ノックバックの硬直時間")]
+        [SerializeField, Tooltip("探索範囲")]
         private float patrolArea = 1f;
+
+        [SerializeField, Tooltip("お金の最大")]
+        private int dropMoneyMax = 1;
+
+        [SerializeField, Tooltip("お金の最大")]
+        private int dropMoneyMin = 1;
 
         #endregion
 
@@ -70,7 +73,6 @@ namespace Kojima
         public EnemyType EnemyType { get { return enemyType; } }
         public bool Flying { get { return flying; } }
         public bool KnockBack { get { return knockBack; } }
-        public int Level { get { return level; } }
         public float Hp { get { return hp; } }
         public float Power { get { return power; } }
         public float MoveSpeed { get { return moveSpeed; } }
@@ -81,6 +83,8 @@ namespace Kojima
         public float AttackAfterTime { get { return attackAfterTime; } }
         public float KnockBackTime { get { return knockBackTime; } }
         public float PatrolArea { get { return patrolArea; } }
+       public int DropMoneyMax { get { return dropMoneyMax; } }
+        public int DropMoneyMin { get { return dropMoneyMin; } }
 
         #endregion
 

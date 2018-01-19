@@ -27,3 +27,5 @@ MonoBehaviour:
   attackAfterTime: 0
   knockBackTime: 0
   patrolArea: 10
+  dropMoneyMax: 100
+  dropMoneyMin: 1
