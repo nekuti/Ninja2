@@ -331,6 +331,7 @@ namespace Ando
             resultContainer.PlayTimerReset();
             resultContainer.getMoneyValue = 0;
             resultContainer.lostEnergyValue = 0;
+            resultContainer.clearFlag = false;
 
             Debug.Log("データのリセット" + resultContainer.playTimer.GetTimeString());
         }

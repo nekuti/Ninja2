@@ -35,7 +35,7 @@ namespace Kojima
         public Attack attackPrefab;
 
         [SerializeField, Tooltip("アイテムのプレハブ")]
-        public GameObject itemPrefab;
+        public ItemBase itemPrefab;
 
 
         private static float flameCount = 0;
@@ -67,7 +67,7 @@ namespace Kojima
             }
         }
         public Attack AttackPrefab { get { return attackPrefab; } }
-        public GameObject ItemPrefab{ get {return itemPrefab; } }
+        public ItemBase ItemPrefab{ get {return itemPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
         public bool CollisioDecision { get { return collisionDecision; } }
 

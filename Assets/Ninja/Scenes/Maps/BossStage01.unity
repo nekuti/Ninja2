@@ -3349,6 +3349,10 @@ Prefab:
       propertyPath: tilingHeight
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1269297456361102, guid: bbf4954335721a84da2cc77a0a43cfd3, type: 2}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbf4954335721a84da2cc77a0a43cfd3, type: 2}
   m_IsPrefabParent: 0

@@ -138,6 +138,8 @@ namespace Ando
                             resultContainer.PlayTimerStart();
                             //  稼いだ金額を現在の所持金分マイナスした値に設定
                             resultContainer.InitMoneyValue(playData.possessionMoney);
+                            Debug.Log("コンテナに所持金の初期値を設定" + resultContainer.getMoneyValue);
+
                             //  プレイする階層を設定
                             resultContainer.SetFloorLevel(i);
                             Debug.Log("階層を" + i + "に設定");
@@ -180,6 +182,11 @@ namespace Ando
             //  実行中か
             if(stageState == StageState.Run)
             {
+                if(playData.player.Energy <= 0)
+                {
+                    SetStageTransition(StageTransition.ResultGameOver);
+                }
+
                 //  シーンの遷移
                 switch (stageTransition)
                 {
@@ -207,6 +214,8 @@ namespace Ando
                         stageTransition = StageTransition.ResultStart;
                         Debug.Log("クリアリザルトへ");
 
+                        playData.player.ResetEnergy();
+                        Debug.Log("プレイヤーの体力を回復しました");
                         break;
                     case StageTransition.ResultGameOver:
                         //  リザルトを追加
@@ -214,6 +223,8 @@ namespace Ando
                         stageTransition = StageTransition.ResultStart;
                         Debug.Log("ゲームオーバーリザルトへ");
 
+                        playData.player.ResetEnergy();
+                        Debug.Log("プレイヤーの体力を回復しました");
                         break;
                     case StageTransition.StageChange:
                         //  ステージ変更
@@ -223,7 +234,6 @@ namespace Ando
                     case StageTransition.ReturnPlayBase:
                         StageChange(0);
                         Debug.Log("拠点に戻ります");
-
                         break;
                     case StageTransition.TitleBack:
                         //  タイトルへ戻る
@@ -348,6 +358,9 @@ namespace Ando
             resultContainer.SetMoneyValue(playData.possessionMoney);
             resultContainer.lostEnergyValue = lostEnergy;
 
+            Debug.Log("プレイ時間" + resultContainer.playTimer.GetTimeString());
+            Debug.Log("設定した所持金" + playData.possessionMoney + "コンテナの所持金" + resultContainer.getMoneyValue);
+
             //  リザルトがすでにあるか確認
             if (!sceneTransitionManager.SearchScene(SceneName.ResultScene))
             {
@@ -370,6 +383,11 @@ namespace Ando
 
                 //  リザルトコンテナを登録
                 ResultSceneManager.RgtrResultContainer(resultContainer);
+
+                //  データのリセット
+                resultContainer.PlayTimerReset();
+                resultContainer.getMoneyValue = 0;
+                resultContainer.lostEnergyValue = 0;
             }
         }
 
@@ -443,6 +461,7 @@ namespace Ando
         public static void AddPossessionMoney(int anAddMoney)
         {
             playData.possessionMoney += anAddMoney;
+            Debug.Log("所持金を" + anAddMoney + "両加算");
         }
 
         /// <summary>

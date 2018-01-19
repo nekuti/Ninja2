@@ -21,18 +21,7 @@ namespace Ando
             if (Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
             Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
             {
-#if UNITY_EDITOR
-                if (!pauseSwitch)
-                {
-                    sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene, false);
-                    pauseSwitch = true;
-                    Debug.Log("メニューへ" + pauseSwitch);
-                }
-                else
-                {
-                    MenuEnd();
-                }
-#else
+
                 if (!SteamVR_FadeEx.RunCheck())
                 {
                     if (!pauseSwitch)
@@ -50,7 +39,7 @@ namespace Ando
                 {
                     Debug.Log("フェード中");
                 }
-#endif
+
 
             }
         }

@@ -121,18 +121,6 @@ namespace Kojima
         /// </summary>
         protected override void Update()
         {
-            base.Update();
-
-            if(InputDevice.PressDown(ButtonType.Grip,HandType.Left)||
-                Input.GetKeyDown(KeyCode.A))
-            {
-                UseKaton();
-            }
-            if (InputDevice.PressDown(ButtonType.Grip, HandType.Right)||
-                Input.GetKeyDown(KeyCode.S))
-            {
-                UseOnigiri();
-            }
 
             // =============================
             // やべー処理===================
@@ -147,14 +135,14 @@ namespace Kojima
             // =============================
 
             // エネルギーが0になった場合
-            if (energy <= 0)
-            {
-                //SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
-                //fade.OnStartFade(Color.black, 0.5f, true);
+            //if (energy <= 0)
+            //{
+            //    //SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
+            //    //fade.OnStartFade(Color.black, 0.5f, true);
 
-                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameOver);
-                resultFlg = true;
-            }
+            //    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameOver);
+            //    resultFlg = true;
+            //}
 
             //if (resultFlg)
             //{
@@ -222,7 +210,7 @@ namespace Kojima
                 posResetFlg = true;
 
                 //Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
-                resultFlg = true;
+                // resultFlg = true;
 
             }
         }
@@ -373,6 +361,16 @@ namespace Kojima
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// エネルギーのリセット
+        /// </summary>
+        /// <returns></returns>
+        public bool ResetEnergy()
+        {
+            Energy = MaxEnergy;
+            return true;
         }
 
         #endregion

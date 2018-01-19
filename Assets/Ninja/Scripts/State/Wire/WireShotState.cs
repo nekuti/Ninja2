@@ -31,17 +31,11 @@ namespace Kojima
             Debug.Log("Wireの射出");
 
             // ワイヤー発射のエネルギーを消費
-            if (owner.MyHand.MyPlayer.ExpenseEnergy(owner.MyHand.WireData.EnergyCost))
-            {
-                // ワイヤーを生成
-                owner.wireTip = WireTip.Create(owner.MyHand.WireData, owner, owner.transform.rotation * Vector3.forward);
-                // コントローラーを振動させる
-                InputDevice.Pulse(3000, owner.MyHand.HandType);
-            }
-            else
-            {
-                owner.ChangeState(WireStateType.Wait);
-            }
+            owner.MyHand.MyPlayer.ExpenseEnergy(owner.MyHand.WireData.EnergyCost);
+            // ワイヤーを生成
+            owner.wireTip = WireTip.Create(owner.MyHand.WireData, owner, owner.transform.rotation * Vector3.forward);
+            // コントローラーを振動させる
+            InputDevice.Pulse(3000, owner.MyHand.HandType);
         }
 
         /// <summary>
