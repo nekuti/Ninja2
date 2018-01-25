@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Kojima;
 
-public class EnemyBoss2WaitState : State<EnemyBoss> {
+public class EnemyBoss2WaitState : State<EnemyBoss>
+{
 
     public EnemyBoss2WaitState(EnemyBoss owner) : base(owner) { }
 
@@ -14,6 +15,7 @@ public class EnemyBoss2WaitState : State<EnemyBoss> {
 
     public override void Execute()
     {
+        owner.UseGravity();
         if (owner.FlameWaitTime(50))
         {
             owner.ChangeState(EnemyBossStateType.Choose);

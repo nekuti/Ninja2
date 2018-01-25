@@ -21,7 +21,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackMoveSpeed: 10
   searchRange: 6
-  attackableRange: 3
+  attackableRange: 6
   attackToTime: 1
   attackAfterTime: 1
   knockBackTime: 1

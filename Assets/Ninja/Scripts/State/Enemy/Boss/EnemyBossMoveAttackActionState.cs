@@ -51,6 +51,7 @@ public class EnemyBossMoveAttackActionState : State<EnemyBoss>
                 }
             }
         }
+        owner.UseGravity();
     }
 
     public override void Exit()
