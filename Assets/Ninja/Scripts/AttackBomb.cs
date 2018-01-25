@@ -19,6 +19,8 @@ namespace Kojima
 
         private Rigidbody myRigidbody;
 
+        private Ando.SoundEffectObject sound;
+
         #endregion
 
         #region メソッド
@@ -29,6 +31,10 @@ namespace Kojima
         protected override void Start()
         {
             base.Start();
+
+            // シュー音
+            sound = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_FUSE_BOMB,transform.position);
+            sound.transform.parent = transform;
         }
 
         /// <summary>
@@ -53,6 +59,11 @@ namespace Kojima
             Attack blast = Attack.Create(blastPrefab, transform.position, TargetPos, power, parentTagName);
             blast.transform.localScale = new Vector3(range,range,range);
             Destroy(this.gameObject);
+            // 爆発音を再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_EXPLODE_BOMB, transform.position);
+
+            // シュー音を停止
+            sound.SoundStop();
         }
 
         /// <summary>

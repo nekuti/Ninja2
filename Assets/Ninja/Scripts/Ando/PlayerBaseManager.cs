@@ -34,13 +34,19 @@ namespace Ando
         new void Update()
         {
             int i = 0;
+            int clearCount = 1;
+
            foreach(bool clearFloorLavel in playSceneManager.clearFloorLevel)
             {
-                var stageSwitch = stageSwitches[i]/*.GetComponent<StageSwitch>()*/;
+                var stageSwitch = stageSwitches[i];
 
                 if (clearFloorLavel)
                 {
                     stageSwitch.SetActive(true);
+                    clearCount++;
+
+
+                    Debug.LogWarning("カウント加算" + clearCount);
                 }
                 else
                 {
@@ -69,8 +75,16 @@ namespace Ando
 
             if(HiddenDoor.GetDoorAnimeState() == DoorAnimeState.End)
             {
-                playSceneManager.StageChange();
+                if (clearCount > stageSwitches.Count)
+                {
+                    clearCount--;
 
+                    Debug.LogWarning("カウント減算" + clearCount);
+                }
+
+                playSceneManager.StageChange(clearCount);
+
+                Debug.LogWarning("カウント" + clearCount);
                 PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
             }
         }

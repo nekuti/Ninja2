@@ -62,6 +62,9 @@ namespace Kojima
                 myRigidbody.velocity = Vector3.zero;
                 myRigidbody.isKinematic = true;
                 ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
+
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
             }
         }
 
@@ -76,6 +79,9 @@ namespace Kojima
             {
                 ParticleEffect.Create(effect,transform.position);
                 Destroy(this.gameObject);
+
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
             }
         }
 

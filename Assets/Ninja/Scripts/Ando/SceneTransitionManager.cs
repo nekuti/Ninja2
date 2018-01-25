@@ -288,7 +288,10 @@ namespace Ando
         /// </summary>
         private void GameEnd()
         {
-            //  シーンのスクリプトを破棄
+#if UNITY_EDITOR
+            ChangeSceneSingle(SceneName.TitleScene);
+#else
+             //  シーンのスクリプトを破棄
             foreach (SceneBace list in sceneList)
             {
                 Destroy(list);
@@ -299,6 +302,8 @@ namespace Ando
 
             //  アプリケーションを終了する
             Application.Quit();
+#endif
+
         }
 
         /// <summary>

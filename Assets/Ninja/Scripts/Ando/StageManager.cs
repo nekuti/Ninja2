@@ -7,21 +7,21 @@ namespace Ando
     public class StageManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject startObj;
+        protected GameObject startObj;
 
         [SerializeField]
-        private GoalObj goalObj;
+        protected ElevatorMove elevator;
 
         //  フェードインを実行しているか
-        private bool fadeInflag = false;
+        protected bool fadeInflag = false;
         //  フェードインの色
         [SerializeField]
-        private Color fadeInColor = Color.black;
+        protected Color fadeInColor = Color.black;
         //  フェードインの時間
         [SerializeField]
-        private float fadeInTime = 1.0f;
+        protected float fadeInTime = 1.0f;
         //  フェード後の経過時間
-        private float fadeElapsedTime = 0.0f;
+        protected float fadeElapsedTime = 0.0f;
 
         protected void Awake()
         {
@@ -54,10 +54,10 @@ namespace Ando
                 FadeStart();
             }
 
-            if (goalObj != null)
+            if (elevator != null)
             {           
                 //  ゴールした場合
-                if (goalObj.GoalFlag == true)
+                if (elevator.isMove)
                 {
                     //  フェードの開始
                     FadeStart();

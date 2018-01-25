@@ -106,38 +106,44 @@ namespace Ando
         /// <summary>
         /// 指定したファイル名のSEを流す。第二引数のdelayに指定した時間だけ再生までの間隔を空ける
         /// </summary>
-        public void PlaySE(string aSEName, Vector3 aSEPos, float aDelay = 0.0f)
+        public SoundEffectObject PlaySE(string aSEName, Vector3 aSEPos, float aDelay = 0.0f)
         {
             if (!seDic.ContainsKey(aSEName))
             {
                 Debug.Log(aSEName + "という名前のSEがありません");
-                return;
+
+                return null;
             }
 
             nextSEName = aSEName;
 
-            Create(aSEPos);
+            return Create(aSEPos);
         }
 
         /// <summary>
         /// SE再生用オブジェクトを生成
         /// </summary>
         /// <param name="aSEPos"></param>
-        public void Create(Vector3 aSEPos)
+        private SoundEffectObject Create(Vector3 aSEPos)
         {
-            if (sePrefab != null)
+            if (sePrefab == null)
             {
-                //  生成したGameObjectを保存
-                var se = Instantiate(sePrefab, aSEPos, Quaternion.identity) as GameObject;
-                Debug.Log("Prefab生成");
-
-                //  スクリプトを取得
-                SoundEffectObject seScript = se.GetComponent<SoundEffectObject>();
-
-                //  各種設定
-                seScript.SetSound(seDic[nextSEName] as AudioClip);
-                seScript.SetVolume(seVolume);
+                return null;
             }
+
+            //  生成したGameObjectを保存
+            var se = Instantiate(sePrefab, aSEPos, Quaternion.identity) as GameObject;
+            Debug.Log("Prefab生成");
+
+            //  スクリプトを取得
+            SoundEffectObject seScript = se.GetComponent<SoundEffectObject>();
+
+            //  各種設定
+            seScript.SetSound(seDic[nextSEName] as AudioClip);
+            seScript.SetVolume(seVolume);
+
+            return se.GetComponent<SoundEffectObject>();
+
         }
         #endregion
 

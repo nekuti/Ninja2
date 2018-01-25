@@ -22,7 +22,7 @@ EditorBuildSettings:
     guid: f13db4ac2b273944ab93a6050ed557da
   - enabled: 1
     path: Assets/Ninja/Scenes/ItemTutorial.unity
-    guid: 00000000000000000000000000000000
+    guid: 30f3d005984252e448a6a0cdc0ad2073
   - enabled: 1
     path: Assets/Ninja/Scenes/GameScene/PlayScene.unity
     guid: 94e64d87948544242b56aaf4b0ed14bd
@@ -34,18 +34,21 @@ EditorBuildSettings:
     guid: e3022c360b4e55a48a0edbd1846fdb5f
   - enabled: 1
     path: Assets/Ninja/Scenes/GameScene/MenuScene.unity
-    guid: 00000000000000000000000000000000
+    guid: dd99835b09a70f24d8ccc3737cf091c9
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage001.unity
-    guid: 67686810d0aeac747b8715591bd57573
+    guid: 19d82e27a81152646a10940f3cce24e6
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage002.unity
-    guid: 23894d5f09bfadf4bb5cad1078391f01
-  - enabled: 1
-    path: Assets/Ninja/Scenes/Maps/Stage003.unity
-    guid: 9403244ebe85655408ceacbdbb4d5966
+    guid: 67686810d0aeac747b8715591bd57573
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage004.unity
+    guid: 23894d5f09bfadf4bb5cad1078391f01
+  - enabled: 1
+    path: Assets/Ninja/Scenes/Maps/Stage005.unity
+    guid: 9403244ebe85655408ceacbdbb4d5966
+  - enabled: 1
+    path: Assets/Ninja/Scenes/Maps/Stage006.unity
     guid: 7c25ca939b4e1e14f845e4b88c00807b
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/BossStage01.unity

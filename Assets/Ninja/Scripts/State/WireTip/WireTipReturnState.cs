@@ -18,6 +18,7 @@ namespace Kojima
 
         private float timer;
 
+
         #endregion
 
         #region メソッド
@@ -40,7 +41,8 @@ namespace Kojima
             owner.myRigidbody.velocity = Vector3.zero;
             owner.myRigidbody.useGravity = true;
             timer = 0f;
-        }
+
+            }
 
         /// <summary>
         /// このステートである間呼ばれ続ける
@@ -50,6 +52,9 @@ namespace Kojima
             // 少し時間を空けてから巻き取り開始
             if (timer > 0.3f)
             {
+                // トリガーにする
+                owner.GetComponent<Collider>().isTrigger = true;
+
                 Vector3 dire = (owner.Controller.transform.position - owner.transform.position);
 
                 // 巻き取る
@@ -65,10 +70,15 @@ namespace Kojima
                 if (percent > 1f) percent = 1f;
                 owner.myRigidbody.velocity = owner.myRigidbody.velocity * (percent)
                     + (dire.normalized * owner.myRigidbody.velocity.magnitude) * (1f - percent);
+
+                if(owner.myRigidbody.velocity.magnitude*Time.deltaTime > dire.magnitude)
+                {
+                    owner.EndReturnWireTip();
+                }
                 
             }
-            // 3秒以上掛かった場合強制的に終了
-            if (timer > 3f)
+            // 一定時間掛かった場合強制的に終了
+            if (timer > 2f)
             {
                 owner.EndReturnWireTip();
             }
@@ -80,7 +90,6 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
-
         }
 
         #endregion

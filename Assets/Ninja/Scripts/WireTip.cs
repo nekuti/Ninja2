@@ -90,6 +90,9 @@ namespace Kojima
 
                     // 停止ステートへ移行
                     ChangeState(WireTipStateType.Stop);
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_HIT, transform.position);
                 }
                 else
                 {
@@ -98,6 +101,10 @@ namespace Kojima
                     ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
                     // ワイヤーの巻き取りを行う
                     controller.ChangeState(WireStateType.Return);
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_FAULURE, transform.position);
+
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace Kondo
 {
 
 
-    public enum NextScene
+    public enum CurrentScene
     {
         WireTutorial,
         AttackTutorial,
@@ -40,7 +40,7 @@ namespace Kondo
         // 外部から操作用
         public static TutorialManager instance;
         // 現在のシーン
-        public NextScene nextScene;
+        public CurrentScene currentScene;
         public List<GameObject> tipsList = new List<GameObject>();
 
         [SerializeField]
@@ -83,17 +83,18 @@ namespace Kondo
             Debug.Log("チュートリアルマネージャー　display : "+ display);
 
 
-            SteamVR_Fade.Start(Color.black, 0);
 
             // 始めのシーンを動かす
-            ChangeScene(nextScene);
+            ChangeScene(currentScene);
 
-
+            SteamVR_FadeEx.Start(Color.clear, 0f);
         }
 
 
         void Start()
         {
+            Ando.AudioManager.Instance.PlayBGM(AudioName.BGM_NOMALSTAGE01);
+            SteamVR_Fade.Start(Color.black, 0);
 
         }
 
@@ -143,8 +144,8 @@ namespace Kondo
         private void NextSceneChanged()
         {
             //　重ねたシーンの破棄
-            SceneManager.UnloadSceneAsync(nextScene.ToString());
-            ChangeScene(++nextScene);
+            SceneManager.UnloadSceneAsync(currentScene.ToString());
+            ChangeScene(++currentScene);
         }
 
 
@@ -163,11 +164,11 @@ namespace Kondo
         ///// 次のシーンに遷移する
         ///// </summary>
         ///// <param name="aScene"></param>
-        private void ChangeScene(NextScene aScene)
+        private void ChangeScene(CurrentScene aScene)
         {
             switch (aScene)
             {
-                case NextScene.WireTutorial:
+                case CurrentScene.WireTutorial:
                     {
                         // ワイヤーシーン
                         // ワイヤーチュートリアルを重ねる
@@ -175,7 +176,7 @@ namespace Kondo
                         Debug.Log("ワイヤーシーン");
                         break;
                     }
-                case NextScene.AttackTutorial:
+                case CurrentScene.AttackTutorial:
                     {
                         // アタックシーン
                         ResetPlayerTransfome();
@@ -184,14 +185,14 @@ namespace Kondo
                         Debug.Log("アタックシーン");
                         break;
                     }
-                case NextScene.ItemTutorial:
+                case CurrentScene.ItemTutorial:
                     {
                         // アイテムチュートリアル
                         // アイテムチュートリアルを重ねる
                         SceneManager.LoadSceneAsync("ItemTutorial", LoadSceneMode.Additive);
                         break;
                     }
-                case NextScene.GoToBase:
+                case CurrentScene.GoToBase:
                     {
                         RemoveDisplay(false);
                         SceneManager.LoadScene("PlayScene");
@@ -201,6 +202,8 @@ namespace Kondo
 
             }
         }
+
+
 
 
         /// <summary>
@@ -225,28 +228,6 @@ namespace Kondo
 
 
 
-        ///// <summary>
-        ///// wireTutorialを進める
-        ///// </summary>
-        //public void NextWireTutorial()
-        //{
-        //    WireTutorialManager.instance.NextSequenceChanged();
-        //}
-
-
-
-
-        ///// <summary>
-        ///// AttackTutorialを進める
-        ///// </summary>
-        //public void NextAttackTutorial()
-        //{
-        //    AttackTutorialManager.instance.NextSequenceChanged();
-
-        //}
-
-
-
 
         /// <summary>
         /// ディスプレイテキストを読み込む
@@ -254,14 +235,7 @@ namespace Kondo
         /// <param name="aName">ファイルネーム</param>
         public void LoadText(string aName)
         {
-            layout = DisplaySentence.LoadText(aName, layout);
-        }
-
-
-
-        public void hoge()
-        {
-            Debug.Log("Hoge");
+            DisplaySentence.LoadText(aName, layout);
         }
 
 
@@ -369,7 +343,6 @@ namespace Kondo
 
 
 
-        
 
         ///// <summary>
         ///// プレイヤーへの通知を表示
@@ -380,6 +353,7 @@ namespace Kondo
         //    Debug.Log("チュートリアルマネージャー　ShowNotice()");
         //    notice.RequestDisplay(noticeText[aSelect], 3, 1, 2.5f);
         //}
+
 
 
         /// <summary>
@@ -427,6 +401,22 @@ namespace Kondo
             selectButton.SetActive(aSet);
         }
 
+        /// <summary>
+        /// SelectButtonのエフェクトを動かす
+        /// </summary>
+        public void EnabledSelectEffect()
+        {
+            selectButton.GetComponentInChildren<Ando.SelectButton>().ParticleStart();
+        }
+
+
+        /// <summary>
+        /// SelectButtonのエフェクトを止める
+        /// </summary>
+        public void DisabledSelectEffect()
+        {
+            selectButton.GetComponentInChildren<Ando.SelectButton>().ParticleStop();
+        }
 
 
 

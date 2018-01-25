@@ -42,6 +42,9 @@ namespace Kojima
 
             timer = 999f;
             count = 0;
+
+            // SEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_SHOT_KUNAI, owner.transform.position);
         }
 
         /// <summary>

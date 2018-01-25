@@ -13,7 +13,7 @@ namespace Kondo
 
         private Vector3 pos;
 
-        public bool moveEnd;
+        public bool isMove = false;
 
 
         // Use this for initialization
@@ -26,9 +26,9 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-            if (!moveEnd)
+            if (isMove)
             {
-                moveEnd = Moveing();
+                isMove = Moveing();
             }
         }
 
@@ -36,20 +36,21 @@ namespace Kondo
         {
             if (pos.y >= endPos)
             {
-                return true;
+                return false;
             }
 
             transform.localPosition = pos;
             pos.y += moveSpeed;
 
-            return false;
+            return true;
         }
 
 
         public void StartMove()
         {
-            Debug.Log("start");
-            moveEnd = false;
+            Debug.Log("壁の移動：start");
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ELEVETORDOOR, this.transform.position);
+            isMove = true;
         }
     }
 }

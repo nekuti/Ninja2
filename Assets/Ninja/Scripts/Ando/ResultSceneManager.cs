@@ -72,9 +72,10 @@ namespace Ando
         private const int ASSESSMENT_MID = 7;
         private const int ASSESSMENT_MIN = 4;
 
+        //  コンテナの受け渡し用
+        private static ResultContainer deliveryResultContainer;
         //  リザルトシーンで使用する情報
-        private static ResultContainer resultContainer;
-        int i = 0;
+        private ResultContainer resultContainer;
 
         // Use this for initialization
         　new void Awake()
@@ -98,6 +99,10 @@ namespace Ando
             //  プレイヤーの操作をメニュー用に切り替え
             PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.MenuSelect);
 
+            //  受け渡し用リザルトからコンテナへ情報を渡す
+            resultContainer = deliveryResultContainer;
+            deliveryResultContainer = null;
+
             //  階層の分岐
             switch (resultContainer.floorLevel)
             {
@@ -105,16 +110,22 @@ namespace Ando
                     playTimeReferenceValue = resultAssessmentDataTable.level1PlayTime;
                     getMoneyReferenceValue = resultAssessmentDataTable.level1GetMoney;
                     lostEnergyeReferenceValue = resultAssessmentDataTable.level1LostEnergy;
+
+                    Debug.Log("階層1");
                     break;
                 case 2:
                     playTimeReferenceValue = resultAssessmentDataTable.level2PlayTime;
                     getMoneyReferenceValue = resultAssessmentDataTable.level2GetMoney;
                     lostEnergyeReferenceValue = resultAssessmentDataTable.level2LostEnergy;
+
+                    Debug.Log("階層2");
                     break;
                 case 3:
                     playTimeReferenceValue = resultAssessmentDataTable.level3PlayTime;
                     getMoneyReferenceValue = resultAssessmentDataTable.level3GetMoney;
                     lostEnergyeReferenceValue = resultAssessmentDataTable.level3LostEnergy;
+
+                    Debug.Log("階層3");
                     break;
                 default:
                     Debug.Log("リザルトシーン：階層の値がおかしいので評価項目を設定できませんでした。");
@@ -141,12 +152,16 @@ namespace Ando
                 AudioManager.Instance.PlaySE(AudioName.SE_GAMEOVER01, this.gameObject.transform.position);
             }
         }
-        // Update is called once per frame
-        void Update()
+        void Start()
         {
             playTime.text = resultContainer.playTimer.GetTimeString();
             getMoney.text = resultContainer.getMoneyValue.ToString();
             lostEnergy.text = resultContainer.lostEnergyValue.ToString();
+        }
+        // Update is called once per frame
+        void Update()
+        {
+          
 
             /*デバック用////////////////////////////////////////*/
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -300,7 +315,11 @@ namespace Ando
         /// <param name="aResultContainer"></param>
        public static void RgtrResultContainer(ResultContainer aResultContainer)
         {
-            resultContainer = aResultContainer;
+            deliveryResultContainer = aResultContainer;
+
+            Debug.Log("リザルトコンテナを登録しました");
+
+            Debug.Log("プレイ時間" + deliveryResultContainer.playTimer.GetTimeString());
         }
 
         /// <summary>
@@ -311,6 +330,9 @@ namespace Ando
             PlaySceneManager.SetStageTransition(StageTransition.ReturnPlayBase);
 
             sceneTransitionManager.RevocationScene(SceneName.ResultScene);
+
+            //  コンテナの情報をリセット
+            ResetResultContainer();
 
             Time.timeScale = 1;
         }

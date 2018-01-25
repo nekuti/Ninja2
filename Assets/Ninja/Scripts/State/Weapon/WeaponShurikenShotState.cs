@@ -35,6 +35,9 @@ namespace Kojima
 
             // 武器データ取得
             data = owner.MyHand.WeaponData;
+
+            // SEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_SHOT_SHURIKEN, owner.transform.position);
         }
 
         /// <summary>

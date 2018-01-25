@@ -93,6 +93,8 @@ namespace Kojima
                 // 持っているワイヤーチップを削除
                 Destroy(wireTip.gameObject);
             }
+            // ワイヤー部分を非アクティブにする
+            myHand.wireObject.SetActive(false);
         }
 
         /// <summary>

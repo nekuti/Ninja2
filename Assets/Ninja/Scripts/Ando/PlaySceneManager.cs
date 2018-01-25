@@ -128,11 +128,11 @@ namespace Ando
                     stageState = StageState.LoadComplete;
 
                     //  ループカウント(0がプレイヤーベースなので1から計算開始)
-                    var i = 1;
+                    var i = 0;
 
                     while (true)
                     {
-                        if (nowStageNum == (i * FLOORNUM) + 1 || nowStageNum == 1)
+                        if (nowStageNum == (i * FLOORNUM) + 1)
                         {
                             //  プレイ時間の計測開始
                             resultContainer.PlayTimerStart();
@@ -141,8 +141,8 @@ namespace Ando
                             Debug.Log("コンテナに所持金の初期値を設定" + resultContainer.getMoneyValue);
 
                             //  プレイする階層を設定
-                            resultContainer.SetFloorLevel(i);
-                            Debug.Log("階層を" + i + "に設定");
+                            resultContainer.SetFloorLevel(i + 1);
+                            Debug.Log("階層を" + resultContainer.floorLevel + "に設定");
 
                             //  消費エネルギーを0に
                             lostEnergy = 0f;
@@ -233,14 +233,22 @@ namespace Ando
                         break;
                     case StageTransition.ReturnPlayBase:
                         StageChange(0);
+                        //  経過時間のリセット
+                        ResetTimer();
+
+                        //  データのリセット
+                        resultContainer.PlayTimerReset();
+                        resultContainer.getMoneyValue = 0;
+                        resultContainer.lostEnergyValue = 0;
+
                         Debug.Log("拠点に戻ります");
                         break;
                     case StageTransition.TitleBack:
                         //  タイトルへ戻る
                         sceneTransitionManager.ChangeSceneSingle(nextScene);
                         stageTransition = StageTransition.None;
-                        Debug.Log("タイトルに戻ります");
 
+                        Debug.Log("タイトルに戻ります");
                         break;
                 }
             }    
@@ -350,9 +358,16 @@ namespace Ando
         /// </summary>
         public void AddResult()
         {
+            //  リザルトがすでにあるか確認
+            if (sceneTransitionManager.SearchScene(SceneName.ResultScene))
+            {
+                Debug.Log("すでにリザルトがあるのでスキップ");
+                return;
+            }
+
             //  ステージを削除
             StageUnload();
-           
+
             //  リザルトコンテナに値を設定
             resultContainer.PlayTimerStop();
             resultContainer.SetMoneyValue(playData.possessionMoney);
@@ -361,34 +376,23 @@ namespace Ando
             Debug.Log("プレイ時間" + resultContainer.playTimer.GetTimeString());
             Debug.Log("設定した所持金" + playData.possessionMoney + "コンテナの所持金" + resultContainer.getMoneyValue);
 
-            //  リザルトがすでにあるか確認
-            if (!sceneTransitionManager.SearchScene(SceneName.ResultScene))
+            //  リザルトシーンを追加
+            sceneTransitionManager.ChangeSceneAdd(SceneName.ResultScene);
+
+            Debug.Log(stageTransition.ToString());
+
+            //  クリアしたか否かで分岐
+            if (stageTransition == StageTransition.ResultGameClear)
             {
-                //LiteResultText.SetLiteResult(a);
-                
-                //  リザルトシーンを追加
-                sceneTransitionManager.ChangeSceneAdd(SceneName.ResultScene);
-
-                Debug.Log(stageTransition.ToString());
-
-                //  クリアしたか否かで分岐
-                if (stageTransition == StageTransition.ResultGameClear)
-                {
-                    resultContainer.SetClearFlag(true);
-                }
-                else if (stageTransition == StageTransition.ResultGameOver)
-                {
-                    resultContainer.SetClearFlag(false);
-                }
-
-                //  リザルトコンテナを登録
-                ResultSceneManager.RgtrResultContainer(resultContainer);
-
-                //  データのリセット
-                resultContainer.PlayTimerReset();
-                resultContainer.getMoneyValue = 0;
-                resultContainer.lostEnergyValue = 0;
+                resultContainer.SetClearFlag(true);
             }
+            else if (stageTransition == StageTransition.ResultGameOver)
+            {
+                resultContainer.SetClearFlag(false);
+            }
+
+            //  リザルトコンテナを登録
+            ResultSceneManager.RgtrResultContainer(resultContainer);
         }
 
         /// <summary>
@@ -452,6 +456,32 @@ namespace Ando
         public static void SetPossessionMoney(int aMoney)
         {
             playData.possessionMoney = aMoney;
+        }
+
+        /// <summary>
+        /// 経過時間計測の停止
+        /// </summary>
+        public void StopTimer()
+        {
+            resultContainer.PlayTimerStop();
+            resultContainer.TotalTimerStop();
+        }
+
+        /// <summary>
+        /// 経過時間の計測開始
+        /// </summary>
+        public void RestartTimer()
+        {
+            resultContainer.PlayTimerStart();
+            resultContainer.TotalTimerStart();
+        }
+
+        /// <summary>
+        /// 経過時間のリセット
+        /// </summary>
+        public void ResetTimer()
+        {
+            resultContainer.PlayTimerReset();
         }
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace Kojima
             {
                 // ShotSpeed分の力を加えてワイヤーを発射する
                 owner.myRigidbody.AddForce(owner.ShotDirection.normalized * owner.Controller.MyHand.WireData.ShotSpeed, ForceMode.VelocityChange);
+
             }
         }
 

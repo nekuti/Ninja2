@@ -75,7 +75,7 @@ namespace Kondo
                         tManager.SetEnabledAllTips(false);
                         tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
                         tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
-
+                        tManager.EnabledSelectEffect();
                         tManager.ChangeMenuSelect();
                         // tManager.ShowNotice();
                         tManager.ShowDisplay(displeyPos[0]);
@@ -99,8 +99,6 @@ namespace Kondo
 
                         tManager.SetTipsText("ワイヤー", HandType.Left, PartsType.Trigger);
                         tManager.SetTipsText("ワイヤー", HandType.Right, PartsType.Trigger);
-
-                        //tManager.RemoveDisplay();
                         break;
                     }
 
@@ -117,13 +115,13 @@ namespace Kondo
                         tManager.HideSelectButton(false);
                         tManager.ShowDisplay(displeyPos[0]);
                         // tManager.ShowNotice();
-
                         break;
                     }
 
                 case TutorialSequence.Wire06:
                     {
                         tManager.ChangeMenuSelect();
+                        tManager.EnabledSelectEffect();
                         tManager.ShowDisplay(displeyPos[0]);
                         tManager.HideSelectButton(true);
 
@@ -142,6 +140,7 @@ namespace Kondo
                     {
                         moveWall[1].GetComponentInChildren<WallMove>().StartMove();
                         tManager.ChangeMenuSelect();
+                        tManager.EnabledSelectEffect();
                         base.DestoroyCurrentElement();
                         tManager.SetEnabledTips(false, HandType.Left, PartsType.Trigger);
                         tManager.SetEnabledTips(false, HandType.Right, PartsType.Trigger);

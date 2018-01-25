@@ -46,6 +46,7 @@ namespace Ando
         public void SoundStop()
         {
             SESource.Stop();
+            Debug.Log("SEの停止");
         }
     }
 }

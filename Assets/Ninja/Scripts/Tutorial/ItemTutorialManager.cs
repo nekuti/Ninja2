@@ -17,6 +17,11 @@ namespace Kondo
         public enum TutorialSequence
         {
             Item01,
+            Item02,
+            Item03,
+            Item04,
+            Item05,
+            Item06,
             ItemEnd,
             MaxSequence
         }
@@ -45,6 +50,7 @@ namespace Kondo
                 SequenceChange();
             }
 
+
             // test
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -61,7 +67,49 @@ namespace Kondo
             {
                 case TutorialSequence.Item01:
                     {
+
+                        tManager.SetEnabledTips(true, HandType.Left, PartsType.Lgrip);
+                        tManager.SetEnabledTips(true, HandType.Right, PartsType.Rgrip);
+
+                        tManager.ChangeMenuSelect();
+
                         tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
+
+                case TutorialSequence.Item02:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        
+                        tManager.SetTipsText("アイテム", HandType.Left, PartsType.Lgrip);
+                        tManager.SetTipsText("アイテム", HandType.Right, PartsType.Rgrip);
+                        break;
+                    }
+
+                case TutorialSequence.Item03:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
+
+                case TutorialSequence.Item04:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
+
+                case TutorialSequence.Item05:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        tManager.ChangePlay();
+                        // アイテムの使用を取得する処理
+                        break;
+                    }
+
+                case TutorialSequence.Item06:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        tManager.ChangeMenuSelect();
                         break;
                     }
 

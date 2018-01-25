@@ -15,6 +15,11 @@ namespace Kojima
 
         private Vector3 hitHandPos;
 
+        private Ando.SoundEffectObject sound;
+
+        //  勝手に追加BY安藤
+        bool flag = false;
+
         #endregion
 
         #region メソッド
@@ -33,7 +38,8 @@ namespace Kojima
             Debug.Log("Wireの引っかかり");
 
             hitHandPos = owner.transform.position;
-        }
+
+           }
 
         /// <summary>
         /// このステートである間呼ばれ続ける
@@ -45,11 +51,13 @@ namespace Kojima
             {
                 // ワイヤー巻き取りへ移行
                 owner.ChangeState(WireStateType.Return);
+                return;
             }
             if(Input.GetButtonUp("Fire2"))
             {
                 // ワイヤー巻き取りへ移行
                 owner.ChangeState(WireStateType.Return);
+                return;
             }
 
             // 力を加える割合
@@ -60,6 +68,33 @@ namespace Kojima
             Vector3 vec = owner.wireTip.transform.position - owner.transform.position;
             // プレイヤーを飛ばす
             owner.MyHand.MyPlayer.PullPlayer(vec.normalized * owner.MyHand.WireData.PullSpeed * percent, owner.MyHand.WireData.PullSpeed);
+
+            // 巻き取り音を再生
+            Vector3 velocity = owner.MyHand.MyPlayer.MyRigidbody.velocity;
+            // 最大速度に対する割合
+            float speedProportion = velocity.magnitude / owner.MyHand.MyPlayer.WireData.PullSpeed;
+
+            // ある程度スピードが出ている場合音を再生
+            if (speedProportion > 0.05f)
+            {
+                if (!flag)
+                {
+                    sound = Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_PULL, owner.transform.position);
+                    sound.transform.parent = owner.transform;
+                    flag = true;
+                }
+            }
+            else
+            {
+                if (sound != null)
+                {
+                    sound.SoundStop();
+                    Debug.LogWarning("SEの停止");
+
+                    flag = false;
+
+                }
+            }
         }
 
         /// <summary>
@@ -67,6 +102,13 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
+            if(sound != null)
+            {
+                sound.SoundStop();
+                flag = false;
+
+                Debug.LogError("Flag追加しました。ｂｙAndo");
+            }
         }
 
         #endregion

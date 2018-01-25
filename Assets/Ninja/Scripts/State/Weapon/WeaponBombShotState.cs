@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// バクダンの攻撃ステート
 /// 作成者:小嶋 佑太
-/// 最終更新:2017/12/15
+/// 最終更新:2018/01/25
 /// </summary>
 namespace Kojima
 {
@@ -99,6 +99,9 @@ namespace Kojima
                 myBomb.GetComponent<Rigidbody>().angularVelocity = angularVelocity * owner.MyHand.WeaponData.BulletSpeed;
             }
             myBomb = null;
+
+            // SEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_SHOT_BOMB, owner.transform.position);
         }
 
         #endregion

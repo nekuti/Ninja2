@@ -55,6 +55,8 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
+            // SEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_READY, owner.transform.position);
         }
 
         #endregion

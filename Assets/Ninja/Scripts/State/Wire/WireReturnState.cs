@@ -13,6 +13,8 @@ namespace Kojima
     {
         #region メンバ変数
 
+        private Ando.SoundEffectObject sound;
+
         #endregion
 
         #region メソッド
@@ -32,6 +34,10 @@ namespace Kojima
 
             // ワイヤーチップに巻き取り指示
             owner.wireTip.ReturnWireTip();
+
+            // SEを再生して保存
+            sound = Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_RETURN, owner.transform.position);
+            sound.transform.parent = owner.transform;
         }
 
         /// <summary>
@@ -48,6 +54,11 @@ namespace Kojima
         /// </summary>
         public override void Exit()
         {
+            // 巻き取り音を消す
+            sound.SoundStop();
+
+            // 巻き取り完了のSEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_READY, owner.transform.position);
         }
 
         #endregion

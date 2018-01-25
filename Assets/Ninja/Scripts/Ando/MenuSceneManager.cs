@@ -86,6 +86,9 @@ namespace Ando
             {
                 selectReturnButton.SetActive(true);
                 noSelectReturnButton.SetActive(false);
+
+                //  時間計測を停止
+                playSceneManager.StopTimer();
             }
         }
 
@@ -134,18 +137,27 @@ namespace Ando
                 Debug.Log("プレイシーンマネージャがありません");
             }
 
+            RevocationScene();
             Menu.MenuEnd();
         }
 
         /// <summary>
-        /// ゲームを終了する
+        /// タイトルに戻る
         /// </summary>
-        public void GameEnd()
+        public void TitleBack()
         {
-            nextScene = SceneName.End;
+            if (sceneTransitionManager.SearchScene(SceneName.PlayScene))
+            {
+                PlaySceneManager.SetStageTransition(StageTransition.TitleBack);
+            }
+            else
+            {
+                Debug.Log("プレイシーンマネージャがありません");
 
-            Debug.Log("遷移シーンを" + nextScene + "に設定");
+                SceneTransitionManager.Instance.ChangeSceneSingle(SceneName.TitleScene);
+            }
 
+            RevocationScene();
             Menu.MenuEnd();
         }
 
@@ -158,6 +170,12 @@ namespace Ando
             {
                 player.ResetPosition(oldPlayerPos);
                 player.ChangeHandState(oldHandState);
+
+                if (playSceneManager != null)
+                {
+                    //  経過時間計測の再開
+                    playSceneManager.RestartTimer();
+                }
 
                 //  キャンセル音を再生
                 AudioManager.Instance.PlaySE(AudioName.SE_RELEASE01, player.transform.position);

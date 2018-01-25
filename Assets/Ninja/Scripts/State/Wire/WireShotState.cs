@@ -36,6 +36,10 @@ namespace Kojima
             owner.wireTip = WireTip.Create(owner.MyHand.WireData, owner, owner.transform.rotation * Vector3.forward);
             // コントローラーを振動させる
             InputDevice.Pulse(3000, owner.MyHand.HandType);
+
+            // SEを再生
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_SHOT, owner.transform.position);
+
         }
 
         /// <summary>

@@ -41,6 +41,9 @@ namespace Kojima
         [SerializeField, Tooltip("アイテム選択ウィンドウのプレハブ")]
         private GameObject selectItemPrefab;
 
+        [SerializeField, Tooltip("移動時のパーティクル")]
+        private ParticleEffect moveParticle;
+
         [SerializeField]
         private GameObject center;
 
@@ -121,6 +124,8 @@ namespace Kojima
         /// </summary>
         protected override void Update()
         {
+            // 移動時のパーティクルの更新
+            UpdateMoveParticle();
 
             // =============================
             // やべー処理===================
@@ -133,51 +138,6 @@ namespace Kojima
             }
             // やべー処理===================
             // =============================
-
-            // エネルギーが0になった場合
-            //if (energy <= 0)
-            //{
-            //    //SteamVR_Fade fade = GetComponentInChildren<SteamVR_Fade>();
-            //    //fade.OnStartFade(Color.black, 0.5f, true);
-
-            //    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameOver);
-            //    resultFlg = true;
-            //}
-
-            //if (resultFlg)
-            //{
-            //    // VRの入力用変数初期化
-            //    SteamVR_TrackedObject[] trackdObjects = GetComponentsInChildren<SteamVR_TrackedObject>();
-            //    for (int i = 0; i < trackdObjects.Length; i++)
-            //    {
-            //        var device = SteamVR_Controller.Input((int)trackdObjects[i].index);
-            //        float value = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-            //        if (!trrigerFlg)
-            //        {
-
-            //            if (energy > 0)
-            //            {
-            //                if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
-            //                {
-            //                    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.StageChange);
-            //                    resultFlg = false;
-            //                    trrigerFlg = true;
-            //                    Energy = MaxEnergy;
-            //                }
-            //            }
-            //            if (device.GetPress(SteamVR_Controller.ButtonMask.Grip))
-            //            {
-            //                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.TitleBack);
-            //                resultFlg = false;
-            //                trrigerFlg = true;
-            //            }
-            //        }
-            //        else if(value < 0.15)
-            //        {
-            //            trrigerFlg = false;
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -190,6 +150,8 @@ namespace Kojima
             if (anAttack.parentTagName != gameObject.tag)
             {
                 Energy -= anAttack.power;
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_PLAYER_DAMAGE, transform.position);
                 return true;
             }
             else
@@ -308,12 +270,18 @@ namespace Kojima
                     Ando.PlaySceneManager.SubPossessionOnigiri(1);
                     // 回復量に合わせてエネルギーを割合回復
                     Energy += maxEnergy * ((onigiri.itemData as ItemHealDataTable).HealPoint / 100f);
+
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
                 }
             }
             else
             {
                 Debug.Log("PlaySceneManagerが無いのでオニギリ食べ放題");
                 Energy += maxEnergy * (5f / 100f);
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
             }
         }
 
@@ -336,6 +304,9 @@ namespace Kojima
                     AttackBlast blast = Attack.Create(data.Prefab, transform.position, 
                         transform.forward, data.Power, data.DestroyTime, data.BulletSpeed, tag) as AttackBlast;
                     blast.transform.localScale = new Vector3(data.Range, data.Range, data.Range);
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_KATON, transform.position);
                 }
             }
             else
@@ -345,6 +316,8 @@ namespace Kojima
                 AttackBlast blast = Attack.Create(blastPrefab, transform.position, transform.forward, 20, 0.2f, 0, tag) as AttackBlast;
                 // 爆発範囲を設定(強化レベルによって範囲増加)
                 blast.transform.localScale = new Vector3(10f, 10f, 10f);
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_KATON, transform.position);
             }
         }
 
@@ -371,6 +344,29 @@ namespace Kojima
         {
             Energy = MaxEnergy;
             return true;
+        }
+
+        /// <summary>
+        /// 移動時のパーティクルの更新
+        /// </summary>
+        public void UpdateMoveParticle()
+        {
+            Vector3 velocity = MyRigidbody.velocity;
+
+            // 最大速度に対する割合
+            float speedProportion = velocity.magnitude / wireData.PullSpeed;
+
+            // ある程度スピードが出ている場合
+            if(speedProportion > 0.5f)
+            {
+                moveParticle.gameObject.SetActive(true);
+                // 移動方向へパーティクルを向ける
+                moveParticle.transform.LookAt(transform.position + velocity);
+            }
+            else
+            {
+                moveParticle.gameObject.SetActive(false);
+            }
         }
 
         #endregion

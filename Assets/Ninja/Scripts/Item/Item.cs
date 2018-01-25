@@ -40,6 +40,9 @@ namespace Kojima
             if (other.CompareTag(TagName.Player))
             {
                 PickUpItem();
+
+                // SEを再生
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_PICKUP, transform.position);
             }
         }
 

@@ -60,6 +60,7 @@ namespace Kojima
         public void SelectObject()
         {
 
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_DECISION02, this.gameObject.transform.position);
             selectEvent.Invoke();
 
         }

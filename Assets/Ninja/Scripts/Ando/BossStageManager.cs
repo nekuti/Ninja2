@@ -19,24 +19,33 @@ namespace Ando {
 
         new void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                FadeStart();
+            }
+
             if (boss.Hp <= 0)
             {
-                time += Time.deltaTime;
-
-                if (3 < time)
-                {
-                    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
-                }
+                FadeStart();
             }
             else
             {
                 Debug.Log(boss.Hp);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            //  フェードを実行中か
+            if (fadeInflag)
             {
-                Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
-            }
+                //  経過時間の加算
+                fadeElapsedTime += Time.deltaTime;
+
+                //  フェードが完了したか
+                if (fadeInTime < fadeElapsedTime)
+                {
+                    Ando.PlaySceneManager.SetStageTransition(Ando.StageTransition.ResultGameClear);
+                    Debug.Log("フェード終わり");
+                }
+            }    
         }
     }
 }

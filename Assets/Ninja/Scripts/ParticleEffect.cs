@@ -16,7 +16,7 @@ namespace Kojima
         private float time = 1f;
 
         [SerializeField, Tooltip("再生速度")]
-        private float speed = 1f;
+        public float speed = 1f;
 
         [SerializeField,Tooltip("消えないパーティクル")]
         private bool infinity = false;

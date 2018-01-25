@@ -60,6 +60,9 @@ namespace Kojima
                 {
                     mySelectItem = GameObject.Instantiate(owner.MyPlayer.SelectItemPrefab, owner.transform.position + owner.transform.forward, owner.transform.rotation);
                     mySelectItem.transform.parent = owner.MyPlayer.transform;
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_WINDOW_OPEN, owner.transform.position);
                 }
             }
             // グリップを離した
@@ -87,6 +90,9 @@ namespace Kojima
                 if (mySelectItem != null)
                 {
                     GameObject.Destroy(mySelectItem);
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_WINDOW_CLOSE, owner.transform.position);
                 }
             }
             // ================================================================
