@@ -20,6 +20,7 @@ public enum EnemyBossStateType
     B2FarAttackAction,
     B2NearAttackAction,
     B2StalkingAction,
+    B2MovePointAction,
     //Boss3
     B3NearAction,
     B3FarAttackAction,
@@ -117,6 +118,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
         stateList.Add(enemyData.EnemyType.CreateBoss2FarAttackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss2NearAttackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss2StalkingActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss2MovePointActionState(this));
         //Boss3
         stateList.Add(enemyData.EnemyType.CreateBoss3NearActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss3FarAttackActionState(this));
@@ -294,6 +296,32 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
         }
     }
 
+    public void UseGravity(float localGravity = -9.8f)
+    {
+        myRigidbody.AddForce((new Vector3(0f, localGravity, 0f)), ForceMode.VelocityChange);
+    }
+
+    public bool ObjectWhere(string name1, string name2)
+    {
+        GameObject obj1 = GameObject.Find(name1);
+
+        GameObject obj2 = GameObject.Find(name2);
+
+        Vector3 obj1Dis = obj1.transform.position - Enemy.player.transform.position;
+        Vector3 obj2Dis = obj2.transform.position - Enemy.player.transform.position;
+
+        if (obj1Dis.magnitude > obj2Dis.magnitude)
+        {
+            Debug.Log(name1 + "のが近い");
+            return true;
+        }
+        else
+        {
+            Debug.Log(name2 + "のが近い");
+            return false;
+        }
+    }
+
     public bool FlameWaitTime(float flame)
     {
         if (flameCount > flame)
@@ -307,6 +335,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
             return false;
         }
     }
+
 
     public bool SecondWaitime(float second)
     {

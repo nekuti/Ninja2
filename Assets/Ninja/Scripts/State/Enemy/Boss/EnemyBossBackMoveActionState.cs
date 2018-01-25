@@ -6,61 +6,93 @@ using Kojima;
 
 public class EnemyBossBackMoveActionState : State<EnemyBoss>
 {
-
     private Vector3 target;
     private float jumpForce;
     private float localGravity = -9.81f * 2.5f;
 
     private bool jumpFlag;
 
+    private bool colFlag;
+
     public EnemyBossBackMoveActionState(EnemyBoss owner) : base(owner) { }
     public override void Enter()
     {
         target = owner.transform.position + owner.transform.rotation * Vector3.back * 3;
         Debug.Log("back");
-        jumpFlag = false;
+        colFlag = false;
+        jumpForce = 0;
         owner.animator.SetBool("MoveBack", true);
     }
 
     public override void Execute()
     {
-        if (owner.LookTo(new Vector3(Enemy.player.transform.position.x,owner.transform.position.y,Enemy.player.transform.position.z)))
-        {
-            if (owner.MoveTo(target))
-            {
-                owner.ChangeState(EnemyBossStateType.Wait);
-            }
+        //if (!jumpFlag)
+        //{
+        //    if (owner.LookTo(new Vector3(Enemy.player.transform.position.x, owner.transform.position.y, Enemy.player.transform.position.z)))
+        //    {
+        //        if (owner.MoveTo(target))
+        //        {
+        //            owner.ChangeState(EnemyBossStateType.Wait);
+        //        }
+        //    }
+        //}
 
+        //if (!colFlag)
+        //{
+        //    if (owner.CollisionObject)
+        //    {
+        //        jumpFlag = true;
+        //        colFlag = true;
+        //        jumpForce = 20f;
+        //    }
+        //}
+
+        //OnStartPosJump();
+        //owner.UseGravity();
+
+        if (!colFlag)
+        {
+            if (owner.LookTo(new Vector3(Enemy.player.transform.position.x, owner.transform.position.y, Enemy.player.transform.position.z)))
+            {
+                if (owner.MoveTo(target))
+                {
+                    owner.ChangeState(EnemyBossStateType.Wait);
+                }
+            }
             if (owner.CollisionObject)
             {
-                jumpFlag = true;
                 jumpForce = 30f;
+                colFlag = true;
             }
         }
-        OnStartPosJump();
+
+        if(colFlag)
+        {
+            OnStartPosJump();
+        }
+
+        owner.UseGravity();
     }
 
     public override void Exit()
     {
-        //jumpFlag = false;
         owner.animator.SetBool("MoveBack", false);
     }
 
     public void OnStartPosJump()
     {
-        if(jumpFlag)
-        {
             owner.myRigidbody.AddForce((new Vector3(0f, jumpForce, 0f)), ForceMode.VelocityChange);
             jumpForce += Time.deltaTime * localGravity;
 
             owner.MoveTo(owner.transform.forward + Enemy.player.transform.position);
             if (owner.CollisionFloor)
             {
-                if (owner.FlameWaitTime(2))
+                if (owner.FlameWaitTime(3))
                 {
-                    owner.ChangeState(EnemyBossStateType.Wait);
+                    owner.ChangeState(EnemyBossStateType.MoveAttackAction);
                 }
             }
-        }
     }
 }
+
+

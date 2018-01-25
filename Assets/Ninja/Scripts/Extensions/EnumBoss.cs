@@ -162,6 +162,18 @@ static class EnemyTypeBoss
         }
     }
 
+    public static State<EnemyBoss> CreateBoss2MovePointActionState(this EnemyType aSelf, EnemyBoss aOwner)
+    {
+        switch (aSelf)
+        {
+            case EnemyType.Boss2:
+                return new EnemyBoss2MovePointActionState(aOwner);
+            default:
+                Debug.Log("DieStateが未設定の敵");
+                return null;
+        }
+    }
+
     public static State<EnemyBoss> CreateBoss3NearActionState(this EnemyType aSelf, EnemyBoss aOwner)
     {
         switch (aSelf)

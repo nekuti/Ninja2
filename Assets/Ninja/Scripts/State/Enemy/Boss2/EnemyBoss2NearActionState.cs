@@ -13,7 +13,7 @@ public class EnemyBoss2NearActionState :  State<EnemyBoss>{
 
     public override void Enter()
     {
-        Debug.Log("接近");
+        Debug.Log("接近ステート");
         target = Enemy.player.transform.position;
         if ((target - owner.transform.position).magnitude > owner.enemyData.AttackableRange)
         {
@@ -35,6 +35,7 @@ public class EnemyBoss2NearActionState :  State<EnemyBoss>{
 
     public override void Execute()
     {
+        owner.UseGravity();
         Vector3 distance = Enemy.player.transform.position - owner.transform.position;
         target.y = owner.transform.position.y;
 
