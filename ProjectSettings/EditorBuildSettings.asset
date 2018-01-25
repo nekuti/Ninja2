@@ -53,3 +53,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/BossStage01.unity
     guid: ad3ca2441a982ee408d69699f0729ec7
+  - enabled: 1
+    path: Assets/Ninja/Scenes/Maps/BossStage02.unity
+    guid: 00000000000000000000000000000000

@@ -21,26 +21,26 @@ namespace Ando
             if (Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Left) ||
             Kojima.InputDevice.PressDown(ButtonType.ApplicationMenu, Kojima.HandType.Right) || Input.GetKeyDown(KeyCode.P))
             {
-
                 if (!SteamVR_FadeEx.RunCheck())
                 {
-                    if (!pauseSwitch)
+                    if (!sceneTransitionManager.SearchScene(SceneName.ResultScene))
                     {
-                        sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene, false);
-                        pauseSwitch = true;
-                        Debug.Log("メニューへ" + pauseSwitch);
-                    }
-                    else
-                    {
-                        MenuEnd();
+                        if (!pauseSwitch)
+                        {
+                            sceneTransitionManager.ChangeSceneAdd(SceneName.MenuScene, false);
+                            pauseSwitch = true;
+                            Debug.Log("メニューへ" + pauseSwitch);
+                        }
+                        else
+                        {
+                            MenuEnd();
+                        }
                     }
                 }
                 else
                 {
                     Debug.Log("フェード中");
                 }
-
-
             }
         }
 

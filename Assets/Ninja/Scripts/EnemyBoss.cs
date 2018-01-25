@@ -172,7 +172,7 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
             // ノックバックする設定の場合ダメージステートへ移行
             if (enemyData.KnockBack)
             {
-                ChangeState(EnemyBossStateType.Damage);
+                //ChangeState(EnemyBossStateType.Damage);
             }
             return true;
         }

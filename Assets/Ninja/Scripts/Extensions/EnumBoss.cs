@@ -217,6 +217,8 @@ static class EnemyTypeBoss
         {
             case EnemyType.Boss:
                 return new EnemyBossDamageState(aOwner);
+            case EnemyType.Boss2:
+                return new EnemyBoss2DamageState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
@@ -228,6 +230,8 @@ static class EnemyTypeBoss
         {
             case EnemyType.Boss:
                 return new EnemyBossDieState(aOwner);
+            case EnemyType.Boss2:
+                return new EnemyBoss2DieState(aOwner);
             default:
                 Debug.Log("DieStateが未設定の敵");
                 return null;
