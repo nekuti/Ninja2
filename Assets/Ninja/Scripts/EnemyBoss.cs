@@ -16,15 +16,16 @@ public enum EnemyBossStateType
     MoveBackAction,
     RollAttackAction,
     //Boss2
-    B2NearAction,
-    B2FarAttackAction,
     B2NearAttackAction,
     B2StalkingAction,
     B2MovePointAction,
     //Boss3
     B3NearAction,
-    B3FarAttackAction,
+    B3FarAction,
+    B3MoveAction,
     B3NearAttackAction,
+    B3FarAttackAction,
+    B3MoveAttackAction,
     Damage,
     Die,
 }
@@ -114,15 +115,16 @@ public class EnemyBoss : StatefulObjectBase<EnemyBoss, EnemyBossStateType>, IDam
         stateList.Add(enemyData.EnemyType.CreateBossMoveBackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBossRollAttackAction(this));
         //Boss2
-        stateList.Add(enemyData.EnemyType.CreateBoss2NearActionState(this));
-        stateList.Add(enemyData.EnemyType.CreateBoss2FarAttackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss2NearAttackActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss2StalkingActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss2MovePointActionState(this));
         //Boss3
         stateList.Add(enemyData.EnemyType.CreateBoss3NearActionState(this));
-        stateList.Add(enemyData.EnemyType.CreateBoss3FarAttackActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3FarActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3MoveActionState(this));
         stateList.Add(enemyData.EnemyType.CreateBoss3NearAttackActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3FarAttackActionState(this));
+        stateList.Add(enemyData.EnemyType.CreateBoss3MoveAttackActionState(this));
 
         stateList.Add(enemyData.EnemyType.CreateBossDamageState(this));
         stateList.Add(enemyData.EnemyType.CreateBossDieState(this));

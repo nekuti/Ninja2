@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4334302210020660}
   - component: {fileID: 198263579026496678}
   - component: {fileID: 199545975244032126}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Fragments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114782557918053750}
   - component: {fileID: 135347026284110240}
   - component: {fileID: 54450928957843128}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: AttackBoss2
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4944496571737678}
   - component: {fileID: 198032056018794736}
   - component: {fileID: 199570155759173884}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ray1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4725279744476446}
   - component: {fileID: 198332491929069798}
   - component: {fileID: 199986300289160680}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ring2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4877137421585502}
   - component: {fileID: 198673797047039166}
   - component: {fileID: 199266312830452086}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ray2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4898604557595120}
   - component: {fileID: 198565907834899580}
   - component: {fileID: 199330626390087284}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ETF_BigBang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4235970669485224}
   - component: {fileID: 198271062750374502}
   - component: {fileID: 199504609514977070}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ring1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685089164751908}
   - component: {fileID: 114501347307293290}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4335861424244680}
   - component: {fileID: 198602292153669062}
   - component: {fileID: 199805605839830044}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Explode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,12 +329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a6535315148794eb3d969e9312155a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackType: 1
-  effect: 0
-  time: 0.2
+  attackType: 0
+  effect: 1
+  time: 0.45
   speed: 0
-  ThroughUnit: 1
-  ThroughMap: 1
+  ThroughUnit: 0
+  ThroughMap: 0
   power: 0
   parentTagName: 
   myParticle: {fileID: 114501347307293290}
@@ -348,7 +348,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2.72
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198032056018794736
 ParticleSystem:

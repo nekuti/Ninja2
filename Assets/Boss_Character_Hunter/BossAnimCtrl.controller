@@ -3719,13 +3719,13 @@ AnimatorStateMachine:
       first: {fileID: 110729106}
       second: []
     data:
+      first: {fileID: 110795052}
+      second: []
+    data:
       first: {fileID: 110740724}
       second: []
     data:
       first: {fileID: 110773396}
-      second: []
-    data:
-      first: {fileID: 110795052}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -108, y: 216, z: 0}

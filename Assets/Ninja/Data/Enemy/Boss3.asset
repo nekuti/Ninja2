@@ -18,10 +18,10 @@ MonoBehaviour:
   knockBack: 1
   hp: 10
   power: 2
-  moveSpeed: 3
+  moveSpeed: 20
   attackMoveSpeed: 3
-  searchRange: 6
-  attackableRange: 3
+  searchRange: 10
+  attackableRange: 10
   attackToTime: 1
   attackAfterTime: 1
   knockBackTime: 1
