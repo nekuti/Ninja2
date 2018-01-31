@@ -158,7 +158,7 @@ namespace Kojima
             {
                 Energy -= anAttack.power;
                 // SEを再生
-                Ando.AudioManager.Instance.PlaySE(AudioName.SE_PLAYER_DAMAGE, transform.position);
+                //Ando.AudioManager.Instance.PlaySE(AudioName.SE_PLAYER_DAMAGE, transform.position);
                 return true;
             }
             else

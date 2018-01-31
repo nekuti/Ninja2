@@ -6,6 +6,9 @@ using Kojima;
 public class EnemyBoss2NearAttackActionState : State<EnemyBoss> {
     private Transform top;
     private bool endLook;
+
+    GameObject attackHandL;
+    GameObject attackHandR;
     public EnemyBoss2NearAttackActionState(EnemyBoss owner) : base(owner) { }
 
     public override void Enter()
@@ -28,6 +31,10 @@ public class EnemyBoss2NearAttackActionState : State<EnemyBoss> {
         }
         top = owner.transform.Find("Hunter/Top");
         endLook = false;
+        attackHandL = GameObject.Find("hand.L");
+        attackHandR = GameObject.Find("hand.R");
+        Debug.Log(attackHandR.transform.position);
+
     }
 
     public override void Execute()
@@ -38,7 +45,12 @@ public class EnemyBoss2NearAttackActionState : State<EnemyBoss> {
             owner.animator.SetBool("Jump", true);
             if (owner.animator.GetAnimationProgress("Jump") > 0.6f)
             {
-                Enemy.Instantiate(owner.AttackPrefab, top.position, Quaternion.identity);
+                //Enemy.Instantiate(owner.AttackPrefab, top.position, Quaternion.identity);
+                var attack_L = Attack.Create(owner.AttackPrefab, attackHandL.transform.position, owner.transform.forward, owner.enemyData.Power, owner.tag);
+                var attack_R = Attack.Create(owner.AttackPrefab, attackHandR.transform.position, owner.transform.forward, owner.enemyData.Power, owner.tag);
+                attack_L.transform.parent = attackHandL.transform;
+                attack_R.transform.parent = attackHandR.transform;
+
                 owner.ChangeState(EnemyBossStateType.Wait);
                 Debug.Log("こうげきいいいい");
             }
