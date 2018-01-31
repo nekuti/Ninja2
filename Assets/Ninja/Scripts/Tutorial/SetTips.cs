@@ -22,9 +22,8 @@ namespace Kondo
         // Update is called once per frame
         void Update()
         {
-
-
             SetBase();
+
 
         }
 
@@ -43,7 +42,6 @@ namespace Kondo
 
             this.transform.rotation = baseTrans.rotation;
             this.transform.Rotate(90, 0, 0);
-
 
         }
     }

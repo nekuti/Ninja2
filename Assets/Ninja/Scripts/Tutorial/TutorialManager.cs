@@ -39,23 +39,23 @@ namespace Kondo
 
         // 外部から操作用
         public static TutorialManager instance;
+
         // 現在のシーン
         public CurrentScene currentScene;
+
         public List<GameObject> tipsList = new List<GameObject>();
 
         [SerializeField]
         private  Player player;
 
-       // [SerializeField]
-       // private Canvas canvas;
         [SerializeField]
         private Canvas displayCanvas;
 
         private List<DisplayLayout> layout = new List<DisplayLayout>();
 
-        //private MoveNotice notice;
+        public GameObject selectButton;
+
         private DisplayText display;
-        //private int noticeCount = 0;
         private int displayCount = 0;
 
         public float fadeTime = 0.5f;
@@ -63,9 +63,7 @@ namespace Kondo
         private bool isFadeRequest = false;
         private bool isFadeing = false;
 
-        //
-        public GameObject selectButton;
-        //
+        
 
 
         void Awake()
@@ -419,6 +417,41 @@ namespace Kondo
         }
 
 
+
+        /// <summary>
+        /// プレイヤーがおりぎりを使用したか
+        /// </summary>
+        /// <returns></returns>
+        public bool GetOrigiriUsed()
+        {
+            if(player.OnigiriUsedCount >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// プレイヤーが火遁の巻物を使用したか
+        /// </summary>
+        /// <returns></returns>
+        public bool GetKatonUsed()
+        {
+            if(player.KatonUsedCount >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }

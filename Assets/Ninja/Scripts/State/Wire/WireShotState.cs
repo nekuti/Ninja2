@@ -32,6 +32,7 @@ namespace Kojima
 
             // ワイヤー発射のエネルギーを消費
             owner.MyHand.MyPlayer.ExpenseEnergy(owner.MyHand.WireData.EnergyCost);
+            Ando.PlaySceneManager.AddLostEnergy(owner.MyHand.WireData.EnergyCost);
             // ワイヤーを生成
             owner.wireTip = WireTip.Create(owner.MyHand.WireData, owner, owner.transform.rotation * Vector3.forward);
             // コントローラーを振動させる

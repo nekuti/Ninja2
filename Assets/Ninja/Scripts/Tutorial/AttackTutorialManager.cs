@@ -23,6 +23,8 @@ namespace Kondo
             Attack04,
             Attack05,
             Attack06,
+            Attack07,
+            Attack08,
             AttackEnd,
             MaxSequence
         }
@@ -84,31 +86,32 @@ namespace Kondo
             {
                 case TutorialSequence.Attack01:
                     {
+                        tManager.ShowDisplay(displeyPos[0]);
+
                         // ハンドをメニューセレクトに変更
                         tManager.ChangeMenuSelect();
                         tManager.SetEnabledTips(true, HandType.Left, PartsType.Trackpad);
                         tManager.SetEnabledTips(true, HandType.Right, PartsType.Trackpad);
 
-                        tManager.ShowDisplay(displeyPos[0]);
 
                         break;
                     }
 
                 case TutorialSequence.Attack02:
                     {
+                        tManager.ShowDisplay(displeyPos[0]);
                         // セレクトボタンを非表示
                         tManager.HideSelectButton(false);
                         // ハンドをプレイモードに変更
                         tManager.ChangePlay();
-                        tManager.ShowDisplay(displeyPos[0]);
                         // トラックパッドの表示を「攻撃」に変更
                         tManager.SetTipsText("攻撃", HandType.Left, PartsType.Trackpad);
                         tManager.SetTipsText("攻撃", HandType.Right, PartsType.Trackpad);
                         // インスタンス化した敵をチェック用Listに追加
                         enemyList.Add(Instantiate(enemyTypeList[0]));
-                        // 敵の座標を変更
+                        // 敵の座標を設定
                         enemyList[0].transform.position = enemyPos.position;
-                        base.NextElementChanged();
+                        base.NextElementChange();
 
                         // 敵の生存チェック用Listを設定
                         currentElement.GetComponentInChildren<DestroyChecker>().SetCheckList(enemyList);
@@ -128,7 +131,20 @@ namespace Kondo
                         break;
                     }
 
+
                 case TutorialSequence.Attack04:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
+
+                case TutorialSequence.Attack05:
+                    {
+                        tManager.ShowDisplay(displeyPos[0]);
+                        break;
+                    }
+
+                case TutorialSequence.Attack06:
                     {
                         Destroy(currentElement);
                         tManager.HideSelectButton(true);
@@ -143,13 +159,13 @@ namespace Kondo
                         break;
                     }
 
-                case TutorialSequence.Attack05:
+                case TutorialSequence.Attack07:
                     {
                         tManager.ShowDisplay(displeyPos[0]);
                         break;
                     }
    
-                case TutorialSequence.Attack06:
+                case TutorialSequence.Attack08:
                     {
                         tManager.ShowDisplay(displeyPos[0]);
                         break;

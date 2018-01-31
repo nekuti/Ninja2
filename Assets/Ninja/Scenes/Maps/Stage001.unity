@@ -1081,7 +1081,7 @@ MonoBehaviour:
   startObj: {fileID: 2089571003}
   elevator: {fileID: 1679732619}
   fadeInColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 1
+  fadeInTime: 3
 --- !u!4 &989926702
 Transform:
   m_ObjectHideFlags: 0
@@ -1766,7 +1766,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4625474973879472, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0499
       objectReference: {fileID: 0}
     - target: {fileID: 4625474973879472, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
       propertyPath: m_LocalPosition.z

@@ -144,5 +144,14 @@ namespace Ando
 
             return text;
         }
+
+        /// <summary>
+        /// 計測結果を秒に変換したものを教える
+        /// </summary>
+        /// <returns></returns>
+        public int GetTimeSecond()
+        {
+            return (minite * 60) + second;
+        }
     }
 }

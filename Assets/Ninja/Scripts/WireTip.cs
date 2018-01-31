@@ -15,7 +15,7 @@ namespace Kojima
         Shot,
         Return,
     }
-    public class WireTip : StatefulObjectBase<WireTip,WireTipStateType>
+    public class WireTip : StatefulObjectBase<WireTip, WireTipStateType>
     {
         #region メンバ変数
         // 生成主のWireControl
@@ -27,10 +27,12 @@ namespace Kojima
         [System.NonSerialized]
         public Rigidbody myRigidbody;   // 自身のRigidbody
 
+        private GameObject item;
+
         #endregion
 
         #region プロパティ
-        public WireControl Controller { get{ return controller; } }
+        public WireControl Controller { get { return controller; } }
         public Vector3 ShotDirection { get { return shotDirection; } }
         #endregion
 
@@ -68,6 +70,14 @@ namespace Kojima
         protected override void Update()
         {
             base.Update();
+        }
+
+        private void OnDestroy()
+        {
+            if(item != null)
+            {
+                item.transform.parent = null;
+            }
         }
 
         /// <summary>
@@ -115,8 +125,25 @@ namespace Kojima
         /// <param name="other"></param>
         void OnTriggerStay(Collider other)
         {
+            // 発射状態の場合
+            if (IsCurrentState(WireTipStateType.Shot))
+            {
+                if (other.gameObject.CompareTag(TagName.Item))
+                {
+                    // アイテムをワイヤーにくっつける
+                    item = other.gameObject;
+                    item.transform.parent = transform;
+                    Debug.Log(item + "をワイヤーで引っ掛ける");
+
+                    // ワイヤーの巻き取りを行う
+                    ChangeState(WireTipStateType.Return);
+
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_WIRE_HIT, transform.position);
+                }
+            }
             // 巻き戻し状態の場合
-            if(IsCurrentState(WireTipStateType.Return))
+            if (IsCurrentState(WireTipStateType.Return))
             {
                 // Handに当たった場合巻き取りを完了
                 if(other.gameObject.CompareTag(TagName.Hand))
@@ -160,8 +187,11 @@ namespace Kojima
         {
             transform.parent = null;
             myRigidbody.isKinematic = false;
-            // 巻き取りステートへ移行
-            ChangeState(WireTipStateType.Return);
+            if (!IsCurrentState(WireTipStateType.Return))
+            {
+                // 巻き取りステートへ移行
+                ChangeState(WireTipStateType.Return);
+            }
         }
 
         /// <summary>

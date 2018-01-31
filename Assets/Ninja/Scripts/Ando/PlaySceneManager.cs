@@ -354,45 +354,52 @@ namespace Ando
         }
 
         /// <summary>
-        /// 簡易リザルトをステージに追加する
+        /// リザルトをステージに追加する
         /// </summary>
         public void AddResult()
         {
             //  リザルトがすでにあるか確認
-            if (sceneTransitionManager.SearchScene(SceneName.ResultScene))
+            if (sceneTransitionManager != null)
             {
-                Debug.Log("すでにリザルトがあるのでスキップ");
-                return;
+                if (sceneTransitionManager.SearchScene(SceneName.ResultScene))
+                {
+                    Debug.Log("すでにリザルトがあるのでスキップ");
+                    return;
+                }
+
+                //  ステージを削除
+                StageUnload();
+
+                //  リザルトコンテナに値を設定
+                resultContainer.PlayTimerStop();
+                resultContainer.SetMoneyValue(playData.possessionMoney);
+                resultContainer.lostEnergyValue = lostEnergy;
+
+                Debug.Log("プレイ時間" + resultContainer.playTimer.GetTimeString());
+                Debug.Log("設定した所持金" + playData.possessionMoney + "コンテナの所持金" + resultContainer.getMoneyValue);
+
+                //  リザルトシーンを追加
+                sceneTransitionManager.ChangeSceneAdd(SceneName.ResultScene);
+
+                Debug.Log(stageTransition.ToString());
+
+                //  クリアしたか否かで分岐
+                if (stageTransition == StageTransition.ResultGameClear)
+                {
+                    resultContainer.SetClearFlag(true);
+                }
+                else if (stageTransition == StageTransition.ResultGameOver)
+                {
+                    resultContainer.SetClearFlag(false);
+                }
+
+                //  リザルトコンテナを登録
+                ResultSceneManager.RgtrResultContainer(resultContainer);
             }
-
-            //  ステージを削除
-            StageUnload();
-
-            //  リザルトコンテナに値を設定
-            resultContainer.PlayTimerStop();
-            resultContainer.SetMoneyValue(playData.possessionMoney);
-            resultContainer.lostEnergyValue = lostEnergy;
-
-            Debug.Log("プレイ時間" + resultContainer.playTimer.GetTimeString());
-            Debug.Log("設定した所持金" + playData.possessionMoney + "コンテナの所持金" + resultContainer.getMoneyValue);
-
-            //  リザルトシーンを追加
-            sceneTransitionManager.ChangeSceneAdd(SceneName.ResultScene);
-
-            Debug.Log(stageTransition.ToString());
-
-            //  クリアしたか否かで分岐
-            if (stageTransition == StageTransition.ResultGameClear)
+            else
             {
-                resultContainer.SetClearFlag(true);
+                Debug.LogError("シーン遷移マネージャが行方不明です");
             }
-            else if (stageTransition == StageTransition.ResultGameOver)
-            {
-                resultContainer.SetClearFlag(false);
-            }
-
-            //  リザルトコンテナを登録
-            ResultSceneManager.RgtrResultContainer(resultContainer);
         }
 
         /// <summary>

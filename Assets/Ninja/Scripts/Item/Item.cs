@@ -37,7 +37,7 @@ namespace Kojima
         private void OnTriggerEnter(Collider other)
         {
             // プレイヤーが触った時アイテムが拾われる
-            if (other.CompareTag(TagName.Player))
+            if (other.CompareTag(TagName.Player) || other.CompareTag(TagName.Hand))
             {
                 PickUpItem();
 

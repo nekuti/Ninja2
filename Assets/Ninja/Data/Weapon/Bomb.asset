@@ -23,3 +23,4 @@ MonoBehaviour:
   many: 5
   diffusion: 0
   recoil: 1
+  cost: 100

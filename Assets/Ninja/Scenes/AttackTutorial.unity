@@ -156,7 +156,7 @@ MonoBehaviour:
   enemyList: []
   enemyTypeList:
   - {fileID: 1710565406569746, guid: 17fa2422c2bced14daf8823970b9980c, type: 2}
-  - {fileID: 0}
+  - {fileID: 1082209402492684, guid: af47ddf5329674549bffa29d76d9c71e, type: 2}
   enemyPos: {fileID: 1000752944}
   currentSequence: 0
 --- !u!43 &197125909
@@ -2134,7 +2134,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1696470393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.57, z: 10.33}
+  m_LocalPosition: {x: 0, y: 4.62, z: 10.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -17,7 +17,6 @@ namespace Kojima
 
         private Ando.SoundEffectObject sound;
 
-        //  勝手に追加BY安藤
         bool flag = false;
 
         #endregion
@@ -89,7 +88,7 @@ namespace Kojima
                 if (sound != null)
                 {
                     sound.SoundStop();
-                    Debug.LogWarning("SEの停止");
+                    Debug.Log("SEの停止");
 
                     flag = false;
 
@@ -106,8 +105,6 @@ namespace Kojima
             {
                 sound.SoundStop();
                 flag = false;
-
-                Debug.LogError("Flag追加しました。ｂｙAndo");
             }
         }
 

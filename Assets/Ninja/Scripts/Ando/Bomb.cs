@@ -66,8 +66,7 @@ namespace Ando
         /// <returns></returns>
         public override int GetWeponStrengthenPrice()
         {
-            return (10 * GetWeaponLevel());
-            //return (weaponData.price * GetWeaponLevel());
+             return (weaponData.Cost * GetWeaponLevel());
         }
 
         /// <summary>

@@ -17,9 +17,7 @@ namespace Kondo
         // Use this for initialization
         void Start()
         {
-            //pattern[0] = @"(\[T)(?<head>.+?)(\])";
-            //pattern[1] = @"(\[M)(?<main>.+?)(\])";
-            //pattern[2] = @"(\[I)(?<image>.+?)(\])";
+    
         }
 
         // Update is called once per frame
@@ -36,15 +34,20 @@ namespace Kondo
             TextAsset textAseet;
             string loadText;
             string[] sprlitText;
+            string path;
 
             textAseet = Resources.Load<TextAsset>("Text/"+aTextName);
             loadText = textAseet.text;
             sprlitText = loadText.Split('\n','\r');
-            
+            path = "Image/Tutorial/";
 
             DisplayLayout item = new DisplayLayout();
             foreach (var sprlit in sprlitText)
             {
+                if(sprlit.StartsWith("!"))
+                {
+                    path += sprlit.Remove(0, 1) + "/";
+                }
 
                 if (sprlit == "" || sprlit.StartsWith("#"))  continue;
 
@@ -56,30 +59,44 @@ namespace Kondo
                 if (sprlit.StartsWith("%"))
                 {
                     item.mainText += (sprlit.Remove(0, 1) + "\n");
-
+                   
                 }
 
                 if (sprlit.StartsWith("&"))
                 {
-                    string path = "Image/Tutorial/" + sprlit.Remove(0, 1);
-                    Debug.Log("パス : " + path + "  文字数 : " + path.Length);
+                    string name = sprlit.Remove(0, 1);
+               
 
-                    item.sprite = Resources.Load<Sprite>(path);
-                    Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
-
-                    if (item.sprite == null)
+                    if (name != "")
                     {
-                        item.sprite = Resources.Load<Sprite>("noImage");
+                        Debug.Log("パス : " + path+name);
+
+                        item.sprite = Resources.Load<Sprite>(path+name);
+                        Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
+
+                        if (item.sprite == null)
+                        {
+                            item.sprite = Resources.Load<Sprite>("Image/Tutorial/htc_vive");
+                        }
+                    }
+                    else
+                    {
+                        item.sprite = Resources.Load<Sprite>(path+"htc_vive");
+
                     }
 
-                   // Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
+
+
+                    // Debug.Log("ディスプレイセンテンス　LoadText()  item.sprite : " + item.sprite);
 
                 }
 
                 if (sprlit.StartsWith(">"))
                 {
                     aLayoutList.Add(item);
-                    item = new DisplayLayout();
+                    item.headLine = null;
+                    item.mainText = null;
+                    item.sprite = null;
                 }
 
             }
@@ -87,7 +104,6 @@ namespace Kondo
             return aLayoutList;
 
         }
-
     }
 }
 

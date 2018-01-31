@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114507850326638980}
   m_Layer: 0
   m_Name: Katon
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,8 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9879e13d6014d9b4086e7b88c0c07dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataTable: {fileID: 11400000, guid: 9dd5f181477a23042a7cbf88ab917c56, type: 2}
   itemCount: 1
+  dataTable: {fileID: 11400000, guid: 9dd5f181477a23042a7cbf88ab917c56, type: 2}
 --- !u!114 &114507850326638980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,7 +308,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!198 &198174454618335552
 ParticleSystem:

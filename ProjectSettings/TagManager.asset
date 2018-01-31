@@ -12,6 +12,7 @@ TagManager:
   - Goal
   - Floor
   - Attack
+  - Item
   layers:
   - Default
   - TransparentFX

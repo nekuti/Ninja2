@@ -75,7 +75,7 @@ namespace Kondo
         /// <summary>
         /// 現在のPrefab要素を消して次のPrefab要素を出す
         /// </summary>
-        public void NextElementChanged()
+        public void NextElementChange()
         {
             DestoroyCurrentElement();
 

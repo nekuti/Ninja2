@@ -77,6 +77,11 @@ namespace Ando
         //  リザルトシーンで使用する情報
         private ResultContainer resultContainer;
 
+        //  フェードの開始フラグ
+        private bool fadeFlag = false;
+        //  フェード時間
+        private float fadeCount = 1.0f;
+
         // Use this for initialization
         　new void Awake()
         {
@@ -103,6 +108,11 @@ namespace Ando
             resultContainer = deliveryResultContainer;
             deliveryResultContainer = null;
 
+            //  フェードフラグをfalseへ
+            fadeFlag = false;
+            //  フェード時間を設定
+            fadeCount = 1.0f;
+
             //  階層の分岐
             switch (resultContainer.floorLevel)
             {
@@ -128,7 +138,8 @@ namespace Ando
                     Debug.Log("階層3");
                     break;
                 default:
-                    Debug.Log("リザルトシーン：階層の値がおかしいので評価項目を設定できませんでした。");
+                    Debug.LogError("リザルトシーン：階層の値がおかしいので評価項目を設定できませんでした。");
+                    sceneTransitionManager.ChangeSceneSingle(SceneName.TitleScene);
                     break;
             }
 
@@ -152,18 +163,21 @@ namespace Ando
                 AudioManager.Instance.PlaySE(AudioName.SE_GAMEOVER01, this.gameObject.transform.position);
             }
         }
+
         void Start()
         {
             playTime.text = resultContainer.playTimer.GetTimeString();
             getMoney.text = resultContainer.getMoneyValue.ToString();
             lostEnergy.text = resultContainer.lostEnergyValue.ToString();
         }
-        // Update is called once per frame
+
         void Update()
         {
-          
+            playTime.text = resultContainer.playTimer.GetTimeString();
+            getMoney.text = resultContainer.getMoneyValue.ToString();
+            lostEnergy.text = resultContainer.lostEnergyValue.ToString();
 
-            /*デバック用////////////////////////////////////////*/
+            #region デバック用
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 resultContainer.PlayTimerStart();
@@ -185,23 +199,22 @@ namespace Ando
                 ReturnPlayBase();
                 ResetResultContainer();
             }
-            /*///////////////////////////////////////////////////*/
-
+            #endregion
             //  各項目の評価
             #region 時間
             if (resultContainer.clearFlag)
             {
-                if (resultContainer.playTimer.Second < playTimeReferenceValue[0])
+                if (resultContainer.playTimer.GetTimeSecond() < playTimeReferenceValue[0])
                 {
                     playTimeRankImage.sprite = imageList[0];
                     playTimeAssessment = YUU;
                 }
-                else if (resultContainer.playTimer.Second < playTimeReferenceValue[1])
+                else if (resultContainer.playTimer.GetTimeSecond() < playTimeReferenceValue[1])
                 {
                     playTimeRankImage.sprite = imageList[1];
                     playTimeAssessment = RYOU;
                 }
-                else if (resultContainer.playTimer.Second < playTimeReferenceValue[2])
+                else if (resultContainer.playTimer.GetTimeSecond() < playTimeReferenceValue[2])
                 {
                     playTimeRankImage.sprite = imageList[2];
                     playTimeAssessment = KA;
@@ -217,6 +230,8 @@ namespace Ando
                 playTimeRankImage.sprite = imageList[3];
                 playTimeAssessment = FU;
             }
+            Debug.LogWarning(playTimeReferenceValue[0] + "," + playTimeReferenceValue[1] +"," +playTimeReferenceValue[2]);
+            Debug.LogWarning("時間" + resultContainer.playTimer.Second + "評価"+playTimeAssessment);
             #endregion
 
             #region お金
@@ -298,6 +313,16 @@ namespace Ando
             }
             #endregion
 
+            if (fadeFlag)
+            {
+                fadeCount -= Time.deltaTime;
+            }
+
+            if(fadeCount<0)
+            {
+                ReturnPlayBase();
+                ResetResultContainer();
+            }
         }
 
         /// <summary>
@@ -330,7 +355,6 @@ namespace Ando
             PlaySceneManager.SetStageTransition(StageTransition.ReturnPlayBase);
 
             sceneTransitionManager.RevocationScene(SceneName.ResultScene);
-
             //  コンテナの情報をリセット
             ResetResultContainer();
 
@@ -356,6 +380,15 @@ namespace Ando
             resultContainer.clearFlag = false;
 
             Debug.Log("データのリセット" + resultContainer.playTimer.GetTimeString());
+        }
+
+        /// <summary>
+        /// フェードの開始
+        /// </summary>
+        public void FadeStart()
+        {
+            SteamVR_FadeEx.Start(Color.black, 1.0f);
+            fadeFlag = true;
         }
     }
 }

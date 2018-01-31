@@ -106,19 +106,29 @@ namespace Kondo
         public Transform GetPartsTransform(HandType aHand,PartsType aParts)
         {
 
-            List<Transform> list = new List<Transform>();
+            //List<Transform> list = new List<Transform>();
+            //if (aHand == HandType.Left)
+            //{
+            //    list = lController;
+            //}
+            //else
+            //{
+            //    list = rController;
+            //}
+
+            //return list[(int)aParts];
+
+            // return ControllerList[(int)aParts + ((int)aHand * 6)];
+
             if (aHand == HandType.Left)
             {
-                list = lController;
+                return lController[(int)aParts];
             }
             else
             {
-                list = rController;
+                return  rController[(int)aParts];
             }
 
-            return list[(int)aParts];
-
-           // return ControllerList[(int)aParts + ((int)aHand * 6)];
         }
 
 

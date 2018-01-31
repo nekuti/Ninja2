@@ -103,6 +103,7 @@ namespace Kondo
                         tManager.ShowDisplay(displeyPos[0]);
                         tManager.ChangePlay();
                         // アイテムの使用を取得する処理
+                        base.NextElementChange();
                         break;
                     }
 
@@ -110,6 +111,7 @@ namespace Kondo
                     {
                         tManager.ShowDisplay(displeyPos[0]);
                         tManager.ChangeMenuSelect();
+                        base.DestoroyCurrentElement();
                         break;
                     }
 

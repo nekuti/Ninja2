@@ -52,6 +52,8 @@ namespace Kojima
 
         private Rigidbody myRigidbody;
 
+        private int onigiriUsedCount = 0;
+        private int katonUsedCount = 0;
 
         private bool posResetFlg;
         private bool resultFlg;
@@ -78,6 +80,8 @@ namespace Kojima
         public WeaponDataTable WeaponData { get { return weaponData; } }
         public GameObject SelectItemPrefab { get { return selectItemPrefab; } }
         public Rigidbody MyRigidbody { get { return myRigidbody; } }
+        public int OnigiriUsedCount { get { return onigiriUsedCount; } }
+        public int KatonUsedCount { get { return katonUsedCount; } }
         #endregion
 
         #region メソッド
@@ -117,6 +121,9 @@ namespace Kojima
 
             /*β版処理*/
             Ando.PlaySceneManager.SetPlayer(this);
+
+            onigiriUsedCount = 0;
+            katonUsedCount = 0;
         }
 
         /// <summary>
@@ -271,6 +278,7 @@ namespace Kojima
                     // 回復量に合わせてエネルギーを割合回復
                     Energy += maxEnergy * ((onigiri.itemData as ItemHealDataTable).HealPoint / 100f);
 
+                    onigiriUsedCount++;
 
                     // SEを再生
                     Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
@@ -282,6 +290,8 @@ namespace Kojima
                 Energy += maxEnergy * (5f / 100f);
                 // SEを再生
                 Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
+
+                onigiriUsedCount++;
             }
         }
 
@@ -305,6 +315,8 @@ namespace Kojima
                         transform.forward, data.Power, data.DestroyTime, data.BulletSpeed, tag) as AttackBlast;
                     blast.transform.localScale = new Vector3(data.Range, data.Range, data.Range);
 
+                    katonUsedCount++;
+
                     // SEを再生
                     Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_KATON, transform.position);
                 }
@@ -318,6 +330,7 @@ namespace Kojima
                 blast.transform.localScale = new Vector3(10f, 10f, 10f);
                 // SEを再生
                 Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_KATON, transform.position);
+                katonUsedCount++;
             }
         }
 

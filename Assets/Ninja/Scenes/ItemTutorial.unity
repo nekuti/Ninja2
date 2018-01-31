@@ -1842,7 +1842,8 @@ MonoBehaviour:
   loadTextName: ItemText
   displeyPos:
   - {fileID: 2068158866}
-  sequenceList: []
+  sequenceList:
+  - {fileID: 1551678748944928, guid: 0b56d2802a2776846adcaeb51e070167, type: 2}
   currentSequence: 0
 --- !u!4 &1418836002
 Transform:
@@ -2238,8 +2239,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2068158865}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.57, z: 10.33}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.62, z: 10.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

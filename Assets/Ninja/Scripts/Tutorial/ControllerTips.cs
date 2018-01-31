@@ -57,10 +57,10 @@ namespace Kondo
         {
             if(Time.time > 5)
             {
-                SetLineTo();
-                DrawLine();
+               
             }
-           
+            SetLineTo();
+            DrawLine();
 
 
         }
@@ -115,7 +115,6 @@ namespace Kondo
             {
                 Transform trans = ControllerData.instance.GetPartsTransform(hand, searchParts).GetComponentInChildren<Transform>();
                 drawLineTo = trans.GetChild(0);
-
             }
         }
 

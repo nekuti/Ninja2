@@ -25,6 +25,7 @@ namespace Kondo
         public SelectWindow selectWindow;
 
 
+
         private CanvasHide canvasHide;
 
         // Use this for initialization
@@ -36,6 +37,8 @@ namespace Kondo
             headLineText = transform.Find("HeadLine").GetComponent<Text>();
             image = transform.Find("Image").GetComponent<Image>();
             selectWindow = transform.Find("SelectButton").GetComponent<SelectWindow>();
+           
+
             Debug.Log("ディスプレイテキスト image :"+image);
 
             // DisplayTextの表示操作用変数
@@ -88,7 +91,7 @@ namespace Kondo
             //canvasHide.HideON();
             headLineText.text = aLayout.headLine;
             mainText.text = aLayout.mainText;
-            transform.parent.position = aPos.position;
+            transform.position = aPos.position;
             image.sprite = aLayout.sprite;
 
             Debug.Log("ディスプレイテキスト image.sprite :" + aLayout.sprite);

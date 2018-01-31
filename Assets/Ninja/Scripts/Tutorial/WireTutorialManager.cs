@@ -105,7 +105,7 @@ namespace Kondo
                 case TutorialSequence.Wire04:
                     {
                         tManager.ShowDisplay(displeyPos[0]);
-                        base.NextElementChanged();
+                        base.NextElementChange();
                         break;
                     }
 

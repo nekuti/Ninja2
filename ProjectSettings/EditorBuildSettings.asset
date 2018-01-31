@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Ninja/Scenes/Maps/Stage002.unity
     guid: 67686810d0aeac747b8715591bd57573
   - enabled: 1
+    path: Assets/Ninja/Scenes/Maps/Stage003.unity
+    guid: 73f8057ceb643ed40a81d843608d046f
+  - enabled: 1
     path: Assets/Ninja/Scenes/Maps/Stage004.unity
     guid: 23894d5f09bfadf4bb5cad1078391f01
   - enabled: 1
@@ -52,7 +55,10 @@ EditorBuildSettings:
     guid: 7c25ca939b4e1e14f845e4b88c00807b
   - enabled: 1
     path: Assets/Ninja/Scenes/Maps/BossStage01.unity
-    guid: ad3ca2441a982ee408d69699f0729ec7
+    guid: 7a29f7ff4e04b6043b124462ccf97a41
   - enabled: 1
+    path: Assets/Ninja/Scenes/Maps/BossStage03.unity
+    guid: ad3ca2441a982ee408d69699f0729ec7
+  - enabled: 0
     path: Assets/Ninja/Scenes/Maps/BossStage02.unity
     guid: 00000000000000000000000000000000
