@@ -7,6 +7,8 @@ using Kojima;
 public class EnemyBoss2MovePointActionState : State<EnemyBoss>
 {
     private Vector3 target;
+
+    private Ando.SoundEffectObject seObj;
     public EnemyBoss2MovePointActionState(EnemyBoss owner) : base(owner) { }
 	// Use this for initialization
 	public override void Enter() {
@@ -37,6 +39,11 @@ public class EnemyBoss2MovePointActionState : State<EnemyBoss>
         {
             owner.animator.SetFloat("TurnFactor", 0.5f);
             owner.animator.SetBool("IsRunning", true);
+            if (seObj == null)
+            {
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_MOVE, owner.transform.position);
+                seObj.transform.parent = owner.transform;
+            }
             if (owner.QuickMoveTo(target))
             {
                 owner.ChangeState(EnemyBossStateType.B2StalkingAction);
@@ -59,6 +66,10 @@ public class EnemyBoss2MovePointActionState : State<EnemyBoss>
     public override void Exit()
     {
         owner.animator.SetBool("IsRunning", false);
+        if (seObj != null)
+        {
+            seObj.SoundStop();
+        }
     }
 
     public bool LookTo(Vector3 aPos, float speed)

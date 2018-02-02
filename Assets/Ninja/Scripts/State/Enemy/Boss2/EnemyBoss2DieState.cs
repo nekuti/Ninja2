@@ -14,7 +14,7 @@ public class EnemyBoss2DieState : State<EnemyBoss>
         //owner.gameObject.SetActive(false);
         //GameObject.Destroy(owner.gameObject);
         ParticleEffect.Create(ParticleEffectType.Explosion02, owner.transform.position);
-
+        Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_EXPLODE, owner.transform.position);
     }
 
     public override void Execute()

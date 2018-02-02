@@ -4546,7 +4546,7 @@ MonoBehaviour:
   startObj: {fileID: 428910183}
   elevator: {fileID: 1908964338}
   fadeInColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 5
+  fadeInTime: 4
 --- !u!4 &664394957
 Transform:
   m_ObjectHideFlags: 0
@@ -7653,8 +7653,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1354447143}
   - {fileID: 2001994116}
+  - {fileID: 1354447143}
   m_Father: {fileID: 696932621}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11836,6 +11836,21 @@ Prefab:
     - target: {fileID: 1374468063390352, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDelay
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}

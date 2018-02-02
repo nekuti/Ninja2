@@ -11,6 +11,8 @@ public class EnemyBoss3FarActionState : State<EnemyBoss>
 
     private bool lookFlag;
     private bool posFlag;
+
+    private Ando.SoundEffectObject seObj;
     public EnemyBoss3FarActionState(EnemyBoss owner) : base(owner) { }
 
     public override void Enter()
@@ -25,33 +27,43 @@ public class EnemyBoss3FarActionState : State<EnemyBoss>
     public override void Execute()
     {
         targetLook.y = owner.transform.position.y;
+
         if (owner.LookTo(targetLook))
         {
             lookFlag = true;
             if (posFlag)
             {
-                targetPos = owner.transform.position + owner.transform.rotation * Vector3.back * 5;
+                targetPos = owner.transform.position + owner.transform.rotation * Vector3.back * 10;
                 posFlag = false;
             }
         }
         if (lookFlag)
         {
+            if (seObj == null)
+            {
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_BOSS3_MOVE, owner.transform.position);
+                seObj.transform.parent = owner.transform;
+            }
             if (owner.MoveTo(targetPos))
             {
                owner.ChangeState(EnemyBossStateType.B3FarAttackAction);
             }
-            else if (owner.CollisionObject)
+
+            if (owner.CollisionObject)
             {
-                owner.ChangeState(EnemyBossStateType.B3FarAttackAction);
+                if (owner.FlameWaitTime(2))
+                {
+                    owner.ChangeState(EnemyBossStateType.B3FarAttackAction);
+                }
             }
         }
-
-
-
     }
 
     public override void Exit()
     {
-
+        if(seObj != null)
+        {
+            seObj.SoundStop();
+        }
     }
 }

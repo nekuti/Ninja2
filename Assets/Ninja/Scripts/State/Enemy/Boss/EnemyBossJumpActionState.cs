@@ -63,6 +63,11 @@ public class EnemyBossJumpActionState : State<EnemyBoss>
         {
             {
                 owner.ShotAttack(new Vector3(0, 1, 0) + owner.transform.position, owner.Point(Dis2D + i * 12, 10) + owner.transform.position + new Vector3(0, 1, 0));
+                if(i == 0)
+                {
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_ATTACK2, owner.transform.position);
+                }
+                
             }
 
          }

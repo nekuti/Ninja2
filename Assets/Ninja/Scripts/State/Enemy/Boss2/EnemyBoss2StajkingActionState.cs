@@ -16,6 +16,8 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
 
     private float rotSpeed = 1.5f;
 
+    public Ando.SoundEffectObject seObj;
+
     public EnemyBoss2StajkingActionState(EnemyBoss owner) : base(owner) { }
     // Use this for initialization
     public override void Enter()
@@ -53,7 +55,18 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
                 owner.animator.SetBool("IsRunning", true);
                 if ((target - owner.transform.position).magnitude > owner.enemyData.AttackableRange)
                 {
-                    owner.QuickMoveTo(target);
+                    if (seObj == null)
+                    {
+                        seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_MOVE, owner.transform.position);
+                        seObj.transform.parent = owner.transform;
+                    }
+                    if (owner.QuickMoveTo(target))
+                    {
+                        if (seObj != null)
+                        {
+                            seObj.SoundStop();
+                        }
+                    }
                     afterTarget = Enemy.player.transform.position;
                 }
                 else
@@ -66,6 +79,12 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
         {
             afterTarget.y = owner.transform.position.y;
             LookTo(afterTarget, rotSpeed);
+
+            if (seObj == null)
+            {
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_MOVE, owner.transform.position);
+                seObj.transform.parent = owner.transform;
+            }
 
             owner.QuickMoveTo(owner.transform.position + owner.transform.forward);
             if((owner.transform.position - afterTarget).magnitude < owner.enemyData.AttackableRange)
@@ -98,6 +117,10 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
 
     public override void Exit()
     {
+        if (seObj != null)
+        {
+            seObj.SoundStop();
+        }
         owner.animator.SetBool("IsRunning", false);
     }
 

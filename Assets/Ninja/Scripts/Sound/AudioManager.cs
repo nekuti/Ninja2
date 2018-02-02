@@ -15,8 +15,8 @@ namespace Ando
         //ボリューム保存用のkeyとデフォルト値
         private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
         public const string SE_VOLUME_KEY = "SE_VOLUME_KEY";
-        private const float BGM_VOLUME_DEFULT = 1.0f;
-        private const float SE_VOLUME_DEFULT = 1.0f;
+        private const float BGM_VOLUME_DEFULT = 0.4f;
+        private const float SE_VOLUME_DEFULT = 0.6f;
 
         //BGMがフェードするのにかかる時間
         private const float BGM_FADE_SPEED_RATE_HIGH = 0.9f;

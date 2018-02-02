@@ -14,6 +14,8 @@ public class EnemyBossBackMoveActionState : State<EnemyBoss>
 
     private bool colFlag;
 
+    private Ando.SoundEffectObject seObj;
+
     public EnemyBossBackMoveActionState(EnemyBoss owner) : base(owner) { }
     public override void Enter()
     {
@@ -49,13 +51,25 @@ public class EnemyBossBackMoveActionState : State<EnemyBoss>
 
         //OnStartPosJump();
         //owner.UseGravity();
-
+        if (seObj == null)
+        {
+            //  SEを再生
+            seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_MOVE, owner.transform.position);
+            seObj.transform.parent = owner.transform;
+        }
         if (!colFlag)
         {
             if (owner.LookTo(new Vector3(Enemy.player.transform.position.x, owner.transform.position.y, Enemy.player.transform.position.z)))
             {
+
+
                 if (owner.MoveTo(target))
                 {
+                    if(seObj!= null)
+                    {
+                        //  SEを停止
+                        seObj.SoundStop();
+                    }
                     owner.ChangeState(EnemyBossStateType.Wait);
                 }
             }

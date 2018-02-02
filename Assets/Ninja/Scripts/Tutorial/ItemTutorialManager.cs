@@ -67,7 +67,7 @@ namespace Kondo
             {
                 case TutorialSequence.Item01:
                     {
-
+                        tManager.SetEnabledAllTips(false);
                         tManager.SetEnabledTips(true, HandType.Left, PartsType.Lgrip);
                         tManager.SetEnabledTips(true, HandType.Right, PartsType.Rgrip);
 
@@ -100,6 +100,7 @@ namespace Kondo
 
                 case TutorialSequence.Item05:
                     {
+                        tManager.HideSelectButton(false);
                         tManager.ShowDisplay(displeyPos[0]);
                         tManager.ChangePlay();
                         // アイテムの使用を取得する処理
@@ -109,6 +110,7 @@ namespace Kondo
 
                 case TutorialSequence.Item06:
                     {
+                        tManager.HideSelectButton(true);
                         tManager.ShowDisplay(displeyPos[0]);
                         tManager.ChangeMenuSelect();
                         base.DestoroyCurrentElement();

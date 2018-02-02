@@ -16,7 +16,7 @@ public class EnemyBoss2WaitState : State<EnemyBoss>
     public override void Execute()
     {
         owner.UseGravity();
-        if (owner.FlameWaitTime(50))
+        if (owner.SecondWaitime(1))
         {
             owner.ChangeState(EnemyBossStateType.Choose);
         }

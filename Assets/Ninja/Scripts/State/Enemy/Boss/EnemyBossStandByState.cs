@@ -6,17 +6,18 @@ using Kojima;
 
 public class EnemyBossStandByState : State<EnemyBoss>
 {
+
     public EnemyBossStandByState(EnemyBoss owner) : base(owner) { }
 
     public override void Enter()
     {
         Debug.Log("目覚めていません");
+        Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_STARTUP, owner.transform.position);
     }
 
     public override void Execute()
     {
-        Vector3 distance = Enemy.player.transform.position - owner.transform.position;
-        //if (distance.magnitude < owner.enemyData.SearchRange)
+        if (owner.SecondWaitime(2))
         {
             // 追跡ステートへ移行
             owner.ChangeState(EnemyBossStateType.Wait);

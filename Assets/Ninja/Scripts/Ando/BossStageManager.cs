@@ -28,10 +28,7 @@ namespace Ando {
             {
                 FadeStart();
             }
-            else
-            {
-                Debug.Log(boss.Hp);
-            }
+
 
             //  フェードを実行中か
             if (fadeInflag)

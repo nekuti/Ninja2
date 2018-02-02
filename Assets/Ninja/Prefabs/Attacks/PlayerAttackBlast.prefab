@@ -331,10 +331,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 1
   effect: 0
-  speed: 0
   time: 0.2
+  speed: 0
   ThroughUnit: 1
   ThroughMap: 1
+  useSound: 0
   power: 0
   parentTagName: 
   myParticle: {fileID: 114611293470235726}

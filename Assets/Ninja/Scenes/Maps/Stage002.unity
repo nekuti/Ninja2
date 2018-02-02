@@ -1704,7 +1704,7 @@ MonoBehaviour:
   startObj: {fileID: 1710643537}
   elevator: {fileID: 1907697231}
   fadeInColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 5
+  fadeInTime: 4
 --- !u!4 &298914162
 Transform:
   m_ObjectHideFlags: 0
@@ -6163,6 +6163,21 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2021137526}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
   m_IsPrefabParent: 0

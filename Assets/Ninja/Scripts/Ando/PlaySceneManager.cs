@@ -90,6 +90,10 @@ namespace Ando
         //  消費エネルギー(ゲーム終了時に保存しなくてもいい情報なのでこっち)
         private static float lostEnergy = 0f;
 
+        //  ドロップアイテムの保存
+        [SerializeField]
+        private List<Kojima.ItemBase> dropItem = new List<Kojima.ItemBase>();
+
         new void Awake()
         {
             //  継承元のAwakeを実行(インスタンスが生成されているかの確認)
@@ -134,6 +138,10 @@ namespace Ando
                     {
                         if (nowStageNum == (i * FLOORNUM) + 1)
                         {
+                            //  プレイヤーのHPを回復
+                            playData.player.ResetEnergy();
+                            Debug.Log("プレイヤーの体力を回復しました");
+
                             //  プレイ時間の計測開始
                             resultContainer.PlayTimerStart();
                             //  稼いだ金額を現在の所持金分マイナスした値に設定
@@ -207,6 +215,10 @@ namespace Ando
                     case StageTransition.ResultRun:
                         break;
                     case StageTransition.ResultGameClear:
+                        //  プレイヤーのHPを回復
+                        playData.player.ResetEnergy();
+                        Debug.Log("プレイヤーの体力を回復しました");
+
                         //  クリアしたフロアのフラグをtrueへ
                         clearFloorLevel[resultContainer.floorLevel - 1] = true;
                         //  リザルトを追加
@@ -214,17 +226,17 @@ namespace Ando
                         stageTransition = StageTransition.ResultStart;
                         Debug.Log("クリアリザルトへ");
 
-                        playData.player.ResetEnergy();
-                        Debug.Log("プレイヤーの体力を回復しました");
                         break;
                     case StageTransition.ResultGameOver:
+                        //  プレイヤーのHPを回復
+                        playData.player.ResetEnergy();
+                        Debug.Log("プレイヤーの体力を回復しました");
+
                         //  リザルトを追加
                         AddResult();
                         stageTransition = StageTransition.ResultStart;
                         Debug.Log("ゲームオーバーリザルトへ");
 
-                        playData.player.ResetEnergy();
-                        Debug.Log("プレイヤーの体力を回復しました");
                         break;
                     case StageTransition.StageChange:
                         //  ステージ変更
@@ -233,6 +245,11 @@ namespace Ando
                         break;
                     case StageTransition.ReturnPlayBase:
                         StageChange(0);
+
+                        //  プレイヤーのHPを回復
+                        playData.player.ResetEnergy();
+                        Debug.Log("プレイヤーの体力を回復しました");
+
                         //  経過時間のリセット
                         ResetTimer();
 
@@ -272,6 +289,17 @@ namespace Ando
 
             //  ステージの存在フラグをtrueへ
             stageExist = true;
+
+            //  ドロップアイテムの削除
+            foreach (Kojima.ItemBase item in dropItem)
+            {
+                if (item != null)
+                {
+                    Destroy(item.gameObject);
+                }
+            }
+            //  リストの初期化
+            dropItem.Clear();
         }
 
         /// <summary>
@@ -701,6 +729,16 @@ namespace Ando
             {
                 Debug.Log("所持数が0なのに減算されました。");
             }
+        }
+
+        /// <summary>
+        /// ドロップアイテムをリストに追加
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddDropItem(Kojima.ItemBase item)
+        {
+            dropItem.Add(item);
+           Debug.Log(item.name + "をドロップアイテムとして登録しました");
         }
 
         #region Get

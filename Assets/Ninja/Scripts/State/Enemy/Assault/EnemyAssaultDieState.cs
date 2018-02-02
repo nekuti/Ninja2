@@ -35,6 +35,7 @@ namespace Kojima
             ParticleEffect.Create(ParticleEffectType.Explosion01, owner.transform.position);
 
             owner.DropItem(owner.transform.position);
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_EXPLODE, owner.transform.position);
 
         }
 
@@ -44,6 +45,10 @@ namespace Kojima
         public override void Execute()
         {
             GameObject.Destroy(owner.gameObject);
+            if (owner.FlameWaitTime(20))
+            {
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_DROPMANY1, owner.transform.position);
+            }
         }
 
         /// <summary>

@@ -31,6 +31,9 @@ namespace Kojima
         [SerializeField,Tooltip("マップを貫通するか")]
         protected bool ThroughMap = false;
 
+        [SerializeField,Tooltip("攻撃ヒット時に音を鳴らすか")]
+        protected bool useSound = false;
+
         // 攻撃力
         public float power;
 
@@ -96,6 +99,11 @@ namespace Kojima
                 if(obj.TakeAttack(this))
                 {
                     HitTrrigerUnit(other.gameObject);
+                    if (useSound)
+                    {
+                        // SEを再生
+                        Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_ATTACK, transform.position);
+                    }
                 }
             }
         }
@@ -120,6 +128,11 @@ namespace Kojima
                 if (obj.TakeAttack(this))
                 {
                     HitCollisionUnit(collision.gameObject);
+                    if (useSound)
+                    {
+                        // SEを再生
+                        Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_ATTACK, transform.position);
+                    }
                 }
             }
         }

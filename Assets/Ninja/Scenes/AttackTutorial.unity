@@ -156,7 +156,7 @@ MonoBehaviour:
   enemyList: []
   enemyTypeList:
   - {fileID: 1710565406569746, guid: 17fa2422c2bced14daf8823970b9980c, type: 2}
-  - {fileID: 1082209402492684, guid: af47ddf5329674549bffa29d76d9c71e, type: 2}
+  - {fileID: 1283035514393534, guid: ce69ef4e2b1f8684e958e7177f0a9d81, type: 2}
   enemyPos: {fileID: 1000752944}
   currentSequence: 0
 --- !u!43 &197125909

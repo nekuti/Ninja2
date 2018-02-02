@@ -61,11 +61,21 @@ namespace Kojima
         /// <param name="aEffectType">パーティクルの種類</param>
         /// <param name="aPos">生成する座標</param>
         /// <returns></returns>
-        public static ParticleEffect Create(ParticleEffectType aEffectType,Vector3 aPos)
+        //public static ParticleEffect Create(ParticleEffectType aEffectType,Vector3 aPos)
+        //{
+        //    return Instantiate(Resources.Load(aEffectType.IsFilePathName()), aPos, Quaternion.identity) as ParticleEffect;
+        //}
+        /// <summary>
+        /// パーティクルを生成する静的関数
+        /// </summary>
+        /// <param name="aEffectType">パーティクルの種類</param>
+        /// <param name="aPos">生成する座標</param>
+        /// <returns></returns>
+        public static GameObject Create(ParticleEffectType aEffectType, Vector3 aPos)
         {
-            return Instantiate(Resources.Load(aEffectType.IsFilePathName()), aPos, Quaternion.identity) as ParticleEffect;
+            return Instantiate(Resources.Load(aEffectType.IsFilePathName()), aPos, Quaternion.identity) as GameObject;
         }
-        
+
         #endregion
     }
 }

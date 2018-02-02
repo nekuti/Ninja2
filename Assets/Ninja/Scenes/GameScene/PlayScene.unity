@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b2c698195fdfc40831e2ad2344f269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageList: 0000000003000000040000000900000005000000060000000900000007000000080000000b000000
+  stageList: 0000000003000000040000000900000005000000060000000a00000007000000080000000b000000
   nextScene: 6
   pauseScene: 10
   firstStage: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
       itemData: {fileID: 11400000, guid: 77039b960ee04c24eac5d8b7f11dc42d, type: 2}
       possession: 0
   clearFloorLevel: 000000
+  dropItem: []
 --- !u!4 &109561891
 Transform:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad1e469d4e3e04489f9a36419f1a4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &811751472
+--- !u!21 &744199556
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -310,7 +311,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!43 &1631248457
+--- !u!43 &929195336
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -481,17 +482,23 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 811751472}
+      objectReference: {fileID: 744199556}
     - target: {fileID: 33466113620559306, guid: 979798c7091b77140975ef71ff131f34,
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1631248457}
+      objectReference: {fileID: 929195336}
     - target: {fileID: 114062514395377288, guid: 979798c7091b77140975ef71ff131f34,
         type: 2}
       propertyPath: defaultStateType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114062514395377288, guid: 979798c7091b77140975ef71ff131f34,
+        type: 2}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7cb03afddfd5b644fbe1e271fb8e2fa1,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 114254414906231892, guid: 979798c7091b77140975ef71ff131f34, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 979798c7091b77140975ef71ff131f34, type: 2}

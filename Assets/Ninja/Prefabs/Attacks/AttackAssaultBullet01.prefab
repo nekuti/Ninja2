@@ -124,10 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   effect: 0
-  speed: 4
   time: 3
+  speed: 4
   ThroughUnit: 0
   ThroughMap: 0
+  useSound: 1
   power: 0
   parentTagName: 
 --- !u!135 &135231915239095846

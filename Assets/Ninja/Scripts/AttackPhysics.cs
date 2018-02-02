@@ -63,8 +63,11 @@ namespace Kojima
                 myRigidbody.isKinematic = true;
                 ParticleEffect.Create(ParticleEffectType.Flash_small01, transform.position);
 
-                // SEを再生
-                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
+                if (useSound)
+                {
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
+                }
             }
         }
 
@@ -77,11 +80,14 @@ namespace Kojima
             // ユニットを貫通しない弾であれば当たった時点で削除
             if (!ThroughUnit)
             {
-                ParticleEffect.Create(effect,transform.position);
+                ParticleEffect.Create(effect, transform.position);
                 Destroy(this.gameObject);
 
-                // SEを再生
-                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
+                if (useSound)
+                {
+                    // SEを再生
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ATTACK_HIT_KUNAI, transform.position);
+                }
             }
         }
 

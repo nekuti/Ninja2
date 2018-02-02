@@ -27,6 +27,7 @@ public class EnemyBossRollAttackActionState : State<EnemyBoss> {
         if(playerAttack)
         {
             owner.ShotAttack(owner.transform.position + new Vector3(0, 3, 0),Enemy.player.transform.position);
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_ATTACK2, owner.transform.position);
             playerAttack = false;
         }
 

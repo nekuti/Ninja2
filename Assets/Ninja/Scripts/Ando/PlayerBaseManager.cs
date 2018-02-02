@@ -79,12 +79,12 @@ namespace Ando
                 {
                     clearCount--;
 
-                    Debug.LogWarning("カウント減算" + clearCount);
+                    Debug.Log("カウント減算" + clearCount);
                 }
 
                 playSceneManager.StageChange(clearCount);
 
-                Debug.LogWarning("カウント" + clearCount);
+                Debug.Log("カウント" + clearCount);
                 PlaySceneManager.GetPlayer().ChangeHandState(Kojima.HandStateType.Play);
             }
         }

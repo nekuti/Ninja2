@@ -15,6 +15,8 @@ namespace Kojima
 
         private Vector3 target;
 
+        private Ando.SoundEffectObject seObj;
+
         #endregion
 
         #region メソッド
@@ -47,6 +49,12 @@ namespace Kojima
         {
             // プレイヤーと自身の距離を求める
             Vector3 distance = Enemy.player.transform.position - owner.transform.position;
+
+            if (seObj == null)
+            {
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_WAIT, owner.transform.position);
+                seObj.transform.parent = owner.transform;
+            }
 
             // 索敵範囲にプレイヤーが入った場合
             if (distance.magnitude < owner.enemyData.SearchRange)
@@ -85,6 +93,10 @@ namespace Kojima
         public override void Exit()
         {
             Debug.Log("敵(遊撃)が巡回ステートを終了");
+            if (seObj != null)
+            {
+                seObj.SoundStop();
+            }
         }
 
         public Vector3 Point(float angle, float radius)

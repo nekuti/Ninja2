@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 65441875631320134}
   - component: {fileID: 23589035082365880}
   - component: {fileID: 114445630926270586}
-  - component: {fileID: 114094565453711766}
   m_Layer: 9
   m_Name: Ground_d
   m_TagString: WireableObject
@@ -1500,21 +1499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8eb755bf3c76554eabc75f56eee10db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114094565453711766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1166668063534174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f4af782db44e64e94f8c812ec62b68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveTime: 1
-  moveDistance: 2
-  moveDelay: 1
-  isMove: 0
 --- !u!114 &114098449840495616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1537,9 +1521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f4af782db44e64e94f8c812ec62b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 1
-  moveDistance: 2
-  moveDelay: 1
+  moveTime: 3
+  moveDistance: 5
+  moveDelay: 0.5
   isMove: 0
 --- !u!114 &114236151631430260
 MonoBehaviour:

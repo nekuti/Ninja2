@@ -21,6 +21,7 @@ namespace Kojima
         Explosion01,
         Explosion02,
         Explosion_small01,
+        Heal01,
     }
 
     /// <summary>
@@ -44,6 +45,7 @@ namespace Kojima
                 case ParticleEffectType.Ring01:         return "Ring01";
                 case ParticleEffectType.Explosion01:    return "Explosion01";
                 case ParticleEffectType.Explosion02:    return "Explosion02";
+                case ParticleEffectType.Heal01:         return "Heal01";
                 default:                                return "error";
             }
         }

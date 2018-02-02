@@ -162,10 +162,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   effect: 1
-  speed: 16
   time: 6
+  speed: 16
   ThroughUnit: 0
   ThroughMap: 0
+  useSound: 1
   power: 5
   parentTagName: Player
 --- !u!135 &135607118663499402

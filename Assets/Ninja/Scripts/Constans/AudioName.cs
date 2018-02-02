@@ -7,6 +7,7 @@ public static class AudioName
 	  public const string BGM_BOSSSTAGE01 = "BossStage01";
 	  public const string BGM_NOMALSTAGE01 = "NomalStage01";
 	  public const string BGM_RESULT01 = "Result01";
+	  public const string BGM_TUTORIAL01 = "Tutorial01";
 	
 	  public const string SE_ATTACK01 = "Attack01";
 	  public const string SE_DECISION01 = "Decision01";
@@ -14,6 +15,8 @@ public static class AudioName
 	  public const string SE_ELEVETORDOOR = "Elevetordoor";
 	  public const string SE_ELEVETORRUN = "ElevetorRun";
 	  public const string SE_ELEVETORSTOP = "ElevetorStop";
+	  public const string SE_ASSALT_MOVE = "Assalt_Move";
+	  public const string SE_BOSS3_MOVE = "Boss3_Move";
 	  public const string SE_ENEMY_ASSALT_EXPLODE = "Enemy_Assalt_Explode";
 	  public const string SE_ENEMY_ASSALT_SHOT = "Enemy_Assalt_Shot";
 	  public const string SE_ENEMY_ASSALT_WAIT = "Enemy_Assalt_Wait";

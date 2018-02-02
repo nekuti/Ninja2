@@ -360,6 +360,7 @@ MonoBehaviour:
   speed: 0
   ThroughUnit: 0
   ThroughMap: 0
+  useSound: 0
   power: 15
   parentTagName: Player
   blastPrefab: {fileID: 114750570625792836, guid: 0f77038086446774a962b390242292da,

@@ -15,12 +15,13 @@ public class EnemyBoss3ChooseState : State<EnemyBoss> {
 
     public override void Execute()
     {
-        if(action >= 1 && action < 10)
+        if (action >= 1 && action < 10)
         { owner.ChangeState(EnemyBossStateType.B3FarAction); }
         if (action >= 10 && action < 20)
         { owner.ChangeState(EnemyBossStateType.B3NearAction); }
         if (action >= 20 && action <= 30)
         { owner.ChangeState(EnemyBossStateType.B3MoveAction); }
+
     }
 
     public override void Exit()

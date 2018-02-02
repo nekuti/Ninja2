@@ -161,6 +161,11 @@ namespace Ando
             {
                 //  ゲームオーバージングルを再生
                 AudioManager.Instance.PlaySE(AudioName.SE_GAMEOVER01, this.gameObject.transform.position);
+
+                if(resultContainer.lostEnergyValue <= 100)
+                {
+                    resultContainer.lostEnergyValue = 100;
+                }
             }
         }
 
@@ -230,8 +235,8 @@ namespace Ando
                 playTimeRankImage.sprite = imageList[3];
                 playTimeAssessment = FU;
             }
-            Debug.LogWarning(playTimeReferenceValue[0] + "," + playTimeReferenceValue[1] +"," +playTimeReferenceValue[2]);
-            Debug.LogWarning("時間" + resultContainer.playTimer.Second + "評価"+playTimeAssessment);
+            Debug.Log(playTimeReferenceValue[0] + "," + playTimeReferenceValue[1] +"," +playTimeReferenceValue[2]);
+            Debug.Log("時間" + resultContainer.playTimer.GetTimeSecond() + "評価"+playTimeAssessment);
             #endregion
 
             #region お金

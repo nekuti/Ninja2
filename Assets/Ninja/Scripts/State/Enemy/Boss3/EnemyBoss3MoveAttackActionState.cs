@@ -38,10 +38,11 @@ public class EnemyBoss3MoveAttackActionState : State<EnemyBoss>
         if(lookFlag)
         {
             freamCount++;
-            if (freamCount > 10)
+            if (freamCount > 18)
             {
                 owner.ShotAttack(attackLeft.transform.position, Enemy.player.transform.position);
                 owner.ShotAttack(attackRight.transform.position, Enemy.player.transform.position);
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_SHOT, owner.transform.position);
                 burstCount++;
                 freamCount = 0;
             }

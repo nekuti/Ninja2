@@ -13,24 +13,20 @@ public class EnemyBossChooseState : State<EnemyBoss>
 
     public override void Enter()
     {
-        Random.Range(0, 80);
-        chooseState = Random.Range(0, 80);
+        chooseState = Random.Range(0, 100);
         Debug.Log(chooseState);
     }
 
     public override void Execute()
     {
-        //if (chooseState >= 0 && chooseState < 40) { owner.ChangeState(EnemyBossStateType.MoveAttackAction); }
-        //if (chooseState >= 40 && chooseState < 60) { owner.ChangeState(EnemyBossStateType.MoveBackAction); }
-        //if (chooseState >= 40 && chooseState < 60) { owner.ChangeState(EnemyBossStateType.MoveBackAction); }
-        //if (chooseState >= 60 && chooseState < 70) { owner.ChangeState(EnemyBossStateType.JumpAction); }
-        //if (chooseState >= 70 && chooseState <= 80) { owner.ChangeState(EnemyBossStateType.RollAttackAction); }
-
-        owner.ChangeState(EnemyBossStateType.JumpAction);
+        if (chooseState >= 0 && chooseState < 60) { owner.ChangeState(EnemyBossStateType.MoveAttackAction); }  // 60%
+        if (chooseState >= 60 && chooseState <= 76) { owner.ChangeState(EnemyBossStateType.MoveBackAction); }     // 16%
+        if (chooseState > 76 && chooseState <= 88) { owner.ChangeState(EnemyBossStateType.JumpAction); }        // 12%
+        if (chooseState > 88 && chooseState <= 100) { owner.ChangeState(EnemyBossStateType.RollAttackAction); } // 12%
     }
 
     public override void Exit()
     {
-
+        
     }
 }

@@ -6,13 +6,18 @@ using Kojima;
 
 public class EnemyBoss3MoveActionState : State<EnemyBoss>
 {
-    public Vector3 targetPos; 
+    private Vector3 targetPos; 
+
+    private bool lookFlag;
+
+    private Ando.SoundEffectObject seObj;
 
     public EnemyBoss3MoveActionState(EnemyBoss owner) : base(owner) { }
 
     public override void Enter()
     {
         targetPos = owner.Point(Random.Range(0, 360), 10) + owner.transform.position;
+        lookFlag = false;
     }
 
     public override void Execute()
@@ -23,24 +28,43 @@ public class EnemyBoss3MoveActionState : State<EnemyBoss>
         {
             owner.ChangeState(EnemyBossStateType.B3MoveAttackAction);
         }
-        if (owner.LookTo(targetPos))
+        else
         {
-            if (owner.MoveTo(targetPos))
+            if (owner.LookTo(targetPos))
             {
-                owner.ChangeState(EnemyBossStateType.B3MoveAttackAction);
+                lookFlag = true;
             }
-        }
-        if (owner.FlameWaitTime(10))
-        {
-            if (owner.CollisionObject)
+            if(lookFlag)
             {
-                owner.ChangeState(EnemyBossStateType.B3MoveAttackAction);
+                if (seObj == null)
+                {
+                    seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_BOSS3_MOVE, owner.transform.position);
+                    seObj.transform.parent = owner.transform;
+                }
+                if (owner.MoveTo(targetPos))
+                {
+                    owner.ChangeState(EnemyBossStateType.B3MoveAttackAction);
+                }
+
+
+                if (owner.CollisionObject)
+                {
+                    if (owner.FlameWaitTime(2))
+                    {
+                        owner.ChangeState(EnemyBossStateType.B3MoveAttackAction);
+                    }
+                }
             }
+            
         }
+
     }
 
     public override void Exit()
     {
-
+        if (seObj != null)
+        {
+            seObj.SoundStop();
+        }
     }
 }

@@ -160,7 +160,7 @@ namespace Kondo
                 case TutorialSequence.WireEnd:
                     {
                         tManager.DeleteSelectEvent();
-                        tManager.ResetPlayerTransfome();
+                       // tManager.ResetPlayerTransfome();
                         tManager.NextSceneRequest();
                         break;
                     }

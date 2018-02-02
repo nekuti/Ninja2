@@ -33,6 +33,9 @@ public class EnemyBoss3FarAttackActionState : State<EnemyBoss> {
         {
             owner.ShotAttack(attackLeft.transform.position, targetPos);
             owner.ShotAttack(attackRight.transform.position, targetPos);
+
+            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_SHOT, owner.transform.position);
+
             owner.ChangeState(EnemyBossStateType.Wait);
         }
     }

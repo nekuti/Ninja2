@@ -10,7 +10,9 @@ public class EnemyBossMoveAttackActionState : State<EnemyBoss>
 
     private bool shotFlag = true;
 
-    private Vector3 attackSpace; 
+    private Vector3 attackSpace;
+
+    private Ando.SoundEffectObject seObj;
 
     public EnemyBossMoveAttackActionState(EnemyBoss owner) : base(owner) { }
 
@@ -25,8 +27,18 @@ public class EnemyBossMoveAttackActionState : State<EnemyBoss>
     {
         owner.LookTo(new Vector3(Enemy.player.transform.position.x,owner.transform.position.y,Enemy.player.transform.position.z));
 
+        if (seObj == null)
+        {
+            seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_MOVE, owner.transform.position);
+            seObj.transform.parent = owner.transform;
+        }
+
         if (owner.MoveTo(target))
         {
+            if(seObj!=null)
+            {
+                seObj.SoundStop();
+            }
             owner.ChangeState(EnemyBossStateType.Wait);
         }
         else
@@ -45,8 +57,8 @@ public class EnemyBossMoveAttackActionState : State<EnemyBoss>
             {
                 if ((attackSpace / 2).magnitude >= (target - owner.transform.position).magnitude)
                 {
-                    Debug.Log("半分");
                     owner.ShotAttack(owner.transform.position + new Vector3 (0,3,0), Enemy.player.transform.position);
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS1_ATTACK1, owner.transform.position);
                     shotFlag = false;
                 }
             }

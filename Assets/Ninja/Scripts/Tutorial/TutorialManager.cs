@@ -91,7 +91,7 @@ namespace Kondo
 
         void Start()
         {
-            Ando.AudioManager.Instance.PlayBGM(AudioName.BGM_NOMALSTAGE01);
+            Ando.AudioManager.Instance.PlayBGM(AudioName.BGM_TUTORIAL01);
             SteamVR_Fade.Start(Color.black, 0);
 
         }
@@ -193,7 +193,7 @@ namespace Kondo
                 case CurrentScene.GoToBase:
                     {
                         RemoveDisplay(false);
-                        SceneManager.LoadScene("PlayScene");
+                        Ando.SceneTransitionManager.Instance.ChangeSceneSingle(Ando.SceneName.PlayScene);
                         Debug.Log("ベースシーン");
                         break;
                     }

@@ -51,7 +51,10 @@ public class EnemyBoss2NearAttackActionState : State<EnemyBoss> {
                 attack_L.transform.parent = attackHandL.transform;
                 attack_R.transform.parent = attackHandR.transform;
 
+                //Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_BOSS2_ATTACK, owner.transform.position);
+
                 owner.ChangeState(EnemyBossStateType.Wait);
+
                 Debug.Log("こうげきいいいい");
             }
         }

@@ -18,9 +18,12 @@ public class ElevatorMove : MonoBehaviour
     private Transform elevator;
     public bool isMove = false;
 
-	// Use this for initialization
-	void Start ()
+    private Ando.SoundEffectObject seObj;
+
+    // Use this for initialization
+    void Start ()
     {
+        isMove = false;
         elevator = GetComponent<Transform>().parent.gameObject.transform;
         targetPos = elevator.position + Quaternion.identity * (Vector3.up * moveDistance);
     }
@@ -28,10 +31,14 @@ public class ElevatorMove : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(isMove)
+        if (isMove)
         {
             elevator.DOMove(targetPos, moveTime).SetDelay(moveDelay);
-            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ELEVETORRUN, this.transform.position);
+            if (seObj == null)
+            {
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ELEVETORRUN, this.transform.position);
+                seObj.transform.parent = this.gameObject.transform;
+            }
         }
     }
 
@@ -39,8 +46,21 @@ public class ElevatorMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(TagName.Player))
         {
-            Ando.AudioManager.Instance.PlaySE(AudioName.SE_ELEVETORSTOP, this.transform.position);
-            isMove = true;
+            if (!isMove)
+            {
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_ELEVETORSTOP, this.transform.position);
+                isMove = true;
+            }
         }
     }
+
+    void OnDestroy()
+    {
+        if (seObj != null)
+        {
+            //  SEの停止
+            seObj.SoundStop();
+        }
+    }
+
 }

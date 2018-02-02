@@ -14,7 +14,10 @@ public class EnemyBoss3StandByState : State<EnemyBoss> {
 
     public override void Execute()
     {
-        owner.ChangeState(EnemyBossStateType.Wait);
+        if (owner.SecondWaitime(2))
+        { 
+            owner.ChangeState(EnemyBossStateType.Wait);
+        }
     }
 
     public override void Exit()

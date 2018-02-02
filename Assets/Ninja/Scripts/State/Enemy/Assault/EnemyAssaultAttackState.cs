@@ -56,6 +56,7 @@ namespace Kojima
                 if (toTimer > owner.enemyData.AttackToTime)
                 {
                     // 正面に攻撃を生成
+                    Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_SHOT, owner.transform.position);
                     owner.ShotAttack(target + new Vector3(0, -0.3f, 0));
                     attackFlg = true;
                     //if(owner.enemyData.Level == 2)

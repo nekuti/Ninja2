@@ -956,6 +956,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.45
       objectReference: {fileID: 0}
+    - target: {fileID: 1776474391948816, guid: 18f76205d8761d34e95c809fd7944166, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491004563619254, guid: 18f76205d8761d34e95c809fd7944166, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18f76205d8761d34e95c809fd7944166, type: 2}
   m_IsPrefabParent: 0
@@ -7019,7 +7027,7 @@ MonoBehaviour:
   startObj: {fileID: 1106000055}
   elevator: {fileID: 1693837542}
   fadeInColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeInTime: 5
+  fadeInTime: 4
 --- !u!4 &825581432
 Transform:
   m_ObjectHideFlags: 0
@@ -7471,6 +7479,10 @@ Prefab:
     - target: {fileID: 4166929312701270, guid: 7c00cf9bb3716a7449f77ed5e71227f4, type: 2}
       propertyPath: m_LocalScale.x
       value: 1.0204082
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373384252060870, guid: 7c00cf9bb3716a7449f77ed5e71227f4, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c00cf9bb3716a7449f77ed5e71227f4, type: 2}
@@ -13739,6 +13751,25 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1296e63d7e10aec439c593ce8edffe7d, type: 2}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114182965548036410, guid: 070601fb2eb0433408cf232fa7854a67,
+        type: 2}
+      propertyPath: moveDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433096009941554, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
   m_IsPrefabParent: 0

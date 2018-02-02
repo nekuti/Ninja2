@@ -156,9 +156,11 @@ namespace Kojima
             // 自身が発射した攻撃でなければ
             if (anAttack.parentTagName != gameObject.tag)
             {
+                float ene = Energy - anAttack.power;
                 Energy -= anAttack.power;
+                Ando.PlaySceneManager.AddLostEnergy(anAttack.power - Energy + ene);
                 // SEを再生
-                //Ando.AudioManager.Instance.PlaySE(AudioName.SE_PLAYER_DAMAGE, transform.position);
+                Ando.AudioManager.Instance.PlaySE(AudioName.SE_PLAYER_DAMAGE, transform.position);
                 return true;
             }
             else
@@ -266,6 +268,7 @@ namespace Kojima
         /// <param name="aData"></param>
         public void UseOnigiri()
         {
+            
             if(Ando.PlaySceneManager.CheckEmpty())
             {
                 Ando.ItemData onigiri = Ando.PlaySceneManager.GetOnigiri();
@@ -280,6 +283,10 @@ namespace Kojima
 
                     onigiriUsedCount++;
 
+                    // パーティクルを生成
+                    GameObject particle = ParticleEffect.Create(ParticleEffectType.Heal01, transform.position);
+                    particle.gameObject.transform.parent = this.gameObject.transform;
+
                     // SEを再生
                     Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
                 }
@@ -288,6 +295,11 @@ namespace Kojima
             {
                 Debug.Log("PlaySceneManagerが無いのでオニギリ食べ放題");
                 Energy += maxEnergy * (5f / 100f);
+
+                // パーティクルを生成
+                GameObject particle = ParticleEffect.Create(ParticleEffectType.Heal01, transform.position);
+                particle.gameObject.transform.parent = this.gameObject.transform;
+
                 // SEを再生
                 Ando.AudioManager.Instance.PlaySE(AudioName.SE_ITEM_USE_ONIGIRI, transform.position);
 

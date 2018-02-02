@@ -255,7 +255,9 @@ namespace Kojima
         {
             if(ItemPrefab != null)
             {
-                Instantiate(itemPrefab, aPos, Quaternion.identity);
+                ItemBase n = Instantiate(itemPrefab, aPos, Quaternion.identity);
+                Debug.Log("おあああああああ:" + n);
+                Ando.PlaySceneManager.Instance.AddDropItem(n);
             }
         }
 
