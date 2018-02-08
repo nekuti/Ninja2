@@ -16,11 +16,11 @@ MonoBehaviour:
   weaponType: 2
   weaponPrefab: {fileID: 114267427844947670, guid: 15c09f4342f3c284a8a1861b003ebdde,
     type: 2}
-  power: 15
+  power: 20
   destroyTime: 3
   bulletSpeed: 4
   fireSpeed: 1
   many: 5
   diffusion: 0
-  recoil: 1
-  cost: 100
+  recoil: 0.75
+  cost: 50

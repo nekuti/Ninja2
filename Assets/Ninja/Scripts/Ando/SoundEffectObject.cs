@@ -41,6 +41,23 @@ namespace Ando
         }
 
         /// <summary>
+        /// ループ再生にするか設定
+        /// </summary>
+        public void SoundLoop(bool loopflag = true)
+        {
+            SESource.loop = loopflag;
+        }
+
+        /// <summary>
+        /// 再生を再開する
+        /// </summary>
+        public void SoundStart()
+        {
+            SESource.Play();
+            Debug.Log("SEの再生");
+        }
+
+        /// <summary>
         /// 再生を停止する
         /// </summary>
         public void SoundStop()

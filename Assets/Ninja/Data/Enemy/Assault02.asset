@@ -16,13 +16,15 @@ MonoBehaviour:
   enemyType: 1
   flying: 0
   knockBack: 0
-  level: 1
   hp: 100
-  power: 10
+  power: 5
   moveSpeed: 0
+  attackMoveSpeed: 3
   searchRange: 0
   attackableRange: 0
   attackToTime: 0
   attackAfterTime: 0
   knockBackTime: 0
   patrolArea: 1
+  dropMoneyMax: 1
+  dropMoneyMin: 1

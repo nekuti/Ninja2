@@ -15,7 +15,7 @@ MonoBehaviour:
   wirePrefab: {fileID: 114752096337541418, guid: 310feca5730dc3347a43e83eb05fe292,
     type: 2}
   wireType: 0
-  energyCost: 1
+  energyCost: 0.2
   shotRange: 30
   shotSpeed: 60
   returnSpeed: 120

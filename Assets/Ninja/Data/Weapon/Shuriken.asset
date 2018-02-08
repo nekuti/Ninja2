@@ -21,6 +21,6 @@ MonoBehaviour:
   bulletSpeed: 64
   fireSpeed: 1
   many: 10
-  diffusion: 10
+  diffusion: 5
   recoil: 1.5
-  cost: 100
+  cost: 40

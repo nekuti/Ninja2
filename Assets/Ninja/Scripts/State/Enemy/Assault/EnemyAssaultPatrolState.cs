@@ -52,8 +52,9 @@ namespace Kojima
 
             if (seObj == null)
             {
-                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ENEMY_ASSALT_WAIT, owner.transform.position);
+                seObj = Ando.AudioManager.Instance.PlaySE(AudioName.SE_ASSALT_MOVE, owner.transform.position);
                 seObj.transform.parent = owner.transform;
+                seObj.SoundLoop(true);
             }
 
             // 索敵範囲にプレイヤーが入った場合

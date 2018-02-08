@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Katon
   m_EditorClassIdentifier: 
   itemName: "\u30AB\u30C8\u30F3"
-  explanation: "\u81EA\u5206\u3092\u4E2D\u5FC3\u306B\u534A\u5F845m\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+  explanation: "\u81EA\u5206\u3092\u4E2D\u5FC3\u306B\u7206\u98A8\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
   maxPossessionNum: 10
   price: 50
   prefab: {fileID: 114750570625792836, guid: 0f77038086446774a962b390242292da, type: 2}
-  power: 20
-  range: 10
+  power: 50
+  range: 25
   destroyTime: 0.2
   bulletSpeed: 0

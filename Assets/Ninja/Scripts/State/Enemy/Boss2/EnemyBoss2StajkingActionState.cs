@@ -16,6 +16,12 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
 
     private float rotSpeed = 1.5f;
 
+    private bool setPos;
+
+    private Vector3 enmey;
+
+    private int stopCount;
+
     public Ando.SoundEffectObject seObj;
 
     public EnemyBoss2StajkingActionState(EnemyBoss owner) : base(owner) { }
@@ -41,12 +47,21 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
         }
         actionFlag = true;
         count = 0;
+        setPos = true;
+        stopCount = 0;
         afterTarget = Vector3.zero;
 
     }
     public override void Execute()
     {
-        target.y = owner.transform.position.y;
+        if (StopEnemy())
+        {
+            owner.transform.position = new Vector3(owner.transform.position.x, 3.0f, owner.transform.position.z);
+        }
+        else
+        {
+            target.y = owner.transform.position.y;
+        }
         if (actionFlag)
         {
             if (owner.LookTo(target))
@@ -110,6 +125,8 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
         {
             owner.ChangeState(EnemyBossStateType.B2MovePointAction);
         }
+        //敵が止まった時の処理
+        StopEnemy();
 
         owner.UseGravity();
 
@@ -132,10 +149,10 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
     //    Quaternion rotation = Quaternion.RotateTowards(owner, aPos, step);
     //}
 
-    public bool LookTo(Vector3 aPos, float speed)
+    private bool LookTo(Vector3 aPos, float speed)
     {
         Quaternion lookRotate = Quaternion.LookRotation(aPos - owner.myRigidbody.position);
-        Quaternion rotation = Quaternion.RotateTowards(owner.transform.rotation,lookRotate, speed);
+        Quaternion rotation = Quaternion.RotateTowards(owner.transform.rotation, lookRotate, speed);
         owner.transform.rotation = rotation;
 
         if (owner.transform.rotation == lookRotate)
@@ -146,5 +163,31 @@ public class EnemyBoss2StajkingActionState : State<EnemyBoss>
         {
             return false;
         }
+    }
+
+    private bool StopEnemy()
+    {
+
+        if (setPos)
+        {
+            enmey = owner.transform.position;
+            setPos = false;
+        }
+        
+        if(enmey == owner.transform.position)
+        {
+            Debug.Log("止まってます");
+            stopCount ++;
+        }
+
+        if(stopCount > 60)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 }

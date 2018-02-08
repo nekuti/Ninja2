@@ -173,15 +173,11 @@ namespace Ando
         {
             playTime.text = resultContainer.playTimer.GetTimeString();
             getMoney.text = resultContainer.getMoneyValue.ToString();
-            lostEnergy.text = resultContainer.lostEnergyValue.ToString();
+            lostEnergy.text = resultContainer.lostEnergyValue.ToString("f2");
         }
 
         void Update()
         {
-            playTime.text = resultContainer.playTimer.GetTimeString();
-            getMoney.text = resultContainer.getMoneyValue.ToString();
-            lostEnergy.text = resultContainer.lostEnergyValue.ToString();
-
             #region デバック用
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -197,7 +193,7 @@ namespace Ando
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                resultContainer.lostEnergyValue += 5;
+                resultContainer.lostEnergyValue += 0.001f;
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
@@ -268,7 +264,8 @@ namespace Ando
             }
             #endregion
 
-            #region エネルギー
+            
+#region エネルギー
             if (resultContainer.lostEnergyValue < lostEnergyeReferenceValue[0])
             {
                 lostEnergyRankImage.sprite = imageList[0];
@@ -290,7 +287,6 @@ namespace Ando
                 lostEnergyAssessment = FU;
             }
             #endregion
-
             #region トータル
             var totalScore = playTimeAssessment + getMoneyAssessment + lostEnergyAssessment;
 

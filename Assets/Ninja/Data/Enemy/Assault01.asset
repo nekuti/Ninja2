@@ -17,7 +17,7 @@ MonoBehaviour:
   flying: 0
   knockBack: 0
   hp: 1
-  power: 2
+  power: 5
   moveSpeed: 5
   attackMoveSpeed: 3
   searchRange: 12

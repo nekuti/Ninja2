@@ -17472,6 +17472,14 @@ Prefab:
       propertyPath: moveDelay
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4000639106914954, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000639106914954, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114572057721196292, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 070601fb2eb0433408cf232fa7854a67, type: 2}
