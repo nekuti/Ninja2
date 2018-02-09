@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: ONI-GIRI
   m_EditorClassIdentifier: 
   itemName: "\u30AA\u30CB\u30AE\u30EA"
-  explanation: "\u6700\u5927\u30A8\u30CD\u30EB\u30AE\u30FC\u306E5\uFF05\u3092\u56DE\u5FA9\u3059\u308B"
+  explanation: "\u6700\u5927\u30A8\u30CD\u30EB\u30AE\u30FC\u306E20\uFF05\u3092\u56DE\u5FA9\u3059\u308B"
   maxPossessionNum: 10
   price: 20
-  healPoint: 5
+  healPoint: 20
